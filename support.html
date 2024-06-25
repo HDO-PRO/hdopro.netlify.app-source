@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support - HDO Pro</title>
+<script type="text/javascript" nonce="7c132e410a084af787eef83e69e" src="//local.adguard.org?ts=1719340905703&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fsupport.html%3F_%3D1719353421302&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
+<script type="text/javascript" nonce="7c132e410a084af787eef83e69e" src="//local.adguard.org?ts=1719340905703&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script type="text/javascript" nonce="2785cd1c9a91401692e6f474f17" src="//local.adguard.org?ts=1718227580186&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fsupport.html%3F_%3D1718230960333&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
+<script type="text/javascript" nonce="2785cd1c9a91401692e6f474f17" src="//local.adguard.org?ts=1718227580186&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" href="logo.png" type="image/png">
+<style>
+  body {
+    background-color: #3a1653;
+    color: #ffc0cb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #38124b;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    text-align: center;
+  }
+
+  h1 {
+    color: #ffc0cb;
+    margin-top: 20px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  /* Support Button */
+  .support-btn {
+    display: inline-block;
+    background-color: #7289da;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .support-btn:hover {
+    background-color: #677bc4;
+  }
+
+  /* Social Media Icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Modal Styling */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: #38124b;
+    color: #ffc0cb;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .modal-content button {
+    background-color: #7289da;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .modal-content button:hover {
+    background-color: #677bc4;
+  }
+</style>
+</head>
+<body>
+<!-- Modal -->
+<div id="humanCheckModal" class="modal">
+  <div class="modal-content">
+    <h2>Are you human?</h2>
+    <button onclick="closeModal()">Yes, I am human</button>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Support</h1>
+  <p>Need help or assistance? Contact our support team.</p>
+    <p>This is ment to be open on a mobile device..</p>
+  <button class="support-btn" onclick="window.location.href='mailto:hdopro@protonmail.com';">Email Support</button>
+</div>
+
+<div class="social-icons">
+  <!-- Placeholder images (replace with actual social icons) -->
+  <img src="path/to/facebook-logo.png" alt="Facebook">
+  <img src="path/to/twitter-logo.png" alt="Twitter">
+  <img src="path/to/instagram-logo.png" alt="Instagram">
+  <img src="path/to/linkedin-logo.png" alt="LinkedIn">
+</div>
+
+<script>
+  function closeModal() {
+    document.getElementById('humanCheckModal').style.display = 'none';
+  }
+
+  window.onload = function() {
+    document.getElementById('humanCheckModal').style.display = 'block';
+  }
+
+  // Function to redirect to Rick Roll
+  function redirectToRickRoll() {
+    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  }
+
+  // Check for developer tools
+  function detectDevTools() {
+    const threshold = 160;
+    let start = performance.now();
+    debugger;
+    let end = performance.now();
+    if (end - start > threshold) {
+      redirectToRickRoll();
+    }
+  }
+
+  // Event listeners to detect key combinations
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
+      redirectToRickRoll();
+    }
+  });
+
+  // Prevent right-click context menu
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    redirectToRickRoll();
+  });
+
+  // Disable text selection
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      redirectToRickRoll();
+    }
+  });
+
+  // Monitor for changes in DevTools
+  detectDevTools();
+</script>
+</body>
+</html>
