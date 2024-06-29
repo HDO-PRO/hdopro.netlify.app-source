@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDO Pro Video Guide</title>
+<meta name="description" content="Watch the video guide to learn how to install the HDO Pro app.">
+<meta property="og:title" content="HDO Pro Video Guide">
+<meta property="og:description" content="Watch the video guide to learn how to install the HDO Pro app.">
+<meta property="og:image" content="logo.png">
+<meta property="og:image:type" content="image/png">
+<link rel="icon" href="logo.png" type="image/png">
+<link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+
+<style>
+  body {
+    background-color: #3a1653;
+    color: #ffc0cb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #38124b;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  h1 {
+    color: #ffc0cb;
+    margin-top: 20px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .video-container {
+    text-align: center;
+    margin-top: 20px;
+    max-width: 600px; /* Adjust maximum width of video container */
+    margin: 0 auto; /* Center align the video container */
+  }
+
+  .video-js {
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .error-message {
+    color: #ff0000;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: rgba(58, 22, 83, 0.8);
+    font-size: 14px;
+    color: #aaa;
+  }
+
+  footer a {
+    color: #ffc0cb;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    color: #ff69b4;
+  }
+
+  footer p {
+    margin: 5px 0;
+  }
+
+  .dark-mode {
+    background-color: #3a1653;
+    color: #ffc0cb;
+  }
+
+  .dark-mode .container {
+    background-color: #38124b;
+  }
+
+  .dark-mode footer {
+    background-color: rgba(58, 22, 83, 0.8);
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 24px;
+    }
+    .container {
+      padding: 10px;
+    }
+    .video-container {
+      max-width: 100%;
+    }
+  }
+</style>
+</head>
+<body class="dark-mode">
+
+<div class="container">
+  <h1>How to Install HDO Pro</h1>
+  <p>Watch the video below to learn how to install the HDO Pro app and get started with our private and secure community.</p>
+
+  <!-- Video Embed -->
+  <div class="video-container">
+    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="YOUR_POSTER_IMAGE_URL" data-setup='{"fluid": true}'>
+      <source src="https://archive.org/download/hdopro.neocities.orgguide-vid/lv_0_20240628215505.mp4" type="video/mp4" />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+    <div id="error-message" class="error-message" style="display:none;">
+      The video failed to load. Please try again later.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>We do not host the content or servers that are provided in this app, nor do we host any streams. More DMCA Info Here: <a href="https://hdopro.neocities.org/dmca">click here</a>.</p>
+</footer>
+
+<script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+<script>
+  var player = videojs('my-video');
+
+  player.on('error', function() {
+    document.getElementById('error-message').style.display = 'block';
+  });
+
+  // Disable right-click on the page
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>
