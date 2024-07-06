@@ -60,16 +60,19 @@
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
         ];
-        let currentIndex = Math.floor(Math.random() * gifs.length); // Random GIF on page load
+        
         const gifElement = document.getElementById('animated-gif');
 
-        function switchGif() {
-            currentIndex = (currentIndex + 1) % gifs.length;
-            gifElement.src = gifs[currentIndex];
+        function getRandomIndex() {
+            return Math.floor(Math.random() * gifs.length);
         }
 
-        // Set initial GIF
-        gifElement.src = gifs[currentIndex];
+        function switchGif() {
+            gifElement.src = gifs[getRandomIndex()];
+        }
+
+        // Set initial GIF randomly on page load
+        switchGif();
 
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
