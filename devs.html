@@ -10,9 +10,7 @@
 <meta property="og:description" content="Meet the developers behind HDO Pro.">
 <meta property="og:image" content="/images/logo.png">
 <meta property="og:image:type" content="image/png">
-<script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fdevs.html%3F_%3D1719990494834&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
-<script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fdevs.html%3F_%3D1719990150517&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
-<script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" href="/images/logo.png" type="image/png">
+<link rel="icon" href="/images/logo.png" type="image/png">
 <style>
   body {
     background-color: #3a1653;
@@ -31,6 +29,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     position: relative;
+    z-index: 1; /* Ensure content is above the overlay */
   }
 
   h1 {
@@ -114,6 +113,51 @@
     margin: 5px 0;
   }
 
+  /* Popup styles */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Higher z-index to ensure it's above everything */
+  }
+
+  .popup {
+    background-color: #38124b;
+    color: #ffc0cb;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 80%;
+  }
+
+  .popup h2 {
+    margin-top: 0;
+  }
+
+  .popup p {
+    margin-bottom: 20px;
+  }
+
+  .popup button {
+    padding: 10px 20px;
+    background-color: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .popup button:hover {
+    background-color: #d4448c;
+  }
+
   @media screen and (max-width: 600px) {
     h1 {
       font-size: 24px;
@@ -121,23 +165,55 @@
     .container {
       padding: 10px;
     }
-    .menu-btn {
-      top: calc(100% + 10px);
-      right: 20px;
-    }
-    .menu {
-      width: 90%;
-      max-width: 250px;
-    }
   }
 </style>
 <script>
   window.onload = function() {
-    alert("This is personal information. Please respect it and do not share.");
+    var overlay = document.querySelector('.overlay');
+    var popup = document.querySelector('.popup');
+
+    overlay.style.display = 'flex'; // Show overlay
+    popup.style.display = 'block'; // Show popup
+
+    // Function to close popup
+    function closePopup() {
+      overlay.style.display = 'none'; // Hide overlay
+      popup.style.display = 'none'; // Hide popup
+    }
+
+    // Handle click outside of popup to close it
+    overlay.addEventListener('click', function(event) {
+      if (event.target === overlay) {
+        closePopup();
+      }
+    });
+
+    // Function to check if user is a robot (dummy function for demo)
+    function isRobot() {
+      return false; // Replace with your actual logic to check if user is a robot
+    }
+
+    // Close popup when user confirms
+    document.getElementById('confirmButton').addEventListener('click', function() {
+      if (!isRobot()) {
+        closePopup();
+      } else {
+        alert('Please verify that you are not a robot.');
+      }
+    });
   };
 </script>
 </head>
 <body class="dark-mode">
+<div class="overlay">
+  <div class="popup">
+    <h2>Important Notice</h2>
+    <p>This is personal information. Please respect it and do not share.</p>
+    <p>Are you a robot?</p>
+    <button id="confirmButton">Yes, I'm human</button>
+  </div>
+</div>
+
 <div class="container">
   <h1>About the Developers</h1>
   <div class="dev-profile">
