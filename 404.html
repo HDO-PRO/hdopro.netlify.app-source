@@ -1,78 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:url" content="/404" />
-<title>404 Not Found - HDO Pro</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" nonce="7c132e410a084af787eef83e69e" src="//local.adguard.org?ts=1719340905703&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fnot_found.html%3F_%3D1719353341918&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
-<script type="text/javascript" nonce="7c132e410a084af787eef83e69e" src="//local.adguard.org?ts=1719340905703&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" href="/images/logo.png" type="image/png">
-<style>
-  body {
-    background-color: #3a1653;
-    color: #ffc0cb;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    position: relative;
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #38124b;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    text-align: center;
-  }
-
-  h1 {
-    color: #ffc0cb;
-    margin-top: 20px;
-  }
-
-  img {
-    width: 200px;
-    margin-bottom: 20px;
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  .warning {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    margin-bottom: 20px;
-    position: relative;
-  }
-
-  .close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-  }
-
-</style>
-<meta http-equiv="refresh" content="5;url=/index">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="/404" />
+    <title>404 Not Found - HDO Pro</title>
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars from animation */
+        }
+        .mist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/Images/mist.png') repeat; /* Path to your mist image */
+            opacity: 0.5;
+            pointer-events: none; /* Allow clicks through mist */
+            z-index: 0; /* Ensure mist is behind container */
+            animation: moveMist 60s linear infinite; /* Animate mist */
+        }
+        @keyframes moveMist {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure container is above mist */
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            color: #ffc0cb;
+            margin-top: 20px;
+        }
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .redirect-info {
+            color: #ffc0cb;
+        }
+    </style>
 </head>
 <body>
-<div class="warning">
-  <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-  <p>This page will redirect to the home page in 5 seconds...</p>
-</div>
-<div class="container">
-<img src="/images/logo.png" alt="Happy Not Found">
-  <h1>Oops! Page Not Found</h1>
-  <p>Was not able to access or connect.</p>
-  <p>Don't worry, be happy! This page is not lost, it's just exploring new territories.</p>
-  <p>In the meantime, you will be redirected to the home page shortly.</p>
-</div>
+    <div class="mist"></div> <!-- Mist overlay -->
+    <div class="warning">
+        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        <p>This page will redirect to the home page in 5 seconds...</p>
+    </div>
+    <div class="container">
+        <img src="/images/logo.png" alt="Happy Not Found">
+        <h1>Oops! Page Not Found</h1>
+        <p>Was not able to access or connect.</p>
+        <p>Don't worry, be happy! This page is not lost, it's just exploring new territories.</p>
+        <p class="redirect-info">In the meantime, you will be redirected to the home page shortly.</p>
+    </div>
 </body>
 </html>
