@@ -157,6 +157,7 @@
   }
 
   .app-preview {
+    position: relative;
     text-align: center;
     margin-top: 20px;
   }
@@ -166,6 +167,24 @@
     height: auto;
     border-radius: 8px;
     cursor: pointer;
+  }
+
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffc0cb;
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+
+  .overlay-text img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
   }
 
   .full-screen-overlay {
@@ -224,11 +243,15 @@
 
 <div class="app-preview">
   <img src="/images/android1-upscale.png" alt="App Preview" onclick="openFullScreen()">
+  <div class="overlay-text">
+    <img src="path/to/eye-icon.png" alt="Eye Icon">
+    Tap to view image
+  </div>
 </div>
 
 <div class="full-screen-overlay" id="fullScreenOverlay">
   <div class="close-btn" onclick="closeFullScreen()">×</div>
-  <img src="/images/android1-upscale.png" alt="App Preview">
+  <img src="/images/android1-upscale.png" alt="App Preview" onclick="closeFullScreen()">
   <div class="close-text" onclick="closeFullScreen()">Close</div>
 </div>
 
