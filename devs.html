@@ -19,7 +19,6 @@
     margin: 0;
     padding: 0;
     position: relative;
-    filter: blur(5px); /* Apply a blur effect to the entire body */
   }
 
   .container {
@@ -136,6 +135,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
     max-width: 80%;
+    position: relative;
+    z-index: 1001; /* Popup should be above overlay */
   }
 
   .popup h2 {
@@ -176,10 +177,11 @@
     overlay.style.display = 'flex'; // Show overlay
     popup.style.display = 'block'; // Show popup
 
-    // Function to close popup
+    // Function to close popup and remove blur
     function closePopup() {
       overlay.style.display = 'none'; // Hide overlay
       popup.style.display = 'none'; // Hide popup
+      document.body.style.filter = 'none'; // Remove blur from body
     }
 
     // Handle click outside of popup to close it
