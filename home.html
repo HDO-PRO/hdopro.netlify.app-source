@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:url" content="/home" />
 <title>HDO Pro</title>
 <meta name="description" content="Join HDO Pro for a private and secure app community.">
 <meta property="og:title" content="HDO Pro">
@@ -18,6 +19,7 @@
     margin: 0;
     padding: 0;
   }
+
   .container {
     max-width: 800px;
     margin: 20px auto;
@@ -26,13 +28,16 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
+
   h1 {
     color: #ffc0cb;
     margin-top: 20px;
   }
+
   p {
     margin-bottom: 10px;
   }
+
   .menu-btn {
     position: absolute;
     top: 20px;
@@ -43,6 +48,7 @@
     padding: 10px 20px;
     border-radius: 5px;
   }
+
   .menu {
     display: none;
     position: fixed;
@@ -58,6 +64,7 @@
     max-width: 300px;
     border: 2px solid #ffc0cb;
   }
+
   .menu a {
     display: block;
     text-align: center;
@@ -65,30 +72,36 @@
     color: #ffc0cb;
     text-decoration: none;
   }
+
   .contact-links {
     text-align: center;
     margin-top: 20px;
   }
+
   .contact-links a {
     color: #ffc0cb;
     text-decoration: none;
     margin-right: 10px;
   }
+
   .contact-links a:hover {
     color: #ff69b4;
   }
+
   .social-icons {
     display: flex;
     justify-content: center;
     margin-top: 20px;
   }
+
   .social-icons img {
-    width: 40px;
-    height: 40px;
-    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
     cursor: not-allowed;
     opacity: 0.6;
   }
+
   footer {
     text-align: center;
     margin-top: 20px;
@@ -97,25 +110,37 @@
     font-size: 14px;
     color: #aaa;
   }
+
   footer a {
     color: #ffc0cb;
     text-decoration: none;
   }
+
   footer a:hover {
     color: #ff69b4;
   }
+
   footer p {
     margin: 5px 0;
   }
-  .app-preview {
-    text-align: center;
-    margin-top: 20px;
+
+  .dark-mode {
+    background-color: #3a1653;
+    color: #ffc0cb;
   }
-  .app-preview img {
-    max-width: 50%;
-    height: auto;
-    border-radius: 8px;
+
+  .dark-mode .container {
+    background-color: #38124b;
   }
+
+  .dark-mode .menu {
+    background-color: rgba(58, 22, 83, 0.8);
+  }
+
+  .dark-mode footer {
+    background-color: rgba(58, 22, 83, 0.8);
+  }
+
   @media screen and (max-width: 600px) {
     h1 {
       font-size: 24px;
@@ -131,13 +156,22 @@
       width: 90%;
       max-width: 250px;
     }
-    .app-preview img {
-      max-width: 80%;
-    }
+  }
+
+  .app-preview {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .app-preview img {
+    max-width: 10%;
+    height: auto;
+    border-radius: 8px;
   }
 </style>
 </head>
 <body class="dark-mode">
+
 <div class="container">
   <h1>This is a Private Secure Connection</h1>
   <p>This is a private app community. If you are part of this, you may know what to do.</p>
@@ -152,26 +186,54 @@
     <a href="/dmca">DMCA</a>
   </div>
 </div>
+
 <div class="app-preview">
   <img src="/images/android1-upscale.png" alt="App Preview">
 </div>
+
 <div class="contact-links">
   <a href="contact-us">Contact Us</a>
   <a href="support">Support</a>
 </div>
+
 <div class="social-icons">
   <img src="path/to/facebook-logo.png" alt="Facebook">
   <img src="path/to/twitter-logo.png" alt="Twitter">
   <img src="path/to/instagram-logo.png" alt="Instagram">
   <img src="path/to/linkedin-logo.png" alt="LinkedIn">
 </div>
+
 <footer>
   <p>iOS (Apple Devices) downloads are no longer available!</p>
   <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
   <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca">click here</a>.</p>
 </footer>
+
 <script>
+  const body = document.body;
+  const menuBtn = document.querySelector('.menu-btn');
   const menu = document.getElementById('menu');
+  const modal = document.getElementById('myModal');
+  const modalClose = document.querySelector('.close');
+
+  // Show modal on page load if not shown before
+  if (!localStorage.getItem('modalShown')) {
+    modal.style.display = 'block';
+    localStorage.setItem('modalShown', 'true');
+  }
+
+  // Close modal when close button is clicked
+  modalClose.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  // Close modal when user clicks outside of the modal
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
   function toggleMenu() {
     menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
   }
