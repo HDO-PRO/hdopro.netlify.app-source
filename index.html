@@ -9,7 +9,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #222;
+            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             text-align: center;
             padding: 50px;
@@ -28,10 +29,11 @@
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
         .gif-container {
             margin: 20px 0;
@@ -49,7 +51,7 @@
         <p>Sorry, the page you are looking for could not be found.</p>
         <p>Please check the URL in the address bar.</p>
         <div class="gif-container">
-            <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF">
+            <img id="animated-gif" src="" alt="Dancing Cat GIF">
         </div>
     </div>
 
@@ -58,7 +60,7 @@
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
         ];
-        let currentIndex = 0;
+        let currentIndex = Math.floor(Math.random() * gifs.length); // Random GIF on page load
         const gifElement = document.getElementById('animated-gif');
 
         function switchGif() {
@@ -66,8 +68,11 @@
             gifElement.src = gifs[currentIndex];
         }
 
-        // Switch GIF every 5 seconds
-        setInterval(switchGif, 5000);
+        // Set initial GIF
+        gifElement.src = gifs[currentIndex];
+
+        // Switch GIF every 5 minutes (300,000 milliseconds)
+        setInterval(switchGif, 300000);
     </script>
 </body>
 </html>
