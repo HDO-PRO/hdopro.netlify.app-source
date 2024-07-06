@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:url" content="/home" />
 <title>HDO Pro</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
 <meta name="description" content="Join HDO Pro for a private and secure app community.">
 <meta property="og:title" content="HDO Pro">
 <meta property="og:description" content="Join HDO Pro for a private and secure app community.">
@@ -34,6 +33,8 @@
   h1 {
     color: #ffc0cb;
     margin-top: 20px;
+    position: relative;
+    padding-right: 120px; /* Adjust padding to ensure space for menu button */
   }
 
   p {
@@ -164,6 +165,43 @@
     max-width: 10%;
     height: auto;
     border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .full-screen-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .full-screen-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .close-btn, .close-text {
+    color: #ffc0cb;
+    cursor: pointer;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+  }
+
+  .close-text {
+    margin-top: 10px;
+    font-size: 18px;
   }
 </style>
 </head>
@@ -185,7 +223,13 @@
 </div>
 
 <div class="app-preview">
+  <img src="/images/android1-upscale.png" alt="App Preview" onclick="openFullScreen()">
+</div>
+
+<div class="full-screen-overlay" id="fullScreenOverlay">
+  <div class="close-btn" onclick="closeFullScreen()">×</div>
   <img src="/images/android1-upscale.png" alt="App Preview">
+  <div class="close-text" onclick="closeFullScreen()">Close</div>
 </div>
 
 <div class="contact-links">
@@ -212,6 +256,7 @@
   const menu = document.getElementById('menu');
   const modal = document.getElementById('myModal');
   const modalClose = document.querySelector('.close');
+  const fullScreenOverlay = document.getElementById('fullScreenOverlay');
 
   // Show modal on page load if not shown before
   if (!localStorage.getItem('modalShown')) {
@@ -233,6 +278,14 @@
 
   function toggleMenu() {
     menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function openFullScreen() {
+    fullScreenOverlay.style.display = 'flex';
+  }
+
+  function closeFullScreen() {
+    fullScreenOverlay.style.display = 'none';
   }
 </script>
 </body>
