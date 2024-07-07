@@ -32,7 +32,7 @@
             background-color: rgba(51, 51, 51, 0.8);
             padding: 15px;
             border-radius: 8px;
-            position: relative; /* Make sure container is relative for absolute positioning */
+            position: relative;
         }
         .logo {
             position: absolute;
@@ -40,6 +40,7 @@
             left: 20px;
             width: 40px;
             height: 40px;
+            opacity: 0.5;
         }
         .menu-button {
             position: absolute;
@@ -53,6 +54,25 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+        }
+        .menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #4b0082;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .menu a {
+            display: block;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .menu a:hover {
+            background-color: #800080;
         }
         .info-box {
             margin: 20px 0;
@@ -129,6 +149,18 @@
     <div class="container">
         <img src="/Images/logo.png" alt="Logo" class="logo">
         <button class="menu-button" onclick="toggleMenu()">Menu</button>
+        <div class="menu" id="menu">
+            <a href="https://hdopro.netlify.app">Home</a>
+            <a href="https://hdopro.netlify.app/rules">Rules</a>
+            <a href="https://hdopro.netlify.app/guide">Guides</a>
+            <a href="https://hdopro.netlify.app/discord">Discord</a>
+            <a href="https://hdopro.netlify.app/telegram">Telegram</a>
+            <a href="https://hdopro.netlify.app/megaserver">MEGA Server</a>
+            <a href="https://hdopro.netlify.app/privacy">Privacy and Safety</a>
+            <a href="https://hdopro.netlify.app/dmca">DMCA</a>
+            <a href="https://hdopro.netlify.app/contact-us">Contact Us</a>
+            <a href="https://hdopro.netlify.app/support">Support</a>
+        </div>
         <h1>Welcome to HDO Pro</h1>
         <p>This is a private, secure connection.</p>
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
@@ -158,7 +190,8 @@
     </div>
     <script>
         function toggleMenu() {
-            // Implement menu toggle functionality here
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
         const previewImage = document.getElementById('preview-image');
