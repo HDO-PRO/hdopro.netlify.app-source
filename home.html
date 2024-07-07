@@ -12,38 +12,31 @@
             background-size: cover;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 0;
             margin: 0;
             position: relative;
             min-height: 100vh;
         }
-        h1 {
-            font-size: 22px;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 80px auto 0; /* Adjusted top margin to avoid overlap with logo and menu button */
             background-color: rgba(51, 51, 51, 0.8);
             padding: 15px;
             border-radius: 8px;
             position: relative;
+            z-index: 1;
         }
         .logo {
-            position: absolute;
+            position: fixed; /* Changed to fixed positioning */
             top: 20px;
             left: 20px;
             width: 40px;
             height: 40px;
             opacity: 0.5;
+            z-index: 2; /* Ensure it's above other elements */
         }
         .menu-button {
-            position: absolute;
+            position: fixed; /* Changed to fixed positioning */
             top: 20px;
             right: 20px;
             background-color: #663399;
@@ -54,15 +47,17 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+            z-index: 2; /* Ensure it's above other elements */
         }
         .menu {
             display: none;
-            position: absolute;
+            position: fixed; /* Changed to fixed positioning */
             top: 60px;
             right: 20px;
             background-color: #4b0082;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Ensure it's above other elements */
         }
         .menu a {
             display: block;
@@ -73,6 +68,15 @@
         }
         .menu a:hover {
             background-color: #800080;
+        }
+        h1 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
         }
         .info-box {
             margin: 20px 0;
@@ -146,21 +150,21 @@
     </style>
 </head>
 <body>
+    <img src="/Images/logo.png" alt="Logo" class="logo">
+    <button class="menu-button" onclick="toggleMenu()">Menu</button>
+    <div class="menu" id="menu">
+        <a href="https://hdopro.netlify.app">Home</a>
+        <a href="https://hdopro.netlify.app/rules">Rules</a>
+        <a href="https://hdopro.netlify.app/guide">Guides</a>
+        <a href="https://hdopro.netlify.app/discord">Discord</a>
+        <a href="https://hdopro.netlify.app/telegram">Telegram</a>
+        <a href="https://hdopro.netlify.app/megaserver">MEGA Server</a>
+        <a href="https://hdopro.netlify.app/privacy">Privacy and Safety</a>
+        <a href="https://hdopro.netlify.app/dmca">DMCA</a>
+        <a href="https://hdopro.netlify.app/contact-us">Contact Us</a>
+        <a href="https://hdopro.netlify.app/support">Support</a>
+    </div>
     <div class="container">
-        <img src="/Images/logo.png" alt="Logo" class="logo">
-        <button class="menu-button" onclick="toggleMenu()">Menu</button>
-        <div class="menu" id="menu">
-            <a href="https://hdopro.netlify.app">Home</a>
-            <a href="https://hdopro.netlify.app/rules">Rules</a>
-            <a href="https://hdopro.netlify.app/guide">Guides</a>
-            <a href="https://hdopro.netlify.app/discord">Discord</a>
-            <a href="https://hdopro.netlify.app/telegram">Telegram</a>
-            <a href="https://hdopro.netlify.app/megaserver">MEGA Server</a>
-            <a href="https://hdopro.netlify.app/privacy">Privacy and Safety</a>
-            <a href="https://hdopro.netlify.app/dmca">DMCA</a>
-            <a href="https://hdopro.netlify.app/contact-us">Contact Us</a>
-            <a href="https://hdopro.netlify.app/support">Support</a>
-        </div>
         <h1>Welcome to HDO Pro</h1>
         <p>This is a private, secure connection.</p>
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
