@@ -1,298 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error: Page Not Found</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="/Images/logo.png" type="image/png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            text-align: center;
-            padding: 0;
-            margin: 0;
-            overflow: hidden; /* Hide scrollbars */
-        }
-        .mist {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('/Images/mist.png') repeat; /* Path to mist image */
-            opacity: 0.5;
-            pointer-events: none; /* Allow clicks through mist */
-            z-index: 0; /* Ensure mist is behind container */
-            animation: moveMist 60s linear infinite; /* Animate mist */
-        }
-        @keyframes moveMist {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
-        }
-        .container {
-            position: relative;
-            z-index: 1; /* Ensure container is above mist */
-            max-width: 90%; /* Max width of 90% of the viewport width */
-            width: 400px; /* Fixed width to keep it skinny */
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent gray background */
-            border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow */
-        }
-        h1 {
-            font-size: 24px; /* Adjusted font size */
-            color: #fff;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 16px; /* Adjusted font size */
-            color: #ddd; /* Light gray for better contrast with dark background */
-            margin-bottom: 20px;
-        }
-        .gif-container {
-            margin: 20px 0;
-        }
-        .gif-container img {
-            width: 120px; /* Adjusted width */
-            height: auto;
-            border-radius: 8px;
-        }
-        .loading-dots {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .loading-dots div {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            border-radius: 50%;
-            margin: 0 5px;
-            animation: dot-blink 1.5s infinite ease-in-out;
-        }
-        .loading-dots div:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-        .loading-dots div:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-        @keyframes dot-blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:url" content="/rules" />
+<title>HDO Pro - Server Rules</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="/images/logo.png" type="image/png">
+<style>
+  body {
+    background-color: #3a1653;
+    color: #ffc0cb;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
 
-        /* Server Rules Styles */
-        .discord-container {
-            max-width: 900px;
-            width: 100%;
-            background-color: #38124b;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin: auto;
-            margin-top: 20px;
-            color: #ffc0cb;
-            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
+  .discord-container {
+    max-width: 900px;
+    width: 100%;
+    background-color: #38124b;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
 
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
 
-        .content {
-            flex: 1;
-        }
+  .content {
+    flex: 1;
+  }
 
-        .username {
-            color: #ff4500;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
+  .username {
+    color: #ff4500;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
 
-        .timestamp {
-            color: #72767d;
-            font-size: 12px;
-        }
+  .timestamp {
+    color: #72767d;
+    font-size: 12px;
+  }
 
-        h1.server-title {
-            color: #ffc0cb;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
+  h1 {
+    color: #ffc0cb;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
 
-        p.server-paragraph {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
+  p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
 
-        ul.server-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 10px 0 20px 0;
-        }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 20px 0;
+  }
 
-        li.server-item {
-            margin-bottom: 15px;
-        }
+  li {
+    margin-bottom: 15px;
+  }
 
-        .rule-header {
-            color: #ffc0cb;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+  .rule-header {
+    color: #ffc0cb;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 
-        .reddot {
-            color: #ff4500;
-            font-weight: bold;
-            margin-right: 5px;
-        }
+  .reddot {
+    color: #ff4500;
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
-        .additional-guidelines {
-            margin-top: 20px;
-        }
+  .additional-guidelines {
+    margin-top: 20px;
+  }
 
-        @media (max-width: 600px) {
-            .discord-container {
-                flex-direction: column;
-                align-items: center;
-            }
+  @media (max-width: 600px) {
+    .discord-container {
+      flex-direction: column;
+      align-items: center;
+    }
 
-            .profile-pic {
-                margin-bottom: 15px;
-            }
+    .profile-pic {
+      margin-bottom: 15px;
+    }
 
-            .username {
-                text-align: center;
-            }
-        }
+    .username {
+      text-align: center;
+    }
+  }
 
-        /* Popup styling */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+  /* Popup styling */
+  #popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
 
-        #popup-content {
-            background-color: #38124b;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            color: #ffc0cb;
-            max-width: 400px;
-            width: 80%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+  #popup-content {
+    background-color: #38124b;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffc0cb;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
 
-        #popup button {
-            background-color: #ff4500;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+  #popup button {
+    background-color: #ff4500;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-        #popup button:hover {
-            background-color: #e63946;
-        }
+  #popup button:hover {
+    background-color: #e63946;
+  }
 
-        .banner {
-            width: 100%;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-    </style>
+  .banner {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+</style>
 </head>
 <body>
-    <!-- Error Page Content -->
-    <div class="mist"></div> <!-- Mist overlay -->
-    <div class="container">
-        <h1>Error: Page Not Found</h1>
-        <p>Sorry, the page you are looking for could not be found.</p>
-        <p>Please check the URL in the address bar.</p>
-        <div class="gif-container">
-            <img id="animated-gif" src="" alt="Dancing Cat GIF">
-        </div>
-        <div class="loading-dots">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+<div id="popup">
+  <div id="popup-content">
+    <h2>Please Read and Follow the Rules</h2>
+    <p>Ensure you have read and understood the server rules. Thank you for your cooperation!</p>
+    <button onclick="closePopup()">Continue</button>
+  </div>
+</div>
 
-    <!-- Server Rules Content -->
-    <div class="discord-container">
-        <img src="https://i.imgur.com/JWMcy1pg.png" alt="Banner" class="banner">
-        <img src="/Images/logo.png" alt="HDO Pro's profile picture" class="profile-pic">
-        <div class="content">
-            <div class="username">HDO Pro <span class="timestamp">Sent from somewhere?</span></div>
-            <h1 class="server-title">Server Rules</h1>
-            
-            <p class="server-paragraph"><strong>General Conduct</strong></p>
-            <ul class="server-list">
-                <li class="server-item"><span class="reddot">🔴</span> NO EXTERNAL PROMOTION<br>Do not discuss or promote this server outside of its intended community.</li>
-                <li class="server-item"><span class="reddot">🔴</span> LANGUAGE<br>Communicate in English only. Avoid spamming to keep the environment pleasant for everyone.</li>
-                <li class="server-item"><span class="reddot">🔴</span> SPOILERS<br>Share spoilers only in designated channels.</li>
-                <li class="server-item"><span class="reddot">🔴</span> RESPECT PRIVACY<br>Do not post personal information of others without their consent.</li>
-            </ul>
-            
-            <p class="additional-guidelines">Failure to comply may result in a warning or ban. Thank you for keeping our server safe and enjoyable!</p>
-        </div>
-    </div>
+<div class="discord-container">
+  <img src="https://i.imgur.com/JWMcy1pg.png" alt="Banner" class="banner">
+  <img src="/images/logo.png" alt="HDO Pro's profile picture" class="profile-pic">
+  <div class="content">
+  <div class="username">HDO Pro <span class="timestamp">Sent from somewhere?</span></div>
+  <h1>Server Rules</h1>
+  
+  <p><strong>General Conduct</strong></p>
+  <ul>
+    <li><span class="reddot">🔴</span> NO EXTERNAL PROMOTION<br>Do not discuss or promote this server outside of its intended community.</li>
+    <li><span class="reddot">🔴</span> LANGUAGE<br>Communicate in English only. Avoid spamming to keep the environment pleasant for everyone.</li>
+    <li><span class="reddot">🔴</span> SPOILERS<br>Share spoilers only in designated channels.</li>
+    <li><span class="reddot">🔴</span> RESPECT PRIVACY<br>Do not DM or send friend requests to other members without their permission.</li>
+    <li><span class="reddot">🔴</span> RESPECTFUL BEHAVIOUR<br>Avoid racial slurs or derogatory behaviour. Content flagged as derogatory will be dealt with appropriately.</li>
+    <li><span class="reddot">🔴</span> DISCORD GUIDELINES<br>Follow all Discord guidelines.</li>
+    <li><span class="reddot">🔴</span> SERVER OPERATIONS<br>Review the provided information to understand how the server operates.</li>
+  </ul>
 
-    <!-- JavaScript for switching GIFs -->
-    <script>
-        const gifs = [
-            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-        ];
-        
-        const gifElement = document.getElementById('animated-gif');
+  <p><strong>Content and Posting</strong></p>
+  <ul>
+    <li><span class="reddot">🔴</span> PROMOTIONAL CONTENT<br>Do not share promotional content, Discord server invites, torrent links, or discuss external anime streaming sites.</li>
+    <li><span class="reddot">🔴</span> NSFW CONTENT<br>Share only standard NSFW content in designated NSFW channels. Prohibited content includes child/loli, gore, or animal porn.</li>
+    <li><span class="reddot">🔴</span> APPROPRIATE CHANNELS<br>Post content in the appropriate channels to keep discussions organized.</li>
+    <li><span class="reddot">🔴</span> NO HARMFUL MATERIAL<br>Posting harmful material such as viruses, IP grabbers, or malware will result in an immediate and permanent ban.</li>
+    <li><span class="reddot">🔴</span> TRADING<br>Trading of any sort is strictly prohibited.</li>
+  </ul>
 
-        function getRandomIndex() {
-            return Math.floor(Math.random() * gifs.length);
-        }
+  <p><strong>Respect and Interaction</strong></p>
+  <ul>
+    <li><span class="reddot">🔴</span> EXCESSIVE LANGUAGE<br>Refrain from using excessive extreme language.</li>
+    <li><span class="reddot">🔴</span> MENTIONS<br>Avoid mentioning @everyone, the Moderators, or specific individuals without a valid reason.</li>
+    <li><span class="reddot">🔴</span> PRIVACY<br>Respect others' privacy and refrain from posting personal information without permission.</li>
+    <li><span class="reddot">🔴</span> INSTRUCTIONS<br>Listen to the instructions given by staff members.</li>
+    <li><span class="reddot">🔴</span> HARASSMENT<br>Do not threaten or engage in any form of harassment towards other members.</li>
+    <li><span class="reddot">🔴</span> CHILD PROTECTION<br>Posting content containing child nudity or violence against children is strictly prohibited and will be reported to the proper authorities.</li>
+  </ul>
 
-        function switchGif() {
-            gifElement.src = gifs[getRandomIndex()];
-        }
+  <p><strong>Additional Notes</strong></p>
+  <ul>
+    <li><span class="reddot">🔴</span> APP/APK UPLOADS<br>Do not upload any apps/APKs from this server.</li>
+    <li><span class="reddot">🔴</span> CO-OPERATION<br>We appreciate your cooperation in adhering to these rules to ensure a pleasant experience for everyone.</li>
+  </ul>
+</div>
 
-        // Set initial GIF randomly on page load
-        switchGif();
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('popup').style.display = 'flex';
+  });
 
-        // Switch GIF every 5 minutes (300,000 milliseconds)
-        setInterval(switchGif, 300000);
-    </script>
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
