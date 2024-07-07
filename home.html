@@ -15,32 +15,37 @@
             text-align: center;
             padding: 20px;
             margin: 0;
+            position: relative;
+            min-height: 100vh; /* Ensure body takes full height */
         }
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         p {
-            font-size: 16px;
+            font-size: 14px;
             color: #ccc;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px; /* Increased width for a wider container */
             margin: 0 auto;
             background-color: rgba(51, 51, 51, 0.8);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             border: 2px solid rgba(153, 51, 153, 0.5); /* Dark purple border */
             box-shadow: 0 0 5px rgba(153, 51, 153, 0.2); /* Dark purple shadow */
             position: relative;
+            overflow: hidden;
         }
         .logo {
             position: absolute;
             top: 10px;
             left: 10px;
             opacity: 0.5; /* Faded effect */
+            width: 40px;
+            height: 40px;
         }
         .menu-button {
             position: absolute;
@@ -49,15 +54,16 @@
             background-color: #663399; /* Dark purple background */
             border: none;
             color: white;
-            padding: 8px;
+            padding: 12px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: bold;
         }
         .menu {
             display: none;
             position: absolute;
-            top: 40px;
+            top: 50px;
             right: 10px;
             background-color: #4b0082; /* Dark purple background */
             border-radius: 5px;
@@ -65,21 +71,22 @@
         }
         .menu a {
             display: block;
-            padding: 8px;
+            padding: 12px;
             color: white;
             text-decoration: none;
+            font-size: 14px;
         }
         .menu a:hover {
             background-color: #800080; /* Dark purple on hover */
         }
         .info-box {
             text-align: center;
-            margin: 20px auto;
+            margin: 20px 0;
         }
         .info-box p {
             color: #fff;
             font-size: 14px;
-            margin: 8px 0;
+            margin: 5px 0;
         }
         .info-box strong {
             display: block;
@@ -90,28 +97,12 @@
             color: #fff;
             text-decoration: underline;
         }
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
-            color: #fff; /* Changed to white */
-            font-size: 12px;
-        }
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 5px;
-        }
         .preview-container {
             margin: 20px auto;
-            position: relative;
             display: inline-block;
         }
         .preview-container img {
-            width: 150px;
+            width: 120px;
             height: auto;
             cursor: pointer;
             border-radius: 5px;
@@ -128,6 +119,7 @@
             justify-content: center;
             z-index: 1000;
             text-align: center;
+            overflow: hidden;
         }
         .preview-overlay img {
             max-width: 90%;
@@ -137,7 +129,7 @@
             position: absolute;
             top: 10px;
             right: 20px;
-            font-size: 24px;
+            font-size: 30px;
             color: #fff;
             cursor: pointer;
         }
@@ -150,12 +142,28 @@
             border-radius: 5px;
             cursor: pointer;
             margin: 10px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px); /* Ensure padding for mobile */
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="/Images/logo.png" alt="Logo" class="logo" width="50" height="50">
+        <img src="/Images/logo.png" alt="Logo" class="logo">
         <button class="menu-button" onclick="toggleMenu()">Menu</button>
         <div class="menu" id="menu">
             <a href="#">Home</a>
@@ -187,15 +195,9 @@
     </div>
     <div class="footer">
         <p>Contact Us | Support</p>
-        <p style="font-weight: bold; margin-top: 10px;">
-            iOS (Apple Devices) download area no longer available!
-        </p>
-        <p>
-            Download links are not listed on this page for privacy reasons. Please join the community to gain access.
-        </p>
-        <p>
-            We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="dmca">Click Here</a>.
-        </p>
+        <p>iOS (Apple Devices) download area no longer available!</p>
+        <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+        <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="dmca">Click Here</a>.</p>
     </div>
     <script>
         function toggleMenu() {
