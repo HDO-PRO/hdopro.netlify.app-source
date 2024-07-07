@@ -147,40 +147,6 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #4b0082; /* Dark purple text */
-            font-size: 14px;
-            font-weight: bold;
-            padding: 10px;
-        }
-        .footer a {
-            color: #4b0082; /* Dark purple links */
-            text-decoration: underline;
-        }
-        .footer a:hover {
-            color: #663399; /* Darker purple on hover */
-        }
-
-        /* Custom scrollbar styles for WebKit browsers (Chrome, Safari) */
-        ::-webkit-scrollbar {
-            width: 8px; /* Width of the scrollbar */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #4b0082; /* Dark purple for the scrollbar thumb */
-            border-radius: 4px; /* Rounded corners */
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3); /* Slightly transparent track */
-            border-radius: 4px; /* Rounded corners */
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #663399; /* Darker purple on hover */
-        }
     </style>
 </head>
 <body>
@@ -219,11 +185,11 @@
         <span class="close-button" onclick="closePreview()">&times;</span>
         <button class="close-overlay" onclick="closePreview()">Close</button>
     </div>
-    <div class="footer">
-        <p><strong>Contact Us | Support</strong></p>
-        <p><strong>iOS (Apple Devices) download area no longer available!</strong></p>
-        <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
-        <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca">Click Here</a>.</p>
+    <div class="footer" style="color: #4b0082; font-weight: bold;">
+        <p style="color: #4b0082; font-weight: bold;">Contact Us | Support</p>
+        <p style="color: #4b0082; font-weight: bold;">iOS (Apple Devices) download area no longer available!</p>
+        <p style="color: #4b0082;">Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+        <p style="color: #4b0082;">We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca" style="color: #4b0082; font-weight: bold; text-decoration: underline;">Click Here</a>.</p>
     </div>
     <script>
         function toggleMenu() {
