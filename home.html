@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error: Page Not Found</title>
+    <title>HDO Pro - Private Community</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="/Images/logo.png" type="image/png"> <!-- Updated path for favicon -->
+    <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,53 +29,79 @@
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            background-color: rgba(51, 51, 51, 0.8);
             padding: 30px;
             border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+            border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            position: relative;
         }
-        .gif-container {
-            margin: 20px 0;
+        .menu-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        .gif-container img {
-            width: 150px;
-            height: auto;
-            border-radius: 8px;
+        .menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: #555;
+        }
+        .dmca {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        .dmca a {
+            color: #fff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Error: Page Not Found</h1>
-        <p>Sorry, the page you are looking for could not be found.</p>
-        <p>Please check the URL in the address bar.</p>
-        <div class="gif-container">
-            <img id="animated-gif" src="" alt="Dancing Cat GIF">
+        <button class="menu-button" onclick="toggleMenu()">Menu</button>
+        <div class="menu" id="menu">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Services</a>
         </div>
+        <h1>Welcome to HDO Pro</h1>
+        <p>This is a private, secure connection.</p>
+        <p>This is a private community. If you are a part of this, you may know what to do.</p>
     </div>
-
+    <div class="dmca">
+        <p>For DMCA takedown requests, please click <a href="#">here</a>.</p>
+    </div>
     <script>
-        const gifs = [
-            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-        ];
-        
-        const gifElement = document.getElementById('animated-gif');
-
-        function getRandomIndex() {
-            return Math.floor(Math.random() * gifs.length);
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
         }
-
-        function switchGif() {
-            gifElement.src = gifs[getRandomIndex()];
-        }
-
-        // Set initial GIF randomly on page load
-        switchGif();
-
-        // Switch GIF every 5 minutes (300,000 milliseconds)
-        setInterval(switchGif, 300000);
     </script>
 </body>
 </html>
