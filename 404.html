@@ -76,6 +76,33 @@
         .redirect-info {
             color: #ffc0cb;
         }
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .loading-dots div {
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 5px;
+            animation: dot-blink 1.5s infinite ease-in-out;
+        }
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        @keyframes dot-blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
     </style>
 </head>
 <body>
@@ -91,6 +118,11 @@
         <p>Don't worry, be happy! This page is not lost, it's just exploring new territories.</p>
         <p class="redirect-info">In the meantime, you will be redirected to the home page shortly.</p>
         <img src="/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif" alt="Dancing Cat GIF" class="gif">
+        <div class="loading-dots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
     <script>
         // Redirect to the specified URL after 5 seconds
