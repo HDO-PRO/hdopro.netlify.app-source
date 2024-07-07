@@ -13,27 +13,27 @@
             background-size: cover;
             color: #fff;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
             margin: 0;
         }
         h1 {
-            font-size: 36px;
+            font-size: 24px;
             color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         p {
-            font-size: 18px;
+            font-size: 16px;
             color: #ccc;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
             background-color: rgba(51, 51, 51, 0.8);
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             border: 2px solid rgba(153, 51, 153, 0.5); /* Dark purple border */
-            box-shadow: 0 0 10px rgba(153, 51, 153, 0.2); /* Dark purple shadow */
+            box-shadow: 0 0 5px rgba(153, 51, 153, 0.2); /* Dark purple shadow */
             position: relative;
         }
         .logo {
@@ -49,10 +49,10 @@
             background-color: #663399; /* Dark purple background */
             border: none;
             color: white;
-            padding: 10px;
+            padding: 8px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
         }
         .menu {
             display: none;
@@ -61,11 +61,11 @@
             right: 10px;
             background-color: #4b0082; /* Dark purple background */
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
         .menu a {
             display: block;
-            padding: 10px;
+            padding: 8px;
             color: white;
             text-decoration: none;
         }
@@ -73,40 +73,45 @@
             background-color: #800080; /* Dark purple on hover */
         }
         .info-box {
-            max-width: 600px;
-            margin: 20px auto;
-            text-align: left; /* Align text to the left */
-        }
-        .info-box h2 {
-            color: #fff;
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-align: center; /* Center the heading */
+            text-align: center;
+            margin: 20px 0;
         }
         .info-box p {
             color: #fff;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        .info-box strong {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
+            font-size: 14px;
+            margin: 8px 0;
         }
         .info-box a {
             color: #fff;
             text-decoration: underline;
         }
-        .app-preview {
-            margin-top: 20px;
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
             text-align: center;
+            color: #fff; /* Changed to white */
+            font-size: 12px;
         }
-        .app-preview img {
-            width: 150px; /* Small preview image */
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .preview-container {
+            margin: 20px auto;
+            position: relative;
+            display: inline-block;
+        }
+        .preview-container img {
+            width: 150px;
+            height: auto;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 5px;
         }
-        .fullscreen-overlay {
+        .preview-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -118,44 +123,33 @@
             justify-content: center;
             z-index: 1000;
         }
-        .fullscreen-overlay img {
+        .preview-overlay img {
             max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
+            max-height: 80%;
         }
-        .fullscreen-overlay .close-button {
+        .close-button {
             position: absolute;
-            top: 20px;
+            top: 10px;
             right: 20px;
-            background-color: #fff;
-            border: none;
-            color: #000;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-        }
-        .fullscreen-overlay .close-button.bottom {
-            bottom: 20px;
-            top: auto;
-            right: auto;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
-            color: #fff; /* Changed to white */
-            font-size: 14px;
-        }
-        .footer a {
+            font-size: 24px;
             color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
+            cursor: pointer;
+        }
+        .close-button, .close-overlay {
+            font-size: 18px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .close-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
@@ -172,22 +166,23 @@
         <h1>Welcome to HDO Pro</h1>
         <p>This is a private, secure connection.</p>
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
-
-        <!-- About This App Section -->
         <div class="info-box">
-            <h2>About This App</h2>
-            <p><strong>One-Click Play:</strong> Instantly start watching with just a single click.</p>
-            <p><strong>Free Access:</strong> Enjoy all features without any cost—no paid versions or hidden fees.</p>
-            <p><strong>Cool Interface:</strong> Simple and attractive design makes finding your favorite content easy.</p>
-            <p><strong>Subtitles:</strong> Supports subtitles in over 25 languages, including English, Spanish, French, and more.</p>
-            <p><strong>Regular Updates:</strong> Frequent updates keep the app bug-free and content fresh.</p>
-            <p><strong>HD Content:</strong> Access a wide selection of HD movies and TV shows.</p>
+            <p><strong>About This App</strong></p>
+            <p>One-Click Play: Instantly start watching with just a single click.</p>
+            <p>Free Access: Enjoy all features without any cost—no paid versions or hidden fees.</p>
+            <p>Cool Interface: Simple and attractive design makes finding your favorite content easy.</p>
+            <p>Subtitles: Supports subtitles in over 25 languages, including English, Spanish, French, and more.</p>
+            <p>Regular Updates: Frequent updates keep the app bug-free and content fresh.</p>
+            <p>HD Content: Access a wide selection of HD movies and TV shows.</p>
         </div>
-
-        <!-- App Preview Section -->
-        <div class="app-preview">
-            <img src="/Images/android1-upscale.png" alt="App Preview" onclick="openFullscreen()">
+        <div class="preview-container">
+            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview">
         </div>
+    </div>
+    <div class="preview-overlay" id="preview-overlay">
+        <span class="close-button" onclick="closePreview()">&times;</span>
+        <img id="fullscreen-image" src="" alt="Fullscreen Preview">
+        <button class="close-overlay" onclick="closePreview()">Close</button>
     </div>
     <div class="footer">
         <p>Contact Us | Support</p>
@@ -201,34 +196,23 @@
             We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="dmca">Click Here</a>.
         </p>
     </div>
-
-    <!-- Fullscreen Overlay -->
-    <div class="fullscreen-overlay" id="fullscreenOverlay">
-        <button class="close-button" onclick="closeFullscreen()">×</button>
-        <img id="fullscreenImage" src="" alt="App Fullscreen Preview">
-        <button class="close-button bottom" onclick="closeFullscreen()">Close</button>
-    </div>
-
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        function openFullscreen() {
-            const overlay = document.getElementById('fullscreenOverlay');
-            const image = document.getElementById('fullscreenImage');
-            image.src = '/Images/android1-upscale.png'; // Set the image source
-            overlay.style.display = 'flex';
-        }
+        const previewImage = document.getElementById('preview-image');
+        const fullscreenImage = document.getElementById('fullscreen-image');
+        const previewOverlay = document.getElementById('preview-overlay');
 
-        function closeFullscreen() {
-            const overlay = document.getElementById('fullscreenOverlay');
-            overlay.style.display = 'none';
+        previewImage.onclick = function() {
+            fullscreenImage.src = previewImage.src;
+            previewOverlay.style.display = 'flex';
+        };
+
+        function closePreview() {
+            previewOverlay.style.display = 'none';
         }
     </script>
 </body>
