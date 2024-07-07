@@ -6,6 +6,20 @@
     <title>HDO Pro - Private Community</title>
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
@@ -25,19 +39,21 @@
             border-radius: 8px;
             position: relative;
             z-index: 1;
-            padding-top: 60px; /* Added padding to ensure content doesn't overlap with logo and menu button */
+            padding-top: 60px;
+            border: 2px solid rgba(153, 51, 153, 0.5);
+            box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
         }
         .logo {
-            position: absolute; /* Changed to absolute positioning */
+            position: absolute;
             top: 10px;
             left: 10px;
             width: 40px;
             height: 40px;
             opacity: 0.5;
-            z-index: 2; /* Ensure it's above other elements */
+            z-index: 2;
         }
         .menu-button {
-            position: absolute; /* Changed to absolute positioning */
+            position: absolute;
             top: 10px;
             right: 10px;
             background-color: #663399;
@@ -48,17 +64,17 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            z-index: 2; /* Ensure it's above other elements */
+            z-index: 2;
         }
         .menu {
             display: none;
-            position: absolute; /* Changed to absolute positioning */
+            position: absolute;
             top: 50px;
             right: 10px;
             background-color: #4b0082;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Ensure it's above other elements */
+            z-index: 2;
         }
         .menu a {
             display: block;
@@ -125,7 +141,7 @@
             font-size: 30px;
             color: white;
             cursor: pointer;
-            z-index: 1001; /* Ensure it's above other elements */
+            z-index: 1001;
         }
         .footer {
             margin-top: 20px;
@@ -142,20 +158,6 @@
         }
         .footer p {
             margin: 5px 0;
-        }
-        .close-overlay {
-            font-size: 18px;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.6);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
         }
     </style>
 </head>
@@ -193,7 +195,7 @@
         </div>
     </div>
     <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
-        <span class="close-button" onclick="closePreview()">×</span>
+        <span class="close-button" id="close-button" onclick="closePreview()">×</span>
         <img id="fullscreen-image" src="" alt="Fullscreen Preview">
     </div>
     <div class="footer">
@@ -211,10 +213,13 @@
         const previewImage = document.getElementById('preview-image');
         const fullscreenImage = document.getElementById('fullscreen-image');
         const previewOverlay = document.getElementById('preview-overlay');
+        const closeButton = document.getElementById('close-button');
 
         previewImage.onclick = function() {
             fullscreenImage.src = previewImage.src;
             previewOverlay.style.display = 'flex';
+            closeButton.style.animation = 'shake 0.5s';
+            setTimeout(() => closeButton.style.animation = '', 500);
         };
 
         function closePreview() {
