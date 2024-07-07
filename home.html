@@ -161,9 +161,46 @@
         .footer p {
             margin: 5px 0;
         }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            z-index: 1000;
+            display: none; /* Initially hidden */
+        }
+
+        .clear-button {
+            background-color: #f44336; /* Red button */
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
+    <div class="notification" id="notification">
+        <strong>Notice:</strong> Site is currently being worked on. Please do not be alarmed if you experience issues. Let us know, and we will fix it.
+        <button class="clear-button" onclick="closeNotification()">Clear</button>
+    </div>
+
     <div class="container">
         <img src="/Images/logo.png" alt="Logo" class="logo">
         <button class="menu-button" onclick="toggleMenu()">Menu</button>
@@ -220,6 +257,16 @@
         function closePreview() {
             const previewOverlay = document.getElementById('preview-overlay');
             previewOverlay.style.display = 'none';
+        }
+
+        // Notification functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('notification').style.display = 'block'; // Show notification on page load
+        });
+
+        function closeNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.display = 'none'; // Hide notification on button click
         }
     </script>
 </body>
