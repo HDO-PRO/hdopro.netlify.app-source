@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDO Pro - Private Community</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
         body {
@@ -16,7 +15,7 @@
             padding: 20px;
             margin: 0;
             position: relative;
-            min-height: 100vh; /* Ensure body takes full height */
+            min-height: 100vh;
         }
         h1 {
             font-size: 22px;
@@ -25,31 +24,28 @@
         }
         p {
             font-size: 14px;
-            color: #ccc;
             margin-bottom: 10px;
         }
         .container {
-            max-width: 800px; /* Increased width for a wider container */
+            max-width: 800px;
             margin: 0 auto;
             background-color: rgba(51, 51, 51, 0.8);
             padding: 15px;
             border-radius: 8px;
-            position: relative;
-            overflow: hidden;
+            position: relative; /* Make sure container is relative for absolute positioning */
         }
         .logo {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            opacity: 0.5; /* Faded effect */
+            top: 20px;
+            left: 20px;
             width: 40px;
             height: 40px;
         }
         .menu-button {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #663399; /* Dark purple background */
+            top: 20px;
+            right: 20px;
+            background-color: #663399;
             border: none;
             color: white;
             padding: 12px;
@@ -58,46 +54,20 @@
             font-size: 16px;
             font-weight: bold;
         }
-        .menu {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: #4b0082; /* Dark purple background */
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-        .menu a {
-            display: block;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .menu a:hover {
-            background-color: #800080; /* Dark purple on hover */
-        }
         .info-box {
-            text-align: center;
             margin: 20px 0;
         }
         .info-box p {
             color: #fff;
             font-size: 14px;
-            margin: 5px 0;
         }
         .info-box strong {
             display: block;
             font-size: 16px;
             margin-bottom: 10px;
         }
-        .info-box a {
-            color: #fff;
-            text-decoration: underline;
-        }
         .preview-container {
             margin: 20px auto;
-            display: inline-block;
         }
         .preview-container img {
             width: 120px;
@@ -112,26 +82,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(128, 0, 128, 0.8); /* Semi-transparent purple */
+            background: rgba(128, 0, 128, 0.8);
             align-items: center;
             justify-content: center;
             z-index: 1000;
             text-align: center;
-            cursor: pointer; /* Allow clicking anywhere to close */
-            border-radius: 15px; /* More rounded corners */
         }
         .preview-overlay img {
             max-width: 90%;
             max-height: 80%;
-            border-radius: 10px; /* More rounded corners for image */
+            border-radius: 10px;
         }
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
+        .footer {
+            margin-top: 20px;
+            color: #4b0082;
+            font-weight: bold;
+        }
+        .footer a {
+            color: #4b0082;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer p {
+            margin: 5px 0;
         }
         .close-overlay {
             font-size: 18px;
@@ -153,16 +129,6 @@
     <div class="container">
         <img src="/Images/logo.png" alt="Logo" class="logo">
         <button class="menu-button" onclick="toggleMenu()">Menu</button>
-        <div class="menu" id="menu">
-            <a href="https://hdopro.netlify.app">Home</a>
-            <a href="https://hdopro.netlify.app/rules">Rules</a>
-            <a href="https://hdopro.netlify.app/guide">Guides</a>
-            <a href="https://hdopro.netlify.app/discord">Discord</a>
-            <a href="https://hdopro.netlify.app/telegram">Telegram</a>
-            <a href="https://hdopro.netlify.app/megaserver">MEGA Server</a>
-            <a href="https://hdopro.netlify.app/privacy">Privacy and Safety</a>
-            <a href="https://hdopro.netlify.app/dmca">DMCA</a>
-        </div>
         <h1>Welcome to HDO Pro</h1>
         <p>This is a private, secure connection.</p>
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
@@ -182,20 +148,17 @@
     </div>
     <div class="preview-overlay" id="preview-overlay">
         <img id="fullscreen-image" src="" alt="Fullscreen Preview">
-        <span class="close-button" onclick="closePreview()">&times;</span>
         <button class="close-overlay" onclick="closePreview()">Close</button>
     </div>
     <div class="footer">
-        <p><a href="https://hdopro.netlify.app/contact-us" style="color: #4b0082; font-weight: bold; text-decoration: none;">Contact Us</a> | 
-           <a href="https://hdopro.netlify.app/support" style="color: #4b0082; font-weight: bold; text-decoration: none;">Support</a></p>
-        <p style="color: #4b0082; font-weight: bold;">iOS (Apple Devices) download area no longer available!</p>
-        <p style="color: #4b0082;">Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
-        <p style="color: #4b0082;">We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca" style="color: #4b0082; font-weight: bold; text-decoration: underline;">Click Here</a>.</p>
+        <p><a href="https://hdopro.netlify.app/contact-us">Contact Us</a> | <a href="https://hdopro.netlify.app/support">Support</a></p>
+        <p>iOS (Apple Devices) download area no longer available!</p>
+        <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+        <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca">Click Here</a>.</p>
     </div>
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('menu');
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            // Implement menu toggle functionality here
         }
 
         const previewImage = document.getElementById('preview-image');
@@ -205,12 +168,6 @@
         previewImage.onclick = function() {
             fullscreenImage.src = previewImage.src;
             previewOverlay.style.display = 'flex';
-        };
-
-        previewOverlay.onclick = function(event) {
-            if (event.target === previewOverlay || event.target === fullscreenImage) {
-                closePreview();
-            }
         };
 
         function closePreview() {
