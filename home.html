@@ -142,6 +142,7 @@
             color: white;
             cursor: pointer;
             z-index: 1001;
+            animation: shake 0.5s; /* Apply shake animation */
         }
         .footer {
             margin-top: 20px;
@@ -189,7 +190,7 @@
             <p>HD Content: Extensive catalog of HD movies and TV shows.</p>
         </div>
         <div class="preview-container">
-            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview">
+            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
         </div>
     </div>
     <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
@@ -208,7 +209,17 @@
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        const previewImage = document.getElementById('preview-image');
-        const fullscreenImage = document.getElementById('fullscreen-image');
-        const previewOverlay = document.getElementById('preview-overlay');
-        const
+        function openPreview(src) {
+            const previewOverlay = document.getElementById('preview-overlay');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            fullscreenImage.src = src;
+            previewOverlay.style.display = 'flex';
+        }
+
+        function closePreview() {
+            const previewOverlay = document.getElementById('preview-overlay');
+            previewOverlay.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
