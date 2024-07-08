@@ -227,21 +227,7 @@
 
     <div id="notification" class="notification">Not available.</div>
 
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="popup-message">
-        <p>Please do not share or this could result in an account or IP ban.</p>
-        <p>Everything you need should be here.</p>
-        <button onclick="closePopup()">Got it</button>
-    </div>
-
     <script>
-        // Popup message show only once per session
-        if (!sessionStorage.getItem('popupShown')) {
-            document.getElementById('popup-overlay').style.display = 'block';
-            document.getElementById('popup-message').style.display = 'block';
-            sessionStorage.setItem('popupShown', true);
-        }
-
         var gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
@@ -279,11 +265,6 @@
             setTimeout(function () {
                 notification.style.display = 'none';
             }, 3000); // Adjust duration as needed
-        }
-
-        function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
-            document.getElementById('popup-message').style.display = 'none';
         }
     </script>
 </body>
