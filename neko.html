@@ -21,9 +21,6 @@
             height: 100vh;
             box-sizing: border-box;
             user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
         }
 
         .mist {
@@ -278,4 +275,5 @@
         });
 
         // Listen for fullscreen change events
-        document.addEventListener('
+        document.addEventListener('fullscreenchange', () => {
+            if (!document
