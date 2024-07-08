@@ -18,6 +18,8 @@
             margin: 0;
             padding: 0;
             flex-direction: column;
+            overflow: hidden;
+            user-select: none; /* Disable text selection */
         }
         .container, .password-container {
             background-color: #38124b;
@@ -86,14 +88,76 @@
             color: #ff69b4;
         }
     </style>
+    <script>
+        // Prevent right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Redirect if DevTools is opened
+        (function() {
+            var devtools = /./;
+            devtools.toString = function() {
+                window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll link
+            };
+            console.log(devtools);
+        })();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const password = "nekochan";
+            const inputPassword = document.getElementById("password");
+            const errorMsg = document.getElementById("error-message");
+            const passwordContainer = document.getElementById("password-container");
+            const contentContainer = document.getElementById("content-container");
+
+            function checkPassword() {
+                if (inputPassword.value === password) {
+                    localStorage.setItem("authenticated", "true");
+                    passwordContainer.style.display = "none";
+                    contentContainer.style.display = "block";
+                } else {
+                    errorMsg.style.display = "block";
+                }
+            }
+
+            function togglePasswordVisibility() {
+                const eyeIcon = document.getElementById("togglePassword");
+                if (inputPassword.type === "password") {
+                    inputPassword.type = "text";
+                    eyeIcon.classList.remove("fa-eye");
+                    eyeIcon.classList.add("fa-eye-slash");
+                } else {
+                    inputPassword.type = "password";
+                    eyeIcon.classList.remove("fa-eye-slash");
+                    eyeIcon.classList.add("fa-eye");
+                }
+            }
+
+            document.getElementById("password").addEventListener("keydown", (event) => {
+                if (event.keyCode === 13) checkPassword();
+            });
+
+            document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
+
+            if (localStorage.getItem("authenticated") === "true") {
+                passwordContainer.style.display = "none";
+                contentContainer.style.display = "block";
+            }
+        });
+    </script>
 </head>
 <body>
 
 <div class="password-container" id="password-container">
     <h2>Enter Password</h2>
     <div style="position: relative;">
-        <input type="password" id="password" placeholder="Password" onkeydown="if(event.keyCode==13) checkPassword()" style="padding-right: 30px;">
-        <i class="fas fa-eye eye-icon" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+        <input type="password" id="password" placeholder="Password" style="padding-right: 30px;">
+        <i class="fas fa-eye eye-icon" id="togglePassword"></i>
     </div>
     <button onclick="checkPassword()">Submit</button>
     <p id="error-message" style="color:red; display:none;">Incorrect password. Please try again.</p>
@@ -118,41 +182,5 @@
 </footer>
 
 <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
-<script>
-    const password = "nekochan";
-
-    function checkPassword() {
-        const inputPassword = document.getElementById("password").value;
-        if (inputPassword === password) {
-            localStorage.setItem("authenticated", "true");
-            document.getElementById("password-container").style.display = "none";
-            document.getElementById("content-container").style.display = "block";
-        } else {
-            document.getElementById("error-message").style.display = "block";
-        }
-    }
-
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById("password");
-        const eyeIcon = document.getElementById("togglePassword");
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        if (localStorage.getItem("authenticated") === "true") {
-            document.getElementById("password-container").style.display = "none";
-            document.getElementById("content-container").style.display = "block";
-        }
-    });
-</script>
-
 </body>
 </html>
