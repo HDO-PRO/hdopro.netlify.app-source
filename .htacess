@@ -1,14 +1,19 @@
 ErrorDocument 404 /404.html
 
-Options -Indexes
+# Options -Indexes
 
 RewriteEngine on
 RewriteCond %{HTTP_USER_AGENT} ^SiteSucker [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Wget [OR]
-RewriteCond %{HTTP_USER_AGENT} ^HTTrack
+RewriteCond %{HTTP_USER_AGENT} ^HTTrack [OR]
+RewriteCond %{HTTP_USER_AGENT} ^SaveWeb2ZIP [OR]
+RewriteCond %{HTTP_USER_AGENT} ^waybackmachinedownloader [OR]
+RewriteCond %{HTTP_USER_AGENT} ^websitedownloader [OR]
+RewriteCond %{HTTP_USER_AGENT} ^website-downloader.onrender [OR]
+RewriteCond %{HTTP_USER_AGENT} ^WebPageDownloader
 RewriteRule ^.* - [F,L]
 
-<FilesMatch "\.(html|htm|js|css)$">
-    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-    Header set Pragma "no-cache"
-</FilesMatch>
+# <FilesMatch "\.(html|htm|js|css)$">
+#    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+#    Header set Pragma "no-cache"
+# </FilesMatch>
