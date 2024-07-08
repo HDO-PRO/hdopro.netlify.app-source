@@ -22,7 +22,7 @@
             user-select: none; /* Disable text selection */
         }
         .container, .password-container {
-            background-color: #d0f0c0; /* Light green color */
+            background-color: rgba(144, 238, 144, 0.8); /* Light green with transparency */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -71,7 +71,6 @@
             background-color: #45a049;
         }
         footer {
-            background-color: rgba(0, 255, 0, 0.8); /* Light green */
             color: #333;
             padding: 10px;
             text-align: center;
@@ -80,11 +79,11 @@
             bottom: 0;
         }
         footer a {
-            color: #333;
+            color: #4caf50;
             text-decoration: none;
         }
         footer a:hover {
-            color: #4caf50;
+            text-decoration: underline;
         }
     </style>
     <script>
@@ -94,13 +93,23 @@
         // Prevent text selection
         document.addEventListener('selectstart', e => e.preventDefault());
 
-        // Detect DevTools
+        // Detect DevTools and hide source
         (function() {
-            const devtools = /./;
-            devtools.toString = function() {
-                alert("Access to developer tools is restricted.");
+            let devtoolsOpen = false;
+            const threshold = 160; // Threshold in px
+            const checkDevTools = () => {
+                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        alert("Access to developer tools is restricted.");
+                        // Optionally: redirect or hide content
+                        document.body.innerHTML = "<h1>Access Restricted</h1>";
+                    }
+                } else {
+                    devtoolsOpen = false;
+                }
             };
-            console.log(devtools);
+            setInterval(checkDevTools, 1000); // Check every second
         })();
 
         function checkPassword() {
