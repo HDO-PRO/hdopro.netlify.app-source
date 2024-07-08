@@ -26,7 +26,7 @@
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(56, 18, 75, 0.7); /* Telegram light theme background color with transparency */
+    background-color: rgba(67, 181, 230, 0.5); /* Darker blue theme with transparency */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -52,7 +52,27 @@
   <p>Sorry, the invite link is not available at this time. Please join our Discord to get access.</p>
 </div>
 
+<!-- Modal -->
+<div id="humanCheckModal" class="modal">
+  <div class="modal-content">
+    <h2>Are you human?</h2>
+    <button onclick="closeModal()">Yes, I am human</button>
+  </div>
+</div>
+
 <script>
+  function closeModal() {
+    document.getElementById('humanCheckModal').style.display = 'none';
+    localStorage.setItem('humanVerified', 'true'); // Store verification status in localStorage
+  }
+
+  window.onload = function() {
+    var humanVerified = localStorage.getItem('humanVerified');
+    if (!humanVerified) {
+      document.getElementById('humanCheckModal').style.display = 'block';
+    }
+  };
+
   // Disable right-click
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
