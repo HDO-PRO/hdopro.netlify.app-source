@@ -24,14 +24,14 @@
             user-select: none; /* Disable text selection */
         }
         .container, .password-container {
-            background-color: rgba(144, 238, 144, 0.7); /* Very light green with some opacity */
+            background-color: rgba(144, 238, 144, 0.5); /* Very light green with more transparency */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
             text-align: center;
             width: 90%;
             max-width: 800px;
-            margin: 20px;
+            margin-bottom: 20px;
         }
         .password-container {
             max-width: 400px;
@@ -78,7 +78,7 @@
             padding: 10px;
             text-align: center;
             width: 100%;
-            position: absolute;
+            position: fixed; /* Fix footer to the bottom */
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
         }
