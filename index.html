@@ -20,6 +20,10 @@
             align-items: center;
             height: 100vh;
             box-sizing: border-box;
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
         }
 
         .mist {
@@ -186,6 +190,18 @@
 
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
+
+        // Prevent right-click and context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable F12 and other developer tools access
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
