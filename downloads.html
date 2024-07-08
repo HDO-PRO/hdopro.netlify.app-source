@@ -246,9 +246,9 @@
             const animeAllButton = document.querySelector('.button-container a:last-of-type');
             const notification = document.getElementById('notification');
             
-            // Position notification under the Anime All button
+            // Position notification directly under the Anime All button
             const buttonRect = animeAllButton.getBoundingClientRect();
-            notification.style.top = `${buttonRect.bottom + 10}px`; // Adjust distance from button
+            notification.style.top = `${buttonRect.bottom}px`; // Adjust distance from button
             notification.style.left = `${buttonRect.left}px`;
 
             // Display notification
