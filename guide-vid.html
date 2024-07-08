@@ -10,25 +10,28 @@
         body {
             background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
             background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             color: #333;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 0;
             overflow: hidden;
             user-select: none; /* Disable text selection */
         }
         .container, .password-container {
-            background-color: rgba(144, 238, 144, 0.3); /* Very light green with transparency */
+            background-color: rgba(144, 238, 144, 0.7); /* Very light green with some opacity */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
             text-align: center;
             width: 90%;
             max-width: 800px;
+            margin: 20px;
         }
         .password-container {
             max-width: 400px;
@@ -85,6 +88,15 @@
         }
         footer a:hover {
             text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .container, .password-container {
+                width: 100%;
+                padding: 10px;
+            }
+            .password-container {
+                max-width: 100%;
+            }
         }
     </style>
     <script>
