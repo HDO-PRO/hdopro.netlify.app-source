@@ -41,7 +41,7 @@
             position: relative;
             z-index: 1;
             padding-top: 60px;
-            border: 2px solid rgba(153, 51, 153, 0.5); /* Semi-transparent purple border */
+            border: 2px solid rgba(153, 51, 153, 0.5);
             box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
         }
         .logo {
@@ -227,4 +227,47 @@
             <p>Regular Updates: Frequent updates keep the app running smoothly.</p>
             <p>HD Content: Extensive catalog of HD movies and TV shows.</p>
         </div>
-        <div class="
+        <div class="preview-container">
+            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
+        </div>
+    </div>
+    <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
+        <span class="close-button" id="close-button" onclick="closePreview()">×</span>
+        <img id="fullscreen-image" src="" alt="Fullscreen Preview">
+    </div>
+    <div class="footer">
+        <p><a href="https://hdopro.netlify.app/contact-us">Contact Us</a> | <a href="https://hdopro.netlify.app/support">Support</a></p>
+        <p>iOS (Apple Devices) download area no longer available!</p>
+        <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+        <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca">Click Here</a>.</p>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function openPreview(src) {
+            const previewOverlay = document.getElementById('preview-overlay');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            fullscreenImage.src = src;
+            previewOverlay.style.display = 'flex';
+        }
+
+        function closePreview() {
+            const previewOverlay = document.getElementById('preview-overlay');
+            previewOverlay.style.display = 'none';
+        }
+
+        // Notification functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('notification').style.display = 'block'; // Show notification on page load
+        });
+
+        function closeNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.display = 'none'; // Hide notification on button click
+        }
+    </script>
+</body>
+</html>
