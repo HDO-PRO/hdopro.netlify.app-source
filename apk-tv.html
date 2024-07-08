@@ -89,7 +89,7 @@
 
         // Detect key combinations for DevTools
         document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
+            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105 || e.keyCode === 117 || e.keyCode === 85 || e.keyCode === 86 || e.keyCode === 67 || e.keyCode === 73 || e.keyCode === 123)) {
                 redirectToRickRoll();
             }
         });
@@ -104,6 +104,7 @@
         function redirectToRickRoll() {
             window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
         }
+
     </script>
 </head>
 <body>
