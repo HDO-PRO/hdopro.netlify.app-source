@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Planned</title>
+    <link rel="icon" href="/Images/logo.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+        }
+
+        .mist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/Images/mist.png') repeat;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+            animation: moveMist 60s linear infinite;
+        }
+
+        @keyframes moveMist {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            width: 400px;
+            background-color: rgba(51, 51, 51, 0.8);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .gif-container {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .gif-container img {
+            width: 100px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .speech-bubble {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -150%);
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .loading-dots div {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: dot-blink 1.5s infinite ease-in-out;
+        }
+
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dot-blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mist"></div>
+    <div class="container">
+        <h1>Page Planned</h1>
+        <p>This page is currently being planned and is not available yet.</p>
+        <p>Check back later for updates or click the GIF for more options.</p>
+        <div class="gif-container">
+            <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
+            <div id="speech-bubble" class="speech-bubble">Invite?</div>
+        </div>
+        <div class="loading-dots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <script>
+        const gifs = [
+            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
+            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
+        ];
+        
+        const gifElement = document.getElementById('animated-gif');
+        const speechBubble = document.getElementById('speech-bubble');
+        let clickCount = 0;
+
+        function getRandomIndex() {
+            return Math.floor(Math.random() * gifs.length);
+        }
+
+        function switchGif() {
+            gifElement.src = gifs[getRandomIndex()];
+        }
+
+        function handleGifClick() {
+            clickCount++;
+            if (clickCount === 1) {
+                switchGif(); // Change GIF on first click
+            } else if (clickCount === 2) {
+                speechBubble.style.display = 'block'; // Show speech bubble on second click
+            } else if (clickCount === 3) {
+                window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on third click
+            }
+        }
+
+        // Set initial GIF randomly on page load
+        switchGif();
+
+        // Switch GIF every 5 minutes (300,000 milliseconds)
+        setInterval(switchGif, 300000);
+
+        // Prevent right-click and context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable F12 and other developer tools access
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
