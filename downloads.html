@@ -216,6 +216,17 @@
     </div>
 
     <script>
+        // Check if popup has been shown in this session
+        if (!sessionStorage.getItem('popupShown')) {
+            showPopup();
+        }
+
+        function showPopup() {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup-message').style.display = 'block';
+            sessionStorage.setItem('popupShown', true);
+        }
+
         var gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
@@ -232,9 +243,9 @@
         function showNotification() {
             var notification = document.querySelector('.notification');
             notification.style.display = 'block';
-            setTimeout(function () {
+            setTimeout(function() {
                 notification.style.display = 'none';
-            }, 3000); // Adjust duration as needed
+            }, 3000); // 3 seconds
         }
 
         function closePopup() {
@@ -242,10 +253,9 @@
             document.getElementById('popup-message').style.display = 'none';
         }
 
-        // Automatically switch GIFs every 5 minutes
-        setInterval(function () {
-            switchGif();
-        }, 5 * 60 * 1000); // 5 minutes in milliseconds
+        // Automatically switch GIFs every 5 minutes or on page load
+        switchGif(); // Initial load
+        setInterval(switchGif, 5 * 60 * 1000); // 5 minutes
 
         // Disable right-click and text selection
         document.addEventListener('contextmenu', function (e) {
