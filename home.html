@@ -21,6 +21,12 @@
             100% { transform: translate(1px, -2px) rotate(-1deg); }
         }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
@@ -28,10 +34,10 @@
             color: #fff;
             text-align: center;
             padding: 0;
-            margin: 0;
             position: relative;
             min-height: 100vh;
         }
+
         .container {
             max-width: 800px;
             margin: 100px auto 0;
@@ -44,6 +50,7 @@
             border: 2px solid rgba(153, 51, 153, 0.5);
             box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
         }
+
         .logo {
             position: absolute;
             top: 10px;
@@ -53,6 +60,7 @@
             opacity: 0.5;
             z-index: 2;
         }
+
         .menu-button {
             position: absolute;
             top: 10px;
@@ -67,6 +75,7 @@
             font-weight: bold;
             z-index: 2;
         }
+
         .menu {
             display: none;
             position: absolute;
@@ -77,6 +86,7 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
             z-index: 2;
         }
+
         .menu a {
             display: block;
             padding: 12px;
@@ -84,39 +94,48 @@
             text-decoration: none;
             font-size: 14px;
         }
+
         .menu a:hover {
             background-color: #800080;
         }
+
         h1 {
             font-size: 22px;
             color: #fff;
             margin-bottom: 10px;
         }
+
         p {
             font-size: 14px;
             margin-bottom: 10px;
         }
+
         .info-box {
             margin: 20px 0;
         }
+
         .info-box p {
             color: #fff;
             font-size: 14px;
         }
+
         .info-box strong {
             display: block;
             font-size: 16px;
             margin-bottom: 10px;
         }
+
         .preview-container {
             margin: 20px auto;
         }
+
         .preview-container img {
             width: 120px;
             height: auto;
             cursor: pointer;
             border-radius: 5px;
         }
+
         .preview-overlay {
             display: none;
             position: fixed;
@@ -130,11 +149,13 @@
             z-index: 1000;
             text-align: center;
         }
+
         .preview-overlay img {
             max-width: 90%;
             max-height: 80%;
             border-radius: 10px;
         }
+
         .preview-overlay .close-button {
             position: absolute;
             top: 10px;
@@ -145,6 +166,7 @@
             z-index: 1001;
             animation: shake 0.5s; /* Apply shake animation */
         }
+
         .footer {
             margin-top: 20px;
             color: #fff;
@@ -154,14 +176,17 @@
             border-radius: 8px;
             border: 2px solid rgba(153, 51, 153, 0.5);
         }
+
         .footer a {
             color: #4b0082;
             font-weight: bold;
             text-decoration: none;
         }
+
         .footer a:hover {
             text-decoration: underline;
         }
+
         .footer p {
             margin: 5px 0;
             color: #fff;
