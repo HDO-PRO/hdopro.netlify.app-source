@@ -12,7 +12,7 @@
     margin: 0;
     padding: 0;
     position: relative;
-    background-image: url('your-wallpaper-image.jpg');
+    background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -46,14 +46,18 @@
   }
 
   /* Style for "crossing out" inputs */
-  .crossed-out {
-    position: relative;
-    display: inline-block;
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 192, 203, 0.3);
+    color: #ffc0cb;
     text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.5); /* Light gray */
-  }
-
-  .crossed-out input, .crossed-out textarea {
     pointer-events: none; /* Disable typing */
   }
 
@@ -166,17 +170,12 @@
   <p>For any other inquiries, you may contact us at: <span class="spoiler" onclick="this.classList.remove('spoiler');">hdopro@protonmail.com</span>.</p>
   <p>Feel free to use the form below for any other questions:</p>
   <form action="send_email.php" method="post">
-    <input type="text" name="name" placeholder="Your Name" class="crossed-out" required><br>
-    <input type="email" name="email" placeholder="Your Email" class="crossed-out" required><br>
-    <textarea name="message" rows="4" placeholder="Your Message" class="crossed-out" required></textarea><br>
-    <input type="submit" value="Submit">
+    <input type="text" name="name" placeholder="Your Name" disabled><br>
+    <input type="email" name="email" placeholder="Your Email" disabled><br>
+    <textarea name="message" rows="4" placeholder="Your Message" disabled></textarea><br>
+    <input type="submit" value="Submit" disabled>
   </form>
 </div>
 
-<script>
-  function closeModal() {
-    document.getElementById('humanCheckModal').style.display = 'none';
-  }
-</script>
 </body>
 </html>
