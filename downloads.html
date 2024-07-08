@@ -218,7 +218,6 @@
             </a>
             <a href="#" onclick="showNotification()">Anime App</a>
         </div>
-        <p class="info-message">Everything you need should be there, just some files may not be named correctly or in the right places..</p>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
@@ -244,6 +243,10 @@
             clickCount++;
             if (clickCount === 3) {
                 speechBubble.style.display = 'block';
+                setTimeout(() => {
+                    speechBubble.style.display = 'none';
+                    clickCount = 0; // Reset the click count
+                }, 2000);
             } else {
                 switchGif();
             }
