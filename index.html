@@ -147,7 +147,7 @@
         <p>What you're looking for may not be here.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
-            <div id="speech-bubble" class="speech-bubble">Invite?</div>
+            <div id="speech-bubble" class="speech-bubble"></div>
         </div>
         <div class="loading-dots">
             <div></div>
@@ -177,9 +177,11 @@
         function handleGifClick() {
             clickCount++;
             if (clickCount === 1) {
-                switchGif(); // Change GIF on first click
+                speechBubble.innerText = 'Treats';
+                speechBubble.style.display = 'block'; // Show "Treats" speech bubble on first click
             } else if (clickCount === 2) {
-                speechBubble.style.display = 'block'; // Show speech bubble on second click
+                speechBubble.innerText = 'Invites?';
+                // No action needed on second click
             } else if (clickCount === 3) {
                 window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on third click
             }
