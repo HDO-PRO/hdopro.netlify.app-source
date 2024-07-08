@@ -235,7 +235,6 @@
 
         var gifElement = document.getElementById('animated-gif');
         var currentGifIndex = 0;
-        var clickCounter = 0;
 
         function switchGif() {
             currentGifIndex = (currentGifIndex + 1) % gifs.length;
@@ -243,12 +242,8 @@
         }
 
         function handleGifClick() {
-            clickCounter++;
             switchGif();
-            if (clickCounter === 3) {
-                showSpeechBubble();
-                clickCounter = 0; // Reset counter
-            }
+            showSpeechBubble();
         }
 
         function showSpeechBubble() {
@@ -266,6 +261,11 @@
                 notification.style.display = 'none';
             }, 3000); // Adjust duration as needed
         }
+
+        // Change GIF every 5 minutes
+        setInterval(function () {
+            switchGif();
+        }, 300000); // 5 minutes in milliseconds
     </script>
 </body>
 </html>
