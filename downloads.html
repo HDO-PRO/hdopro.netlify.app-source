@@ -98,15 +98,12 @@
             background-color: #fff;
             border-radius: 50%;
             margin: 0 3px;
-            animation: dot-blink 1.5s infinite ease-in-out alternate; /* Changed animation direction */
+            animation: dot-blink 1.5s infinite ease-in-out alternate;
         }
 
-        .loading-dots div:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .loading-dots div:nth-child(3) {
-            animation-delay: 0.6s;
+        @keyframes dot-blink {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
 
         .button-container {
@@ -171,9 +168,9 @@
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
         </div>
         <div class="loading-dots">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
         <div class="button-container">
             <a href="link-to-stable-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
@@ -188,12 +185,12 @@
             <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 New Player
             </a>
-            <a href="#" onclick="showNotification()">Anime All</a>
+            <a href="#" onclick="showNotification()">Anime App</a>
         </div>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
-    <div id="notification" class="notification">This feature is not available.</div>
+    <div id="notification" class="notification">This app is not available.</div>
 
     <script>
         const gifs = [
