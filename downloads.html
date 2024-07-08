@@ -23,8 +23,9 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             box-sizing: border-box;
             user-select: none; /* Prevent text selection */
             -webkit-user-select: none; /* Safari */
@@ -51,8 +52,8 @@
         }
 
         .container {
-            width: 90%;
-            max-width: 600px; /* Adjust max-width as needed for responsiveness */
+            max-width: 90%;
+            width: 400px;
             background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -61,7 +62,6 @@
             box-sizing: border-box;
             position: relative;
             z-index: 1;
-            margin-bottom: 20px;
         }
 
         h1 {
@@ -227,7 +227,21 @@
 
     <div id="notification" class="notification">Not available.</div>
 
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup-message">
+        <p>Please do not share or this could result in an account or IP ban.</p>
+        <p>Respect our privacy.</p>
+        <button onclick="closePopup()">Got it</button>
+    </div>
+
     <script>
+        // Popup message show only once per session
+        if (!sessionStorage.getItem('popupShown')) {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup-message').style.display = 'block';
+            sessionStorage.setItem('popupShown', true);
+        }
+
         var gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
@@ -235,6 +249,7 @@
 
         var gifElement = document.getElementById('animated-gif');
         var currentGifIndex = 0;
+        var clickCounter = 0;
 
         function switchGif() {
             currentGifIndex = (currentGifIndex + 1) % gifs.length;
@@ -242,8 +257,12 @@
         }
 
         function handleGifClick() {
+            clickCounter++;
             switchGif();
-            showSpeechBubble();
+            if (clickCounter === 3) {
+                showSpeechBubble();
+                clickCounter = 0; // Reset counter
+            }
         }
 
         function showSpeechBubble() {
@@ -262,10 +281,21 @@
             }, 3000); // Adjust duration as needed
         }
 
-        // Change GIF every 5 minutes
-        setInterval(function () {
-            switchGif();
-        }, 300000); // 5 minutes in milliseconds
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup-message').style.display = 'none';
+        }
+
+        // Change GIF every time page is loaded or after 5 minutes
+        var intervalId = setInterval(switchGif, 300000); // 5 minutes in milliseconds
+
+        // Ensure GIF changes on page load
+        window.addEventListener('load', switchGif);
+
+        // Clear interval when leaving the page to avoid memory leaks
+        window.addEventListener('beforeunload', function() {
+            clearInterval(intervalId);
+        });
     </script>
 </body>
 </html>
