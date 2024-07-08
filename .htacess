@@ -1,1 +1,14 @@
 ErrorDocument 404 /404.html
+
+Options -Indexes
+
+RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} ^SiteSucker [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Wget [OR]
+RewriteCond %{HTTP_USER_AGENT} ^HTTrack
+RewriteRule ^.* - [F,L]
+
+<FilesMatch "\.(html|htm|js|css)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+</FilesMatch>
