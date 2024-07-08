@@ -86,6 +86,32 @@
             cursor: pointer;
         }
 
+        .speech-bubble {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+            display: none;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
         .loading-dots {
             display: flex;
             justify-content: center;
@@ -167,6 +193,7 @@
         <p><strong>Please Read! Stable goes with Old Player & Beta with New!</strong></p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
+            <div class="speech-bubble" id="speech-bubble">Please stop</div>
         </div>
         <div class="loading-dots">
             <div class="dot"></div>
@@ -191,6 +218,7 @@
             </a>
             <a href="#" onclick="showNotification()">Anime App</a>
         </div>
+        <p class="info-message">Everything you need should be there, just some files may not be named correctly or in the right places..</p>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
@@ -203,7 +231,9 @@
         ];
         
         const gifElement = document.getElementById('animated-gif');
+        const speechBubble = document.getElementById('speech-bubble');
         let currentGifIndex = 0;
+        let clickCount = 0;
 
         function switchGif() {
             currentGifIndex = (currentGifIndex + 1) % gifs.length;
@@ -211,7 +241,12 @@
         }
 
         function handleGifClick() {
-            switchGif();
+            clickCount++;
+            if (clickCount === 3) {
+                speechBubble.style.display = 'block';
+            } else {
+                switchGif();
+            }
         }
 
         // Set initial GIF randomly on page load
