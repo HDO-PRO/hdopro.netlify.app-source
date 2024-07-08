@@ -48,7 +48,8 @@
             position: relative;
             z-index: 1;
             max-width: 90%;
-            width: 600px;
+            width: 100%;
+            max-width: 600px;
             background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -71,7 +72,7 @@
         .game-container {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 300px; /* Adjusted height for mobile */
             border: 2px solid rgba(255, 255, 255, 0.3);
             background-color: rgba(51, 51, 51, 0.8);
             overflow: hidden;
@@ -80,7 +81,7 @@
         .cat {
             position: absolute;
             bottom: 20px;
-            left: 50px;
+            left: 10%;
             width: 50px;
             height: 50px;
             background: url('/Images/animated-cat.gif') no-repeat center center;
@@ -106,6 +107,7 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
+            width: 80%; /* Responsive width */
         }
 
         .game-over h2 {
@@ -130,13 +132,45 @@
         .game-over button:hover {
             background-color: #45a049;
         }
+
+        .fullscreen-button,
+        .close-fullscreen-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50; /* Green background */
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        .fullscreen-button:hover,
+        .close-fullscreen-button:hover {
+            background-color: #45a049;
+        }
+
+        .close-fullscreen-button {
+            display: none; /* Hidden initially */
+        }
+
+        /* Fullscreen styles */
+        .fullscreen .game-container {
+            height: 100vh; /* Fullscreen height */
+            width: 100vw; /* Fullscreen width */
+        }
     </style>
 </head>
 <body>
     <div class="mist"></div>
     <div class="container">
         <h1>Cat Runner Game</h1>
-        <p>Use the space bar to jump over obstacles. Click on the game area to start.</p>
+        <p>Use the space bar or tap on the screen to jump over obstacles. Click on the game area to start.</p>
+        <button class="fullscreen-button" id="fullscreenButton">Fullscreen</button>
+        <button class="close-fullscreen-button" id="closeFullscreenButton">Close Fullscreen</button>
         <div class="game-container" id="gameContainer">
             <div class="cat" id="cat"></div>
             <div class="obstacle" id="obstacle"></div>
@@ -152,6 +186,8 @@
         let obstacle = document.getElementById('obstacle');
         let gameOverDiv = document.getElementById('gameOver');
         let gameContainer = document.getElementById('gameContainer');
+        let fullscreenButton = document.getElementById('fullscreenButton');
+        let closeFullscreenButton = document.getElementById('closeFullscreenButton');
 
         let isJumping = false;
         let isGameOver = false;
@@ -203,6 +239,18 @@
             startGame();
         }
 
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+                fullscreenButton.style.display = 'block';
+                closeFullscreenButton.style.display = 'none';
+            } else {
+                gameContainer.requestFullscreen();
+                fullscreenButton.style.display = 'none';
+                closeFullscreenButton.style.display = 'block';
+            }
+        }
+
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 jump();
@@ -210,6 +258,12 @@
         });
 
         gameContainer.addEventListener('click', startGame);
+
+        // Add touch support for mobile devices
+        gameContainer.addEventListener('touchstart', startGame);
+
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+        closeFullscreenButton.addEventListener('click', toggleFullscreen);
 
         // Prevent right-click and context menu
         document.addEventListener('contextmenu', function(e) {
@@ -223,8 +277,5 @@
             }
         });
 
-        // Start the game when the page loads
-        startGame();
-    </script>
-</body>
-</html>
+        // Listen for fullscreen change events
+        document.addEventListener('
