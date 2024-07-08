@@ -91,25 +91,31 @@
             font-size: 22px;
             color: #fff;
             margin-bottom: 10px;
+            text-align: center;
         }
         p {
             font-size: 14px;
             margin-bottom: 10px;
+            text-align: center;
         }
         .info-box {
             margin: 20px 0;
+            text-align: left;
         }
         .info-box p {
             color: #fff;
             font-size: 14px;
+            text-align: center;
         }
         .info-box strong {
             display: block;
             font-size: 16px;
             margin-bottom: 10px;
+            text-align: center;
         }
         .preview-container {
             margin: 20px auto;
+            text-align: center;
         }
         .preview-container img {
             width: 120px;
@@ -129,10 +135,11 @@
             justify-content: center;
             z-index: 1000;
             text-align: center;
+            overflow: hidden; /* Hide overflow */
         }
         .preview-overlay img {
-            max-width: 90%;
-            max-height: 80%;
+            max-width: 100%; /* Ensure image fills the screen */
+            max-height: 100%; /* Ensure image fills the screen */
             border-radius: 10px;
         }
         .preview-overlay .close-button {
@@ -153,6 +160,7 @@
             padding: 15px;
             border-radius: 8px;
             border: 2px solid rgba(153, 51, 153, 0.5);
+            text-align: center;
         }
         .footer p {
             margin: 5px 0;
@@ -160,21 +168,7 @@
             font-weight: bold;
             font-size: 14px; /* Adjusted font size */
             line-height: 1.5; /* Improved line spacing */
-            text-align: left; /* Align text to the left */
-        }
-
-        /* Notification styles */
-        .notification {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #800080; /* Purple background */
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            z-index: 1000;
-            display: none; /* Initially hidden */
+            text-align: center; /* Align text to the center */
         }
 
         .clear-button {
@@ -199,11 +193,6 @@
     </style>
 </head>
 <body>
-    <div class="notification" id="notification">
-        <strong>Under Maintenance:</strong> Let us know if you have any issues.
-        <button class="clear-button" onclick="closeNotification()">Clear</button>
-    </div>
-
     <div class="container">
         <img src="/Images/logo.png" alt="Logo" class="logo">
         <button class="menu-button" onclick="toggleMenu()">Menu</button>
@@ -223,18 +212,20 @@
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
         <div class="info-box">
             <p><strong>About This App</strong></p>
-            <p>HDO Pro is the top choice for watching HD movies and shows on any device. Its user-friendly interface and responsive design make finding your favorite content a breeze.</p>
-            <p>Key Features:</p>
-            <p>Free Access: Enjoy all features without any cost or hidden fees.</p>
-            <p>Cool Interface: Navigate easily with a sleek design.</p>
-            <p>Subtitles: Supports over 25 languages.</p>
+            <p>Info will be added again soon..</p>
+        <div class="preview-container">
+            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
         </div>
-        <div class="footer">
-            <p>Contact Us | Support</p>
-            <p>iOS (Apple Devices) download area no longer available!</p>
-            <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
-            <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="#">Click Here</a>.</p>
-        </div>
+    </div>
+    <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
+        <span class="close-button" id="close-button" onclick="closePreview()">×</span>
+        <img id="fullscreen-image" src="" alt="Fullscreen Preview">
+    </div>
+    <div class="footer">
+        <p>Contact Us | Support</p>
+        <p>iOS (Apple Devices) download area no longer available!</p>
+        <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+        <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="#">Click Here</a>.</p>
     </div>
 
     <script>
@@ -247,9 +238,16 @@
             }
         }
 
-        function closeNotification() {
-            var notification = document.getElementById("notification");
-            notification.style.display = "none";
+        function openPreview(src) {
+            var previewOverlay = document.getElementById("preview-overlay");
+            var fullscreenImage = document.getElementById("fullscreen-image");
+            fullscreenImage.src = src;
+            previewOverlay.style.display = "flex";
+        }
+
+        function closePreview() {
+            var previewOverlay = document.getElementById("preview-overlay");
+            previewOverlay.style.display = "none";
         }
     </script>
 </body>
