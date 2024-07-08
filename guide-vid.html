@@ -266,6 +266,69 @@
         </div>
     </div>
 </div>
+    
+    <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca">click here</a>.</p>
+</footer>
 
-<footer>
-    <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca
+<script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+<script>
+    // Initialize video.js manually to ensure proper setup
+    var player = videojs('my-video', {
+        playbackRates: [0.5, 1, 1.5, 2], // Define playback rates
+        controlBar: {
+            volumePanel: {
+                inline: false // Ensure volume panel is not inline
+            }
+        }
+    });
+
+    // Set default volume to 50%
+    player.volume(0.5);
+
+    // Check if already authenticated
+    var authenticated = localStorage.getItem("authenticated");
+    if (authenticated === "true") {
+        showContent();
+    }
+
+    function checkPassword() {
+        var password = document.getElementById("password").value;
+        if (password === "nekochan") {
+            // Store authentication status
+            localStorage.setItem("authenticated", "true");
+            // Show content
+            showContent();
+        } else {
+            document.getElementById("error-message").style.display = "block";
+        }
+    }
+
+    function showContent() {
+        document.getElementById("password-prompt").style.display = "none";
+        document.getElementById("content-container").style.display = "block";
+        document.getElementById("content-container").classList.add("visible");
+    }
+
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var eyeIcon = document.getElementById("togglePassword");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+
+    function showHint() {
+        var hint = document.getElementById("hint");
+        hint.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
