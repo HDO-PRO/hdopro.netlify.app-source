@@ -95,6 +95,23 @@
             };
             setInterval(checkDevTools, 1000); // Check every second
         })();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+
+        // Prevent dev tools inspection
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
     </script>
 </head>
 <body>
