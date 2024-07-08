@@ -173,22 +173,17 @@
             <div></div>
             <div></div>
         </div>
+        <!-- Button container for Discord and Telegram -->
         <div class="button-container">
-            <a href="link-to-stable-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Stable APK
+            <a href="https://discord.gg/Z3Qb5se8" target="_blank">
+                <img src="/Images/discord.png" alt="Discord">
+                Join us on Discord
             </a>
-            <a href="link-to-beta-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Beta APK
+            <a href="javascript:void(0)" onclick="showTelegramNotification()">
+                <img src="/Images/telegram.png" alt="Telegram">
+                Join us on Telegram
             </a>
-            <a href="link-to-old-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Old Player
-            </a>
-            <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                New Player
-            </a>
-            <a href="#" onclick="showNotification()">Anime All</a>
         </div>
-        <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
     <div id="notification" class="notification">This feature is not available.</div>
@@ -247,9 +242,10 @@
             }
         });
 
-        // Notification function
-        function showNotification() {
+        // Telegram notification function
+        function showTelegramNotification() {
             const notification = document.getElementById('notification');
+            notification.innerText = 'Joining Telegram is not available.';
             notification.style.display = 'block';
             setTimeout(function() {
                 notification.style.display = 'none';
