@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support - HDO Pro</title>
+<title>Contact Us - HDO Pro</title>
+<meta property="og:url" content="/support" />
+<meta property="og:title" content="HDO Pro | Support">
+<meta property="og:description" content="Need Support? Contact us.">
+<meta property="og:image" content="/images/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta name="theme-color" content="#8d2249" />
+<link href="style.css" rel="stylesheet" type="text/css" />
 <style>
   body {
     background-color: #3a1653;
@@ -16,17 +23,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    -webkit-user-select: none; /* Disable text selection on Safari/Chrome */
-    -moz-user-select: none; /* Disable text selection on Firefox */
-    -ms-user-select: none; /* Disable text selection on IE/Edge */
-    user-select: none; /* Disable text selection on all browsers */
-  }
-
-  .notification {
-    background-color: rgba(49, 21, 75, 0.8); /* Purple with transparency */
-    color: #ffc0cb;
-    padding: 10px;
-    text-align: center;
   }
 
   .container {
@@ -45,27 +41,15 @@
     margin-top: 20px;
   }
 
-  p {
-    margin-bottom: 10px;
-  }
-
-  /* Style for "crossing out" inputs */
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: rgba(255, 192, 203, 0.3);
+  .notification {
+    background-color: rgba(49, 21, 75, 0.8); /* Purple with transparency */
     color: #ffc0cb;
-    text-decoration: line-through;
-    pointer-events: none; /* Disable typing */
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  input[type="submit"] {
+  .email-button {
     background-color: #7289da;
     color: #ffffff;
     padding: 10px 20px;
@@ -73,13 +57,14 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
   }
 
-  input[type="submit"]:hover {
+  .email-button:hover {
     background-color: #677bc4;
   }
 
-  /* Modal Styling */
   .modal {
     display: none;
     position: fixed;
@@ -119,18 +104,8 @@
     background-color: #677bc4;
   }
 
-  /* Spoiler effect for email */
-  .spoiler {
-    color: transparent;
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: inline-block;
-  }
-
-  .spoiler:hover {
-    color: initial;
-    text-shadow: none;
+  p {
+    margin-bottom: 10px;
   }
 </style>
 <script>
@@ -142,6 +117,10 @@
   // Function to display the modal
   function showModal() {
     document.getElementById('humanCheckModal').style.display = 'block';
+  }
+
+  window.onload = function() {
+    showModal();
   }
 
   // Prevent right-click context menu
@@ -173,14 +152,16 @@
   });
 
   // Disable text selection
-  document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Rick Roll
+    }
   });
 
-  // Prevent developer tools on load
   window.onload = function() {
     showModal();
-    detectDevTools();
+    detectDevTools(); // Check for developer tools on page load
   }
 </script>
 </head>
@@ -193,22 +174,12 @@
   </div>
 </div>
 
-<div class="notification">
-  <p><strong>Alert:</strong> We are not accepting messages at this time on this page.</p>
-</div>
-
 <div class="container">
-  <h1>Support</h1>
-  <p>If you're seeing this, support for HDO Pro is offline right now. </p>
-  <p>For any other inquiries, you may contact us at: <span class="spoiler" onclick="this.classList.remove('spoiler');">hdopro@protonmail.com</span>.</p>
-  <p>Feel free to use the form below for any other questions:</p>
-  <form action="send_email.php" method="post">
-    <input type="text" name="name" placeholder="Your Name" disabled><br>
-    <input type="email" name="email" placeholder="Your Email" disabled><br>
-    <textarea name="message" rows="4" placeholder="Your Message" disabled></textarea><br>
-    <input type="submit" value="Submit" disabled>
-  </form>
+  <h1>Contact Us</h1>
+  <div class="notification">
+    <p>This is meant to be opened on mobile.</p>
+  </div>
+  <a href="mailto:hdopro@protonmail.com" class="email-button">Email Us</a>
 </div>
-
 </body>
 </html>
