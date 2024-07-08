@@ -177,13 +177,15 @@
         function handleGifClick() {
             clickCount++;
             if (clickCount === 1) {
-                speechBubble.innerText = 'Treats';
-                speechBubble.style.display = 'block'; // Show "Treats" speech bubble on first click
+                // Do nothing on the first click
             } else if (clickCount === 2) {
-                speechBubble.innerText = 'Invites?';
-                // No action needed on second click
+                speechBubble.innerText = 'Treats';
+                speechBubble.style.display = 'block'; // Show "Treats" speech bubble on second click
             } else if (clickCount === 3) {
-                window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on third click
+                speechBubble.innerText = 'Invites?';
+                // No action needed on third click
+            } else if (clickCount === 4) {
+                window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on fourth click
             }
         }
 
