@@ -35,7 +35,7 @@
         .container {
             max-width: 800px;
             margin: 100px auto 0;
-            background-color: rgba(51, 51, 51, 0.8);
+            background-color: rgba(102, 51, 153, 0.8); /* Light purple background */
             padding: 15px;
             border-radius: 8px;
             position: relative;
@@ -80,7 +80,7 @@
         .menu a {
             display: block;
             padding: 12px;
-            color: white;
+            color: #fff;
             text-decoration: none;
             font-size: 14px;
         }
@@ -95,6 +95,7 @@
         p {
             font-size: 14px;
             margin-bottom: 10px;
+            color: #dcdcdc;
         }
         .info-box {
             margin: 20px 0;
@@ -107,6 +108,7 @@
             display: block;
             font-size: 16px;
             margin-bottom: 10px;
+            color: #eee;
         }
         .preview-container {
             margin: 20px auto;
@@ -149,10 +151,6 @@
             margin-top: 20px;
             color: #4b0082;
             font-weight: bold;
-            background-color: rgba(153, 51, 153, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid rgba(153, 51, 153, 0.5);
         }
         .footer a {
             color: #4b0082;
@@ -164,6 +162,7 @@
         }
         .footer p {
             margin: 5px 0;
+            color: #dcdcdc;
         }
 
         /* Notification styles */
@@ -232,48 +231,24 @@
             <p>Regular Updates: Frequent updates keep the app running smoothly.</p>
             <p>HD Content: Extensive catalog of HD movies and TV shows.</p>
         </div>
-        <div class="preview-container">
-            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
+        <div class="footer">
+            <p>&copy; 2024 HDO Pro. All rights reserved. | Design by <a href="https://hdopro.netlify.app">HDO Pro Team</a></p>
         </div>
     </div>
-    <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
-        <span class="close-button" id="close-button" onclick="closePreview()">×</span>
-        <img id="fullscreen-image" src="" alt="Fullscreen Preview">
-    </div>
-    <div class="footer">
-        <div style="background-color: rgba(153, 51, 153, 0.1); padding: 10px; border-radius: 8px;">
-            <p><a href="https://hdopro.netlify.app/contact-us">Contact Us</a> | <a href="https://hdopro.netlify.app/support">Support</a></p>
-            <p>iOS (Apple Devices) download area no longer available!</p>
-            <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
-            <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca">Click Here</a>.</p>
-        </div>
-    </div>
+
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('menu');
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
         }
-
-        function openPreview(src) {
-            const previewOverlay = document.getElementById('preview-overlay');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            fullscreenImage.src = src;
-            previewOverlay.style.display = 'flex';
-        }
-
-        function closePreview() {
-            const previewOverlay = document.getElementById('preview-overlay');
-            previewOverlay.style.display = 'none';
-        }
-
-        // Notification functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('notification').style.display = 'block'; // Show notification on page load
-        });
 
         function closeNotification() {
-            var notification = document.getElementById('notification');
-            notification.style.display = 'none'; // Hide notification on button click
+            var notification = document.getElementById("notification");
+            notification.style.display = "none";
         }
     </script>
 </body>
