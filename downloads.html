@@ -26,97 +26,44 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
-        }
-
-        .mist {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('/Images/mist.png') repeat;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 0;
-            animation: moveMist 60s linear infinite;
-        }
-
-        @keyframes moveMist {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .container {
             width: 90%;
-            max-width: 600px; /* Adjust max-width as needed for responsiveness */
+            max-width: 600px;
             background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             padding: 20px;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 1;
             margin-bottom: 20px;
         }
 
-        h1 {
+        .container h1 {
             font-size: 20px;
             margin-bottom: 10px;
         }
 
-        p {
+        .container p {
             font-size: 14px;
             margin-bottom: 10px;
             color: #ddd;
         }
 
-        .gif-container {
-            position: relative;
-            margin: 20px 0;
-        }
-
         .gif-container img {
-            width: 150px; /* Adjust size as needed */
+            width: 150px;
             border-radius: 8px;
             cursor: pointer;
-        }
-
-        .speech-bubble {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            background: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            color: #333;
-            font-size: 12px;
-            display: none;
-            z-index: 10001; /* Higher than the overlay */
-        }
-
-        .speech-bubble:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px;
-            border-style: solid;
-            border-color: #fff transparent transparent transparent;
         }
 
         .loading-dots {
             display: flex;
             justify-content: center;
-            margin-top: 10px; /* Adjust spacing */
+            margin-top: 10px;
         }
 
         .loading-dots .dot {
@@ -153,32 +100,26 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 200px;
             text-align: center;
-            position: relative; /* Added position relative */
-            z-index: 1; /* Ensure buttons are above overlay */
         }
 
         .button-container a:hover {
             background-color: #677BC4;
         }
 
-        .button-container a .info-message {
-            position: absolute;
-            bottom: -20px; /* Adjust as needed */
-            left: 50%;
-            transform: translateX(-50%);
+        .info-message {
             font-size: 12px;
-            margin-top: 5px;
             color: #ddd;
+            margin-top: 10px;
         }
 
         .notification {
-            position: absolute;
-            top: 10px; /* Adjust top position */
+            position: fixed;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
             width: 80%;
-            max-width: 300px; /* Adjust max-width as needed */
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+            max-width: 300px;
+            background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
             padding: 10px 20px;
             text-align: center;
@@ -186,65 +127,14 @@
             z-index: 999;
             border-radius: 5px;
         }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-            display: none;
-            z-index: 1000;
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8); /* Dark, semi-transparent */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            z-index: 1001;
-            display: none;
-            color: #fff; /* Text color */
-        }
-
-        .popup h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .popup p {
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .popup button {
-            background-color: #7289DA;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .popup button:hover {
-            background-color: #677BC4;
-        }
     </style>
 </head>
 <body>
-    <div class="mist"></div>
     <div class="container">
         <h1>HDO Pro Downloads</h1>
         <p>Download the latest versions of HDO Pro.</p>
         <div class="gif-container">
             <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF" onclick="handleGifClick()">
-            <div class="speech-bubble" id="speech-bubble">Please stop</div>
         </div>
         <div class="loading-dots">
             <div class="dot"></div>
@@ -252,43 +142,18 @@
             <div class="dot"></div>
         </div>
         <div class="button-container">
-            <a href="https://hdopro.netlify.app/apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Stable APK
-            </a>
-            <a href="https://hdopro.netlify.app/apk-b" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Beta APK
-            </a>
-            <a href="https://hdopro.netlify.app/apk-tv" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                TV APK
-            </a>
-            <a href="https://hdopro.netlify.app/player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                MediaOn (Old Player)
-            </a>
-            <a href="https://hdopro.netlify.app/player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Dramw Player (New Player)
-            </a>
+            <a href="https://hdopro.netlify.app/apk" target="_blank">Stable APK</a>
+            <a href="https://hdopro.netlify.app/apk-b" target="_blank">Beta APK</a>
+            <a href="https://hdopro.netlify.app/apk-tv" target="_blank">TV APK</a>
+            <a href="https://hdopro.netlify.app/player-apk" target="_blank">MediaOn (Old Player)</a>
+            <a href="https://hdopro.netlify.app/player-apk" target="_blank">Dramw Player (New Player)</a>
             <a href="#" onclick="showNotification()">Anime App</a>
         </div>
-        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly..</p>
+        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly.</p>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="popup-message">
-        <h2>Attention!</h2>
-        <p>Please do not share and respect our privacy.</p>
-        <p>Failure to comply may result in an account or IP ban.</p>
-        <button onclick="closePopup()">Got it</button>
-    </div>
-
     <script>
-        // Popup message show only once per session
-        if (!sessionStorage.getItem('popupShown')) {
-            document.getElementById('popup-overlay').style.display = 'block';
-            document.getElementById('popup-message').style.display = 'block';
-            sessionStorage.setItem('popupShown', true);
-        }
-
         var gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
@@ -296,7 +161,6 @@
 
         var gifElement = document.getElementById('animated-gif');
         var currentGifIndex = 0;
-        var clickCount = 0;
 
         function switchGif() {
             currentGifIndex = (currentGifIndex + 1) % gifs.length;
@@ -304,43 +168,17 @@
         }
 
         function handleGifClick() {
-            clickCount++;
-            if (clickCount === 3) {
-                var bubble = document.getElementById('speech-bubble');
-                bubble.style.display = 'block';
-                setTimeout(function () {
-                    bubble.style.display = 'none';
-                }, 2000); // Adjust duration as needed
-            }
             switchGif();
-            showSpeechBubble();
-        }
-
-        function showSpeechBubble() {
-            var bubble = document.getElementById('speech-bubble');
-            bubble.style.display = 'block';
-            setTimeout(function () {
-                bubble.style.display = 'none';
-            }, 2000); // Adjust duration as needed
+            showNotification();
         }
 
         function showNotification() {
-            var notification = document.getElementById('notification');
+            var notification = document.querySelector('.notification');
             notification.style.display = 'block';
             setTimeout(function () {
                 notification.style.display = 'none';
             }, 3000); // Adjust duration as needed
         }
-
-        function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
-            document.getElementById('popup-message').style.display = 'none';
-        }
-
-        // Automatically switch GIFs every 5 minutes
-        setInterval(function () {
-            switchGif();
-        }, 5 * 60 * 1000); // 5 minutes in milliseconds
     </script>
 </body>
 </html>
