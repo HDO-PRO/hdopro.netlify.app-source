@@ -99,6 +99,7 @@
             color: #333;
             font-size: 12px;
             display: none;
+            z-index: 10001; /* Higher than the overlay */
         }
 
         .speech-bubble:after {
@@ -153,6 +154,7 @@
             width: 200px;
             text-align: center;
             position: relative; /* Added position relative */
+            z-index: 1; /* Ensure buttons are above overlay */
         }
 
         .button-container a:hover {
@@ -184,6 +186,17 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            z-index: 10000;
+            display: none;
+        }
+
         .popup {
             position: fixed;
             top: 50%;
@@ -194,7 +207,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 10000;
+            z-index: 10001; /* Above overlay */
             display: none;
         }
 
@@ -247,100 +260,47 @@
             <a href="#" onclick="showNotification()">Anime App</a>
         </div>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
+        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly..</p>
     </div>
 
     <div id="notification" class="notification">Not available.</div>
 
-    <div id="popup" class="popup">
-        <p>Please do not share or this could turn into an account or IP ban.</p>
-        <button onclick="closePopup()">OK</button>
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup-message">
+        <p>Please do not share or this could result in an account or IP ban.</p>
+        <button onclick="closePopup()">Got it</button>
     </div>
 
     <script>
-        const gifs = [
-            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-        ];
-        
-        const gifElement = document.getElementById('animated-gif');
-        const speechBubble = document.getElementById('speech-bubble');
-        let currentGifIndex = 0;
-        let clickCount = 0;
+        // Popup message show only once per session
+        if (!sessionStorage.getItem('popupShown')) {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup-message').style.display = 'block';
+            sessionStorage.setItem('popupShown', true);
+        }
 
-        function switchGif() {
-            currentGifIndex = (currentGifIndex + 1) % gifs.length;
-            gifElement.src = gifs[currentGifIndex];
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup-message').style.display = 'none';
         }
 
         function handleGifClick() {
-            clickCount++;
-            if (clickCount === 3) {
-                speechBubble.style.display = 'block';
-                setTimeout(() => {
-                    speechBubble.style.display = 'none';
-                    clickCount = 0; // Reset the click count
-                }, 2000);
-            } else {
-                switchGif();
-            }
+            var bubble = document.getElementById('speech-bubble');
+            bubble.style.display = 'block';
+            setTimeout(function() {
+                bubble.style.display = 'none';
+            }, 2000); // Adjust duration as needed
         }
 
-        // Set initial GIF randomly on page load
-        gifElement.src = gifs[currentGifIndex];
-
-        // Switch GIF every 5 minutes (300,000 milliseconds)
-        setInterval(switchGif, 300000);
-
-        // Disable right-click and context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable text selection
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable mouse down events
-        document.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable F12 and other developer tools access
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
-                e.preventDefault();
-            }
-        });
-
-        // Notification function for Anime All button
         function showNotification() {
-            const notification = document.getElementById('notification');
-            
-            // Display notification
-            notification.style.display = 'block';
+            var notification = document.createElement('div');
+            notification.classList.add('notification');
+            notification.innerHTML = 'Anime app download links are not listed here. Please check the downloads section for more info!';
+            document.body.appendChild(notification);
 
-            // Hide notification after 3 seconds (3000 milliseconds)
             setTimeout(function() {
                 notification.style.display = 'none';
-            }, 3000);
-        }
-
-        // Function to show the popup
-        function showPopup() {
-            const popup = document.getElementById('popup');
-            popup.style.display = 'block';
-        }
-
-        // Function to close the popup
-        function closePopup() {
-            const popup = document.getElementById('popup');
-            popup.style.display = 'none';
-        }
-
-        // Show the popup message when the page loads
-        window.onload = function() {
-            showPopup();
+            }, 3000); // Adjust duration as needed
         }
     </script>
 </body>
