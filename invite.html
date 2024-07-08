@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Planned</title>
+    <title>HDO Pro | Invitations</title>
     <meta property="og:url" content="/invite" />
     <meta property="og:title" content="HDO Pro | Invitations">
     <meta property="og:description" content="Invite others to HDO Pro.">
@@ -75,55 +75,37 @@
             color: #ddd;
         }
 
-        .gif-container {
-            margin: 10px 0;
-        }
-
-        .gif-container img {
-            width: 100px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .loading-dots {
+        .button-container {
             display: flex;
             justify-content: center;
-            margin: 10px 0;
+            margin-top: 20px;
         }
 
-        .loading-dots div {
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
+        .button-container a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .button-container img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            margin: 0 3px;
-            animation: dot-blink 1.5s infinite ease-in-out;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .loading-dots div:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .loading-dots div:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes dot-blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
+        .button-container img:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
     <div class="mist"></div>
     <div class="container">
-        <h1>Page Planned</h1>
-        <p>This page is currently being planned and is not available yet.</p>
-        <p>Check back later for updates or click the GIF to return to the home page.</p>
+        <h1>HDO Pro Invitations</h1>
+        <p>Invite others to join HDO Pro.</p>
+        <p>Please note that invites can open and close at any time.</p>
+        <!-- GIF and loading dots container -->
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="redirectToHome()">
         </div>
@@ -131,6 +113,11 @@
             <div></div>
             <div></div>
             <div></div>
+        </div>
+        <!-- Button container for Discord and Telegram -->
+        <div class="button-container">
+            <a href="https://discord.com/" target="_blank"><img src="/Images/discord.png" alt="Discord"></a>
+            <a href="https://telegram.org/" target="_blank"><img src="/Images/telegram.png" alt="Telegram"></a>
         </div>
     </div>
 
