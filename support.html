@@ -66,6 +66,50 @@
     margin: 0 10px;
     opacity: 0.6;
   }
+
+  /* Modal Styling */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: rgba(51, 51, 51, 0.8); /* Darkened background */
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .modal-content h2 {
+    color: #ffc0cb;
+  }
+
+  .modal-content button {
+    background-color: #7289da;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .modal-content button:hover {
+    background-color: #677bc4;
+  }
 </style>
 </head>
 <body>
@@ -83,6 +127,64 @@
   <img src="path/to/instagram-logo.png" alt="Instagram">
   <img src="path/to/linkedin-logo.png" alt="LinkedIn">
 </div>
+
+<!-- Modal -->
+<div id="humanCheckModal" class="modal">
+  <div class="modal-content">
+    <h2>Are you human?</h2>
+    <button onclick="closeModal()">Yes, I am human</button>
+  </div>
+</div>
+
+<script>
+  function closeModal() {
+    document.getElementById('humanCheckModal').style.display = 'none';
+  }
+
+  window.onload = function() {
+    document.getElementById('humanCheckModal').style.display = 'block';
+  }
+
+  // Function to redirect to Rick Roll
+  function redirectToRickRoll() {
+    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  }
+
+  // Check for developer tools
+  function detectDevTools() {
+    const threshold = 160;
+    let start = performance.now();
+    debugger;
+    let end = performance.now();
+    if (end - start > threshold) {
+      redirectToRickRoll();
+    }
+  }
+
+  // Event listeners to detect key combinations
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
+      redirectToRickRoll();
+    }
+  });
+
+  // Prevent right-click context menu
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    redirectToRickRoll();
+  });
+
+  // Disable text selection
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      redirectToRickRoll();
+    }
+  });
+
+  // Monitor for changes in DevTools
+  detectDevTools();
+</script>
 
 </body>
 </html>
