@@ -65,12 +65,40 @@
         }
 
         .gif-container {
+            position: relative;
             margin: 10px 0;
         }
 
         .gif-container img {
             width: 100px;
             border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .speech-bubble {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -150%);
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
         }
 
         .loading-dots {
@@ -114,7 +142,8 @@
         <p>Please check the URL in the address bar.</p>
         <p>What you're looking for may not be here.</p>
         <div class="gif-container">
-            <img id="animated-gif" src="" alt="Dancing Cat GIF">
+            <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
+            <div id="speech-bubble" class="speech-bubble">Invite?</div>
         </div>
         <div class="loading-dots">
             <div></div>
@@ -130,6 +159,8 @@
         ];
         
         const gifElement = document.getElementById('animated-gif');
+        const speechBubble = document.getElementById('speech-bubble');
+        let clickCount = 0;
 
         function getRandomIndex() {
             return Math.floor(Math.random() * gifs.length);
@@ -137,6 +168,17 @@
 
         function switchGif() {
             gifElement.src = gifs[getRandomIndex()];
+        }
+
+        function handleGifClick() {
+            clickCount++;
+            if (clickCount === 1) {
+                switchGif(); // Change GIF on first click
+            } else if (clickCount === 2) {
+                speechBubble.style.display = 'block'; // Show speech bubble on second click
+            } else if (clickCount === 3) {
+                window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on third click
+            }
         }
 
         // Set initial GIF randomly on page load
