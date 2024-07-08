@@ -220,17 +220,33 @@
             }, 3000); // 3000 milliseconds = 3 seconds
         }
 
-        // Prevent right-click and context menu
-        document.addEventListener('contextmenu', function(e) {
+        // Disable right-click and text selection
+          document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
-        });
-
-        // Disable F12 and other developer tools access
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
+          });
+        
+          document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
                 e.preventDefault();
             }
-        });
+          });
+        
+          document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+          });
+        
+          // Prevent dev tools inspection
+          document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+              e.preventDefault();
+            }
+          });
+        
+          // Alert message on inspect element
+            window.addEventListener('devtoolschange', function(event) {
+              document.body.style.display = 'none';
+              alert('Please respect our work! Do not inspect the page.');
+            });
     </script>
 </body>
 </html>
