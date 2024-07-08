@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:url" content="/404" />
     <title>404 Not Found - HDO Pro</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         body {
@@ -14,89 +13,94 @@
             background-size: cover;
             color: #fff;
             text-align: center;
-            padding: 0;
             margin: 0;
-            overflow: hidden; /* Hide scrollbars from animation */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 10px;
         }
+
         .mist {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('/Images/mist.png') repeat; /* Path to your mist image */
+            background: url('/Images/mist.png') repeat;
             opacity: 0.5;
-            pointer-events: none; /* Allow clicks through mist */
-            z-index: 0; /* Ensure mist is behind container */
-            animation: moveMist 60s linear infinite; /* Animate mist */
+            pointer-events: none;
+            z-index: 0;
+            animation: moveMist 60s linear infinite;
         }
+
         @keyframes moveMist {
             0% { background-position: 0 0; }
             100% { background-position: 100% 100%; }
         }
+
         .container {
             position: relative;
-            z-index: 1; /* Ensure container is above mist */
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            z-index: 1;
+            max-width: 90%;
+            width: 400px;
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+            border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
         }
+
         h1 {
+            font-size: 18px;
             color: #ffc0cb;
-            margin-top: 20px;
-        }
-        img.logo {
-            width: 80px; /* Smaller size for the logo */
-            opacity: 0.6; /* Faded effect */
-            margin-bottom: 20px;
-        }
-        img.gif {
-            width: 150px; /* Adjust the size of the GIF */
-            margin-top: 20px;
-        }
-        p {
             margin-bottom: 10px;
         }
-        .warning {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            margin-bottom: 20px;
-            position: relative;
+
+        p {
+            font-size: 14px;
+            color: #ddd;
+            margin: 5px 0;
         }
-        .close {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 20px;
+
+        .logo {
+            width: 60px;
+            opacity: 0.6;
+            margin-bottom: 10px;
         }
-        .redirect-info {
-            color: #ffc0cb;
+
+        .gif {
+            width: 120px;
+            margin: 10px 0;
         }
+
         .loading-dots {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin: 10px 0;
         }
+
         .loading-dots div {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             background-color: #fff;
             border-radius: 50%;
-            margin: 0 5px;
+            margin: 0 3px;
             animation: dot-blink 1.5s infinite ease-in-out;
         }
+
         .loading-dots div:nth-child(2) {
             animation-delay: 0.3s;
         }
+
         .loading-dots div:nth-child(3) {
             animation-delay: 0.6s;
         }
+
         @keyframes dot-blink {
             0%, 100% {
                 opacity: 1;
@@ -108,15 +112,11 @@
     </style>
 </head>
 <body>
-    <div class="mist"></div> <!-- Mist overlay -->
-    <div class="warning">
-        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-        <p>This page will redirect to the home page in 5 seconds...</p>
-    </div>
+    <div class="mist"></div>
     <div class="container">
         <img src="/images/logo.png" alt="Logo" class="logo">
         <h1>Oops! Page Not Found</h1>
-        <p>Was not able to access or connect.</p>
+        <p>Sorry, the page you are looking for could not be found.</p>
         <p>Don't worry, be happy! This page is not lost, it's just exploring new territories.</p>
         <p class="redirect-info">In the meantime, you will be redirected to the home page shortly.</p>
         <img src="/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif" alt="Dancing Cat GIF" class="gif">
