@@ -1,0 +1,12 @@
+# Block all crawlers from the entire site
+User-agent: *
+Disallow: /
+
+# Allow Googlebot to access a specific directory
+# User-agent: Googlebot
+# Disallow:
+# Allow: /public/
+
+# Block a specific crawler from a specific directory
+# User-agent: BadBot
+# Disallow: /private/
