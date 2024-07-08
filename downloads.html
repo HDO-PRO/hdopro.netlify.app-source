@@ -183,6 +183,34 @@
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+            display: none;
+        }
+
+        .popup button {
+            background-color: #7289DA;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #677BC4;
+        }
     </style>
 </head>
 <body>
@@ -222,6 +250,11 @@
     </div>
 
     <div id="notification" class="notification">Not available.</div>
+
+    <div id="popup" class="popup">
+        <p>Please do not share or this could turn into an account or IP ban.</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
 
     <script>
         const gifs = [
@@ -291,6 +324,23 @@
             setTimeout(function() {
                 notification.style.display = 'none';
             }, 3000);
+        }
+
+        // Function to show the popup
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        // Show the popup message when the page loads
+        window.onload = function() {
+            showPopup();
         }
     </script>
 </body>
