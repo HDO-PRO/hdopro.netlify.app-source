@@ -54,6 +54,7 @@
     background-color: rgba(139, 0, 0, 0.7); /* Darker reddish theme for virus scan */
     padding: 15px;
     border-radius: 8px;
+    overflow: hidden; /* Ensures contents do not overflow */
   }
 
   .virus-scan h2 {
@@ -64,6 +65,7 @@
   .virus-scan ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
 
   .virus-scan li {
@@ -72,10 +74,11 @@
   }
 
   .disclaimer {
-    color: #72767d;
+    color: #000000; /* Dark black */
     font-size: 14px;
     text-align: center;
     margin-top: 30px;
+    font-weight: bold; /* Bold font weight */
   }
 
   .links {
