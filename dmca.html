@@ -27,7 +27,7 @@
   .app-container {
     max-width: 800px;
     width: 100%;
-    background-color: rgba(255, 128, 128, 0.5); /* Light red with more transparency */
+    background-color: rgba(139, 0, 0, 0.8); /* Dark red with more transparency */
     backdrop-filter: blur(10px); /* Blur effect for modern browsers */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -70,6 +70,11 @@
     text-decoration: underline;
   }
 
+  .legal-text {
+    color: #000000; /* Dark black */
+    font-weight: bold;
+  }
+
   @media (max-width: 600px) {
     .app-container {
       padding: 10px;
@@ -85,7 +90,7 @@
   <p><strong>Important Notice:</strong> We do not host any media files or servers. All content available through this app is sourced from third-party providers who are responsible for hosting the content.</p>
   <p>Our app is designed to provide users with a convenient way to discover and access media content available on the internet. We comply with all applicable copyright laws and regulations.</p>
   <p>We respect the rights of content creators and copyright holders.</p>
-  <p class="disclaimer">This app is intended for personal use only. We do not endorse or promote illegal activity. Users are responsible for complying with all applicable laws and regulations in their jurisdiction.</p>
+  <p class="disclaimer">This app is intended for personal use only. We do not endorse or promote illegal activity. <span class="legal-text">Users are responsible for complying with all applicable laws and regulations in their jurisdiction.</span></p>
   
   <div class="links">
     <p><a href="/privacy">Privacy and Safety</a></p>
