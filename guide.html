@@ -18,7 +18,7 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(0, 128, 0, 0.1); /* Light see-through green */
+            background-color: rgba(0, 128, 0, 0.2); /* Slightly darker see-through green */
             border-radius: 8px;
             border: 2px solid rgba(0, 128, 0, 0.5); /* Semi-transparent green border */
             box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
@@ -35,25 +35,6 @@
         }
         li {
             margin-bottom: 10px;
-        }
-        .contact {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .contact a {
-            color: purple;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .social-icons img {
-            width: 40px;
-            height: 40px;
-            margin: 0 10px;
-            cursor: not-allowed;
-            opacity: 0.6;
         }
     </style>
 </head>
@@ -94,67 +75,5 @@
         <h2>Step 6: Enjoy!</h2>
         <p>Explore the features of HDO Pro and enjoy using the app.</p>
     </div>
-    
-    <div class="contact">
-        <p>If you need support, please contact us on Discord or Telegram.</p>
-        <p><a href="/DMCA">DMCA</a></p>
-        <p><a href="/privacy">Privacy</a></p>
-    </div>
-    
-    <div class="social-icons">
-        <img src="path/to/facebook-logo.png" alt="Facebook">
-        <img src="path/to/twitter-logo.png" alt="Twitter">
-        <img src="path/to/instagram-logo.png" alt="Instagram">
-        <img src="path/to/linkedin-logo.png" alt="LinkedIn">
-    </div>
-
-    <script>
-        function closeModal() {
-            document.getElementById('humanCheckModal').style.display = 'none';
-        }
-
-        window.onload = function() {
-            document.getElementById('humanCheckModal').style.display = 'block';
-        }
-
-        function redirectToRickRoll() {
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-        }
-
-        function detectDevTools() {
-            const threshold = 160;
-            let start = performance.now();
-            debugger;
-            let end = performance.now();
-            if (end - start > threshold) {
-                redirectToRickRoll();
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
-                redirectToRickRoll();
-            }
-        });
-
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            redirectToRickRoll();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                e.preventDefault();
-                redirectToRickRoll();
-            }
-        });
-
-        detectDevTools();
-
-        window.onload = function() {
-            alert("This is for educational purposes only and we do not link to direct downloads for privacy reasons.");
-            document.getElementById('humanCheckModal').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
