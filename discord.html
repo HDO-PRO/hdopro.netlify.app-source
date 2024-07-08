@@ -72,7 +72,7 @@
   }
 
   /* Modal Styling */
-  .modal {
+  .modal-overlay {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -80,7 +80,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(113, 137, 218, 0.8); /* Blue theme for modal background with transparency */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
   }
 
   .modal-content {
@@ -95,6 +95,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+  }
+
+  .modal-content p {
+    margin-bottom: 10px;
   }
 
   .modal-content button {
@@ -115,12 +123,11 @@
 </head>
 <body>
 <!-- Modal -->
-<div id="humanCheckModal" class="modal">
+<div id="humanCheckModal" class="modal-overlay">
   <div class="modal-content">
-    <h2>Welcome to HDO Pro!</h2>
-    <p>Click below to join our Discord community.</p>
-    <a href="https://discord.com/invite/7aGtmnmc9T" class="discord-btn">Join Discord</a>
-    <button onclick="closeModal()">Close</button>
+    <h2>Are you human?</h2>
+    <p>Please confirm that you are not a robot.</p>
+    <button onclick="closeModal()">Yes, I am human</button>
   </div>
 </div>
 
