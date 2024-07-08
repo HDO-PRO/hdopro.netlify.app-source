@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDO Pro Video Guide</title>
     <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             background-color: #3a1653;
@@ -101,45 +102,41 @@
             console.log(devtools);
         })();
 
-        document.addEventListener("DOMContentLoaded", () => {
+        function checkPassword() {
             const password = "nekochan";
-            const inputPassword = document.getElementById("password");
+            const inputPassword = document.getElementById("password").value;
             const errorMsg = document.getElementById("error-message");
-            const passwordContainer = document.getElementById("password-container");
-            const contentContainer = document.getElementById("content-container");
-
-            function checkPassword() {
-                if (inputPassword.value === password) {
-                    localStorage.setItem("authenticated", "true");
-                    passwordContainer.style.display = "none";
-                    contentContainer.style.display = "block";
-                } else {
-                    errorMsg.style.display = "block";
-                }
+            if (inputPassword === password) {
+                localStorage.setItem("authenticated", "true");
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("content-container").style.display = "block";
+            } else {
+                errorMsg.style.display = "block";
             }
+        }
 
-            function togglePasswordVisibility() {
-                const eyeIcon = document.getElementById("togglePassword");
-                if (inputPassword.type === "password") {
-                    inputPassword.type = "text";
-                    eyeIcon.classList.remove("fa-eye");
-                    eyeIcon.classList.add("fa-eye-slash");
-                } else {
-                    inputPassword.type = "password";
-                    eyeIcon.classList.remove("fa-eye-slash");
-                    eyeIcon.classList.add("fa-eye");
-                }
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.getElementById("togglePassword");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
             }
+        }
 
+        document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("password").addEventListener("keydown", (event) => {
                 if (event.keyCode === 13) checkPassword();
             });
-
             document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
-
             if (localStorage.getItem("authenticated") === "true") {
-                passwordContainer.style.display = "none";
-                contentContainer.style.display = "block";
+                document.getElementById("password-container").style.display = "none";
+                document.getElementById("content-container").style.display = "block";
             }
         });
     </script>
