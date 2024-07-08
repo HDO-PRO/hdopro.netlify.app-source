@@ -146,16 +146,18 @@
         }
 
         .notification {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #333;
             color: #fff;
-            padding: 10px 0;
+            padding: 10px 20px;
             text-align: center;
             display: none;
             z-index: 9999;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -241,12 +243,21 @@
 
         // Notification function for Anime All button
         function showNotification() {
+            const animeAllButton = document.querySelector('.button-container a:last-of-type');
             const notification = document.getElementById('notification');
-            notification.innerText = 'Anime All is not available.';
+            
+            // Position notification under the Anime All button
+            const buttonRect = animeAllButton.getBoundingClientRect();
+            notification.style.top = `${buttonRect.bottom + 10}px`; // Adjust distance from button
+            notification.style.left = `${buttonRect.left}px`;
+
+            // Display notification
             notification.style.display = 'block';
+
+            // Hide notification after 3 seconds (3000 milliseconds)
             setTimeout(function() {
                 notification.style.display = 'none';
-            }, 3000); // 3000 milliseconds = 3 seconds
+            }, 3000);
         }
     </script>
 </body>
