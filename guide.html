@@ -3,116 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDO Pro Video Guide</title>
-    <meta property="og:url" content="/tutorial" />
-    <meta property="og:title" content="HDO Pro | Tutorial">
-    <meta property="og:description" content="Take a look at the installation tutorial of HDO Pro.">
+    <title>Installation Guide - HDO Pro</title>
+    <meta property="og:url" content="/guide" />
+    <meta property="og:title" content="HDO Pro | Guide">
+    <meta property="og:description" content="Take a look at the guide of HDO Pro.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         body {
-            background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
+            background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
             background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            color: #333;
+            color: #fff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             user-select: none; /* Disable text selection */
         }
-        .container, .password-container {
-            background-color: rgba(144, 238, 144, 0.5); /* Very light green with more transparency */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            text-align: center;
-            width: 90%;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
-        .password-container {
-            max-width: 400px;
-        }
-        h1, h2 {
-            color: #333;
-            margin: 0 0 20px 0;
-        }
-        .video-container {
-            position: relative;
-            padding-top: 56.25%; /* 16:9 aspect ratio */
-            margin-bottom: 20px;
-        }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .eye-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-        button {
-            background-color: #4caf50; /* Green color */
-            border: none;
+        .notification {
+            background-color: rgba(0, 128, 0, 0.3); /* Slightly greener */
             color: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        footer {
-            color: #fff; /* White text color */
-            padding: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 90%; /* Wider than the container */
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.3);
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
             text-align: center;
-            width: 100%;
-            position: fixed; /* Fix footer to the bottom */
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
         }
-        footer a {
-            color: #4caf50;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 128, 0, 0.2); /* Slightly darker see-through green */
+            border-radius: 8px;
+            border: 2px solid rgba(0, 128, 0, 0.5); /* Semi-transparent green border */
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+        }
+        h1 {
+            color: #ffc0cb;
+            margin-top: 20px;
+        }
+        p, ul, h2 {
+            text-align: left;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .video-guide {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .video-guide a {
+            color: #ffc0cb;
             text-decoration: none;
+            font-weight: bold;
         }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 600px) {
-            .container, .password-container {
-                width: 100%;
-                padding: 10px;
-            }
-            .password-container {
-                max-width: 100%;
-            }
+        .contact-community {
+            text-align: center;
+            margin-top: 10px;
+            color: #ffc0cb;
         }
     </style>
     <script>
-        // Prevent right-click
+        // Prevent right-click and text selection
         document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // Prevent text selection
         document.addEventListener('selectstart', e => e.preventDefault());
 
-        // Detect DevTools and hide source
+        // Detect DevTools and prevent access
         (function() {
             let devtoolsOpen = false;
             const threshold = 160; // Threshold in px
@@ -130,90 +95,65 @@
             };
             setInterval(checkDevTools, 1000); // Check every second
         })();
-
-        function checkPassword() {
-            const password = "nekochan";
-            const inputPassword = document.getElementById("password").value;
-            const errorMsg = document.getElementById("error-message");
-            if (inputPassword === password) {
-                localStorage.setItem("authenticated", "true");
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content-container").style.display = "block";
-            } else {
-                errorMsg.style.display = "block";
-            }
-        }
-
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById("password");
-            const eyeIcon = document.getElementById("togglePassword");
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("password").addEventListener("keydown", (event) => {
-                if (event.keyCode === 13) checkPassword();
-            });
-            document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
-            if (localStorage.getItem("authenticated") === "true") {
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content-container").style.display = "block";
-            }
-        });
     </script>
 </head>
 <body>
-
-<div class="password-container" id="password-container">
-    <h2>Enter Password</h2>
-    <div style="position: relative;">
-        <input type="password" id="password" placeholder="Password" style="padding-right: 30px;">
-        <i class="fas fa-eye eye-icon" id="togglePassword"></i>
+    <div class="notification">
+        <p>Alert! If you are having trouble updating, go to Step 6.</p>
     </div>
-    <button onclick="checkPassword()">Submit</button>
-    <p id="error-message" style="color:red; display:none;">Incorrect password. Please try again.</p>
-</div>
+    
+    <div class="container">
+        <h1>Installation Guide for HDO Pro</h1>
+        <p>Welcome to the installation guide for the HDO Pro app. Follow the steps below to install the app on your Android device.</p>
 
-<div class="container" id="content-container" style="display: none;">
-    <h1>How to Install HDO Pro</h1>
-    <p>Watch the video below to learn how to install the HDO Pro app and get started with our private and secure community.</p>
-    <div class="video-container">
-        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto">
-            <source src="/video/guide-vid.mp4" type="video/mp4">
-            <p class="vjs-no-js">
-                To view this video, please enable JavaScript and consider upgrading to a web browser that
-                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
-            </p>
-        </video>
-    </div>
-    <div>
-        <h3>Get Started with HDO Pro</h3>
+        <h2>Step 1: Download the App</h2>
+        <p>Visit our official website (links/mega server) and download the latest version of the HDO Pro app for your operating system (Android only). Links are not listed for privacy reasons; please join the community to get links from the servers.</p>
+
+        <h2>Step 2: Install the App</h2>
         <ul>
-            <li>Download the latest HDO Pro app for Android from our website.</li>
-            <li>Install the app by opening the downloaded file.</li>
-            <li>Allow installation from unknown sources if prompted.</li>
-            <li>Launch the app after installation.</li>
-            <li>For updates, uninstall the current version and download the latest from our site.</li>
-            <li>Explore and enjoy HDO Pro!</li>
+            <li><strong>For Android:</strong> Open the downloaded .apk file and follow the on-screen instructions.</li>
+            <li><strong>For iOS (Apple):</strong> No longer available.</li>
         </ul>
 
-        <p>Contact our community for assistance.</p>
+        <h2>Step 3: How to Install an APK</h2>
+        <ul>
+            <li>Download the APK file to your Android device.</li>
+            <li>Open your device's <strong>File Manager</strong> and navigate to the folder where the APK file is located.</li>
+            <li>Tap on the APK file to begin the installation process.</li>
+            <li>You may be prompted to allow installation from unknown sources. If so, follow the instructions to enable this setting.</li>
+            <li>Proceed with the installation by following the on-screen prompts.</li>
+        </ul>
+
+        <h2>Step 4: Allow Installation from Unknown Sources</h2>
+        <p>If you encounter a message saying installation is blocked, you need to allow installation from unknown sources. Follow these steps:</p>
+        <ul>
+            <li>Open <strong>Settings</strong>.</li>
+            <li>Go to <strong>Security</strong> (or <strong>Privacy</strong>).</li>
+            <li>Enable <strong>Unknown Sources</strong>.</li>
+            <li>Confirm the action by tapping <strong>OK</strong>.</li>
+        </ul>
+
+        <h2>Step 5: Launch the App</h2>
+        <p>Once the installation is complete, open the HDO Pro app.</p>
+
+        <h2>Step 6: Updating the App</h2>
+        <p>To update to a new version of HDO Pro (same applies to the player), follow these steps:</p>
+        <ul>
+            <li>Uninstall the current version of HDO Pro from your device.</li>
+            <li>Download the latest version from the official website.</li>
+            <li>Follow the installation steps as outlined above.</li>
+        </ul>
+
+        <h2>Step 7: Enjoy!</h2>
+        <p>Explore the features of HDO Pro and enjoy using the app.</p>
+
+        <div class="video-guide">
+            <p><a href="/tutorial">Video Guide if needed</a></p>
+        </div>
+
+        <div class="contact-community">
+            <p>Contact our community if you need help.</p>
+        </div>
     </div>
-</div>
-
-<footer>
-    <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca">click here</a>.</p>
-</footer>
-
-<script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
-
 </body>
 </html>
