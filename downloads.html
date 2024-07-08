@@ -75,34 +75,15 @@
             color: #ddd;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+        .gif-container {
+            position: relative;
+            margin: 20px 0;
         }
 
-        .button-container a {
-            display: inline-block;
-            margin: 10px;
-            text-decoration: none;
-            color: #fff;
-            background-color: #7289DA;
-            border-radius: 5px;
-            padding: 10px 20px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .button-container a:hover {
-            background-color: #677BC4;
-        }
-
-        .button-container img {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            vertical-align: middle;
+        .gif-container img {
+            width: 150px; /* Adjust size as needed */
+            border-radius: 8px;
+            cursor: pointer;
         }
 
         .loading-dots {
@@ -143,6 +124,14 @@
     <div class="container">
         <h1>HDO Pro Downloads</h1>
         <p>Download the latest versions of HDO Pro.</p>
+        <div class="gif-container">
+            <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
+        </div>
+        <div class="loading-dots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div class="button-container">
             <a href="link-to-stable-apk" target="_blank">
                 <img src="/Images/download.png" alt="Download">
@@ -164,7 +153,48 @@
     </div>
 
     <script>
-        // JavaScript for background animation and other functionalities can be retained from your original template
+        const gifs = [
+            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
+            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
+        ];
+        
+        const gifElement = document.getElementById('animated-gif');
+        let clickCount = 0;
+
+        function getRandomIndex() {
+            return Math.floor(Math.random() * gifs.length);
+        }
+
+        function switchGif() {
+            gifElement.src = gifs[getRandomIndex()];
+        }
+
+        function handleGifClick() {
+            clickCount++;
+            if (clickCount === 1) {
+                // Do nothing on the first click
+            } else if (clickCount === 2) {
+                switchGif(); // Change GIF on second click
+            }
+        }
+
+        // Set initial GIF randomly on page load
+        switchGif();
+
+        // Switch GIF every 5 minutes (300,000 milliseconds)
+        setInterval(switchGif, 300000);
+
+        // Prevent right-click and context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable F12 and other developer tools access
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
