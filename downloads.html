@@ -89,7 +89,7 @@
         .loading-dots {
             display: flex;
             justify-content: center;
-            margin: 10px 0;
+            margin-top: 10px; /* Adjust spacing */
         }
 
         .loading-dots div {
@@ -98,7 +98,7 @@
             background-color: #fff;
             border-radius: 50%;
             margin: 0 3px;
-            animation: dot-blink 1.5s infinite ease-in-out;
+            animation: dot-blink 1.5s infinite ease-in-out alternate; /* Changed animation direction */
         }
 
         .loading-dots div:nth-child(2) {
@@ -128,10 +128,21 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 200px;
             text-align: center;
+            position: relative; /* Added position relative */
         }
 
         .button-container a:hover {
             background-color: #677BC4;
+        }
+
+        .button-container a .info-message {
+            position: absolute;
+            bottom: -20px; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            margin-top: 5px;
+            color: #ddd;
         }
     </style>
 </head>
@@ -160,9 +171,9 @@
             </a>
             <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 New Player
-                <p style="font-size: 12px; margin-top: 5px;">If the button doesn't work or the link is incorrect, please let us know.</p>
             </a>
         </div>
+        <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
     <script>
