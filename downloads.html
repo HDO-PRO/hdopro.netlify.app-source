@@ -109,13 +109,29 @@
             animation-delay: 0.6s;
         }
 
-        @keyframes dot-blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #7289DA;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+        }
+
+        .button-container a:hover {
+            background-color: #677BC4;
         }
     </style>
 </head>
@@ -133,21 +149,18 @@
             <div></div>
         </div>
         <div class="button-container">
-            <a href="link-to-stable-apk" target="_blank">
-                <img src="/Images/download.png" alt="Download">
+            <a href="link-to-stable-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 Stable APK
             </a>
-            <a href="link-to-beta-apk" target="_blank">
-                <img src="/Images/download.png" alt="Download">
+            <a href="link-to-beta-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 Beta APK
             </a>
-            <a href="link-to-old-player-apk" target="_blank">
-                <img src="/Images/download.png" alt="Download">
+            <a href="link-to-old-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 Old Player
             </a>
-            <a href="link-to-new-player-apk" target="_blank">
-                <img src="/Images/download.png" alt="Download">
+            <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 New Player
+                <p style="font-size: 12px; margin-top: 5px;">If the button doesn't work or the link is incorrect, please let us know.</p>
             </a>
         </div>
     </div>
@@ -184,8 +197,18 @@
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
 
-        // Prevent right-click and context menu
+        // Disable right-click and context menu
         document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable mouse down events
+        document.addEventListener('mousedown', function(e) {
             e.preventDefault();
         });
 
