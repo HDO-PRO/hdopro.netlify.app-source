@@ -172,16 +172,19 @@
         }
 
         .notification {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000;
+            position: absolute;
+            top: 10px; /* Adjust top position */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 300px; /* Adjust max-width as needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
             color: #fff;
-            padding: 10px 0;
+            padding: 10px 20px;
             text-align: center;
             display: none;
             z-index: 999;
+            border-radius: 5px;
         }
     </style>
 </head>
