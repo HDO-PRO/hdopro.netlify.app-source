@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support - HDO Pro</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
 <style>
   body {
     background-color: #3a1653;
@@ -13,6 +12,10 @@
     margin: 0;
     padding: 0;
     position: relative;
+    background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .container {
@@ -22,6 +25,7 @@
     background-color: #38124b;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
     text-align: center;
   }
 
@@ -32,6 +36,37 @@
 
   p {
     margin-bottom: 10px;
+  }
+
+  /* Support Button */
+  .support-btn {
+    display: inline-block;
+    background-color: #7289da;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .support-btn:hover {
+    background-color: #677bc4;
+  }
+
+  /* Social Media Icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
   /* Modal Styling */
@@ -74,64 +109,6 @@
     background-color: #677bc4;
   }
 </style>
-<script>
-  // Function to close the modal
-  function closeModal() {
-    document.getElementById('humanCheckModal').style.display = 'none';
-  }
-
-  // Function to redirect to Rick Roll
-  function redirectToRickRoll() {
-    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-  }
-
-  // Check for developer tools
-  function detectDevTools() {
-    const threshold = 160;
-    let start = performance.now();
-    debugger;
-    let end = performance.now();
-    if (end - start > threshold) {
-      redirectToRickRoll();
-    }
-  }
-
-  // Event listeners to detect key combinations
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
-      redirectToRickRoll();
-    }
-  });
-
-  // Prevent right-click context menu
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    redirectToRickRoll();
-  });
-
-  // Disable text selection
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      redirectToRickRoll();
-    }
-  });
-
-  // Function to handle form submission (replace with actual logic)
-  document.addEventListener("DOMContentLoaded", function() {
-    var form = document.querySelector("form");
-    form.addEventListener("submit", function(event) {
-      event.preventDefault(); // Prevent default form submission
-
-      // Display human check modal
-      document.getElementById('humanCheckModal').style.display = 'block';
-    });
-
-    window.onload = function() {
-      detectDevTools(); // Check for developer tools on page load
-    }
-  });
-</script>
 </head>
 <body>
 <!-- Modal -->
@@ -144,15 +121,27 @@
 
 <div class="container">
   <h1>Support</h1>
-  <p>This is the support page of HDO Pro.</p>
-  <p>Have questions or need assistance? Contact us.</p>
-  <form action="send_support_email.php" method="post">
-    <input type="text" name="name" placeholder="Your Name" required><br>
-    <input type="email" name="email" placeholder="Your Email" required><br>
-    <textarea name="message" rows="4" placeholder="Your Message" required></textarea><br>
-    <input type="submit" value="Submit">
-  </form>
+  <p>Need help or assistance? Contact our support team.</p>
+  <p>This page is optimized for mobile devices.</p>
+  <button class="support-btn" onclick="window.location.href='mailto:hdopro@protonmail.com';">Email Support</button>
 </div>
 
+<div class="social-icons">
+  <!-- Placeholder images (replace with actual social icons) -->
+  <img src="path/to/facebook-logo.png" alt="Facebook">
+  <img src="path/to/twitter-logo.png" alt="Twitter">
+  <img src="path/to/instagram-logo.png" alt="Instagram">
+  <img src="path/to/linkedin-logo.png" alt="LinkedIn">
+</div>
+
+<script>
+  function closeModal() {
+    document.getElementById('humanCheckModal').style.display = 'none';
+  }
+
+  window.onload = function() {
+    document.getElementById('humanCheckModal').style.display = 'block';
+  }
+</script>
 </body>
 </html>
