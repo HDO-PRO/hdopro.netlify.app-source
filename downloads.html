@@ -130,6 +130,12 @@
             display: none;
             z-index: 999;
             border-radius: 5px;
+            animation: fadeOut 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         .popup-overlay {
@@ -215,6 +221,10 @@
         <button onclick="closePopup()">Got it</button>
     </div>
 
+    <div class="notification" id="notification">
+        <p>Sorry, the Anime App is currently not available.</p>
+    </div>
+
     <script>
         // Check if popup has been shown in this session
         if (!sessionStorage.getItem('popupShown')) {
@@ -233,7 +243,7 @@
         ];
 
         var gifElement = document.getElementById('animated-gif');
-        var currentGifIndex = Math.floor(Math.random() * gifs.length);
+        var currentGifIndex = 0;
 
         function switchGif() {
             currentGifIndex = (currentGifIndex + 1) % gifs.length;
@@ -241,7 +251,7 @@
         }
 
         function showNotification() {
-            var notification = document.querySelector('.notification');
+            var notification = document.getElementById('notification');
             notification.style.display = 'block';
             setTimeout(function() {
                 notification.style.display = 'none';
