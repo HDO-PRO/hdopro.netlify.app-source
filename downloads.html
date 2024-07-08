@@ -28,32 +28,9 @@
             height: 100vh;
             box-sizing: border-box;
             user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
-        }
-
-        .mist {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('/Images/mist.png') repeat;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 0;
-            animation: moveMist 60s linear infinite;
-        }
-
-        @keyframes moveMist {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
         }
 
         .container {
-            position: relative;
-            z-index: 1;
             max-width: 90%;
             width: 400px;
             background-color: rgba(51, 51, 51, 0.8);
@@ -81,7 +58,7 @@
         }
 
         .gif-container img {
-            width: 150px; /* Adjust size as needed */
+            width: 150px;
             border-radius: 8px;
             cursor: pointer;
         }
@@ -89,7 +66,7 @@
         .loading-dots {
             display: flex;
             justify-content: center;
-            margin-top: 10px; /* Adjust spacing */
+            margin-top: 10px;
         }
 
         .loading-dots div {
@@ -98,15 +75,7 @@
             background-color: #fff;
             border-radius: 50%;
             margin: 0 3px;
-            animation: dot-blink 1.5s infinite ease-in-out alternate; /* Changed animation direction */
-        }
-
-        .loading-dots div:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .loading-dots div:nth-child(3) {
-            animation-delay: 0.6s;
+            animation: dot-blink 1.5s infinite ease-in-out alternate;
         }
 
         .button-container {
@@ -128,7 +97,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 200px;
             text-align: center;
-            position: relative; /* Added position relative */
+            position: relative;
         }
 
         .button-container a:hover {
@@ -137,7 +106,7 @@
 
         .button-container a .info-message {
             position: absolute;
-            bottom: -20px; /* Adjust as needed */
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 12px;
@@ -147,13 +116,11 @@
     </style>
 </head>
 <body>
-    <div class="mist"></div>
     <div class="container">
         <h1>HDO Pro Downloads</h1>
-        <p>Download the latest versions of HDO Pro.</p>
-        <p>Please Read! Stable goes with Old Player & Beta with New!</p>
+        <p><strong>Please Read! Stable goes with Old Player & Beta with New!</strong></p>
         <div class="gif-container">
-            <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
+            <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF" onclick="switchGif()">
         </div>
         <div class="loading-dots">
             <div></div>
@@ -161,18 +128,10 @@
             <div></div>
         </div>
         <div class="button-container">
-            <a href="link-to-stable-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Stable APK
-            </a>
-            <a href="link-to-beta-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Beta APK
-            </a>
-            <a href="link-to-old-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                Old Player
-            </a>
-            <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-                New Player
-            </a>
+            <a href="link-to-stable-apk" target="_blank">Stable APK</a>
+            <a href="link-to-beta-apk" target="_blank">Beta APK</a>
+            <a href="link-to-old-player-apk" target="_blank">Old Player</a>
+            <a href="link-to-new-player-apk" target="_blank">New Player</a>
         </div>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
@@ -182,54 +141,14 @@
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
         ];
-        
-        const gifElement = document.getElementById('animated-gif');
-        let clickCount = 0;
 
-        function getRandomIndex() {
-            return Math.floor(Math.random() * gifs.length);
-        }
+        const gifElement = document.getElementById('animated-gif');
+        let currentGifIndex = 0;
 
         function switchGif() {
-            gifElement.src = gifs[getRandomIndex()];
+            currentGifIndex = (currentGifIndex + 1) % gifs.length;
+            gifElement.src = gifs[currentGifIndex];
         }
-
-        function handleGifClick() {
-            clickCount++;
-            if (clickCount === 1) {
-                // Do nothing on the first click
-            } else if (clickCount === 2) {
-                switchGif(); // Change GIF on second click
-            }
-        }
-
-        // Set initial GIF randomly on page load
-        switchGif();
-
-        // Switch GIF every 5 minutes (300,000 milliseconds)
-        setInterval(switchGif, 300000);
-
-        // Disable right-click and context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable text selection
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable mouse down events
-        document.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable F12 and other developer tools access
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && (e.key === 'I' || e.key === 'U' || e.key === 'C'))) {
-                e.preventDefault();
-            }
-        });
     </script>
 </body>
 </html>
