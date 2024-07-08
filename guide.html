@@ -13,6 +13,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            user-select: none; /* Disable text selection */
         }
         .notification {
             background-color: rgba(0, 128, 0, 0.3); /* Slightly greener */
@@ -64,6 +65,30 @@
             color: #ffc0cb;
         }
     </style>
+    <script>
+        // Prevent right-click and text selection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+
+        // Detect DevTools and prevent access
+        (function() {
+            let devtoolsOpen = false;
+            const threshold = 160; // Threshold in px
+            const checkDevTools = () => {
+                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        alert("Access to developer tools is restricted.");
+                        // Optionally: redirect or hide content
+                        document.body.innerHTML = "<h1>Access Restricted</h1>";
+                    }
+                } else {
+                    devtoolsOpen = false;
+                }
+            };
+            setInterval(checkDevTools, 1000); // Check every second
+        })();
+    </script>
 </head>
 <body>
     <div class="notification">
