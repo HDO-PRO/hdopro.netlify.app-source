@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDO Pro - Private Community</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
         @keyframes shake {
@@ -25,30 +25,22 @@
             height: 100%;
             margin: 0;
             padding: 0;
-        }
-
-        body {
             font-family: Arial, sans-serif;
-            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-            background-size: cover;
             color: #fff;
             text-align: center;
-            padding: 0;
-            position: relative;
-            min-height: 100vh;
+            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
         }
 
         .container {
             max-width: 800px;
             margin: 100px auto 0;
-            background-color: rgba(51, 51, 51, 0.8);
             padding: 15px;
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
-            position: relative;
-            z-index: 1;
-            padding-top: 60px;
             border: 2px solid rgba(153, 51, 153, 0.5);
             box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
+            position: relative;
         }
 
         .logo {
@@ -58,10 +50,9 @@
             width: 40px;
             height: 40px;
             opacity: 0.5;
-            z-index: 2;
         }
 
-        .menu-button {
+        .menu-button, .clear-button {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -73,7 +64,6 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            z-index: 2;
         }
 
         .menu {
@@ -84,7 +74,6 @@
             background-color: #4b0082;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 2;
         }
 
         .menu a {
@@ -99,37 +88,7 @@
             background-color: #800080;
         }
 
-        h1 {
-            font-size: 22px;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .info-box {
-            margin: 20px 0;
-        }
-
-        .info-box p {
-            color: #fff;
-            font-size: 14px;
-        }
-
-        .info-box strong {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .preview-container {
-            margin: 20px auto;
-        }
-
-        .preview-container img {
+        .preview-container img, .preview-overlay img {
             width: 120px;
             height: auto;
             cursor: pointer;
@@ -143,17 +102,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            background: rgba(0, 0, 0, 0.7);
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            text-align: center;
-        }
-
-        .preview-overlay img {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 10px;
         }
 
         .preview-overlay .close-button {
@@ -163,18 +115,17 @@
             font-size: 30px;
             color: white;
             cursor: pointer;
-            z-index: 1001;
-            animation: shake 0.5s; /* Apply shake animation */
+            animation: shake 0.5s;
         }
 
         .footer {
             margin-top: 20px;
-            color: #fff;
-            font-weight: bold;
-            background-color: rgba(153, 51, 153, 0.2);
             padding: 15px;
+            background-color: rgba(153, 51, 153, 0.2);
             border-radius: 8px;
             border: 2px solid rgba(153, 51, 153, 0.5);
+            color: #fff;
+            font-weight: bold;
         }
 
         .footer a {
@@ -187,42 +138,29 @@
             text-decoration: underline;
         }
 
-        .footer p {
-            margin: 5px 0;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        /* Notification styles */
         .notification {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #800080; /* Purple background */
+            background-color: #800080;
             color: white;
             text-align: center;
             padding: 10px 0;
             z-index: 1000;
-            display: none; /* Initially hidden */
+            display: none;
         }
 
         .clear-button {
-            background-color: #f44336; /* Red button */
-            border: none;
-            color: white;
+            background-color: #f44336;
             padding: 8px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
             font-size: 14px;
             border-radius: 3px;
-            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .clear-button:hover {
-            background-color: #d32f2f; /* Darker red on hover */
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -249,7 +187,7 @@
         <h1>Welcome to HDO Pro</h1>
         <p>This is a private, secure connection.</p>
         <p>This is a private community. If you are a part of this, you may know what to do.</p>
-        <div class="info-box">
+        <div>
             <p><strong>About This App</strong></p>
             <p>HDO Pro is the top choice for watching HD movies and shows on any device. Its user-friendly interface and responsive design make finding your favorite content a breeze.</p>
             <p>Key Features:</p>
@@ -263,18 +201,21 @@
             <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
         </div>
     </div>
+
     <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
         <span class="close-button" id="close-button" onclick="closePreview()">×</span>
         <img id="fullscreen-image" src="" alt="Fullscreen Preview">
     </div>
+
     <div class="footer">
         <div style="background-color: rgba(153, 51, 153, 0.1); padding: 10px; border-radius: 8px;">
-            <p><a href="https://hdopro.netlify.app/contact-us" style="color: #ffffff; font-weight: bold;">Contact Us</a> | <a href="https://hdopro.netlify.app/support" style="color: #ffffff; font-weight: bold;">Support</a></p>
-            <p><span style="color: #ffffff; font-weight: bold;">iOS (Apple Devices) download area no longer available!</span></p>
-            <p><span style="color: #ffffff; font-weight: bold;">Download links are not listed on this page for privacy reasons. Please join the community to gain access.</span></p>
-            <p><span style="color: #ffffff; font-weight: bold;">We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca" style="color: #ffffff; font-weight: bold;">Click Here</a>.</span></p>
+            <p><a href="https://hdopro.netlify.app/contact-us">Contact Us</a> | <a href="https://hdopro.netlify.app/support">Support</a></p>
+            <p>iOS (Apple Devices) download area no longer available!</p>
+            <p>Download links are not listed on this page for privacy reasons. Please join the community to gain access.</p>
+            <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA info <a href="https://hdopro.netlify.app/dmca">Click Here</a>.</p>
         </div>
     </div>
+
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
@@ -293,15 +234,14 @@
             previewOverlay.style.display = 'none';
         }
 
-        // Notification functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('notification').style.display = 'block'; // Show notification on page load
-        });
-
         function closeNotification() {
             var notification = document.getElementById('notification');
-            notification.style.display = 'none'; // Hide notification on button click
+            notification.style.display = 'none';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('notification').style.display = 'block';
+        });
     </script>
 </body>
 </html>
