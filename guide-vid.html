@@ -1,335 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:url" content="/guide-vid" />
-<title>HDO Pro Video Guide</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
-<meta name="description" content="Watch the video guide to learn how to install the HDO Pro app.">
-<meta property="og:title" content="HDO Pro Video Guide">
-<meta property="og:description" content="Watch the video guide to learn how to install the HDO Pro app.">
-<meta property="og:image" content="/images/logo.png">
-<meta property="og:image:type" content="image/png">
-<script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;type=content-script&amp;dmn=neocities.org&amp;url=https%3A%2F%2Fneocities.org%2Fsite_files%2Fdownload%2Fguide-vid.html%3F_%3D1719988489644&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-dnt"></script>
-<script type="text/javascript" nonce="3c58eb908f674b42abb5331518d" src="//local.adguard.org?ts=1719987099313&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script><link rel="icon" href="/images/logo.png" type="image/png">
-<link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-  body {
-    background-color: #3a1653;
-    color: #ffc0cb;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="/guide-vid" />
+    <title>HDO Pro Video Guide</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="Watch the video guide to learn how to install the HDO Pro app.">
+    <meta property="og:title" content="HDO Pro Video Guide">
+    <meta property="og:description" content="Watch the video guide to learn how to install the HDO Pro app.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #3a1653;
+            color: #ffc0cb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-  .container {
-    max-width: 800px;
-    width: 90%;
-    padding: 20px;
-    background-color: #38124b;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: none;
-    margin-bottom: 20px;
-  }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            background-color: #38124b;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+            margin-bottom: 20px;
+        }
 
-  .visible {
-    opacity: 1;
-  }
+        .visible {
+            opacity: 1;
+        }
 
-  h1 {
-    color: #ffc0cb;
-    margin-top: 20px;
-    text-align: center;
-  }
+        h1 {
+            color: #ffc0cb;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-  p {
-    margin-bottom: 10px;
-    text-align: center;
-  }
+        p {
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
-  .video-container {
-    position: relative;
-    padding-top: 56.25%; /* 16:9 aspect ratio (height: 9/16 * width) */
-    overflow: hidden;
-    max-width: 100%;
-    margin: 0 auto;
-    max-height: 60vh; /* Adjust height as needed */
-  }
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+            max-width: 100%;
+            margin: 0 auto;
+            max-height: 60vh; /* Adjust height as needed */
+        }
 
-  .video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
 
-  .video-container .video-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+        .video-container .video-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-  .video-container:after {
-    content: "";
-    background: url('/images/logo.png') no-repeat;
-    background-size: contain;
-    opacity: 0.2;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 80px; /* Adjust size of the watermark */
-    height: 80px; /* Adjust size of the watermark */
-    z-index: 1;
-    pointer-events: none; /* Prevents watermark from being interactive */
-  }
+        .video-container:after {
+            content: "";
+            background: url('/images/logo.png') no-repeat;
+            background-size: contain;
+            opacity: 0.2;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 80px; /* Adjust size of the watermark */
+            height: 80px; /* Adjust size of the watermark */
+            z-index: 1;
+            pointer-events: none; /* Prevents watermark from being interactive */
+        }
 
-  .error-message {
-    color: #ff0000;
-    font-size: 18px;
-    margin-top: 20px;
-    text-align: center;
-  }
+        .error-message {
+            color: #ff0000;
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-  footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    background-color: rgba(58, 22, 83, 0.8);
-    font-size: 14px;
-    color: #aaa;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: rgba(58, 22, 83, 0.8);
+            font-size: 14px;
+            color: #aaa;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
 
-  footer a {
-    color: #ffc0cb;
-    text-decoration: none;
-  }
+        footer a {
+            color: #ffc0cb;
+            text-decoration: none;
+        }
 
-  footer a:hover {
-    color: #ff69b4;
-  }
+        footer a:hover {
+            color: #ff69b4;
+        }
 
-  .password-prompt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #3a1653;
-  }
+        .password-prompt {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #3a1653;
+        }
 
-  .password-container {
-    text-align: center;
-    background-color: #38124b;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 20px;
-  }
+        .password-container {
+            text-align: center;
+            background-color: #38124b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
 
-  .password-container input[type="password"] {
-    width: calc(100% - 40px);
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    padding-right: 40px; /* Space for eye icon */
-  }
+        .password-container input[type="password"] {
+            width: calc(100% - 40px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            padding-right: 40px; /* Space for eye icon */
+        }
 
-  .password-container .eye-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    z-index: 1; /* Ensure eye icon stays above input */
-  }
+        .password-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 1; /* Ensure eye icon stays above input */
+        }
 
-  .password-container button {
-    width: 100%;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #5a2c6d;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
+        .password-container button {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5a2c6d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
 
-  .hint-container {
-    margin-top: 10px;
-  }
+        .hint-container {
+            margin-top: 10px;
+        }
 
-  .hint-container p {
-    display: none;
-    color: #ffc0cb;
-  }
+        .hint-container p {
+            display: none;
+            color: #ffc0cb;
+        }
 
-  .hint-container button {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: underline;
-    margin-top: 5px;
-  }
+        .hint-container button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            margin-top: 5px;
+        }
 
-  .hint-container button:focus {
-    outline: none;
-  }
+        .hint-container button:focus {
+            outline: none;
+        }
 
-  .hint-container button:hover {
-    color: #ff69b4;
-  }
+        .hint-container button:hover {
+            color: #ff69b4;
+        }
 
-  .why-password {
-    text-align: center;
-    color: #ccc;
-    font-size: 14px;
-    margin-top: 20px;
-  }
+        .why-password {
+            text-align: center;
+            color: #ccc;
+            font-size: 14px;
+            margin-top: 20px;
+        }
 
-  @media screen and (max-width: 600px) {
-    .container {
-      width: 100%;
-    }
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100%;
+            }
 
-    .video-container {
-      max-height: calc(100vh - 200px); /* Adjust to fit screen without scrolling */
-    }
+            .video-container {
+                max-height: calc(100vh - 200px); /* Adjust to fit screen without scrolling */
+            }
 
-    .password-container {
-      max-width: 300px;
-    }
-  }
-</style>
+            .password-container {
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 <body class="dark-mode">
 
 <div class="password-prompt" id="password-prompt">
-  <div class="password-container">
-    <h2>Enter Password</h2>
-    <div style="position: relative;">
-      <input type="password" id="password" placeholder="Password" onkeydown="if(event.keyCode==13) checkPassword()">
-      <i class="fas fa-eye eye-icon" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+    <div class="password-container">
+        <h2>Enter Password</h2>
+        <div style="position: relative;">
+            <input type="password" id="password" placeholder="Password" onkeydown="if(event.keyCode==13) checkPassword()">
+            <i class="fas fa-eye eye-icon" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+        </div>
+        <button onclick="checkPassword()">Submit</button>
+        <div class="hint-container">
+            <button onclick="showHint()">Show Hint</button>
+            <p id="hint">The word is 😸chan</p>
+        </div>
+        <p id="error-message" style="color:red; display:none;">Incorrect password. Please try again.</p>
     </div>
-    <button onclick="checkPassword()">Submit</button>
-    <div class="hint-container">
-      <button onclick="showHint()">Show Hint</button>
-      <p id="hint">The word is 😸chan</p>
+    <div class="why-password">
+        <p>Why do I need a password? This video guide contains sensitive information and is intended for private viewing to ensure privacy and security.</p>
+        <p>If you need help, please contact support or the community, which may be available on the home page.</p>
     </div>
-    <p id="error-message" style="color:red; display:none;">Incorrect password. Please try again.</p>
-  </div>
-  <div class="why-password">
-    <p>Why do I need a password? This video guide contains sensitive information and is intended for private viewing to ensure privacy and security.</p>
-    <p>If you need help, please contact support or the community, which may be available on the home page.</p>
 </div>
 
 <div class="container" id="content-container">
-  <h1>How to Install HDO Pro</h1>
-  <p>Watch the video below to learn how to install the HDO Pro app and get started with our private and secure community.</p>
+    <h1>How to Install HDO Pro</h1>
+    <p>Watch the video below to learn how to install the HDO Pro app and get started with our private and secure community.</p>
 
-  <!-- Video Embed -->
-  <div class="video-container">
-    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="YOUR_POSTER_IMAGE_URL">
-      <source src="/videos/guide-vid.mp4" type="video/mp4" />
-      <p class="vjs-no-js">
-        To view this video, please enable JavaScript and consider upgrading to a web browser that
-        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
-      </p>
-    </video>
-    <div id="error-message-video" class="error-message" style="display:none;">
-      The video failed to load. Please try again later.
+    <!-- Video Embed -->
+    <div class="video-container">
+        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" poster="YOUR_POSTER_IMAGE_URL">
+            <source src="/videos/guide-vid.mp4" type="video/mp4" />
+            <p class="vjs-no-js">
+                To view this video, please enable JavaScript and consider upgrading to a web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
+            </p>
+        </video>
+        <div id="error-message-video" class="error-message" style="display:none;">
+            The video failed to load. Please try again later.
+        </div>
     </div>
-  </div>
 </div>
 
 <footer>
-  <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca">click here</a>.</p>
-</footer>
-
-<script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
-<script>
-  // Initialize video.js manually to ensure proper setup
-  var player = videojs('my-video', {
-    playbackRates: [0.5, 1, 1.5, 2], // Define playback rates
-    controlBar: {
-      volumePanel: {
-        inline: false // Ensure volume panel is not inline
-      }
-    }
-  });
-
-  // Set default volume to 50%
-  player.volume(0.5);
-
-  // Check if already authenticated
-  var authenticated = localStorage.getItem("authenticated");
-  if (authenticated === "true") {
-    showContent();
-  }
-
-  function checkPassword() {
-    var password = document.getElementById("password").value;
-    if (password === "nekochan") {
-      // Store authentication status
-      localStorage.setItem("authenticated", "true");
-      // Show content
-      showContent();
-    } else {
-      document.getElementById("error-message").style.display = "block";
-    }
-  }
-
-  function showContent() {
-    document.getElementById("password-prompt").style.display = "none";
-    document.getElementById("content-container").style.display = "block";
-    document.getElementById("content-container").classList.add("visible");
-  }
-
-  function togglePasswordVisibility() {
-    var passwordInput = document.getElementById("password");
-    var eyeIcon = document.getElementById("togglePassword");
-
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    }
-  }
-
-  function showHint() {
-    var hint = document.getElementById("hint");
-    hint.style.display = "block";
-  }
-</script>
-
-</body>
-</html>
+    <p>We do not host the content or servers provided in this app, nor do we host any streams. For more DMCA information, <a href="/dmca
