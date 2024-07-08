@@ -84,18 +84,66 @@
         .button-container a {
             display: inline-block;
             margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #7289DA;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container a:hover {
+            background-color: #677BC4;
         }
 
         .button-container img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
-        .button-container img:hover {
-            transform: scale(1.1);
+        .gif-container img {
+            width: 150px; /* Adjust the width of the GIF */
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .loading-dots div {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: dot-blink 1.5s infinite ease-in-out;
+        }
+
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -116,9 +164,20 @@
         </div>
         <!-- Button container for Discord and Telegram -->
         <div class="button-container">
-            <a href="https://discord.com/" target="_blank"><img src="/Images/discord.png" alt="Discord"></a>
-            <a href="https://telegram.org/" target="_blank"><img src="/Images/telegram.png" alt="Telegram"></a>
+            <a href="https://discord.gg/Z3Qb5se8" target="_blank">
+                <img src="/Images/discord.png" alt="Discord">
+                Join us on Discord
+            </a>
+            <a href="javascript:void(0)" onclick="showTelegramNotification()">
+                <img src="/Images/telegram.png" alt="Telegram">
+                Join us on Telegram
+            </a>
         </div>
+    </div>
+
+    <!-- Notification for Telegram invite -->
+    <div id="telegram-notification" class="notification">
+        Invite not available at this time.
     </div>
 
     <script>
@@ -146,6 +205,15 @@
 
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
+
+        // Show Telegram invite not available notification
+        function showTelegramNotification() {
+            const notification = document.getElementById('telegram-notification');
+            notification.style.display = 'block';
+            setTimeout(function() {
+                notification.style.display = 'none';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
 
         // Prevent right-click and context menu
         document.addEventListener('contextmenu', function(e) {
