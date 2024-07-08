@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0;url=https://mega.nz/folder/1WMlWBCR#uf2IBLjCUtZHm--PC7Rieg">
+    <meta property="og:url" content="/apk" />
+    <meta property="og:title" content="HDO Pro | Apk">
+    <meta property="og:description" content="Download the apk of HDO Pro.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 12px;
+            background: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        a {
+            color: #bb86fc;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff4081;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.4), transparent);
+            z-index: -1;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            redirectToRickRoll();
+        });
+
+        // Disable text selection
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+
+        // Redirect to Rick Roll if DevTools are opened
+        let threshold = 160;
+        let start = performance.now();
+        debugger;
+        let end = performance.now();
+        if (end - start > threshold) {
+            redirectToRickRoll();
+        }
+
+        // Detect key combinations for DevTools
+        document.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
+                redirectToRickRoll();
+            }
+        });
+
+        // Detect right-click and prevent context menu
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            redirectToRickRoll();
+        });
+
+        // Redirect function
+        function redirectToRickRoll() {
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <p>You are being redirected to the download page. If you are not redirected automatically, <a href="https://mega.nz/folder/1WMlWBCR#uf2IBLjCUtZHm--PC7Rieg">click here</a>.</p>
+        <p>Contact our community if you need help.</p>
+    </div>
+</body>
+</html>
