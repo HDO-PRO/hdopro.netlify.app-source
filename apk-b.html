@@ -103,6 +103,13 @@
         function redirectToRickRoll() {
             window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
         }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+                redirectToRickRoll();
+            }
+        });
     </script>
 </head>
 <body>
