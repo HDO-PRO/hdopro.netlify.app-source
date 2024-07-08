@@ -92,12 +92,13 @@
             margin-top: 10px; /* Adjust spacing */
         }
 
-        .loading-dots div {
+        .loading-dots .dot {
             width: 8px;
             height: 8px;
             background-color: #fff;
             border-radius: 50%;
             margin: 0 3px;
+            opacity: 0.2;
             animation: dot-blink 1.5s infinite ease-in-out alternate;
         }
 
@@ -144,9 +145,6 @@
 
         .notification {
             position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
             background-color: #333;
             color: #fff;
             padding: 10px 20px;
@@ -185,12 +183,12 @@
             <a href="link-to-new-player-apk" target="_blank" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 New Player
             </a>
-            <a href="#" onclick="showNotification()">Anime App</a>
+            <a href="#" onclick="showNotification()">Anime All</a>
         </div>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 
-    <div id="notification" class="notification">This app is not available.</div>
+    <div id="notification" class="notification">This feature is not available.</div>
 
     <script>
         const gifs = [
@@ -243,10 +241,10 @@
             const animeAllButton = document.querySelector('.button-container a:last-of-type');
             const notification = document.getElementById('notification');
             
-            // Position notification directly under the Anime All button
+            // Position notification centered under the Anime All button
             const buttonRect = animeAllButton.getBoundingClientRect();
             notification.style.top = `${buttonRect.bottom}px`; // Adjust distance from button
-            notification.style.left = `${buttonRect.left}px`;
+            notification.style.left = `${buttonRect.left + (animeAllButton.offsetWidth - notification.offsetWidth) / 2}px`;
 
             // Display notification
             notification.style.display = 'block';
