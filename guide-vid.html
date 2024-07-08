@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDO Pro Video Guide</title>
     <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             background-color: #3a1653;
@@ -17,7 +16,6 @@
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            flex-direction: column;
             overflow: hidden;
             user-select: none; /* Disable text selection */
         }
@@ -29,7 +27,6 @@
             text-align: center;
             width: 90%;
             max-width: 800px;
-            margin-bottom: 20px;
         }
         .password-container {
             max-width: 400px;
@@ -40,8 +37,7 @@
         }
         .video-container {
             position: relative;
-            padding-top: 56.25%;
-            max-height: 60vh;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
             margin-bottom: 20px;
         }
         .video-container video {
@@ -77,8 +73,9 @@
             color: #aaa;
             padding: 10px;
             text-align: center;
-            position: relative;
             width: 100%;
+            position: absolute;
+            bottom: 0;
         }
         footer a {
             color: #ffc0cb;
@@ -90,20 +87,16 @@
     </style>
     <script>
         // Prevent right-click
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
         // Prevent text selection
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
+        document.addEventListener('selectstart', e => e.preventDefault());
 
-        // Detect and prevent DevTools inspection
+        // Detect DevTools
         (function() {
-            var devtools = /./;
+            const devtools = /./;
             devtools.toString = function() {
-                window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Rickroll link
+                alert("Access to developer tools is restricted.");
             };
             console.log(devtools);
         })();
@@ -182,5 +175,6 @@
 </footer>
 
 <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+
 </body>
 </html>
