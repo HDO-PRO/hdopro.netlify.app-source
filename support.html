@@ -16,6 +16,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    -webkit-user-select: none; /* Disable text selection on Safari/Chrome */
+    -moz-user-select: none; /* Disable text selection on Firefox */
+    -ms-user-select: none; /* Disable text selection on IE/Edge */
+    user-select: none; /* Disable text selection on all browsers */
   }
 
   .notification {
@@ -169,16 +173,14 @@
   });
 
   // Disable text selection
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Rick Roll
-    }
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
   });
 
+  // Prevent developer tools on load
   window.onload = function() {
     showModal();
-    detectDevTools(); // Check for developer tools on page load
+    detectDevTools();
   }
 </script>
 </head>
