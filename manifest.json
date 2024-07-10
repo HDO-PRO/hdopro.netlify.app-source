@@ -1,0 +1,57 @@
+{
+  "name": "HDO Pro Mod",
+  "short_name": "HDO Pro Mod",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#352b58",
+  "theme_color": "#fb36ad",
+  "orientation": "portrait",
+  "description": "HDO Pro Mod - The ultimate high-definition online experience with TV shows, series, anime, and cartoons.",
+  "screenshots": [
+    {
+      "src": "/images/android1-upscale.png",
+      "sizes": "640x480",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["entertainment", "video"],
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "168x168",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "dir": "ltr",
+  "lang": "en-US"
+}
