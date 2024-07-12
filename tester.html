@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDO Pro | Downloads</title>
+    <meta property="og:url" content="/downloads" />
+    <meta property="og:title" content="HDO Pro | Downloads">
+    <meta property="og:description" content="Download HDO Pro APKs">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/Images/logo.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(51, 51, 51, 0.8);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .container h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .container p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .gif-container img {
+            width: 150px;
+            border-radius: 8px;
+            cursor: pointer;
+            pointer-events: none; /* Prevent click */
+            -webkit-user-drag: none; /* Prevent drag and drop */
+            user-drag: none;
+            -webkit-touch-callout: none; /* Prevent long tap context menu */
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .loading-dots .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 3px;
+            opacity: 0.2;
+            animation: dot-blink 1.5s infinite ease-in-out alternate;
+        }
+
+        @keyframes dot-blink {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #7289DA;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+        }
+
+        .button-container a:hover {
+            background-color: #677BC4;
+        }
+
+        .info-message {
+            font-size: 12px;
+            color: #ddd;
+            margin-top: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: -100%; /* Initially hidden */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 300px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            z-index: 999;
+            border-radius: 5px;
+            transition: bottom 0.5s ease-in-out;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            z-index: 1001;
+            display: none;
+            color: #fff;
+            text-align: center;
+        }
+
+        .popup h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .popup button {
+            background-color: #7289DA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #677BC4;
+        }
+
+        /* Music player styles */
+        .music-player {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HDO Pro Downloads</h1>
+        <p>Download the latest versions of HDO Pro.</p>
+        <div class="gif-container">
+            <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF">
+        </div>
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="button-container">
+            <a href="/apk" target="_blank" rel="noopener noreferrer">Stable APK</a>
+            <a href="/apk-b" target="_blank" rel="noopener noreferrer">Beta APK</a>
+            <a href="/apk-tv" target="_blank" rel="noopener noreferrer">TV APK</a>
+            <a href="https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/folder/9OsXwQiQ" target="_blank" rel="noopener noreferrer">MediaOn (Old Player)</a>
+            <a href="https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/folder/VekAUQKI" target="_blank" rel="noopener noreferrer">Drama Player (New Player)</a>
+            <a href="#" onclick="showNotification()">Anime App</a>
+        </div> 
+        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly.</p>
+        <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
+    </div>
+
+    <!-- Popup Overlay and Message -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup-message">
+        <h2>Attention!</h2>
+        <p>Please do not share and respect our privacy.</p>
+        <p>Failure to comply may result in an account or IP ban.</p>
+        <button onclick="toggleMusic()">Got it</button>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <p>Sorry, the Anime App is currently not available.</p>
+    </div>
+
+    <!-- Music Player -->
+    <audio class="music-player" id="music-player" loop>
+        <source src="/path/to/your/music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Check if popup has been shown in this session
+        if (!sessionStorage.getItem('popupShown')) {
+            showPopup();
+        }
+
+        function showPopup() {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup-message').style.display = 'block';
+            sessionStorage.setItem('popupShown', true);
+        }
+
+        var gifs = [
+            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
+            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
+        ];
+
+        var gifElement = document.getElementById('animated-gif');
+        var currentGifIndex = 0;
+
+        function switchGif() {
+            currentGifIndex = (currentGifIndex + 1) % gifs.length;
+            gifElement.src = gifs[currentGifIndex];
+        }
+
+        function showNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.bottom = '10px'; // Slide up animation
+            setTimeout(function () {
+                notification.style.bottom = '-100%'; // Slide down animation
+            }, 5000); // 5 seconds
+        }
+
+        function toggleMusic() {
+            var musicPlayer = document.getElementById('music-player');
+            var popupMessage = document.getElementById('popup-message');
+            
+            if (musicPlayer.paused) {
+                musicPlayer.play();
+                popupMessage.style.display = 'none'; // Hide the popup message when music starts
+            } else {
+                musicPlayer.pause();
+            }
+        }
+
+        // Automatically switch GIFs every 5 minutes or on page load
+        switchGif(); // Initial load
+        setInterval(switchGif, 5 * 60 * 1000); // 5 minutes
+
+        // Disable right-click and text selection
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+
+        // Prevent dev tools inspection
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+
+        // Alert message on inspect element
+        window.addEventListener('devtoolschange', function(event) {
+            document.body.style.display = 'none';
+            alert('Please respect our work! Do not inspect the page.');
+        });
+    </script>
+</body>
+</html>
