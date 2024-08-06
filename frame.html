@@ -54,8 +54,8 @@
             border: 1px solid #ccc;
             margin-bottom: 20px;
             background-color: #121212;
-            width: 300px; /* Ensure consistent size */
-            height: 600px; /* Ensure consistent size */
+            width: 300px; /* Smaller size for mobile */
+            height: 600px; /* Smaller size for mobile */
         }
         button {
             padding: 8px 16px;
@@ -106,7 +106,7 @@
         const downloadButton = document.getElementById('downloadButton');
 
         const androidFrame = new Image();
-        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Samsung Note 10 frame image URL
+        androidFrame.src = 'https://via.placeholder.com/300x600.png?text=Samsung+Note+10+Frame'; // Replace with your actual Samsung Note 10 frame image URL
 
         const drawFrame = () => {
             ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
@@ -117,16 +117,17 @@
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
-                    // Create a temporary canvas to handle high-quality image resizing
-                    const tempCanvas = document.createElement('canvas');
-                    const tempCtx = tempCanvas.getContext('2d');
+                    canvas.width = 300;  // Ensure canvas size matches the frame
+                    canvas.height = 600;
+
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawFrame();
 
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
 
                     let sx, sy, sWidth, sHeight;
 
-                    // Calculate the source dimensions and position
                     if (imageAspectRatio > frameAspectRatio) {
                         sWidth = uploadedImage.height * frameAspectRatio;
                         sHeight = uploadedImage.height;
@@ -139,21 +140,8 @@
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
-                    // Set dimensions for the temporary canvas
-                    tempCanvas.width = sWidth;
-                    tempCanvas.height = sHeight;
-                    tempCtx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
-
-                    // Ensure canvas size matches the frame
-                    canvas.width = 300;
-                    canvas.height = 600;
-                    
-                    // Clear and draw the frame
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                     drawFrame();
-
-                    // Draw the resized image on the canvas
-                    ctx.drawImage(tempCanvas, 0, 0, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                 };
                 uploadedImage.src = e.target.result;
             };
@@ -188,7 +176,7 @@
         downloadButton.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'framed-image.png';
-            link.href = canvas.toDataURL('image/png', 1.0); // Ensure high-quality PNG output
+            link.href = canvas.toDataURL('image/png'); // Ensure high-quality PNG output
             link.click();
         });
 
@@ -199,4 +187,4 @@
         };
     </script>
 </body>
-</html>
+</html
