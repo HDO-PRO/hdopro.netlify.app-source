@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Mockup Frame Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Android Mockup Frame Generator</h1>
+    <input type="file" id="imageUpload" accept="image/*">
+    <canvas id="canvas" width="300" height="600"></canvas>
+    <button id="downloadButton">Download Framed Image</button>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const downloadButton = document.getElementById('downloadButton');
+
+        const androidFrame = new Image();
+        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Android frame image URL
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const uploadedImage = new Image();
+                uploadedImage.onload = () => {
+                    // Draw the Android frame
+                    ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
+                    
+                    // Draw the uploaded image
+                    const aspectRatio = uploadedImage.width / uploadedImage.height;
+                    let drawWidth, drawHeight;
+                    if (aspectRatio > 1) {
+                        drawWidth = canvas.width * 0.8;
+                        drawHeight = drawWidth / aspectRatio;
+                    } else {
+                        drawHeight = canvas.height * 0.8;
+                        drawWidth = drawHeight * aspectRatio;
+                    }
+                    const x = (canvas.width - drawWidth) / 2;
+                    const y = (canvas.height - drawHeight) / 2;
+                    ctx.drawImage(uploadedImage, x, y, drawWidth, drawHeight);
+                };
+                uploadedImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        downloadButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'framed-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
