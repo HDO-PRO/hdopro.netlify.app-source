@@ -3,6 +3,6 @@
 
 Website: https://hdopro.netlify.app
 
-GitHub: https://github.com/MarshMeadow/hdo-pro
+GitHub: https://github.com/HDO-PRO/hdo-pro
 
 Old GitHub: https://github.com/MarshMeadow/hdo-box.app-ad-free
