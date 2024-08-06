@@ -54,8 +54,8 @@
             border: 1px solid #ccc;
             margin-bottom: 20px;
             background-color: #121212;
-            width: 300px; /* Smaller size for mobile */
-            height: 600px; /* Smaller size for mobile */
+            width: 300px; /* Ensure consistent size */
+            height: 600px; /* Ensure consistent size */
         }
         button {
             padding: 8px 16px;
@@ -117,17 +117,16 @@
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
-                    canvas.width = 300;  // Ensure canvas size matches the frame
-                    canvas.height = 600;
-
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    drawFrame();
+                    // Create a temporary canvas to handle high-quality image resizing
+                    const tempCanvas = document.createElement('canvas');
+                    const tempCtx = tempCanvas.getContext('2d');
 
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
 
                     let sx, sy, sWidth, sHeight;
 
+                    // Calculate the source dimensions and position
                     if (imageAspectRatio > frameAspectRatio) {
                         sWidth = uploadedImage.height * frameAspectRatio;
                         sHeight = uploadedImage.height;
@@ -140,8 +139,21 @@
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
-                    ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
+                    // Set dimensions for the temporary canvas
+                    tempCanvas.width = sWidth;
+                    tempCanvas.height = sHeight;
+                    tempCtx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+
+                    // Ensure canvas size matches the frame
+                    canvas.width = 300;
+                    canvas.height = 600;
+                    
+                    // Clear and draw the frame
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawFrame();
+
+                    // Draw the resized image on the canvas
+                    ctx.drawImage(tempCanvas, 0, 0, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                 };
                 uploadedImage.src = e.target.result;
             };
@@ -176,7 +188,7 @@
         downloadButton.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'framed-image.png';
-            link.href = canvas.toDataURL('image/png'); // Ensure high-quality PNG output
+            link.href = canvas.toDataURL('image/png', 1.0); // Ensure high-quality PNG output
             link.click();
         });
 
