@@ -16,6 +16,7 @@
             color: #e0e0e0;
             margin: 0;
             text-align: center;
+            user-select: none; /* Prevent text selection */
         }
         h1 {
             margin-bottom: 20px;
@@ -85,6 +86,23 @@
     </footer>
 
     <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable text selection
+        document.addEventListener('selectstart', event => event.preventDefault());
+
+        // Attempt to disable developer tools (not foolproof)
+        (function() {
+            let devtools = /./;
+            devtools.toString = function() {
+                document.body.innerHTML = "Developer tools are not allowed.";
+            };
+            setInterval(function() {
+                console.log(devtools);
+            }, 1000);
+        })();
+
         const imageUpload = document.getElementById('imageUpload');
         const dropZone = document.getElementById('dropZone');
         const canvas = document.getElementById('canvas');
