@@ -100,7 +100,7 @@
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawFrame();
 
-                    // Calculate aspect ratios
+                    // Calculate the aspect ratios
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
 
@@ -122,7 +122,7 @@
 
                     // Draw the uploaded image within the frame area
                     ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
-                    
+
                     // Draw the Android frame on top
                     drawFrame();
                 };
