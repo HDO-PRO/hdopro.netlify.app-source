@@ -12,13 +12,14 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #121212;
+            background-color: #1c1c1c; /* Dark background with a slight purple tint */
             color: #e0e0e0;
             margin: 0;
             text-align: center;
         }
         h1 {
             margin-bottom: 20px;
+            color: #d8a1e2; /* Light purple for the header */
         }
         p {
             margin-bottom: 10px;
@@ -36,10 +37,11 @@
             margin: 20px;
             position: relative;
             overflow: hidden;
+            background-color: #2a2a2a; /* Slightly lighter background for the drop zone */
         }
         .drop-zone.dragover {
-            border-color: #4CAF50;
-            background-color: rgba(76, 175, 80, 0.1);
+            border-color: #d8a1e2; /* Light purple border when dragging over */
+            background-color: rgba(216, 161, 226, 0.1);
         }
         canvas {
             border: 1px solid #ccc;
@@ -49,14 +51,15 @@
         }
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #e74c3c; /* Red button color */
             color: white;
             border: none;
             cursor: pointer;
             margin-top: 10px;
+            border-radius: 5px;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #c0392b; /* Darker red on hover */
         }
         footer {
             margin-top: 20px;
