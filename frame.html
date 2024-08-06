@@ -40,8 +40,9 @@
 </head>
 <body>
     <h1>Android Mockup Frame Generator</h1>
+    <p>Using the Samsung Note 10 frame</p>
     <input type="file" id="imageUpload" accept="image/*">
-    <canvas id="canvas" width="300" height="600"></canvas>
+    <canvas id="canvas" width="304" height="622"></canvas>
     <button id="downloadButton">Download Framed Image</button>
 
     <script>
@@ -51,7 +52,12 @@
         const downloadButton = document.getElementById('downloadButton');
 
         const androidFrame = new Image();
-        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Android frame image URL
+        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Samsung Note 10 frame image URL
+
+        androidFrame.onload = () => {
+            // Ensure the frame is drawn first
+            ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
+        };
 
         imageUpload.addEventListener('change', (event) => {
             const file = event.target.files[0];
@@ -61,9 +67,6 @@
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
-                    // Draw the Android frame
-                    ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
-
                     // Calculate aspect ratios
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
@@ -84,6 +87,11 @@
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
+                    // Clear canvas and draw the frame first
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
+                    
+                    // Draw the uploaded image inside the frame
                     ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                 };
                 uploadedImage.src = e.target.result;
