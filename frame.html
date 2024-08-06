@@ -31,8 +31,11 @@
             border-radius: 10px;
             padding: 20px;
             cursor: pointer;
-            width: 300px;
+            width: 320px;
+            height: 640px;
             margin: 20px;
+            position: relative;
+            overflow: hidden;
         }
         .drop-zone.dragover {
             border-color: #4CAF50;
@@ -41,8 +44,8 @@
         canvas {
             border: 1px solid #ccc;
             margin-bottom: 20px;
-            max-width: 100%;
             background-color: #121212;
+            max-width: 100%;
         }
         button {
             padding: 10px 20px;
@@ -68,7 +71,7 @@
     <p>Supported image formats: JPEG, PNG, GIF, BMP, WebP</p>
     <div class="drop-zone" id="dropZone">Drag and drop an image here or click to upload</div>
     <input type="file" id="imageUpload" accept="image/*">
-    <canvas id="canvas" width="304" height="622"></canvas>
+    <canvas id="canvas" width="320" height="640"></canvas>
     <button id="downloadButton">Download Framed Image</button>
 
     <footer>
@@ -108,19 +111,19 @@
 
                     if (imageAspectRatio > frameAspectRatio) {
                         // Image is wider than frame
+                        sWidth = uploadedImage.height * frameAspectRatio;
                         sHeight = uploadedImage.height;
-                        sWidth = sHeight * frameAspectRatio;
                         sx = (uploadedImage.width - sWidth) / 2;
                         sy = 0;
                     } else {
                         // Image is taller than frame
                         sWidth = uploadedImage.width;
-                        sHeight = sWidth / frameAspectRatio;
+                        sHeight = uploadedImage.width / frameAspectRatio;
                         sx = 0;
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
-                    // Draw the uploaded image within the frame area
+                    // Draw the cropped and scaled image within the frame area
                     ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
 
                     // Draw the Android frame on top
