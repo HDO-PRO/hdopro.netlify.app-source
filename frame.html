@@ -12,15 +12,17 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #1c1c1c; /* Dark background with a slight purple tint */
+            background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
+            background-size: cover;
+            background-position: center;
             color: #e0e0e0;
             margin: 0;
             text-align: center;
-            user-select: none; /* Prevent text selection */
+            user-select: none;
         }
         h1 {
             margin-bottom: 20px;
-            color: #d8a1e2; /* Light purple for the header */
+            color: #d8a1e2;
         }
         p {
             margin-bottom: 10px;
@@ -30,40 +32,40 @@
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-            width: 150px; /* Smaller width */
-            height: 100px; /* Smaller height */
+            width: 150px;
+            height: 100px;
             margin: 20px;
-            background-color: #2a2a2a; /* Slightly lighter background for the drop zone */
-            font-size: 12px; /* Smaller font size */
+            background-color: #2a2a2a;
+            font-size: 12px;
             line-height: 1.5;
-            text-align: center; /* Center the text */
+            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .drop-zone.dragover {
-            border-color: #d8a1e2; /* Light purple border when dragging over */
+            border-color: #d8a1e2;
             background-color: rgba(216, 161, 226, 0.1);
         }
         canvas {
             border: 1px solid #ccc;
             margin-bottom: 20px;
             background-color: #121212;
-            width: 300px; /* Adjusted width */
-            height: 600px; /* Adjusted height */
+            width: 300px;
+            height: 600px;
         }
         button {
-            padding: 8px 16px; /* Smaller padding */
-            background-color: #e74c3c; /* Red button color */
+            padding: 8px 16px;
+            background-color: #e74c3c;
             color: white;
             border: none;
             cursor: pointer;
             margin-top: 10px;
             border-radius: 5px;
-            font-size: 14px; /* Smaller font size */
+            font-size: 14px;
         }
         button:hover {
-            background-color: #c0392b; /* Darker red on hover */
+            background-color: #c0392b;
         }
         footer {
             margin-top: 20px;
@@ -89,10 +91,10 @@
         // Disable right-click
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Disable text selection
+        // Prevent text selection
         document.addEventListener('selectstart', event => event.preventDefault());
 
-        // Attempt to disable developer tools (not foolproof)
+        // Attempt to detect developer tools
         (function() {
             let devtools = /./;
             devtools.toString = function() {
@@ -112,45 +114,36 @@
         const androidFrame = new Image();
         androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Samsung Note 10 frame image URL
 
-        // Draw the frame on the canvas
         const drawFrame = () => {
             ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
         };
 
-        // Draw the uploaded image within the frame
         const handleFile = (file) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
-                    // Clear canvas and draw the frame first
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawFrame();
 
-                    // Calculate the aspect ratios
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
 
                     let sx, sy, sWidth, sHeight;
 
                     if (imageAspectRatio > frameAspectRatio) {
-                        // Image is wider than frame
                         sWidth = uploadedImage.height * frameAspectRatio;
                         sHeight = uploadedImage.height;
                         sx = (uploadedImage.width - sWidth) / 2;
                         sy = 0;
                     } else {
-                        // Image is taller than frame
                         sWidth = uploadedImage.width;
                         sHeight = uploadedImage.width / frameAspectRatio;
                         sx = 0;
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
-                    // Draw the cropped and scaled image within the frame area
                     ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
-
-                    // Draw the Android frame on top
                     drawFrame();
                 };
                 uploadedImage.src = e.target.result;
@@ -190,7 +183,6 @@
             link.click();
         });
 
-        // Ensure frame is drawn initially
         androidFrame.onload = () => {
             drawFrame();
         };
