@@ -91,20 +91,6 @@
         // Disable right-click
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Prevent text selection
-        document.addEventListener('selectstart', event => event.preventDefault());
-
-        // Attempt to detect developer tools
-        (function() {
-            let devtools = /./;
-            devtools.toString = function() {
-                document.body.innerHTML = "Developer tools are not allowed.";
-            };
-            setInterval(function() {
-                console.log(devtools);
-            }, 1000);
-        })();
-
         const imageUpload = document.getElementById('imageUpload');
         const dropZone = document.getElementById('dropZone');
         const canvas = document.getElementById('canvas');
