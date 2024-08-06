@@ -2,4 +2,5 @@
 <br>nothing is here
 
 Website: https://hdopro.netlify.app
-Git: https://github.com/MarshMeadow/hdo-pro
+
+GitHub: https://github.com/MarshMeadow/hdo-pro
