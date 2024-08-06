@@ -29,13 +29,16 @@
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-            width: 250px; /* Smaller width */
-            height: 400px; /* Smaller height */
+            width: 150px; /* Smaller width */
+            height: 100px; /* Smaller height */
             margin: 20px;
             background-color: #2a2a2a; /* Slightly lighter background for the drop zone */
             font-size: 12px; /* Smaller font size */
             line-height: 1.5;
             text-align: center; /* Center the text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .drop-zone.dragover {
             border-color: #d8a1e2; /* Light purple border when dragging over */
@@ -73,7 +76,7 @@
     <p>Using the Samsung Note 10 frame</p>
     <p>Supported image formats: JPEG, PNG, GIF, BMP, WebP</p>
     <div class="drop-zone" id="dropZone">Drag and drop an image here or click to upload</div>
-    <input type="file" id="imageUpload" accept="image/*">
+    <input type="file" id="imageUpload" accept="image/*" style="display:none;">
     <canvas id="canvas" width="300" height="600"></canvas>
     <button id="downloadButton">Download Framed Image</button>
 
