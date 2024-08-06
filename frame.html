@@ -51,8 +51,8 @@
             border: 1px solid #ccc;
             margin-bottom: 20px;
             background-color: #121212;
-            width: 300px;
-            height: 600px;
+            width: 600px; /* Adjusted for higher quality */
+            height: 1200px; /* Adjusted for higher quality */
         }
         button {
             padding: 8px 16px;
@@ -85,7 +85,7 @@
     <p>Supported image formats: JPEG, PNG, GIF, BMP, WebP</p>
     <div class="drop-zone" id="dropZone">Drag and drop an image here or click to upload</div>
     <input type="file" id="imageUpload" accept="image/*" style="display:none;">
-    <canvas id="canvas" width="300" height="600"></canvas>
+    <canvas id="canvas"></canvas>
     <button id="downloadButton">Download Framed Image</button>
 
     <footer>
@@ -114,6 +114,9 @@
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
+                    canvas.width = 600;  // Ensure canvas size matches the frame
+                    canvas.height = 1200;
+
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawFrame();
 
@@ -170,13 +173,15 @@
         downloadButton.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'framed-image.png';
-            link.href = canvas.toDataURL();
+            link.href = canvas.toDataURL('image/png'); // Ensure high-quality PNG output
             link.click();
         });
 
         androidFrame.onload = () => {
+            canvas.width = 600;  // Ensure canvas size matches the frame
+            canvas.height = 1200;
             drawFrame();
         };
     </script>
 </body>
-</html>
+</html
