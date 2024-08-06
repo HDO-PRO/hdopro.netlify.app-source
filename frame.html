@@ -21,18 +21,21 @@
             user-select: none;
         }
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #d8a1e2;
+            font-size: 24px;
         }
         p {
             margin-bottom: 10px;
+            font-size: 14px;
         }
         .drop-zone {
             border: 2px dashed #555;
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-            width: 150px;
+            width: 100%;
+            max-width: 300px;
             height: 100px;
             margin: 20px;
             background-color: #2a2a2a;
@@ -51,8 +54,8 @@
             border: 1px solid #ccc;
             margin-bottom: 20px;
             background-color: #121212;
-            width: 600px; /* Adjusted for higher quality */
-            height: 1200px; /* Adjusted for higher quality */
+            width: 300px; /* Smaller size for mobile */
+            height: 600px; /* Smaller size for mobile */
         }
         button {
             padding: 8px 16px;
@@ -114,8 +117,8 @@
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
-                    canvas.width = 600;  // Ensure canvas size matches the frame
-                    canvas.height = 1200;
+                    canvas.width = 300;  // Ensure canvas size matches the frame
+                    canvas.height = 600;
 
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     drawFrame();
@@ -178,10 +181,10 @@
         });
 
         androidFrame.onload = () => {
-            canvas.width = 600;  // Ensure canvas size matches the frame
-            canvas.height = 1200;
+            canvas.width = 300;  // Ensure canvas size matches the frame
+            canvas.height = 600;
             drawFrame();
         };
     </script>
 </body>
-</html
+</html>
