@@ -15,16 +15,33 @@
             background-color: #121212;
             color: #e0e0e0;
             margin: 0;
+            text-align: center;
         }
         h1 {
             margin-bottom: 20px;
         }
+        p {
+            margin-bottom: 10px;
+        }
         input[type="file"] {
-            margin-bottom: 20px;
+            display: none;
+        }
+        .drop-zone {
+            border: 2px dashed #555;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            width: 300px;
+            margin: 20px;
+        }
+        .drop-zone.dragover {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
         }
         canvas {
             border: 1px solid #ccc;
             margin-bottom: 20px;
+            max-width: 100%;
         }
         button {
             padding: 10px 20px;
@@ -32,13 +49,13 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #45a049;
         }
         footer {
             margin-top: 20px;
-            text-align: center;
             font-size: 14px;
             color: #ccc;
         }
@@ -48,6 +65,7 @@
     <h1>Android Mockup Frame Generator</h1>
     <p>Using the Samsung Note 10 frame</p>
     <p>Supported image formats: JPEG, PNG, GIF, BMP, WebP</p>
+    <div class="drop-zone" id="dropZone">Drag and drop an image here or click to upload</div>
     <input type="file" id="imageUpload" accept="image/*">
     <canvas id="canvas" width="304" height="622"></canvas>
     <button id="downloadButton">Download Framed Image</button>
@@ -58,6 +76,7 @@
 
     <script>
         const imageUpload = document.getElementById('imageUpload');
+        const dropZone = document.getElementById('dropZone');
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const downloadButton = document.getElementById('downloadButton');
@@ -70,10 +89,7 @@
             ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
         };
 
-        imageUpload.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-
+        const handleFile = (file) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const uploadedImage = new Image();
@@ -108,6 +124,31 @@
                 uploadedImage.src = e.target.result;
             };
             reader.readAsDataURL(file);
+        };
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        dropZone.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = event.dataTransfer.files[0];
+            if (file) handleFile(file);
         });
 
         downloadButton.addEventListener('click', () => {
