@@ -42,6 +42,7 @@
             border: 1px solid #ccc;
             margin-bottom: 20px;
             max-width: 100%;
+            background-color: #121212;
         }
         button {
             padding: 10px 20px;
@@ -82,18 +83,23 @@
         const downloadButton = document.getElementById('downloadButton');
 
         const androidFrame = new Image();
-        androidFrame.src = 'https://via.placeholder.com/304x622.png?text=Samsung+Note+10+Frame'; // Replace with your actual Samsung Note 10 frame image URL
+        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Samsung Note 10 frame image URL
 
-        androidFrame.onload = () => {
-            // Ensure the frame is drawn first
+        // Draw the frame on the canvas
+        const drawFrame = () => {
             ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
         };
 
+        // Draw the uploaded image within the frame
         const handleFile = (file) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const uploadedImage = new Image();
                 uploadedImage.onload = () => {
+                    // Clear canvas and draw the frame first
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawFrame();
+
                     // Calculate aspect ratios
                     const frameAspectRatio = canvas.width / canvas.height;
                     const imageAspectRatio = uploadedImage.width / uploadedImage.height;
@@ -114,12 +120,11 @@
                         sy = (uploadedImage.height - sHeight) / 2;
                     }
 
-                    // Clear canvas and draw the uploaded image first
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // Draw the uploaded image within the frame area
                     ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                     
                     // Draw the Android frame on top
-                    ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
+                    drawFrame();
                 };
                 uploadedImage.src = e.target.result;
             };
@@ -157,6 +162,11 @@
             link.href = canvas.toDataURL();
             link.click();
         });
+
+        // Ensure frame is drawn initially
+        androidFrame.onload = () => {
+            drawFrame();
+        };
     </script>
 </body>
 </html>
