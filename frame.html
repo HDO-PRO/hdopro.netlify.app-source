@@ -50,7 +50,7 @@
         const downloadButton = document.getElementById('downloadButton');
 
         const androidFrame = new Image();
-        androidFrame.src = 'Images/samsung-galaxy-note-10-aura-black.png'; // Replace with your actual Android frame image URL
+        androidFrame.src = 'https://via.placeholder.com/300x600.png?text=Android+Mockup'; // Replace with your actual Android frame image URL
 
         imageUpload.addEventListener('change', (event) => {
             const file = event.target.files[0];
@@ -62,20 +62,28 @@
                 uploadedImage.onload = () => {
                     // Draw the Android frame
                     ctx.drawImage(androidFrame, 0, 0, canvas.width, canvas.height);
-                    
-                    // Draw the uploaded image
-                    const aspectRatio = uploadedImage.width / uploadedImage.height;
-                    let drawWidth, drawHeight;
-                    if (aspectRatio > 1) {
-                        drawWidth = canvas.width * 0.8;
-                        drawHeight = drawWidth / aspectRatio;
+
+                    // Calculate aspect ratios
+                    const frameAspectRatio = canvas.width / canvas.height;
+                    const imageAspectRatio = uploadedImage.width / uploadedImage.height;
+
+                    let sx, sy, sWidth, sHeight;
+
+                    if (imageAspectRatio > frameAspectRatio) {
+                        // Image is wider than frame
+                        sHeight = uploadedImage.height;
+                        sWidth = sHeight * frameAspectRatio;
+                        sx = (uploadedImage.width - sWidth) / 2;
+                        sy = 0;
                     } else {
-                        drawHeight = canvas.height * 0.8;
-                        drawWidth = drawHeight * aspectRatio;
+                        // Image is taller than frame
+                        sWidth = uploadedImage.width;
+                        sHeight = sWidth / frameAspectRatio;
+                        sx = 0;
+                        sy = (uploadedImage.height - sHeight) / 2;
                     }
-                    const x = (canvas.width - drawWidth) / 2;
-                    const y = (canvas.height - drawHeight) / 2;
-                    ctx.drawImage(uploadedImage, x, y, drawWidth, drawHeight);
+
+                    ctx.drawImage(uploadedImage, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
                 };
                 uploadedImage.src = e.target.result;
             };
