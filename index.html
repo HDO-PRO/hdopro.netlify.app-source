@@ -1,5 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .notification {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 400px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .blurred-ip {
+            filter: blur(5px);
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">
+        Your IP address <span class="blurred-ip">123.456.78.90</span> could be exposed. 
+        Consider using a DNS or VPN for better protection.
+    </div>
+
+    <script>
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.opacity = '1';
+
+            setTimeout(function() {
+                notification.style.opacity = '0';
+            }, 10000); // Display for 10 seconds
+        }
+
+        // Show the notification when the page loads
+        window.onload = showNotification;
+    </script>
+</body>
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,62 +200,6 @@
             }
         }
     </style>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .notification {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 400px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            z-index: 1000;
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            backdrop-filter: blur(10px);
-        }
-
-        .blurred-ip {
-            filter: blur(5px);
-            display: inline-block;
-            color: rgba(255, 255, 255, 0.7);
-        }
-    </style>
-</head>
-<body>
-    <div class="notification" id="notification">
-        Your IP address <span class="blurred-ip">123.456.78.90</span> could be exposed. 
-        Consider using a DNS or VPN for better protection.
-    </div>
-
-    <script>
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.opacity = '1';
-
-            setTimeout(function() {
-                notification.style.opacity = '0';
-            }, 10000); // Display for 10 seconds
-        }
-
-        // Show the notification when the page loads
-        window.onload = showNotification;
-    </script>
-</body>
-    
 </head>
 <body>
     <div class="mist"></div>
