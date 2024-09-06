@@ -10,8 +10,6 @@
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
-    <script src="index.js" type="text/javascript"></script>
-    <link rel="manifest" href="/manifest.json">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
@@ -103,6 +101,26 @@
             text-align: center;
         }
 
+        .search-bar {
+            margin-top: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 8px;
+            border: 2px solid #663399;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            background-color: #663399;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         .footer {
             position: fixed;
             bottom: 0;
@@ -121,6 +139,11 @@
             color: #fff;
             text-decoration: underline;
         }
+
+        .results {
+            margin-top: 20px;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -137,14 +160,22 @@
             <a href="/tutorial">Tutorial</a>
         </div>
         <h1>Welcome to HDO Pro</h1>
+
+        <!-- App buttons for navigation -->
         <div class="app-buttons">
-            <button class="app-button">Movies</button>
-            <button class="app-button">TV Shows</button>
+            <button class="app-button" onclick="searchMovies()">Movies</button>
+            <button class="app-button" onclick="searchTVShows()">TV Shows</button>
+            <button class="app-button" onclick="searchTrending()">Trending</button>
         </div>
-        <div class="app-buttons">
-            <button class="app-button">Trending</button>
-            <button class="app-button">Search</button>
+
+        <!-- Search bar for custom searches -->
+        <div class="search-bar">
+            <input type="text" id="searchQuery" placeholder="Search for Movies or TV Shows">
+            <button onclick="search()">Search</button>
         </div>
+
+        <!-- Display results -->
+        <div id="results" class="results"></div>
     </div>
 
     <div class="footer">
@@ -163,6 +194,57 @@
             } else {
                 menu.style.display = "block";
             }
+        }
+
+        // Function to fetch movies from ConsuMet API
+        function searchMovies() {
+            const url = `https://api.consumet.org/meta/anilist/movies`;
+            fetchData(url);
+        }
+
+        // Function to fetch TV Shows from ConsuMet API
+        function searchTVShows() {
+            const url = `https://api.consumet.org/meta/anilist/tvshows`;
+            fetchData(url);
+        }
+
+        // Function to fetch trending movies or shows from ConsuMet API
+        function searchTrending() {
+            const url = `https://api.consumet.org/meta/anilist/trending`;
+            fetchData(url);
+        }
+
+        // Function to search based on input query
+        function search() {
+            const query = document.getElementById('searchQuery').value;
+            if (!query) {
+                alert('Please enter a search term');
+                return;
+            }
+            const url = `https://api.consumet.org/meta/anilist/${encodeURIComponent(query)}`;
+            fetchData(url);
+        }
+
+        // Fetch data from the API and display results
+        function fetchData(url) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '';
+
+                    if (data.results && data.results.length > 0) {
+                        data.results.forEach(item => {
+                            resultsDiv.innerHTML += `<p>${item.title.english || item.title.romaji}</p>`;
+                        });
+                    } else {
+                        resultsDiv.innerHTML = '<p>No results found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('results').innerHTML = '<p>Failed to fetch data. Please try again later.</p>';
+                });
         }
     </script>
 </body>
