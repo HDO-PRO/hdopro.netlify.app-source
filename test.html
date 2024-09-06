@@ -163,9 +163,9 @@
 
         <!-- App buttons for navigation -->
         <div class="app-buttons">
-            <button class="app-button" onclick="searchMovies()">Movies</button>
-            <button class="app-button" onclick="searchTVShows()">TV Shows</button>
-            <button class="app-button" onclick="searchTrending()">Trending</button>
+            <button class="app-button" onclick="fetchMovies()">Movies</button>
+            <button class="app-button" onclick="fetchTVShows()">TV Shows</button>
+            <button class="app-button" onclick="fetchTrending()">Trending</button>
         </div>
 
         <!-- Search bar for custom searches -->
@@ -196,20 +196,20 @@
             }
         }
 
-        // Function to fetch movies from ConsuMet API
-        function searchMovies() {
-            const url = `https://api.consumet.org/meta/anilist/movies`;
+        // Fetch popular movies from ConsuMet API
+        function fetchMovies() {
+            const url = `https://api.consumet.org/meta/anilist/popular?type=movie`;
             fetchData(url);
         }
 
-        // Function to fetch TV Shows from ConsuMet API
-        function searchTVShows() {
-            const url = `https://api.consumet.org/meta/anilist/tvshows`;
+        // Fetch popular TV Shows from ConsuMet API
+        function fetchTVShows() {
+            const url = `https://api.consumet.org/meta/anilist/popular?type=tv`;
             fetchData(url);
         }
 
-        // Function to fetch trending movies or shows from ConsuMet API
-        function searchTrending() {
+        // Fetch trending items from ConsuMet API
+        function fetchTrending() {
             const url = `https://api.consumet.org/meta/anilist/trending`;
             fetchData(url);
         }
