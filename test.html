@@ -10,9 +10,25 @@
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
+    <link rel="manifest" href="/manifest.json">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
+        /* Existing CSS styles */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
@@ -21,29 +37,34 @@
             text-align: center;
             padding: 0;
             margin: 0;
+            position: relative;
             min-height: 100vh;
         }
-
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 800px;
+            margin: 100px auto 0;
+            background-color: rgba(51, 51, 51, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
             padding-top: 60px;
+            border: 2px solid rgba(153, 51, 153, 0.5);
+            box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
         }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 10px 20px;
-        }
-
         .logo {
-            width: 50px;
-            height: auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.5;
+            z-index: 2;
         }
-
         .menu-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             background-color: #663399;
             border: none;
             color: white;
@@ -52,18 +73,18 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+            z-index: 2;
         }
-
         .menu {
             display: none;
             position: absolute;
             top: 50px;
-            right: 20px;
+            right: 10px;
             background-color: #4b0082;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 2;
         }
-
         .menu a {
             display: block;
             padding: 12px;
@@ -71,164 +92,169 @@
             text-decoration: none;
             font-size: 14px;
         }
-
         .menu a:hover {
             background-color: #800080;
         }
-
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            text-align: center;
         }
-
-        .app-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
         }
-
-        .app-button {
-            background-color: #663399;
-            padding: 15px;
-            color: white;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
+        .info-box {
+            margin: 20px 0;
+            text-align: left;
+        }
+        .info-box p {
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+        .info-box strong {
+            display: block;
             font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .preview-container {
+            margin: 20px auto;
+            text-align: center;
+        }
+        .preview-container img {
             width: 120px;
-            text-align: center;
-        }
-
-        .search-bar {
-            margin-top: 20px;
-        }
-
-        .search-bar input {
-            padding: 10px;
-            width: 300px;
-            border-radius: 8px;
-            border: 2px solid #663399;
-        }
-
-        .search-bar button {
-            padding: 10px;
-            background-color: #663399;
-            color: white;
-            border: none;
-            border-radius: 8px;
+            height: auto;
             cursor: pointer;
+            border-radius: 5px;
         }
-
-        .footer {
+        .preview-overlay {
+            display: none;
             position: fixed;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 15px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
             text-align: center;
-            background-color: rgba(153, 51, 153, 0.2);
-            color: #fff;
+            overflow: hidden; /* Hide overflow */
         }
-
+        .preview-overlay img {
+            max-width: 100%; /* Ensure image fills the screen */
+            max-height: 100%; /* Ensure image fills the screen */
+            border-radius: 10px;
+        }
+        .preview-overlay .close-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            animation: shake 0.5s; /* Apply shake animation */
+        }
+        .footer {
+            margin-top: 20px;
+            color: #fff;
+            font-weight: bold;
+            background-color: rgba(153, 51, 153, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(153, 51, 153, 0.5);
+            text-align: center;
+        }
         .footer p {
             margin: 5px 0;
-        }
-
-        .footer a {
             color: #fff;
-            text-decoration: underline;
+            font-weight: bold;
+            font-size: 14px; /* Adjusted font size */
+            line-height: 1.5; /* Improved line spacing */
+            text-align: center; /* Align text to the center */
         }
 
-        .results {
-            margin-top: 20px;
+        .clear-button {
+            background-color: #f44336; /* Red button */
+            border: none;
             color: white;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+            top: -4px; /* Adjusted to align with the purple background */
+        }
+
+        .clear-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <img src="/Images/logo.png" alt="Logo" class="logo">
-            <button class="menu-button" onclick="toggleMenu()">Menu</button>
-        </div>
+        <img src="/Images/logo.png" alt="Logo" class="logo">
+        <button class="menu-button" onclick="toggleMenu()">Menu</button>
         <div class="menu" id="menu">
-            <a href="/rules">Rules</a>
-            <a href="/about">About Us</a>
-            <a href="/guide">Guide</a>
-            <a href="/support">Support</a>
-            <a href="/tutorial">Tutorial</a>
+            <a href="javascript:void(0);" onclick="showContent('movies')">Movies</a>
+            <a href="javascript:void(0);" onclick="showContent('tvshows')">TV Shows</a>
+            <a href="javascript:void(0);" onclick="showContent('trending')">Trending</a>
+            <a href="javascript:void(0);" onclick="search()">Search</a>
         </div>
         <h1>Welcome to HDO Pro</h1>
-
-        <!-- App buttons for navigation -->
-        <div class="app-buttons">
-            <button class="app-button" onclick="fetchMovies()">Movies</button>
-            <button class="app-button" onclick="fetchTVShows()">TV Shows</button>
-            <button class="app-button" onclick="fetchTrending()">Trending</button>
+        <p>This is a private, secure connection.</p>
+        <p>This is a private community. If you are a part of this, you may know what to do.</p>
+        <div id="results">
+            <!-- Data will be displayed here -->
         </div>
-
-        <!-- Search bar for custom searches -->
-        <div class="search-bar">
-            <input type="text" id="searchQuery" placeholder="Search for Movies or TV Shows">
-            <button onclick="search()">Search</button>
+        <div class="preview-container">
+            <img id="preview-image" src="/Images/android1-upscale.png" alt="App Preview" onclick="openPreview('/Images/android1-upscale.png')">
         </div>
-
-        <!-- Display results -->
-        <div id="results" class="results"></div>
     </div>
-
+    <div class="preview-overlay" id="preview-overlay" onclick="closePreview()">
+        <span class="close-button" id="close-button" onclick="closePreview()">×</span>
+        <img id="fullscreen-image" src="" alt="Fullscreen Preview">
+    </div>
     <div class="footer">
-        <p><a href="/support">Contact/Support</a></p>
+        <p><a href="/support" class="clear-button">Contact/Support</a></p>
         <p>Friends: Nekomo - Dantotsu</p>
         <p>Access for iOS (Apple Devices) is no longer available.</p>
         <p>Download links are not provided here for privacy reasons. Join our community for access.</p>
-        <p>We do not host content or servers, including streams, provided by this app. For DMCA information, <a href="/dmca">click here</a>.</p>
+        <p>We do not host content or servers, including streams, provided by this app. For DMCA information, <a href="/dmca" class="clear-button">click here</a>.</p>
     </div>
 
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
+        const apiUrl = 'https://api.consumet.org/meta/anilist/';
+        
+        function showContent(type) {
+            let url = '';
+            if (type === 'movies') {
+                url = apiUrl + 'popular?type=movie';
+            } else if (type === 'tvshows') {
+                url = apiUrl + 'popular?type=tv';
+            } else if (type === 'trending') {
+                url = apiUrl + 'trending';
             }
-        }
-
-        // Fetch popular movies from ConsuMet API
-        function fetchMovies() {
-            const url = `https://api.consumet.org/meta/anilist/popular?type=movie`;
             fetchData(url);
         }
 
-        // Fetch popular TV Shows from ConsuMet API
-        function fetchTVShows() {
-            const url = `https://api.consumet.org/meta/anilist/popular?type=tv`;
-            fetchData(url);
-        }
-
-        // Fetch trending items from ConsuMet API
-        function fetchTrending() {
-            const url = `https://api.consumet.org/meta/anilist/trending`;
-            fetchData(url);
-        }
-
-        // Function to search based on input query
-        function search() {
-            const query = document.getElementById('searchQuery').value;
-            if (!query) {
-                alert('Please enter a search term');
-                return;
-            }
-            const url = `https://api.consumet.org/meta/anilist/${encodeURIComponent(query)}`;
-            fetchData(url);
-        }
-
-        // Fetch data from the API and display results
         function fetchData(url) {
             fetch(url)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const resultsDiv = document.getElementById('results');
                     resultsDiv.innerHTML = '';
@@ -243,8 +269,33 @@
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    document.getElementById('results').innerHTML = '<p>Failed to fetch data. Please try again later.</p>';
+                    document.getElementById('results').innerHTML = `<p>Failed to fetch data. Error: ${error.message}</p>`;
                 });
+        }
+
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+
+        function search() {
+            const query = prompt("Enter your search query:");
+            if (query) {
+                fetchData(apiUrl + 'search?query=' + encodeURIComponent(query));
+            }
+        }
+
+        function openPreview(imageSrc) {
+            document.getElementById('fullscreen-image').src = imageSrc;
+            document.getElementById('preview-overlay').style.display = 'flex';
+        }
+
+        function closePreview() {
+            document.getElementById('preview-overlay').style.display = 'none';
         }
     </script>
 </body>
