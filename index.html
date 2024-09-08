@@ -144,13 +144,10 @@
             }
         }
     </style>
-
-<!DOCTYPE html>
-<html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In Button</title>
     <style>
         body {
             margin: 0;
@@ -176,6 +173,25 @@
             background-color: purple;
             color: white;
         }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+
+            .sign-in-button {
+                color: #bb86fc;
+                background-color: #333333;
+                border: 2px solid #bb86fc;
+            }
+
+            .sign-in-button:hover {
+                background-color: #bb86fc;
+                color: #333333;
+            }
+        }
     </style>
 </head>
 <body>
@@ -183,7 +199,6 @@
 </body>
 </html>
 
-    
 </head>
 <body>
     <div class="mist"></div>
