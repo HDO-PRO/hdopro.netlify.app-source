@@ -61,6 +61,22 @@
     margin: 20px 0;
   }
 
+  /* Banner Image Styling */
+  .banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .banner-image {
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    border-radius: 15px; /* Rounded corners */
+    opacity: 0.8; /* Slight transparency */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
+  }
+
   /* Blurred Links */
   .blurred-link {
     filter: blur(5px);
@@ -175,7 +191,7 @@
     });
 
     document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
         e.preventDefault();
       }
       if (e.key === 'F12') {
@@ -193,6 +209,12 @@
 <!-- Announcement Section -->
 <div class="announcement-container">
   <h1>BIG ANNOUNCEMENT</h1>
+
+  <!-- Banner Image -->
+  <div class="banner-container">
+    <img src="Images/maxresdefault.jpg" alt="Banner" class="banner-image">
+  </div>
+
   <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! For just a donation of $6, you can get access to the Roku app, which is easy to install through the following permanent link:</p>
   <p><strong><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></strong></p>
   <p>The app is legally certified, so it will remain available on Roku and won't be disappearing.</p>
@@ -226,30 +248,11 @@
           clicked = true;
         } else {
           // Second click requests the link or email app
-          if (this.getAttribute('data-url').startsWith('mailto:')) {
-            window.location.href = this.getAttribute('data-url');
-          } else {
-            window.open(this.getAttribute('data-url'), '_blank');
+          if (this.dataset.url) {
+            window.location.href = this.dataset.url;
           }
         }
       });
-    });
-
-    // Disable right-click and developer tools shortcuts
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-      }
-      if (e.key === 'F12') {
-        e.preventDefault();
-      }
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-        e.preventDefault();
-      }
     });
   });
 </script>
