@@ -71,7 +71,10 @@
 
   .banner-image {
     width: 100%;
-    max-width: 600px; /* Adjust as needed */
+    max-width: 600px; /* Adjust width as needed */
+    height: auto;
+    max-height: 200px; /* Adjust height for longer aspect ratio */
+    object-fit: cover; /* Crop the image to fit */
     border-radius: 15px; /* Rounded corners */
     opacity: 0.8; /* Slight transparency */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
@@ -248,8 +251,10 @@
           clicked = true;
         } else {
           // Second click requests the link or email app
-          if (this.dataset.url) {
+          if (this.dataset.url.startsWith('mailto:')) {
             window.location.href = this.dataset.url;
+          } else {
+            window.open(this.dataset.url, '_blank');
           }
         }
       });
