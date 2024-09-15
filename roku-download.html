@@ -208,6 +208,7 @@
 
   <!-- Contact Link -->
   <p><strong>Contact us if any issues:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
+  <p><strong>For faster support, we recommend reaching out on <a href="https://discord.com" target="_blank" class="blurred-link" data-url="https://discord.com">Discord</a> or <a href="https://t.me" target="_blank" class="blurred-link" data-url="https://t.me">Telegram</a>.</strong></p>
 </div>
 
 <!-- JavaScript to handle link blurring and clicks -->
@@ -223,8 +224,12 @@
           this.classList.add('revealed');
           clicked = true;
         } else {
-          // Second click requests the email app
-          window.location.href = this.getAttribute('data-url');
+          // Second click requests the link or email app
+          if (this.getAttribute('data-url').startsWith('mailto:')) {
+            window.location.href = this.getAttribute('data-url');
+          } else {
+            window.open(this.getAttribute('data-url'), '_blank');
+          }
         }
       });
     });
