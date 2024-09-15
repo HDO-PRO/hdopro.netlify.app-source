@@ -41,6 +41,7 @@
   }
 
   .announcement-container {
+    width: 90%;
     max-width: 800px;
     background-color: rgba(32, 32, 32, 0.8); /* Make background slightly transparent */
     padding: 20px;
@@ -74,6 +75,7 @@
     border-radius: 10px;
   }
 
+  /* Play Button Styling (custom YouTube-style UI) */
   .video-ui {
     position: absolute;
     top: 0;
@@ -109,41 +111,59 @@
   .play-button:hover {
     background-color: #e63946;
   }
+
+  /* Mobile Friendly Adjustments */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .video-container {
+      max-width: 300px; /* Smaller video for mobile */
+    }
+
+    .announcement-container {
+      padding: 15px;
+    }
+
+    .play-button {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  /* Disable text selection */
+  body, html, * {
+    user-select: none;
+  }
+
+  /* JavaScript to disable right-click, inspect, and copying */
+  script {
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+      }
+      if (e.key === 'F12') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+        e.preventDefault();
+      }
+    });
+  }
 </style>
-
-<!-- JavaScript to disable right-click, inspect, and copying -->
-<script>
-  // Disable right-click
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // Disable text selection
-  document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-  });
-
-  // Disable Ctrl+U (View Source)
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-      e.preventDefault();
-    }
-  });
-
-  // Disable F12 (DevTools)
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12') {
-      e.preventDefault();
-    }
-  });
-
-  // Disable Ctrl+Shift+I (Inspect)
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-      e.preventDefault();
-    }
-  });
-</script>
 
 </head>
 <body>
@@ -177,5 +197,6 @@
     });
   });
 </script>
+
 </body>
 </html>
