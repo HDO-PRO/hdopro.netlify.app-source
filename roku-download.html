@@ -24,6 +24,7 @@
 <link rel="icon" href="/images/logo.png" type="image/png">
 <meta name="theme-color" content="#8d2249" />
 
+<!-- Custom CSS -->
 <link href="style.css" rel="stylesheet" type="text/css" />
 <style>
   body {
@@ -43,7 +44,7 @@
   .announcement-container {
     width: 90%;
     max-width: 800px;
-    background-color: rgba(32, 32, 32, 0.8); /* Make background slightly transparent */
+    background-color: rgba(32, 32, 32, 0.8);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -60,14 +61,28 @@
     margin: 20px 0;
   }
 
+  /* Blurred Links */
+  .blurred-link {
+    filter: blur(5px);
+    cursor: pointer;
+    color: #ff69b4;
+    text-decoration: none;
+    transition: filter 0.3s ease;
+  }
+
+  /* Reveal link on click */
+  .blurred-link.revealed {
+    filter: none;
+  }
+
   .video-container {
     position: relative;
     width: 100%;
-    max-width: 400px; /* Reduced size */
+    max-width: 400px;
     background-color: #333;
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 auto; /* Center the video container */
+    margin: 0 auto;
   }
 
   .video-container video {
@@ -127,7 +142,7 @@
     }
 
     .video-container {
-      max-width: 300px; /* Smaller video for mobile */
+      max-width: 300px;
     }
 
     .announcement-container {
@@ -164,7 +179,6 @@
     });
   }
 </style>
-
 </head>
 <body>
 
@@ -172,10 +186,10 @@
 <div class="announcement-container">
   <h1>BIG ANNOUNCEMENT</h1>
   <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! For just a donation of $6, you can get access to the Roku app, which is easy to install through the following permanent link:</p>
-  <p><strong><a href="https://example.com/roku-store-link" style="color: #ff69b4;">Roku Channel Store Link</a></strong></p>
+  <p><strong><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></strong></p>
   <p>The app is legally certified, so it will remain available on Roku and won't be disappearing.</p>
   <p>Need help installing? Check out this YouTube tutorial for easy steps:<br>
-    <strong><a href="https://www.youtube.com/watch?v=example" style="color: #ff69b4;">How to Install HDO Box on Roku (2024 Tutorial)</a></strong>
+    <strong><span class="blurred-link" data-url="https://www.youtube.com/watch?v=example">How to Install HDO Box on Roku (2024 Tutorial)</span></strong>
   </p>
   <p><strong>Don’t miss out!</strong></p>
 
@@ -183,17 +197,45 @@
   <div class="video-container">
     <video id="promoVideo" src="video/SPOILER_VID_20240908_111807_311.mp4" controls></video>
   </div>
+
+  <!-- Notice about link availability -->
+  <p><strong>Note:</strong> Links may not work or be up to date. If so, please <a href="mailto:support@example.com" style="color: #ff69b4;">contact us</a> to get updated links.</p>
 </div>
 
-<!-- JavaScript for Video Play Button -->
+<!-- JavaScript to handle link blurring and clicks -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const video = document.getElementById('promoVideo');
-    const playButton = document.querySelector('.play-button');
+  document.addEventListener('DOMContentLoaded', function () {
+    const blurredLinks = document.querySelectorAll('.blurred-link');
 
-    playButton.addEventListener('click', function() {
-      video.play();
-      playButton.style.display = 'none';
+    blurredLinks.forEach(link => {
+      let clicked = false;
+      link.addEventListener('click', function () {
+        if (!clicked) {
+          // First click reveals the link
+          this.classList.add('revealed');
+          clicked = true;
+        } else {
+          // Second click redirects to the URL
+          window.open(this.getAttribute('data-url'), '_blank');
+        }
+      });
+    });
+
+    // Disable right-click and developer tools shortcuts
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+      if (e.key === 'F12') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+        e.preventDefault();
+      }
     });
   });
 </script>
