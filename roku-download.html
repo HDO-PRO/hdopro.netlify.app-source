@@ -41,18 +41,6 @@
     box-sizing: border-box;
   }
 
-  /* Roku Banner Styling */
-  .roku-banner {
-    width: 100%;
-    max-height: 150px;
-    background: url('Images/maxresdefault.jpg') no-repeat center center;
-    background-size: cover;
-    border-radius: 10px;
-    opacity: 0.8; /* Adjust for transparency */
-    margin-bottom: 20px; /* Space between banner and content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
-  }
-
   .announcement-container {
     width: 90%;
     max-width: 800px;
@@ -61,6 +49,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    margin-bottom: 20px; /* Space between announcement and banner */
   }
 
   h1 {
@@ -71,6 +60,18 @@
   p {
     font-size: 16px;
     margin: 20px 0;
+  }
+
+  /* Roku Banner Styling */
+  .roku-banner {
+    width: 100%;
+    max-height: 150px;
+    background: url('Images/maxresdefault.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 10px;
+    opacity: 0.8; /* Adjust for transparency */
+    margin-bottom: 20px; /* Space between banner and content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
   }
 
   /* Blurred Links */
@@ -202,9 +203,6 @@
 </head>
 <body>
 
-<!-- Roku Banner -->
-<div class="roku-banner"></div>
-
 <!-- Announcement Section -->
 <div class="announcement-container">
   <h1>BIG ANNOUNCEMENT</h1>
@@ -215,17 +213,20 @@
     <strong><span class="blurred-link" data-url="https://www.youtube.com/watch?v=example">How to Install HDO Box on Roku (2024 Tutorial)</span></strong>
   </p>
   <p><strong>Don’t miss out!</strong></p>
-
-  <!-- Custom Video Section -->
-  <div class="video-container">
-    <video id="promoVideo" src="video/SPOILER_VID_20240908_111807_311.mp4" controls></video>
-  </div>
-
-  <!-- Contact Link -->
-  <p><strong>Contact us if any issues:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
-  <p><strong>For faster support, we recommend reaching out on <a href="https://discord.com" target="_blank" class="blurred-link" data-url="https://discord.com">Discord</a> or <a href="https://t.me" target="_blank" class="blurred-link" data-url="https://t.me">Telegram</a>.</strong></p>
-  <p><strong>Note:</strong> Links may not be up-to-date. If you encounter any issues or need updated links, please contact us.</p>
 </div>
+
+<!-- Roku Banner -->
+<div class="roku-banner"></div>
+
+<!-- Custom Video Section -->
+<div class="video-container">
+  <video id="promoVideo" src="video/SPOILER_VID_20240908_111807_311.mp4" controls></video>
+</div>
+
+<!-- Contact Link -->
+<p><strong>Contact us if any issues:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
+<p><strong>For faster support, we recommend reaching out on <a href="https://discord.com" target="_blank" class="blurred-link" data-url="https://discord.com">Discord</a> or <a href="https://t.me" target="_blank" class="blurred-link" data-url="https://t.me">Telegram</a>.</strong></p>
+<p><strong>Note:</strong> Links may not be up-to-date. If you encounter any issues or need updated links, please contact us.</p>
 
 <!-- JavaScript to handle link blurring and clicks -->
 <script>
@@ -256,7 +257,7 @@
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
         e.preventDefault();
       }
       if (e.key === 'F12') {
