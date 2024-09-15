@@ -66,6 +66,7 @@
     background-color: #333;
     border-radius: 10px;
     overflow: hidden;
+    margin: 0 auto; /* Center the video container */
   }
 
   .video-container video {
@@ -109,6 +110,41 @@
     background-color: #e63946;
   }
 </style>
+
+<!-- JavaScript to disable right-click, inspect, and copying -->
+<script>
+  // Disable right-click
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // Disable text selection
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+  });
+
+  // Disable Ctrl+U (View Source)
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+      e.preventDefault();
+    }
+  });
+
+  // Disable F12 (DevTools)
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12') {
+      e.preventDefault();
+    }
+  });
+
+  // Disable Ctrl+Shift+I (Inspect)
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+      e.preventDefault();
+    }
+  });
+</script>
+
 </head>
 <body>
 
