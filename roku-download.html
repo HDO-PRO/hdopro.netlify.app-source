@@ -207,7 +207,7 @@
   </div>
 
   <!-- Contact Link -->
-  <p><strong>Contact us:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
+  <p><strong>Contact us if any issues:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
 </div>
 
 <!-- JavaScript to handle link blurring and clicks -->
@@ -223,8 +223,8 @@
           this.classList.add('revealed');
           clicked = true;
         } else {
-          // Second click redirects to the URL
-          window.open(this.getAttribute('data-url'), '_blank');
+          // Second click requests the email app
+          window.location.href = this.getAttribute('data-url');
         }
       });
     });
