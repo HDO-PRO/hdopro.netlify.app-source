@@ -160,7 +160,15 @@
     user-select: none;
   }
 
-  /* JavaScript to disable right-click, inspect, and copying */
+  /* Disable right-click */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Disable inspect element and developer tools */
   script {
     document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
