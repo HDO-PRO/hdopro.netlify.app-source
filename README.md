@@ -3,7 +3,7 @@
 
 Website: https://hdopro.netlify.app
 
-Clone: hdopro.vercel.com
+Clone: https://hdopro.vercel.app
 
 GitHub: https://github.com/HDO-PRO/hdo-pro
 
