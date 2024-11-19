@@ -1,177 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HDO Pro - Roku Download</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HDO Pro - Roku Download</title>
 
-<!-- Open Graph Meta Tags -->
-<meta property="og:title" content="HDO Pro | Roku App Download" />
-<meta property="og:description" content="BIG ANNOUNCEMENT: A Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the legally certified Roku app." />
-<meta property="og:image" content="/images/logo.png" />
-<meta property="og:url" content="https://example.com/roku-download" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="HDO Pro" />
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="HDO Pro | Roku App Download" />
+  <meta property="og:description" content="BIG ANNOUNCEMENT: A Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the legally certified Roku app." />
+  <meta property="og:image" content="/images/logo.png" />
+  <meta property="og:url" content="https://example.com/roku-download" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="HDO Pro" />
 
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="HDO Pro | Roku App Download" />
-<meta name="twitter:description" content="BIG ANNOUNCEMENT: A Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the legally certified Roku app." />
-<meta name="twitter:image" content="/images/logo.png" />
-<meta name="twitter:site" content="@HDOPro" />
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HDO Pro | Roku App Download" />
+  <meta name="twitter:description" content="BIG ANNOUNCEMENT: A Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the legally certified Roku app." />
+  <meta name="twitter:image" content="/images/logo.png" />
+  <meta name="twitter:site" content="@HDOPro" />
 
-<!-- Favicon and Page Icon -->
-<link rel="icon" href="/images/logo.png" type="image/png">
-<meta name="theme-color" content="#8d2249" />
+  <!-- Favicon and Page Icon -->
+  <link rel="icon" href="/images/logo.png" type="image/png">
+  <meta name="theme-color" content="#8d2249" />
 
-<!-- Custom CSS -->
-<link href="style.css" rel="stylesheet" type="text/css" />
-<style>
-  body {
-    background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff;
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
-
-  .announcement-container {
-    width: 90%;
-    max-width: 800px;
-    background-color: rgba(30, 30, 30, 0.8); 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-  }
-
-  h1 {
-    color: #9b4f9a;
-    font-size: 28px;
-  }
-
-  h2 {
-    font-size: 20px;
-    color: #ffcc00;
-    margin: 10px 0;
-  }
-
-  p {
-    font-size: 16px;
-    margin: 20px 0;
-  }
-
-  .banner-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-
-  .banner-image {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    border-radius: 15px;
-    opacity: 0.8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  }
-
-  .discord-info {
-    margin: 20px 0;
-    font-size: 14px;
-    color: #cccccc;
-    text-align: center;
-  }
-
-  .discord-link {
-    color: #7289da;
-    text-decoration: none;
-  }
-
-  .blurred-link {
-    filter: blur(5px);
-    cursor: pointer;
-    color: #9b4f9a;
-    text-decoration: none;
-    transition: filter 0.3s ease;
-  }
-
-  .blurred-link.revealed {
-    filter: none;
-  }
-
-  @media (max-width: 768px) {
+  <!-- Custom CSS -->
+  <style>
     body {
-      padding: 10px;
-    }
-
-    h1 {
-      font-size: 24px;
-    }
-
-    p {
-      font-size: 14px;
+      background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
 
     .announcement-container {
-      padding: 15px;
+      width: 90%;
+      max-width: 800px;
+      background-color: rgba(30, 0, 0, 0.8); /* Subtle red tint */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(150, 0, 0, 0.5); /* Light red shadow */
+      text-align: center;
+      margin-bottom: 20px;
     }
-  }
-</style>
+
+    h1 {
+      color: #ff4444; /* Soft red for headings */
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 15px 0;
+    }
+
+    .banner-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .banner-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 15px;
+      opacity: 0.85;
+      box-shadow: 0 4px 8px rgba(150, 0, 0, 0.5); /* Light red shadow */
+    }
+
+    .discord-info {
+      font-size: 14px;
+      color: #e6e6e6;
+      margin-top: 10px;
+    }
+
+    .discord-link {
+      color: #ff6666; /* Slightly red-tinted link */
+      text-decoration: none;
+    }
+
+    .blurred-link {
+      filter: blur(5px);
+      cursor: pointer;
+      color: #ff8888; /* Faded red for blurred text */
+      text-decoration: none;
+      transition: filter 0.3s ease, color 0.3s ease;
+    }
+
+    .blurred-link.revealed {
+      filter: none;
+      color: #ffffff; /* Reset to white on reveal */
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .announcement-container {
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="announcement-container">
-  <h1>BIG ANNOUNCEMENT</h1>
-  <div class="banner-container">
-    <img src="Images/maxresdefault.jpg" alt="Banner" class="banner-image">
+  <div class="announcement-container">
+    <h1>🚨 Important Announcement 🚨</h1>
+    <p>Due to suspicious activity, the Roku mod of HDO Pro is on hold and may not return. We are prioritizing safety and will provide updates soon. Thank you for understanding! ❤️</p>
   </div>
-  <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the Roku app.</p>
-  <p><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></p>
-  
-<div class="announcement-container">
-  <h1>🚨 Important Announcement 🚨</h1>
-  <p>Due to suspicious activity, the Roku mod of HDO Pro is on hold and may not return. We are prioritizing safety and will provide updates soon. Thank you for understanding! ❤️</p>
-  
+
+  <div class="announcement-container">
+    <h1>BIG ANNOUNCEMENT</h1>
+    <div class="banner-container">
+      <img src="Images/maxresdefault.jpg" alt="Banner" class="banner-image">
+    </div>
+    <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the Roku app.</p>
+    <p><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></p>
+  </div>
+
   <div class="discord-info">
     <p>The server link provided (<a class="discord-link" href="https://discord.gg/QjVGsyHATq" target="_blank">Roku Revolution</a>) is not affiliated with HDO Pro. Please be cautious and aware when joining.</p>
     <p>For official and secure support, join HDO Pro through trusted channels.</p>
   </div>
-</div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const blurredLinks = document.querySelectorAll('.blurred-link');
-    blurredLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        link.classList.add('revealed');
-        if (link.dataset.url) {
-          window.open(link.dataset.url, '_blank');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const blurredLinks = document.querySelectorAll('.blurred-link');
+      blurredLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          link.classList.add('revealed');
+          if (link.dataset.url) {
+            window.open(link.dataset.url, '_blank');
+          }
+        });
+      });
+
+      // Disable right-click
+      document.addEventListener('contextmenu', e => e.preventDefault());
+
+      // Disable certain keyboard shortcuts
+      document.addEventListener('keydown', e => {
+        if (
+          e.key === 'F12' || 
+          (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'U' || e.key === 'S')) || 
+          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J'))
+        ) {
+          e.preventDefault();
         }
       });
     });
-
-    // Disable right-click
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // Disable certain keyboard shortcuts
-    document.addEventListener('keydown', e => {
-      if (
-        e.key === 'F12' || 
-        (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'U' || e.key === 'S')) || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J'))
-      ) {
-        e.preventDefault();
-      }
-    });
-  });
-</script>
+  </script>
 </body>
 </html>
