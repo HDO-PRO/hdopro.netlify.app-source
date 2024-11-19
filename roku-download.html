@@ -44,7 +44,7 @@
   .announcement-container {
     width: 90%;
     max-width: 800px;
-    background-color: rgba(30, 30, 30, 0.8); /* Dark gray background for better readability */
+    background-color: rgba(30, 30, 30, 0.8); 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -52,7 +52,7 @@
   }
 
   h1 {
-    color: #9b4f9a; /* Roku purple */
+    color: #9b4f9a;
     font-size: 28px;
   }
 
@@ -61,7 +61,6 @@
     margin: 20px 0;
   }
 
-  /* Banner Image Styling */
   .banner-container {
     width: 100%;
     display: flex;
@@ -71,82 +70,37 @@
 
   .banner-image {
     width: 100%;
-    max-width: 600px; /* Adjust width as needed */
+    max-width: 600px;
     height: auto;
-    max-height: 200px; /* Adjust height for longer aspect ratio */
-    object-fit: cover; /* Crop the image to fit */
-    border-radius: 15px; /* Rounded corners */
-    opacity: 0.8; /* Slight transparency */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
+    border-radius: 15px;
+    opacity: 0.8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   }
 
-  /* Blurred Links */
+  .discord-info {
+    margin: 20px 0;
+    font-size: 14px;
+    color: #cccccc;
+    text-align: center;
+  }
+
+  .discord-link {
+    color: #7289da;
+    text-decoration: none;
+  }
+
   .blurred-link {
     filter: blur(5px);
     cursor: pointer;
-    color: #9b4f9a; /* Roku purple */
+    color: #9b4f9a;
     text-decoration: none;
     transition: filter 0.3s ease;
   }
 
-  /* Reveal link on click */
   .blurred-link.revealed {
     filter: none;
   }
 
-  .video-container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    background-color: #333; /* Dark background for video container */
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0 auto;
-  }
-
-  .video-container video {
-    width: 100%;
-    border-radius: 10px;
-  }
-
-  /* Play Button Styling (custom YouTube-style UI) */
-  .video-ui {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .play-button {
-    background-color: #9b4f9a; /* Roku purple */
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .play-button::before {
-    content: '';
-    border-style: solid;
-    border-width: 0 0 0 18px;
-    border-color: transparent transparent transparent #ffffff;
-    margin-left: 6px;
-  }
-
-  .play-button:hover {
-    background-color: #7a3f7e; /* Darker purple on hover */
-  }
-
-  /* Mobile Friendly Adjustments */
   @media (max-width: 768px) {
     body {
       padding: 10px;
@@ -160,124 +114,54 @@
       font-size: 14px;
     }
 
-    .video-container {
-      max-width: 300px;
-    }
-
     .announcement-container {
       padding: 15px;
     }
-
-    .play-button {
-      width: 50px;
-      height: 50px;
-    }
-  }
-
-  /* Disable text selection */
-  body, html, * {
-    user-select: none;
-  }
-
-  /* Disable right-click */
-  body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  /* Disable inspect element and developer tools */
-  script {
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-      }
-      if (e.key === 'F12') {
-        e.preventDefault();
-      }
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-        e.preventDefault();
-      }
-    });
   }
 </style>
 </head>
 <body>
 
-<!-- Announcement Section -->
 <div class="announcement-container">
   <h1>BIG ANNOUNCEMENT</h1>
-
-  <!-- Banner Image -->
   <div class="banner-container">
     <img src="Images/maxresdefault.jpg" alt="Banner" class="banner-image">
   </div>
-
-  <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! For just a donation of $6, you can get access to the Roku app, which is easy to install through the following permanent link:</p>
-  <p><strong><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></strong></p>
-  <p>The app is legally certified, so it will remain available on Roku and won't be disappearing.</p>
-  <p>Need help installing? Check out this YouTube tutorial for easy steps:<br>
-    <strong><span class="blurred-link" data-url="https://www.youtube.com/watch?v=example">How to Install HDO Box on Roku (2024 Tutorial)</span></strong>
-  </p>
-  <p><strong>Don’t miss out!</strong></p>
-
-  <!-- Custom Video Section -->
-  <div class="video-container">
-    <video id="promoVideo" src="video/SPOILER_VID_20240908_111807_311.mp4" controls></video>
+  <p>We are excited to share that a Roku developer is converting the HDO Android app to Roku! Donate $6 to get access to the Roku app.</p>
+  <p><span class="blurred-link" data-url="https://example.com/roku-store-link">Roku Channel Store Link</span></p>
+  <div class="discord-info">
+    <p>Need help? Join us on Discord:</p>
+    <a class="discord-link" href="https://discord.gg/example" target="_blank">Join our Discord</a>
+    <p>or join HDO Pro for official and secure support.</p>
   </div>
-
-  <!-- Contact Link -->
-  <p><strong>Contact us if any issues:</strong> <span class="blurred-link" data-url="mailto:hdopro@protonmail.com">hdopro@protonmail.com</span></p>
-  <p><strong>For faster support, we recommend reaching out on <a href="https://discord.com" target="_blank" class="blurred-link" data-url="https://discord.com">Discord</a> or <a href="https://t.me" target="_blank" class="blurred-link" data-url="https://t.me">Telegram</a>.</strong></p>
-  <p><strong>Note:</strong> Links may not be up-to-date. If you encounter any issues or need updated links, please contact us.</p>
 </div>
 
-<!-- JavaScript to handle link blurring and clicks -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', () => {
     const blurredLinks = document.querySelectorAll('.blurred-link');
-
     blurredLinks.forEach(link => {
-      let clicked = false;
-      link.addEventListener('click', function () {
-        if (!clicked) {
-          // First click reveals the link
-          this.classList.add('revealed');
-          clicked = true;
-        } else {
-          // Second click requests the link or email app
-          if (this.dataset.url.startsWith('mailto:')) {
-            window.location.href = this.dataset.url;
-          } else {
-            window.open(this.dataset.url, '_blank');
-          }
+      link.addEventListener('click', () => {
+        link.classList.add('revealed');
+        if (link.dataset.url) {
+          window.open(link.dataset.url, '_blank');
         }
       });
     });
 
-    // Disable right-click and developer tools shortcuts
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
+    // Disable right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
 
-    document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-      }
-      if (e.key === 'F12') {
-        e.preventDefault();
-      }
-      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+    // Disable certain keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (
+        e.key === 'F12' || 
+        (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'U' || e.key === 'S')) || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J'))
+      ) {
         e.preventDefault();
       }
     });
   });
 </script>
-
 </body>
 </html>
