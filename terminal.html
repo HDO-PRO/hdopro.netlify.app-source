@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDO Pro | Terminal</title>
     <meta property="og:url" content="/terminal" />
     <meta property="og:title" content="HDO Pro | Terminal">
@@ -13,313 +13,13 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
-        /* General Styles */
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
-            color: #0f0;
+            color: #0ff;
             font-family: "Courier New", Courier, monospace;
-            color: #0ff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        #input-line {
-            display: flex;
-        }
-
-        #user-input {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            max-width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div id="terminal">
-        <div class="line">
-            <span>Welcome to the HDO Pro Download Terminal</span>
-        </div>
-        <div class="line">
-            <span>Make sure to enter the exact commands..</span>
-        </div>
-        <div class="line">
-            <span>Enter the startup code to proceed. Hint: 404</span>
-        </div>
-        <div id="input-line">
-            <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
-        </div>
-    </div>
-
-    <script>
-        const terminal = document.getElementById("terminal");
-        const userInputDisplay = document.getElementById("user-input");
-        let inputBuffer = ""; // To store typed commands
-        let hasAccess = false; // Determines if the user has entered the correct code
-        let awaitingResponse = null; // To track if we are waiting for a response
-
-        // Disable right-click
-        document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Disable key combinations like F12, Ctrl+Shift+I, etc.
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J", "U"].includes(e.key.toUpperCase()))) {
-                e.preventDefault();
-            }
-        });
-
-        // Listen for key presses
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                if (!hasAccess) {
-                    verifyStartupCode(inputBuffer.trim());
-                } else {
-                    addLine(`> ${inputBuffer}`);
-                    processCommand(inputBuffer.trim());
-                }
-                inputBuffer = ""; // Clear the input buffer
-                userInputDisplay.textContent = ""; // Clear the displayed input
-            } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
-            } else if (e.key.length === 1) {
-                inputBuffer += e.key; // Add character to the buffer
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
-            }
-        });
-
-        function verifyStartupCode(code) {
-            if (code.toLowerCase() === "neko") {
-                addLine("Access granted. You may now enter commands.");
-                listCommands();
-                hasAccess = true;
-            } else {
-                addLine("Invalid code. Hint: 404");
-            }
-        }
-
-        function listCommands() {
-            addLine("Available commands:");
-            addLine("- /apk: Get APK links (Stable or Beta).");
-            addLine("- /apk-tv: Get the TV APK link.");
-            addLine("- /player: Get player links (Stable or Beta).");
-            addLine("- /stable: Select Stable version (if prompted).");
-            addLine("- /beta: Select Beta version (if prompted).");
-        }
-
-        function processCommand(command) {
-            if (awaitingResponse === "apk-version") {
-                if (command === "/stable") {
-                    addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
-                } else if (command === "/beta") {
-                    addLine(`Beta APK link: <a href="https://hdopro.netlify.app/apk-b" target="_blank">Download Beta APK</a>`);
-                } else {
-                    addLine(`Unknown option: ${command}`);
-                }
-                awaitingResponse = null; // Reset awaiting response
-                return;
-            }
-
-            switch (command.toLowerCase()) {
-                case "/apk":
-                    addLine("Do you want the stable or beta APK? Type /stable or /beta.");
-                    awaitingResponse = "apk-version";
-                    break;
-                case "/apk-tv":
-                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download HDO Pro TV APK</a>`);
-                    break;
-                case "/player":
-                    addLine("Which player do you want? Type /stable or /beta.");
-                    awaitingResponse = "player-version";
-                    break;
-                case "/stable":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Stable Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Unknown command: ${command}`);
-                    }
-                    break;
-                case "/beta":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Beta Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Unknown command: ${command}`);
-                    }
-                    break;
-                default:
-                    addLine(`Unknown command: ${command}`);
-                    break;
-            }
-        }
-
-        function addLine(text) {
-            const line = document.createElement("div");
-            color: #0ff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        #input-line {
-            display: flex;
-        }
-
-        #user-input {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            max-width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div id="terminal">
-        <div class="line">
-            <span>Welcome to the HDO Pro Download Terminal</span>
-        </div>
-        <div class="line">
-            <span>Make sure to enter the exact commands..</span>
-        </div>
-        <div class="line">
-            <span>Enter the startup code to proceed. Hint: 404</span>
-        </div>
-        <div id="input-line">
-            <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
-        </div>
-    </div>
-
-    <script>
-        const terminal = document.getElementById("terminal");
-        const userInputDisplay = document.getElementById("user-input");
-        let inputBuffer = ""; // To store typed commands
-        let hasAccess = false; // Determines if the user has entered the correct code
-        let awaitingResponse = null; // To track if we are waiting for a response
-
-        // Disable right-click
-        document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Disable key combinations like F12, Ctrl+Shift+I, etc.
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J", "U"].includes(e.key.toUpperCase()))) {
-                e.preventDefault();
-            }
-        });
-
-        // Listen for key presses
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                if (!hasAccess) {
-                    verifyStartupCode(inputBuffer.trim());
-                } else {
-                    addLine(`> ${inputBuffer}`);
-                    processCommand(inputBuffer.trim());
-                }
-                inputBuffer = ""; // Clear the input buffer
-                userInputDisplay.textContent = ""; // Clear the displayed input
-            } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
-            } else if (e.key.length === 1) {
-                inputBuffer += e.key; // Add character to the buffer
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
-            }
-        });
-
-        function verifyStartupCode(code) {
-            if (code.toLowerCase() === "neko") {
-                addLine("Access granted. You may now enter commands.");
-                listCommands();
-                hasAccess = true;
-            } else {
-                addLine("Invalid code. Hint: 404");
-            }
-        }
-
-        function listCommands() {
-            addLine("Available commands:");
-            addLine("- /apk: Get APK links (Stable or Beta).");
-            addLine("- /apk-tv: Get the TV APK link.");
-            addLine("- /player: Get player links (Stable or Beta).");
-            addLine("- /stable: Select Stable version (if prompted).");
-            addLine("- /beta: Select Beta version (if prompted).");
-        }
-
-        function processCommand(command) {
-            if (awaitingResponse === "apk-version") {
-                if (command === "/stable") {
-                    addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
-                } else if (command === "/beta") {
-                    addLine(`Beta APK link: <a href="https://hdopro.netlify.app/apk-b" target="_blank">Download Beta APK</a>`);
-                } else {
-                    addLine(`Unknown option: ${command}`);
-                }
-                awaitingResponse = null; // Reset awaiting response
-                return;
-            }
-
-            switch (command.toLowerCase()) {
-                case "/apk":
-                    addLine("Do you want the stable or beta APK? Type /stable or /beta.");
-                    awaitingResponse = "apk-version";
-                    break;
-                case "/apk-tv":
-                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download HDO Pro TV APK</a>`);
-                    break;
-                case "/player":
-                    addLine("Which player do you want? Type /stable or /beta.");
-                    awaitingResponse = "player-version";
-                    break;
-                case "/stable":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Stable Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Unknown command: ${command}`);
-                    }
-                    break;
-                case "/beta":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Beta Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Unknown command: ${command}`);
-                    }
-                    break;
-                default:
-                    addLine(`Unknown command: ${command}`);
-                    break;
-            }
-        }
-
-        function addLine(text) {
-            const line = document.createElement("div");
-            line.className = "line";
-            line.innerHTML = `<span>${text}</span>`;
-            terminal.insertBefore(line, document.getElementById("input-line")); // Add above the input line
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
-        }
-    </script>
-</body>
-</html>
-            line.className = "line";
-            line.innerHTML = `<span>${text}</span>`;
-            terminal.insertBefore(line, document.getElementById("input-line")); // Add above the input line
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
-        }
-    </script>
-</body>
-</html>
-            overflow: hidden;
-            user-select: none; /* Disable text selection */
+            user-select: none;
         }
 
         #terminal {
@@ -332,18 +32,10 @@
             overflow-y: auto;
         }
 
-        /* Blinking Cursor Animation */
-        .blinking {
-            animation: blink 0.8s step-start infinite;
+        .line {
+            margin-bottom: 5px;
         }
 
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-
-        /* Link Style */
         a {
             color: #0ff;
             text-decoration: none;
@@ -363,6 +55,16 @@
             overflow: hidden;
             max-width: 100%;
         }
+
+        .blinking {
+            animation: blink 0.8s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -384,21 +86,18 @@
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
-        let inputBuffer = ""; // To store typed commands
-        let hasAccess = false; // Determines if the user has entered the correct code
-        let awaitingResponse = null; // To track if we are waiting for a response
+        let inputBuffer = "";
+        let hasAccess = false;
+        let awaitingResponse = null;
 
-        // Disable right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-        // Disable key combinations like F12, Ctrl+Shift+I, etc.
         document.addEventListener("keydown", (e) => {
             if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J", "U"].includes(e.key.toUpperCase()))) {
                 e.preventDefault();
             }
         });
 
-        // Listen for key presses
         window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (!hasAccess) {
@@ -407,14 +106,14 @@
                     addLine(`> ${inputBuffer}`);
                     processCommand(inputBuffer.trim());
                 }
-                inputBuffer = ""; // Clear the input buffer
-                userInputDisplay.textContent = ""; // Clear the displayed input
+                inputBuffer = "";
+                userInputDisplay.textContent = "";
             } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
+                inputBuffer = inputBuffer.slice(0, -1);
+                userInputDisplay.textContent = inputBuffer;
             } else if (e.key.length === 1) {
-                inputBuffer += e.key; // Add character to the buffer
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
+                inputBuffer += e.key;
+                userInputDisplay.textContent = inputBuffer;
             }
         });
 
@@ -446,7 +145,7 @@
                 } else {
                     addLine(`Unknown option: ${command}`);
                 }
-                awaitingResponse = null; // Reset awaiting response
+                awaitingResponse = null;
                 return;
             }
 
@@ -488,8 +187,8 @@
             const line = document.createElement("div");
             line.className = "line";
             line.innerHTML = `<span>${text}</span>`;
-            terminal.insertBefore(line, document.getElementById("input-line")); // Add above the input line
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+            terminal.insertBefore(line, document.getElementById("input-line"));
+            terminal.scrollTop = terminal.scrollHeight;
         }
     </script>
 </body>
