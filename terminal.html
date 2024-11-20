@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>HDO Pro | Terminal</title>
     <meta property="og:url" content="/terminal" />
     <meta property="og:title" content="HDO Pro | Terminal">
@@ -13,13 +13,13 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
+        /* General Styles */
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
-            color: #0ff;
+            color: #00ff00; /* Linux-like green text */
             font-family: "Courier New", Courier, monospace;
-            user-select: none;
         }
 
         #terminal {
@@ -32,12 +32,25 @@
             overflow-y: auto;
         }
 
-        .line {
-            margin-bottom: 5px;
+        .line span {
+            color: #00ff00; /* Ensure all text is green */
         }
 
+        /* Blinking Cursor Animation */
+        .blinking {
+            animation: blink 0.8s step-start infinite;
+            color: #00ff00; /* Green blinking cursor */
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Link Style */
         a {
-            color: #0ff;
+            color: #00ff00; /* Green links */
             text-decoration: none;
         }
 
@@ -54,16 +67,6 @@
             white-space: nowrap;
             overflow: hidden;
             max-width: 100%;
-        }
-
-        .blinking {
-            animation: blink 0.8s step-start infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
         }
     </style>
 </head>
@@ -86,18 +89,21 @@
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
-        let inputBuffer = "";
-        let hasAccess = false;
-        let awaitingResponse = null;
+        let inputBuffer = ""; // To store typed commands
+        let hasAccess = false; // Determines if the user has entered the correct code
+        let awaitingResponse = null; // To track if we are waiting for a response
 
+        // Disable right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
 
+        // Disable key combinations like F12, Ctrl+Shift+I, etc.
         document.addEventListener("keydown", (e) => {
             if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J", "U"].includes(e.key.toUpperCase()))) {
                 e.preventDefault();
             }
         });
 
+        // Listen for key presses
         window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (!hasAccess) {
@@ -106,14 +112,14 @@
                     addLine(`> ${inputBuffer}`);
                     processCommand(inputBuffer.trim());
                 }
-                inputBuffer = "";
-                userInputDisplay.textContent = "";
+                inputBuffer = ""; // Clear the input buffer
+                userInputDisplay.textContent = ""; // Clear the displayed input
             } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1);
-                userInputDisplay.textContent = inputBuffer;
+                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
+                userInputDisplay.textContent = inputBuffer; // Update displayed input
             } else if (e.key.length === 1) {
-                inputBuffer += e.key;
-                userInputDisplay.textContent = inputBuffer;
+                inputBuffer += e.key; // Add character to the buffer
+                userInputDisplay.textContent = inputBuffer; // Update displayed input
             }
         });
 
@@ -145,7 +151,7 @@
                 } else {
                     addLine(`Unknown option: ${command}`);
                 }
-                awaitingResponse = null;
+                awaitingResponse = null; // Reset awaiting response
                 return;
             }
 
@@ -187,8 +193,8 @@
             const line = document.createElement("div");
             line.className = "line";
             line.innerHTML = `<span>${text}</span>`;
-            terminal.insertBefore(line, document.getElementById("input-line"));
-            terminal.scrollTop = terminal.scrollHeight;
+            terminal.insertBefore(line, document.getElementById("input-line")); // Add above the input line
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
         }
     </script>
 </body>
