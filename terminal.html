@@ -131,9 +131,9 @@
         function processCommand(command) {
             if (awaitingResponse === "apk-version") {
                 if (command === "/stable") {
-                    addLine(`Stable APK link: <a href="#" target="_blank">Download Stable APK</a>`);
+                    addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
                 } else if (command === "/beta") {
-                    addLine(`Beta APK link: <a href="#" target="_blank">Download Beta APK</a>`);
+                    addLine(`Beta APK link: <a href="https://hdopro.netlify.app/apk-b" target="_blank">Download Beta APK</a>`);
                 } else {
                     addLine(`Unknown option: ${command}`);
                 }
@@ -147,7 +147,7 @@
                     awaitingResponse = "apk-version";
                     break;
                 case "/apk-tv":
-                    addLine(`TV APK link: <a href="#" target="_blank">Download HDO Pro TV APK</a>`);
+                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download HDO Pro TV APK</a>`);
                     break;
                 case "/player":
                     addLine("Which player do you want? Type /stable or /beta.");
@@ -155,7 +155,7 @@
                     break;
                 case "/stable":
                     if (awaitingResponse === "player-version") {
-                        addLine(`Stable Player link: <a href="#" target="_blank">Download Stable Player</a>`);
+                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Stable Player</a>`);
                         awaitingResponse = null;
                     } else {
                         addLine(`Unknown command: ${command}`);
@@ -163,7 +163,7 @@
                     break;
                 case "/beta":
                     if (awaitingResponse === "player-version") {
-                        addLine(`Beta Player link: <a href="#" target="_blank">Download Beta Player</a>`);
+                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Beta Player</a>`);
                         awaitingResponse = null;
                     } else {
                         addLine(`Unknown command: ${command}`);
