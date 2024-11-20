@@ -112,10 +112,20 @@
         function verifyStartupCode(code) {
             if (code.toLowerCase() === "neko") {
                 addLine("Access granted. You may now enter commands.");
+                listCommands();
                 hasAccess = true;
             } else {
                 addLine("Invalid code. Hint: 404");
             }
+        }
+
+        function listCommands() {
+            addLine("Available commands:");
+            addLine("- /apk: Get APK links (Stable or Beta).");
+            addLine("- /apk-tv: Get the TV APK link.");
+            addLine("- /player: Get player links (Stable or Beta).");
+            addLine("- /stable: Select Stable version (if prompted).");
+            addLine("- /beta: Select Beta version (if prompted).");
         }
 
         function processCommand(command) {
