@@ -9,4 +9,4 @@ GitHub: https://github.com/HDO-PRO/hdo-pro
 
 Old GitHub: https://github.com/MarshMeadow/hdo-box.app-ad-free
 
-Please note devs that this is private and should stay that way please do not share code or links..
+Please note, Devs That: This is private and should stay that way please do not share code or links..
