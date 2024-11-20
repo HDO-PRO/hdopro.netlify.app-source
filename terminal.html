@@ -21,6 +21,10 @@
             color: #00ff00; /* Linux-like green text */
             font-family: "Courier New", Courier, monospace;
             font-size: 1rem; /* Default font size for readability */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         #terminal {
@@ -28,9 +32,10 @@
             flex-direction: column;
             justify-content: flex-start;
             padding: 20px;
-            height: 100vh;
+            flex-grow: 1;
             box-sizing: border-box;
             overflow-y: auto;
+            min-height: 0; /* Ensures it fills the available space */
         }
 
         .line span {
@@ -61,6 +66,8 @@
 
         #input-line {
             display: flex;
+            align-items: center;
+            width: 100%;
         }
 
         #user-input {
@@ -68,6 +75,17 @@
             white-space: nowrap;
             overflow: hidden;
             max-width: 100%;
+            background: none;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 0;
+            margin: 0;
+        }
+
+        #input-line:focus-within {
+            outline: none;
         }
 
         /* Viewer count display */
@@ -131,7 +149,7 @@
         <div class="line">
             <span>Enter the startup code to proceed. Hint: 404</span>
         </div>
-        <div id="input-line">
+        <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
             <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
         </div>
     </div>
@@ -223,19 +241,19 @@
 
             switch (command.toLowerCase()) {
                 case "/apk":
-                    addLine("Do you want the stable or beta APK? Type /stable or /beta.");
                     awaitingResponse = "apk-version";
+                    addLine("Which version would you like? Type /stable or /beta.");
                     break;
                 case "/apk-tv":
-                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download HDO Pro TV APK</a>`);
+                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/tv-apk" target="_blank">Download TV APK</a>`);
                     break;
                 case "/player":
-                    addLine("Which player do you want? Type /stable or /beta.");
                     awaitingResponse = "player-version";
+                    addLine("Which version would you like? Type /stable or /beta.");
                     break;
                 case "/stable":
                     if (awaitingResponse === "player-version") {
-                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Stable Player</a>`);
+                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player" target="_blank">Download Stable Player</a>`);
                         awaitingResponse = null;
                     } else {
                         addLine(`Stable version selected.`);
