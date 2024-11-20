@@ -98,10 +98,20 @@
 
         // Disable key combinations like F12, Ctrl+Shift+I, etc.
         document.addEventListener("keydown", (e) => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J", "U"].includes(e.key.toUpperCase()))) {
+            const blockedKeys = ["F12", "I", "C", "J", "U"];
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && e.key.toLowerCase() === "u")
+            ) {
                 e.preventDefault();
             }
         });
+
+        // Disable text selection and copying
+        document.addEventListener("copy", (e) => e.preventDefault());
+        document.addEventListener("cut", (e) => e.preventDefault());
+        document.addEventListener("selectstart", (e) => e.preventDefault());
 
         // Listen for key presses
         window.addEventListener("keydown", (e) => {
