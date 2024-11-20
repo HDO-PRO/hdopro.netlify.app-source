@@ -20,6 +20,7 @@
             background-color: #000;
             color: #00ff00; /* Linux-like green text */
             font-family: "Courier New", Courier, monospace;
+            font-size: 1rem; /* Default font size for readability */
         }
 
         #terminal {
@@ -79,6 +80,43 @@
             font-size: 14px;
             border-radius: 5px;
             color: black;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.9rem; /* Slightly smaller text for mobile */
+            }
+
+            #terminal {
+                padding: 10px;
+            }
+
+            #viewer-count {
+                font-size: 12px; /* Smaller viewer count on mobile */
+                bottom: 10px;
+                right: 10px;
+            }
+
+            #input-line span {
+                font-size: 1.2rem; /* Larger input text for easier mobile typing */
+            }
+        }
+
+        @media (max-width: 480px) {
+            #terminal {
+                padding: 5px;
+            }
+
+            #viewer-count {
+                font-size: 10px;
+                bottom: 5px;
+                right: 5px;
+            }
+
+            #input-line span {
+                font-size: 1.5rem; /* Even larger input text for small screens */
+            }
         }
     </style>
 </head>
@@ -200,29 +238,28 @@
                         addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Stable Player</a>`);
                         awaitingResponse = null;
                     } else {
-                        addLine(`Unknown command: ${command}`);
+                        addLine(`Stable version selected.`);
                     }
                     break;
                 case "/beta":
                     if (awaitingResponse === "player-version") {
-                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-apk" target="_blank">Download Beta Player</a>`);
+                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-b" target="_blank">Download Beta Player</a>`);
                         awaitingResponse = null;
                     } else {
-                        addLine(`Unknown command: ${command}`);
+                        addLine(`Beta version selected.`);
                     }
                     break;
                 default:
                     addLine(`Unknown command: ${command}`);
-                    break;
             }
         }
 
         function addLine(text) {
             const line = document.createElement("div");
-            line.className = "line";
+            line.classList.add("line");
             line.innerHTML = `<span>${text}</span>`;
-            terminal.insertBefore(line, document.getElementById("input-line")); // Add above the input line
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
         function incrementViewerCount() {
