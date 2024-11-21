@@ -56,11 +56,12 @@
 
         /* Link Style */
         a {
-            color: #00ff00; /* Green links */
+            color: #ff007f; /* Reddish-pink links */
             text-decoration: none;
         }
 
         a:hover {
+            color: #ff4da6; /* Slightly lighter reddish-pink on hover */
             text-decoration: underline;
         }
 
@@ -254,35 +255,40 @@
                 case "/stable":
                     if (awaitingResponse === "player-version") {
                         addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player" target="_blank">Download Stable Player</a>`);
-                        awaitingResponse = null;
+                        awaitingResponse = null; // Reset awaiting response
                     } else {
-                        addLine(`Stable version selected.`);
+                        addLine(`Unknown command: ${command}`);
                     }
                     break;
                 case "/beta":
                     if (awaitingResponse === "player-version") {
                         addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-b" target="_blank">Download Beta Player</a>`);
-                        awaitingResponse = null;
+                        awaitingResponse = null; // Reset awaiting response
                     } else {
-                        addLine(`Beta version selected.`);
+                        addLine(`Unknown command: ${command}`);
                     }
                     break;
                 default:
                     addLine(`Unknown command: ${command}`);
+                    break;
             }
-        }
-
-        function addLine(text) {
-            const line = document.createElement("div");
-            line.classList.add("line");
-            line.innerHTML = `<span>${text}</span>`;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
         }
 
         function incrementViewerCount() {
             viewerCount++;
+            updateViewerCount();
+        }
+
+        function updateViewerCount() {
             viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
+        }
+
+        function addLine(content) {
+            const line = document.createElement("div");
+            line.className = "line";
+            line.innerHTML = `<span>${content}</span>`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight; // Scroll to the bottom
         }
     </script>
 </body>
