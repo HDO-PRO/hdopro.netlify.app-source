@@ -24,7 +24,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
         }
 
         #terminal {
@@ -245,27 +245,17 @@
                     addLine("Which version would you like? Type /stable or /beta.");
                     break;
                 case "/apk-tv":
-                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/tv-apk" target="_blank">Download TV APK</a>`);
+                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download TV APK</a>`);
                     break;
                 case "/player":
                     awaitingResponse = "player-version";
-                    addLine("Which version would you like? Type /stable or /beta.");
+                    addLine("Which player version would you like? Type /stable or /beta.");
                     break;
                 case "/stable":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player" target="_blank">Download Stable Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Stable version selected.`);
-                    }
+                    addLine(`Stable version selected.`);
                     break;
                 case "/beta":
-                    if (awaitingResponse === "player-version") {
-                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-b" target="_blank">Download Beta Player</a>`);
-                        awaitingResponse = null;
-                    } else {
-                        addLine(`Beta version selected.`);
-                    }
+                    addLine(`Beta version selected.`);
                     break;
                 default:
                     addLine(`Command not recognized: ${command}`);
