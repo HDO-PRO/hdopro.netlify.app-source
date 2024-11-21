@@ -10,7 +10,6 @@
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         /* General Styles */
@@ -24,15 +23,11 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         #terminal {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            flex: 1;
             padding: 20px;
-            flex-grow: 1;
             box-sizing: border-box;
             overflow-y: auto;
         }
@@ -41,58 +36,37 @@
             color: #00ff00;
         }
 
-        /* Input section always at the bottom */
-        #terminal-container {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
-
+        /* Input Section Styles */
         #input-section {
-            margin-top: auto;
-        }
-
-        /* Blinking Cursor Animation */
-        .blinking {
-            animation: blink 0.8s step-start infinite;
-            color: #00ff00;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-
-        /* Link Style */
-        a {
-            color: #00ff00;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+            background-color: #111;
+            padding: 10px;
+            border-top: 2px solid #00ff00;
+            display: flex;
+            align-items: center;
         }
 
         #input-line {
             display: flex;
             align-items: center;
             width: 100%;
-        }
-
-        #user-input {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            max-width: 100%;
-            background: none;
-            border: none;
-            color: inherit;
+            color: #00ff00;
             font-family: inherit;
             font-size: inherit;
-            padding: 0;
-            margin: 0;
+            padding: 0 5px;
+            outline: none;
+            background: none;
+            border: none;
+            caret-color: #00ff00;
+        }
+
+        .blinking {
+            animation: blink 0.8s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
         }
 
         /* Viewer count display */
@@ -138,96 +112,54 @@
     </style>
 </head>
 <body>
-    <div id="terminal-container">
-        <div id="terminal">
-            <div class="line">
-                <span>Welcome to the HDO Pro Download Terminal</span>
-            </div>
-            <div class="line">
-                <span>Make sure to enter the exact commands..</span>
-            </div>
-            <div class="line">
-                <span>Enter the startup code to proceed. Hint: 404</span>
-            </div>
+    <div id="terminal">
+        <div class="line">
+            <span>Welcome to the HDO Pro Download Terminal</span>
         </div>
-        <div id="input-section">
-            <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
-                <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
-            </div>
+        <div class="line">
+            <span>Make sure to enter the exact commands..</span>
         </div>
+        <div class="line">
+            <span>Enter the startup code to proceed. Hint: 404</span>
+        </div>
+    </div>
+    <div id="input-section">
+        <span>&gt; </span>
+        <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here..."></div>
+        <span class="blinking">|</span>
     </div>
 
     <div id="viewer-count">Viewers: 0</div>
 
     <script>
         const terminal = document.getElementById("terminal");
-        const userInputDisplay = document.getElementById("user-input");
+        const inputLine = document.getElementById("input-line");
         const viewerCountDisplay = document.getElementById("viewer-count");
         let inputBuffer = "";
-        let hasAccess = false;
-        let awaitingResponse = null;
         let viewerCount = 0;
 
-        document.addEventListener("contextmenu", (e) => e.preventDefault());
+        // Focus input area on page load
+        inputLine.focus();
+
+        // Ensure input stays in focus
+        document.addEventListener("click", () => inputLine.focus());
+
+        // Handle user input
         document.addEventListener("keydown", (e) => {
-            const blockedKeys = ["F12", "I", "C", "J", "U"];
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) ||
-                (e.ctrlKey && e.key.toLowerCase() === "u")
-            ) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener("copy", (e) => e.preventDefault());
-        document.addEventListener("cut", (e) => e.preventDefault());
-        document.addEventListener("selectstart", (e) => e.preventDefault());
-
-        window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                if (!hasAccess) {
-                    verifyStartupCode(inputBuffer.trim());
-                } else {
-                    addLine(`> ${inputBuffer}`);
-                    processCommand(inputBuffer.trim());
-                }
-                inputBuffer = "";
-                userInputDisplay.textContent = "";
-            } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1);
-                userInputDisplay.textContent = inputBuffer;
-            } else if (e.key.length === 1) {
-                inputBuffer += e.key;
-                userInputDisplay.textContent = inputBuffer;
+                e.preventDefault();
+                const input = inputLine.textContent.trim();
+                inputLine.textContent = "";
+                processInput(input);
             }
         });
 
-        function verifyStartupCode(code) {
-            if (code.toLowerCase() === "neko") {
-                addLine("Access granted. You may now enter commands.");
-                listCommands();
-                hasAccess = true;
+        function processInput(input) {
+            if (input.toLowerCase() === "404") {
+                addLine("Correct startup code! Welcome.");
                 incrementViewerCount();
-            } else {
-                addLine("Invalid code. Hint: 404");
-            }
-        }
-
-        function listCommands() {
-            addLine("Available commands:");
-            addLine("- /apk: Get APK links (Stable or Beta).");
-            addLine("- /apk-tv: Get the TV APK link.");
-            addLine("- /player: Get player links (Stable or Beta).");
-        }
-
-        function processCommand(command) {
-            switch (command.toLowerCase()) {
-                case "/apk":
-                    addLine("APK link: https://example.com/apk");
-                    break;
-                default:
-                    addLine(`Unknown command: ${command}`);
+            } else if (input) {
+                addLine(`Unknown command: ${input}`);
             }
         }
 
@@ -236,7 +168,7 @@
             line.classList.add("line");
             line.innerHTML = `<span>${text}</span>`;
             terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
+            terminal.scrollTop = terminal.scrollHeight; // Scroll to bottom
         }
 
         function incrementViewerCount() {
