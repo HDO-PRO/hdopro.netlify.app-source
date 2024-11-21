@@ -18,9 +18,9 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            color: #00ff00; /* Linux-like green text */
+            color: #00ff00;
             font-family: "Courier New", Courier, monospace;
-            font-size: 1rem; /* Default font size for readability */
+            font-size: 1rem;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -41,8 +41,22 @@
             color: #00ff00;
         }
 
+        /* Input section always at the bottom */
+        #terminal-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        #input-section {
+            margin-top: auto;
+        }
+
+        /* Blinking Cursor Animation */
         .blinking {
             animation: blink 0.8s step-start infinite;
+            color: #00ff00;
         }
 
         @keyframes blink {
@@ -51,6 +65,7 @@
             }
         }
 
+        /* Link Style */
         a {
             color: #00ff00;
             text-decoration: none;
@@ -76,8 +91,11 @@
             color: inherit;
             font-family: inherit;
             font-size: inherit;
+            padding: 0;
+            margin: 0;
         }
 
+        /* Viewer count display */
         #viewer-count {
             position: fixed;
             bottom: 20px;
@@ -88,41 +106,91 @@
             border-radius: 5px;
             color: black;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.9rem;
+            }
+
+            #terminal {
+                padding: 10px;
+            }
+
+            #viewer-count {
+                font-size: 12px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #terminal {
+                padding: 5px;
+            }
+
+            #viewer-count {
+                font-size: 10px;
+                bottom: 5px;
+                right: 5px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="terminal">
-        <div class="line">
-            <span>Welcome to the HDO Pro Download Terminal</span>
+    <div id="terminal-container">
+        <div id="terminal">
+            <div class="line">
+                <span>Welcome to the HDO Pro Download Terminal</span>
+            </div>
+            <div class="line">
+                <span>Make sure to enter the exact commands..</span>
+            </div>
+            <div class="line">
+                <span>Enter the startup code to proceed. Hint: 404</span>
+            </div>
         </div>
-        <div class="line">
-            <span>Make sure to enter the exact commands..</span>
-        </div>
-        <div class="line">
-            <span>Enter the startup code to proceed. Hint: 404</span>
-        </div>
-        <div id="input-line">
-            <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
+        <div id="input-section">
+            <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
+                <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
+            </div>
         </div>
     </div>
+
     <div id="viewer-count">Viewers: 0</div>
 
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
-
         let inputBuffer = "";
         let hasAccess = false;
+        let awaitingResponse = null;
         let viewerCount = 0;
 
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
         document.addEventListener("keydown", (e) => {
+            const blockedKeys = ["F12", "I", "C", "J", "U"];
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && e.key.toLowerCase() === "u")
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener("copy", (e) => e.preventDefault());
+        document.addEventListener("cut", (e) => e.preventDefault());
+        document.addEventListener("selectstart", (e) => e.preventDefault());
+
+        window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                const command = inputBuffer.trim();
                 if (!hasAccess) {
-                    verifyStartupCode(command);
+                    verifyStartupCode(inputBuffer.trim());
                 } else {
-                    processCommand(command);
+                    addLine(`> ${inputBuffer}`);
+                    processCommand(inputBuffer.trim());
                 }
                 inputBuffer = "";
                 userInputDisplay.textContent = "";
@@ -156,15 +224,7 @@
         function processCommand(command) {
             switch (command.toLowerCase()) {
                 case "/apk":
-                    addLine("Stable APK: <a href='https://hdopro.netlify.app/apk' target='_blank'>Download Stable</a>");
-                    addLine("Beta APK: <a href='https://hdopro.netlify.app/apk-b' target='_blank'>Download Beta</a>");
-                    break;
-                case "/apk-tv":
-                    addLine("TV APK: <a href='https://hdopro.netlify.app/tv-apk' target='_blank'>Download</a>");
-                    break;
-                case "/player":
-                    addLine("Stable Player: <a href='https://hdopro.netlify.app/player' target='_blank'>Download Stable</a>");
-                    addLine("Beta Player: <a href='https://hdopro.netlify.app/player-b' target='_blank'>Download Beta</a>");
+                    addLine("APK link: https://example.com/apk");
                     break;
                 default:
                     addLine(`Unknown command: ${command}`);
