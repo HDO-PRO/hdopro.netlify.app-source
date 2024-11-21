@@ -10,6 +10,7 @@
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         /* General Styles */
@@ -17,67 +18,74 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            color: #00ff00;
+            color: #00ff00; /* Linux-like green text */
             font-family: "Courier New", Courier, monospace;
-            font-size: 1rem;
+            font-size: 1rem; /* Default font size for readability */
             height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         #terminal {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             padding: 20px;
+            flex-grow: 1;
             box-sizing: border-box;
             overflow-y: auto;
+            min-height: 0; /* Ensures it fills the available space */
         }
 
         .line span {
-            color: #00ff00;
+            color: #00ff00; /* Ensure all text is green */
         }
 
-        /* Download Link Styles */
-        a.download-link {
-            color: #ff5e9c; /* Reddish-pink color */
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a.download-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Input Section Styles */
-        #input-section {
-            background-color: #111;
-            padding: 10px;
-            border-top: 2px solid #00ff00;
-            display: flex;
-            align-items: center;
-        }
-
-        #input-line {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            color: #00ff00;
-            font-family: inherit;
-            font-size: inherit;
-            padding: 0 5px;
-            outline: none;
-            background: none;
-            border: none;
-            caret-color: #00ff00;
-        }
-
+        /* Blinking Cursor Animation */
         .blinking {
             animation: blink 0.8s step-start infinite;
+            color: #00ff00; /* Green blinking cursor */
         }
 
         @keyframes blink {
             50% {
                 opacity: 0;
             }
+        }
+
+        /* Link Style */
+        a {
+            color: #00ff00; /* Green links */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #input-line {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        #user-input {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 100%;
+            background: none;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 0;
+            margin: 0;
+        }
+
+        #input-line:focus-within {
+            outline: none;
         }
 
         /* Viewer count display */
@@ -95,7 +103,7 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
-                font-size: 0.9rem;
+                font-size: 0.9rem; /* Slightly smaller text for mobile */
             }
 
             #terminal {
@@ -103,9 +111,13 @@
             }
 
             #viewer-count {
-                font-size: 12px;
+                font-size: 12px; /* Smaller viewer count on mobile */
                 bottom: 10px;
                 right: 10px;
+            }
+
+            #input-line span {
+                font-size: 1.2rem; /* Larger input text for easier mobile typing */
             }
         }
 
@@ -118,6 +130,10 @@
                 font-size: 10px;
                 bottom: 5px;
                 right: 5px;
+            }
+
+            #input-line span {
+                font-size: 1.5rem; /* Even larger input text for small screens */
             }
         }
     </style>
@@ -133,53 +149,127 @@
         <div class="line">
             <span>Enter the startup code to proceed. Hint: 404</span>
         </div>
-        <div class="line">
-            <span>
-                Download Links:
-                <a href="/downloads/android" class="download-link">Android</a> |
-                <a href="/downloads/ios" class="download-link">iOS</a> |
-                <a href="/downloads/windows" class="download-link">Windows</a> |
-                <a href="/downloads/mac" class="download-link">Mac</a>
-            </span>
+        <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
+            <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
         </div>
     </div>
-    <div id="input-section">
-        <span>&gt; </span>
-        <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here..."></div>
-        <span class="blinking">|</span>
-    </div>
 
+    <!-- Viewer count -->
     <div id="viewer-count">Viewers: 0</div>
 
     <script>
         const terminal = document.getElementById("terminal");
-        const inputLine = document.getElementById("input-line");
+        const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
-        let inputBuffer = "";
-        let viewerCount = 0;
+        let inputBuffer = ""; // To store typed commands
+        let hasAccess = false; // Determines if the user has entered the correct code
+        let awaitingResponse = null; // To track if we are waiting for a response
+        let viewerCount = 0; // Counter for viewers who entered the code correctly
 
-        // Focus input area on page load
-        inputLine.focus();
+        // Disable right-click
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-        // Ensure input stays in focus
-        document.addEventListener("click", () => inputLine.focus());
-
-        // Handle user input
+        // Disable key combinations like F12, Ctrl+Shift+I, etc.
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
+            const blockedKeys = ["F12", "I", "C", "J", "U"];
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && e.key.toLowerCase() === "u")
+            ) {
                 e.preventDefault();
-                const input = inputLine.textContent.trim();
-                inputLine.textContent = "";
-                processInput(input);
             }
         });
 
-        function processInput(input) {
-            if (input.toLowerCase() === "404") {
-                addLine("Correct startup code! Welcome.");
-                incrementViewerCount();
-            } else if (input) {
-                addLine(`Unknown command: ${input}`);
+        // Disable text selection and copying
+        document.addEventListener("copy", (e) => e.preventDefault());
+        document.addEventListener("cut", (e) => e.preventDefault());
+        document.addEventListener("selectstart", (e) => e.preventDefault());
+
+        // Listen for key presses
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                if (!hasAccess) {
+                    verifyStartupCode(inputBuffer.trim());
+                } else {
+                    addLine(`> ${inputBuffer}`);
+                    processCommand(inputBuffer.trim());
+                }
+                inputBuffer = ""; // Clear the input buffer
+                userInputDisplay.textContent = ""; // Clear the displayed input
+            } else if (e.key === "Backspace") {
+                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
+                userInputDisplay.textContent = inputBuffer; // Update displayed input
+            } else if (e.key.length === 1) {
+                inputBuffer += e.key; // Add character to the buffer
+                userInputDisplay.textContent = inputBuffer; // Update displayed input
+            }
+        });
+
+        function verifyStartupCode(code) {
+            if (code.toLowerCase() === "neko") {
+                addLine("Access granted. You may now enter commands.");
+                listCommands();
+                hasAccess = true;
+                incrementViewerCount(); // Increment viewer count after successful code entry
+            } else {
+                addLine("Invalid code. Hint: 404");
+            }
+        }
+
+        function listCommands() {
+            addLine("Available commands:");
+            addLine("- /apk: Get APK links (Stable or Beta).");
+            addLine("- /apk-tv: Get the TV APK link.");
+            addLine("- /player: Get player links (Stable or Beta).");
+            addLine("- /stable: Select Stable version (if prompted).");
+            addLine("- /beta: Select Beta version (if prompted).");
+        }
+
+        function processCommand(command) {
+            if (awaitingResponse === "apk-version") {
+                if (command === "/stable") {
+                    addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
+                } else if (command === "/beta") {
+                    addLine(`Beta APK link: <a href="https://hdopro.netlify.app/apk-b" target="_blank">Download Beta APK</a>`);
+                } else {
+                    addLine(`Unknown option: ${command}`);
+                }
+                awaitingResponse = null; // Reset awaiting response
+                return;
+            }
+
+            switch (command.toLowerCase()) {
+                case "/apk":
+                    awaitingResponse = "apk-version";
+                    addLine("Which version would you like? Type /stable or /beta.");
+                    break;
+                case "/apk-tv":
+                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/tv-apk" target="_blank">Download TV APK</a>`);
+                    break;
+                case "/player":
+                    awaitingResponse = "player-version";
+                    addLine("Which version would you like? Type /stable or /beta.");
+                    break;
+                case "/stable":
+                    if (awaitingResponse === "player-version") {
+                        addLine(`Stable Player link: <a href="https://hdopro.netlify.app/player" target="_blank">Download Stable Player</a>`);
+                        awaitingResponse = null;
+                    } else {
+                        addLine(`Stable version selected.`);
+                    }
+                    break;
+                case "/beta":
+                    if (awaitingResponse === "player-version") {
+                        addLine(`Beta Player link: <a href="https://hdopro.netlify.app/player-b" target="_blank">Download Beta Player</a>`);
+                        awaitingResponse = null;
+                    } else {
+                        addLine(`Beta version selected.`);
+                    }
+                    break;
+                default:
+                    addLine(`Command not recognized: ${command}`);
+                    break;
             }
         }
 
@@ -188,7 +278,7 @@
             line.classList.add("line");
             line.innerHTML = `<span>${text}</span>`;
             terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight; // Scroll to bottom
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
         }
 
         function incrementViewerCount() {
