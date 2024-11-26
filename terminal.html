@@ -6,7 +6,7 @@
     <title>HDO Pro | Terminal</title>
     <meta property="og:url" content="/terminal" />
     <meta property="og:title" content="HDO Pro | Terminal">
-    <meta property="og:description" content="Terminal For HDO Pro">
+    <meta property="og:description" content="Terminal for accessing HDO Pro. Intended for PC usage.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
@@ -73,12 +73,12 @@
             background: #555;
         }
         a {
-            color: #00ffff;
+            color: #ff5c8a; /* Reddish-pink */
             text-decoration: none;
-            pointer-events: none; /* Disable link interaction */
         }
         a:hover {
             text-decoration: underline;
+            color: #ff2f6d; /* Darker pink on hover */
         }
         @media (hover: none) and (pointer: coarse) {
             #keyboard-button {
@@ -90,57 +90,35 @@
 <body>
     <div id="terminal">
         <div class="line"><span>Welcome to the HDO Pro Download Terminal</span></div>
-        <div class="line"><span>This terminal is meant to access HDO Pro and is primarily designed for PC use.</span></div>
+        <div class="line"><span>This terminal is to access HDO Pro and is meant to be used on PC.</span></div>
         <div class="line"><span>Make sure to enter the exact commands..</span></div>
         <div class="line"><span>Enter the startup code to proceed. Hint: 404</span></div>
         <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
             <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
         </div>
     </div>
-    <button id="keyboard-button">Keyboard</button>
     <div id="viewer-count">Viewers: 0</div>
+    <button id="keyboard-button">Open Keyboard</button>
 
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
-        const inputLine = document.getElementById("input-line");
         const keyboardButton = document.getElementById("keyboard-button");
-
         let inputBuffer = "";
         let hasAccess = false;
         let awaitingResponse = null;
         let viewerCount = 0;
 
-        // Prevent right-click
+        // Disable right-click and text selection
         document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Prevent copy, cut, or inspect
         document.addEventListener("keydown", (e) => {
             const blockedKeys = ["F12", "I", "C", "J", "U"];
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && blockedKeys.includes(e.key.toUpperCase())) ||
-                (e.ctrlKey && ["x", "c", "v", "u"].includes(e.key.toLowerCase()))
-            ) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === "u")) {
                 e.preventDefault();
             }
         });
 
-        // Disable text selection
-        document.addEventListener("selectstart", (e) => e.preventDefault());
-
-        // Keep focus on input for TVs
-        inputLine.addEventListener("blur", () => {
-            inputLine.focus();
-        });
-
-        // Keyboard button logic
-        keyboardButton.addEventListener("click", () => {
-            inputLine.focus();
-        });
-
-        // Terminal logic
         window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (!hasAccess) {
@@ -149,8 +127,7 @@
                     addLine(`> ${inputBuffer}`);
                     processCommand(inputBuffer.trim());
                 }
-                inputBuffer = "";
-                userInputDisplay.textContent = "";
+                clearInput();
             } else if (e.key === "Backspace") {
                 inputBuffer = inputBuffer.slice(0, -1);
                 userInputDisplay.textContent = inputBuffer;
@@ -218,10 +195,20 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
+        function clearInput() {
+            inputBuffer = "";
+            userInputDisplay.textContent = "";
+        }
+
         function incrementViewerCount() {
             viewerCount++;
             viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
         }
+
+        keyboardButton.addEventListener("click", () => {
+            const inputLine = document.getElementById("input-line");
+            inputLine.focus();
+        });
     </script>
 </body>
 </html>
