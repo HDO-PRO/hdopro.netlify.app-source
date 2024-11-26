@@ -77,58 +77,37 @@
 
         .button-container {
             display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap to the next line if necessary */
             justify-content: center;
             margin-top: 20px;
+            gap: 10px; /* Add consistent spacing between buttons */
         }
 
         .button-container a {
             display: inline-block;
-            margin: 0 7px;
             text-decoration: none;
             color: #fff;
             background-color: #7289DA;
             border-radius: 5px;
-            padding: 5px 10px;
+            padding: 10px 20px;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px; /* Adjust font size for better fit */
+            white-space: nowrap; /* Prevent text wrapping inside buttons */
+            text-align: center;
+            min-width: 150px; /* Ensure all buttons have a uniform width */
         }
 
         .button-container a:hover {
             background-color: #677BC4;
         }
 
-        .button-container img {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
         /* Media query for mobile devices */
         @media (max-width: 600px) {
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .button-container a {
-                margin: 5px 0;
-                width: 80%;
-                font-size: 16px;
-                padding: 10px;
-            }
-
-            .container {
-                width: 100%;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            p {
-                font-size: 16px;
+                font-size: 12px; /* Adjust font size for smaller screens */
+                padding: 8px 15px; /* Adjust padding for smaller screens */
+                min-width: unset; /* Allow buttons to resize dynamically on small screens */
             }
         }
 
