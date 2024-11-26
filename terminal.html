@@ -55,6 +55,21 @@
             text-align: center;
             padding: 5px 0;
         }
+        #keyboard-button {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            background: #444;
+            color: #00ff00;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #keyboard-button:hover {
+            background: #555;
+        }
         a {
             color: #00ffff;
             text-decoration: none;
@@ -73,18 +88,25 @@
             <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
         </div>
     </div>
+    <button id="keyboard-button">Keyboard</button>
     <div id="viewer-count">Viewers: 0</div>
 
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
+        const inputLine = document.getElementById("input-line");
+        const keyboardButton = document.getElementById("keyboard-button");
+
         let inputBuffer = "";
         let hasAccess = false;
         let awaitingResponse = null;
         let viewerCount = 0;
 
+        // Prevent right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+        // Block dev tools
         document.addEventListener("keydown", (e) => {
             const blockedKeys = ["F12", "I", "C", "J", "U"];
             if (e.key === "F12" || (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === "u")) {
@@ -92,6 +114,12 @@
             }
         });
 
+        // Keyboard button logic
+        keyboardButton.addEventListener("click", () => {
+            inputLine.focus();
+        });
+
+        // Terminal logic
         window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (!hasAccess) {
