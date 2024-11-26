@@ -23,6 +23,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
+            user-select: none; /* Disable text selection */
         }
         #terminal {
             flex: 1;
@@ -74,6 +75,7 @@
         a {
             color: #00ffff;
             text-decoration: none;
+            pointer-events: none; /* Disable link interaction */
         }
         a:hover {
             text-decoration: underline;
@@ -113,13 +115,20 @@
         // Prevent right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-        // Block dev tools
+        // Prevent copy, cut, or inspect
         document.addEventListener("keydown", (e) => {
             const blockedKeys = ["F12", "I", "C", "J", "U"];
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === "u")) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && blockedKeys.includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && ["x", "c", "v", "u"].includes(e.key.toLowerCase()))
+            ) {
                 e.preventDefault();
             }
         });
+
+        // Disable text selection
+        document.addEventListener("selectstart", (e) => e.preventDefault());
 
         // Keep focus on input for TVs
         inputLine.addEventListener("blur", () => {
