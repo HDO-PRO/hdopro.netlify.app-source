@@ -75,18 +75,14 @@
         #keyboard-button:hover {
             background: #555;
         }
-        a {
-            color: #ff5c8a; /* Reddish-pink */
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #ff2f6d; /* Darker pink on hover */
-        }
         @media (hover: none) and (pointer: coarse) {
             #keyboard-button {
                 display: block; /* Show on touch devices */
             }
+        }
+        .easter-egg-message {
+            display: none; /* Hide by default */
+            color: #ff9900; /* Special color for the Easter egg message */
         }
     </style>
 </head>
@@ -102,12 +98,16 @@
     </div>
     <div id="viewer-count">Viewers: 0</div>
     <button id="keyboard-button">Open Keyboard</button>
+    <div class="easter-egg-message" id="easter-egg-message">
+        🎉🎉 Congratulations, you're a true HDO Pro fan! 🎉🎉
+    </div>
 
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
         const keyboardButton = document.getElementById("keyboard-button");
+        const easterEggMessage = document.getElementById("easter-egg-message");
         let inputBuffer = "";
         let hasAccess = false;
         let awaitingResponse = null;
@@ -245,7 +245,10 @@
         }
 
         function revealEasterEgg() {
-            addLine("You found the Easter Egg! Here's a hidden message: 🎉🎉 Congratulations, you're a true HDO Pro fan! 🎉🎉");
+            easterEggMessage.style.display = "block"; // Show the Easter egg message
+            setTimeout(() => {
+                easterEggMessage.style.display = "none"; // Hide it again after a few seconds
+            }, 5000);
         }
 
         function startOver() {
