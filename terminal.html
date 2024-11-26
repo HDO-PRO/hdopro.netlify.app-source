@@ -112,6 +112,8 @@
         let hasAccess = false;
         let awaitingResponse = null;
         let viewerCount = 0;
+        let commandHistory = []; // History of commands entered
+        let currentHistoryIndex = -1; // To navigate the history
 
         // Disable right-click and text selection
         document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -134,6 +136,24 @@
             } else if (e.key === "Backspace") {
                 inputBuffer = inputBuffer.slice(0, -1);
                 userInputDisplay.textContent = inputBuffer;
+            } else if (e.key === "ArrowUp") {
+                // Navigate up in command history
+                if (currentHistoryIndex > 0) {
+                    currentHistoryIndex--;
+                    inputBuffer = commandHistory[currentHistoryIndex];
+                    userInputDisplay.textContent = inputBuffer;
+                }
+            } else if (e.key === "ArrowDown") {
+                // Navigate down in command history
+                if (currentHistoryIndex < commandHistory.length - 1) {
+                    currentHistoryIndex++;
+                    inputBuffer = commandHistory[currentHistoryIndex];
+                    userInputDisplay.textContent = inputBuffer;
+                } else {
+                    currentHistoryIndex = commandHistory.length;
+                    inputBuffer = "";
+                    userInputDisplay.textContent = "";
+                }
             } else if (e.key.length === 1) {
                 inputBuffer += e.key;
                 userInputDisplay.textContent = inputBuffer;
@@ -158,9 +178,15 @@
             addLine("- /player: Get player links (Stable or Beta).");
             addLine("- /stable: Select Stable version (if prompted).");
             addLine("- /beta: Select Beta version (if prompted).");
+            addLine("- /back: Go back to the previous step.");
+            addLine("- /startover: Start over and reset everything.");
+            addLine("- /easteregg: Try to find something special...");
         }
 
         function processCommand(command) {
+            commandHistory.push(command); // Save command to history
+            currentHistoryIndex = commandHistory.length; // Reset history navigation
+
             if (awaitingResponse === "apk-version") {
                 if (command === "/stable") {
                     addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
@@ -185,6 +211,15 @@
                     awaitingResponse = "player-version";
                     addLine("Which player version would you like? Type /stable or /beta.");
                     break;
+                case "/back":
+                    addLine("You can't go back yet. You haven't made a choice.");
+                    break;
+                case "/startover":
+                    startOver();
+                    break;
+                case "/easteregg":
+                    revealEasterEgg();
+                    break;
                 default:
                     addLine(`Command not recognized: ${command}`);
             }
@@ -192,9 +227,9 @@
 
         function addLine(text) {
             const line = document.createElement("div");
-            line.className = "line";
-            line.innerHTML = text;
-            terminal.insertBefore(line, document.getElementById("input-line"));
+            line.classList.add("line");
+            line.innerHTML = `<span>${text}</span>`;
+            terminal.appendChild(line);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -206,13 +241,23 @@
         function incrementViewerCount() {
             viewerCount++;
             viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
-            viewerCountDisplay.style.display = "block"; // Show the viewer count after accessing
+            viewerCountDisplay.style.display = "block";
         }
 
-        keyboardButton.addEventListener("click", () => {
-            const inputLine = document.getElementById("input-line");
-            inputLine.focus();
-        });
+        function revealEasterEgg() {
+            addLine("You found the Easter Egg! Here's a hidden message: 🎉🎉 Congratulations, you're a true HDO Pro fan! 🎉🎉");
+        }
+
+        function startOver() {
+            addLine("Starting over...");
+            hasAccess = false;
+            awaitingResponse = null;
+            viewerCount = 0;
+            viewerCountDisplay.style.display = "none";
+            commandHistory = [];
+            currentHistoryIndex = -1;
+            clearInput();
+        }
     </script>
 </body>
 </html>
