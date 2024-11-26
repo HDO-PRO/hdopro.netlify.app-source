@@ -50,11 +50,14 @@
             }
         }
         #viewer-count {
-            width: 100%;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
             background: #222;
             color: #00ff00;
             text-align: center;
-            padding: 5px 0;
+            padding: 5px 10px;
+            display: none; /* Hidden by default */
         }
         #keyboard-button {
             position: fixed;
@@ -203,6 +206,7 @@
         function incrementViewerCount() {
             viewerCount++;
             viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
+            viewerCountDisplay.style.display = "block"; // Show the viewer count after accessing
         }
 
         keyboardButton.addEventListener("click", () => {
