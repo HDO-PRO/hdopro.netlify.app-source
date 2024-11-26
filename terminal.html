@@ -13,182 +13,85 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
-        /* General Styles */
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            color: #00ff00; /* Linux-like green text */
+            background-color: black;
+            color: #00ff00;
             font-family: "Courier New", Courier, monospace;
-            font-size: 1rem; /* Default font size for readability */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
         }
-
         #terminal {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 20px;
-            flex-grow: 1;
-            box-sizing: border-box;
+            width: 100%;
+            height: 90vh;
             overflow-y: auto;
-            min-height: 0; /* Ensures it fills the available space */
+            padding: 10px;
+            box-sizing: border-box;
         }
-
-        .line span {
-            color: #00ff00; /* Ensure all text is green */
+        .line {
+            margin: 5px 0;
         }
-
-        /* Blinking Cursor Animation */
+        #input-line {
+            display: flex;
+            outline: none;
+        }
+        #input-line span {
+            white-space: pre;
+        }
         .blinking {
-            animation: blink 0.8s step-start infinite;
-            color: #00ff00; /* Green blinking cursor */
+            animation: blink 1s step-end infinite;
         }
-
         @keyframes blink {
             50% {
                 opacity: 0;
             }
         }
-
-        /* Link Style */
-        a {
-            color: #00ff00; /* Green links */
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        #input-line {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        #user-input {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            max-width: 100%;
-            background: none;
-            border: none;
-            color: inherit;
-            font-family: inherit;
-            font-size: inherit;
-            padding: 0;
-            margin: 0;
-        }
-
-        #input-line:focus-within {
-            outline: none;
-        }
-
-        /* Viewer count display */
         #viewer-count {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 255, 0, 0.7);
-            padding: 10px;
-            font-size: 14px;
-            border-radius: 5px;
-            color: black;
+            bottom: 0;
+            width: 100%;
+            background: #222;
+            color: #00ff00;
+            text-align: center;
+            padding: 5px 0;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                font-size: 0.9rem; /* Slightly smaller text for mobile */
-            }
-
-            #terminal {
-                padding: 10px;
-            }
-
-            #viewer-count {
-                font-size: 12px; /* Smaller viewer count on mobile */
-                bottom: 10px;
-                right: 10px;
-            }
-
-            #input-line span {
-                font-size: 1.2rem; /* Larger input text for easier mobile typing */
-            }
+        a {
+            color: #00ffff;
+            text-decoration: none;
         }
-
-        @media (max-width: 480px) {
-            #terminal {
-                padding: 5px;
-            }
-
-            #viewer-count {
-                font-size: 10px;
-                bottom: 5px;
-                right: 5px;
-            }
-
-            #input-line span {
-                font-size: 1.5rem; /* Even larger input text for small screens */
-            }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div id="terminal">
-        <div class="line">
-            <span>Welcome to the HDO Pro Download Terminal</span>
-        </div>
-        <div class="line">
-            <span>Make sure to enter the exact commands..</span>
-        </div>
-        <div class="line">
-            <span>Enter the startup code to proceed. Hint: 404</span>
-        </div>
-
-        <!-- The typing area -->
+        <div class="line"><span>Welcome to the HDO Pro Download Terminal</span></div>
+        <div class="line"><span>Make sure to enter the exact commands..</span></div>
+        <div class="line"><span>Enter the startup code to proceed. Hint: 404</span></div>
         <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
             <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
         </div>
     </div>
-
-    <!-- Viewer count -->
     <div id="viewer-count">Viewers: 0</div>
 
     <script>
         const terminal = document.getElementById("terminal");
         const userInputDisplay = document.getElementById("user-input");
         const viewerCountDisplay = document.getElementById("viewer-count");
-        let inputBuffer = ""; // To store typed commands
-        let hasAccess = false; // Determines if the user has entered the correct code
-        let awaitingResponse = null; // To track if we are waiting for a response
-        let viewerCount = 0; // Counter for viewers who entered the code correctly
+        let inputBuffer = "";
+        let hasAccess = false;
+        let awaitingResponse = null;
+        let viewerCount = 0;
 
-        // Disable right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Disable key combinations like F12, Ctrl+Shift+I, etc.
         document.addEventListener("keydown", (e) => {
             const blockedKeys = ["F12", "I", "C", "J", "U"];
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) ||
-                (e.ctrlKey && e.key.toLowerCase() === "u")
-            ) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === "u")) {
                 e.preventDefault();
             }
         });
 
-        // Disable text selection and copying
-        document.addEventListener("copy", (e) => e.preventDefault());
-        document.addEventListener("cut", (e) => e.preventDefault());
-        document.addEventListener("selectstart", (e) => e.preventDefault());
-
-        // Listen for key presses
         window.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (!hasAccess) {
@@ -197,14 +100,14 @@
                     addLine(`> ${inputBuffer}`);
                     processCommand(inputBuffer.trim());
                 }
-                inputBuffer = ""; // Clear the input buffer
-                userInputDisplay.textContent = ""; // Clear the displayed input
+                inputBuffer = "";
+                userInputDisplay.textContent = "";
             } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1); // Remove the last character
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
+                inputBuffer = inputBuffer.slice(0, -1);
+                userInputDisplay.textContent = inputBuffer;
             } else if (e.key.length === 1) {
-                inputBuffer += e.key; // Add character to the buffer
-                userInputDisplay.textContent = inputBuffer; // Update displayed input
+                inputBuffer += e.key;
+                userInputDisplay.textContent = inputBuffer;
             }
         });
 
@@ -213,7 +116,7 @@
                 addLine("Access granted. You may now enter commands.");
                 listCommands();
                 hasAccess = true;
-                incrementViewerCount(); // Increment viewer count after successful code entry
+                incrementViewerCount();
             } else {
                 addLine("Invalid code. Hint: 404");
             }
@@ -237,7 +140,7 @@
                 } else {
                     addLine(`Unknown option: ${command}`);
                 }
-                awaitingResponse = null; // Reset awaiting response
+                awaitingResponse = null;
                 return;
             }
 
@@ -253,24 +156,17 @@
                     awaitingResponse = "player-version";
                     addLine("Which player version would you like? Type /stable or /beta.");
                     break;
-                case "/stable":
-                    addLine(`Stable version selected.`);
-                    break;
-                case "/beta":
-                    addLine(`Beta version selected.`);
-                    break;
                 default:
                     addLine(`Command not recognized: ${command}`);
-                    break;
             }
         }
 
         function addLine(text) {
             const line = document.createElement("div");
-            line.classList.add("line");
-            line.innerHTML = `<span>${text}</span>`;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+            line.className = "line";
+            line.innerHTML = text;
+            terminal.insertBefore(line, document.getElementById("input-line"));
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
         function incrementViewerCount() {
