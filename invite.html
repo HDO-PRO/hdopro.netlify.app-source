@@ -27,10 +27,7 @@
             align-items: center;
             height: 100vh;
             box-sizing: border-box;
-            user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none;
         }
 
         .mist {
@@ -77,18 +74,26 @@
 
         .button-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 10px;
             margin-top: 20px;
         }
 
         .button-container a {
-            display: inline-block;
-            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
             text-decoration: none;
             color: #fff;
             background-color: #7289DA;
             border-radius: 5px;
-            padding: 10px 20px;
+            padding: 10px;
+            width: calc(33% - 20px); /* Flexible button width */
+            min-width: 120px;
+            max-width: 150px;
+            box-sizing: border-box;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -100,14 +105,14 @@
         .button-container img {
             width: 24px;
             height: 24px;
-            margin-right: 10px;
-            vertical-align: middle;
+            margin-bottom: 5px;
         }
 
         .gif-container img {
-            width: 150px; /* Adjust the width of the GIF */
+            width: 150px;
             border-radius: 8px;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         .loading-dots {
@@ -150,6 +155,23 @@
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
         }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .button-container a {
+                width: calc(50% - 20px); /* Adjust button width for smaller screens */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .button-container a {
+                width: 100%; /* Full-width buttons on very small screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -158,8 +180,7 @@
         <h1>HDO Pro Invitations</h1>
         <p>Invite others to join HDO Pro.</p>
         <p>Please note that invites can open and close at any time.</p>
-<p>Access the <a href="/terminal" style="color: blue;">HDO Pro Terminal</a>.</p>
-        <!-- GIF and loading dots container -->
+        <p>Access the <a href="/terminal" style="color: blue;">HDO Pro Terminal</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="redirectToHome()">
         </div>
@@ -168,34 +189,30 @@
             <div></div>
             <div></div>
         </div>
-        <!-- Button container for Discord and Telegram -->
         <div class="button-container">
             <a href="https://discord.gg/KyK2SM3Z" target="_blank">
-                <img src="/Images/discord.png" alt="Discord"><br>
+                <img src="/Images/discord.png" alt="Discord">
                 Join us on Discord
             </a>
             <a href="javascript:void(0)" onclick="showTelegramNotification()">
-                <img src="/Images/telegram.png" alt="Telegram"><br>
+                <img src="/Images/telegram.png" alt="Telegram">
                 Join us on Telegram
             </a>
             <a href="https://forms.gle/HTxApPVkDmhhWLxGA" target="_blank">
-                <img src="Images/7257807.png" alt="Message Form"><br>
+                <img src="/Images/7257807.png" alt="Message Form">
                 Message Form
             </a>
         </div>
     </div>
-    
-    <!-- Notification for Telegram invite -->
     <div id="telegram-notification" class="notification">
         Invite not available at this time.
     </div>
-
     <script>
         const gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
             '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
         ];
-        
+
         const gifElement = document.getElementById('animated-gif');
 
         function getRandomIndex() {
@@ -210,48 +227,15 @@
             window.location.href = 'https://hdopro.netlify.app/';
         }
 
-        // Set initial GIF randomly on page load
         switchGif();
 
-        // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
 
-        // Show Telegram invite not available notification
         function showTelegramNotification() {
             const notification = document.getElementById('telegram-notification');
             notification.style.display = 'block';
-            setTimeout(function() {
-                notification.style.display = 'none';
-            }, 3000); // 3000 milliseconds = 3 seconds
+            setTimeout(() => notification.style.display = 'none', 3000);
         }
-
-        // Disable right-click and text selection
-          document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-          });
-        
-          document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-                e.preventDefault();
-            }
-          });
-        
-          document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-          });
-        
-          // Prevent dev tools inspection
-          document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-              e.preventDefault();
-            }
-          });
-        
-          // Alert message on inspect element
-            window.addEventListener('devtoolschange', function(event) {
-              document.body.style.display = 'none';
-              alert('Please respect our work! Do not inspect the page.');
-            });
     </script>
 </body>
 </html>
