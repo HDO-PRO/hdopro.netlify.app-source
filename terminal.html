@@ -181,7 +181,6 @@
             addLine("- /beta: Select Beta version (if prompted).");
             addLine("- /back: Go back to the previous step.");
             addLine("- /startover: Start over and reset everything.");
-            addLine("- /easteregg: Try to find something special...");
             addLine("- /apps: Other apps available.");
         }
 
@@ -209,33 +208,35 @@
                 case "/apk-tv":
                     addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download TV APK</a>`);
                     break;
-                case "/player":
-                    awaitingResponse = "player-version";
-                    addLine("Which player version would you like? Type /stable or /beta.");
-                    break;
                 case "/apps":
                     addLine("Here are some other apps you might like:");
                     addLine("<a href='https://github.com/Nekomo-App/Nekomo' target='_blank'>Nekomo (Anime)</a>");
                     addLine("<a href='https://github.com/rebelonion/Dantotsu' target='_blank'>Dantotsu (Anime)</a>");
-                    addLine("<a href='https://github.com/recloudstream/cloudstream' target='_blank'>Cloudstream (Movies/TV Shows/Anime)</a>");
+                    addLine("<a href='https://github.com/recloudstream/cloudstream' target='_blank'>Cloudstream</a>");
                     break;
-                case "/easteregg":
-                    revealEasterEgg();
+                case "/player":
+                    addLine("Player links will be added soon.");
                     break;
                 case "/startover":
-                    startOver();
+                    resetTerminal();
+                    break;
+                case "/back":
+                    addLine("Going back to the previous step...");
+                    break;
+                case "/easteregg":
+                    easterEggMessage.style.display = "block"; // Show the Easter egg
                     break;
                 default:
-                    addLine(`Command not recognized: ${command}`);
+                    addLine(`Unknown command: ${command}`);
             }
         }
 
         function addLine(text) {
-            const line = document.createElement("div");
-            line.classList.add("line");
-            line.innerHTML = text;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to bottom
+            const newLine = document.createElement("div");
+            newLine.className = "line";
+            newLine.innerHTML = `<span>${text}</span>`;
+            terminal.appendChild(newLine);
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
         }
 
         function clearInput() {
@@ -243,32 +244,24 @@
             userInputDisplay.textContent = "";
         }
 
-        function startOver() {
+        function resetTerminal() {
+            terminal.innerHTML = '';
             hasAccess = false;
-            awaitingResponse = null;
-            commandHistory = [];
+            inputBuffer = "";
             currentHistoryIndex = -1;
-            addLine("System reset. Please enter the startup code again.");
-        }
-
-        function revealEasterEgg() {
-            easterEggMessage.style.display = "block";
-            setTimeout(() => {
-                easterEggMessage.style.display = "none";
-            }, 5000);
+            commandHistory = [];
+            addLine("Terminal reset. Enter startup code to proceed.");
         }
 
         function incrementViewerCount() {
             viewerCount++;
             viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
-            viewerCountDisplay.style.display = "block";
+            viewerCountDisplay.style.display = "block"; // Show viewer count
         }
 
-        // Mobile keyboard button
-        keyboardButton.addEventListener("click", () => {
-            const inputLine = document.getElementById("input-line");
-            inputLine.focus();
-            document.getElementById("user-input").focus();
+        // Open the keyboard button on touch devices
+        keyboardButton.addEventListener("click", function () {
+            document.getElementById("input-line").focus();
         });
     </script>
 </body>
