@@ -74,16 +74,17 @@
 <body>
     <div id="terminal">
         <div class="line">Welcome to the HDO Pro Download Terminal</div>
-        <div class="line">This terminal is to access HDO Pro and works on PC and mobile.</div>
-        <div class="line">Make sure to enter the exact commands.</div>
+        <div class="line">This terminal is locked. Please enter the password.</div>
+        <div class="line">(Hint: 404 what's the other part?)</div>
         <div id="input-line">
             <span>&gt; </span>
-            <input id="user-input" type="text" autofocus placeholder="Type here...">
+            <input id="user-input" type="text" autofocus placeholder="Type password...">
         </div>
     </div>
     <script>
         const userInput = document.getElementById("user-input");
         const terminal = document.getElementById("terminal");
+        let isAuthenticated = false;
 
         const commands = {
             help: "Available commands: help, clear, download [platform], apk [version]",
@@ -96,8 +97,22 @@
             "apk stable": "Redirecting to the stable APK download..."
         };
 
+        const password = "neko";
+
         // Execute commands
         function executeCommand(input) {
+            if (!isAuthenticated) {
+                if (input === password) {
+                    isAuthenticated = true;
+                    addLine("Password accepted. You may now use the terminal.");
+                    addLine(commands.help); // Display help automatically after password entry
+                    userInput.placeholder = "Type command...";
+                } else {
+                    addLine("Incorrect password. Try again.");
+                }
+                return;
+            }
+
             const inputLower = input.toLowerCase();
             if (commands[inputLower]) {
                 if (inputLower.startsWith("download ")) {
@@ -162,7 +177,7 @@
         function createInputLine() {
             const inputLine = document.createElement("div");
             inputLine.id = "input-line";
-            inputLine.innerHTML = `<span>&gt; </span><input id="user-input" type="text" autofocus placeholder="Type here...">`;
+            inputLine.innerHTML = `<span>&gt; </span><input id="user-input" type="text" autofocus placeholder="Type command...">`;
             terminal.appendChild(inputLine);
             const newInput = document.getElementById("user-input");
             newInput.addEventListener("keydown", handleInput);
