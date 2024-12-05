@@ -24,24 +24,19 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
-            user-select: none; /* Disable text selection */
         }
         .container, .password-container {
-            background-color: rgba(144, 238, 144, 0.5); /* Very light green with more transparency */
+            background-color: rgba(144, 238, 144, 0.5);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
             text-align: center;
             width: 90%;
             max-width: 800px;
-            margin-bottom: 20px;
-        }
-        .password-container {
-            max-width: 400px;
+            margin: 10px 0;
         }
         h1, h2 {
             color: #333;
@@ -49,7 +44,7 @@
         }
         .video-container {
             position: relative;
-            padding-top: 56.25%; /* 16:9 aspect ratio */
+            padding-top: 56.25%;
             margin-bottom: 20px;
         }
         .video-container video {
@@ -67,27 +62,29 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
-        button {
-            background-color: #4caf50; /* Green color */
-            border: none;
-            color: #fff;
+        input[type="password"], button {
+            font-size: 18px;
             padding: 10px;
             border-radius: 4px;
+        }
+        button {
+            background-color: #4caf50;
+            border: none;
+            color: #fff;
             cursor: pointer;
-            font-size: 16px;
             margin-top: 10px;
         }
         button:hover {
             background-color: #45a049;
         }
         footer {
-            color: #fff; /* White text color */
+            color: #fff;
             padding: 10px;
             text-align: center;
             width: 100%;
-            position: fixed; /* Fix footer to the bottom */
+            position: fixed;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.7);
         }
         footer a {
             color: #4caf50;
@@ -97,103 +94,34 @@
             text-decoration: underline;
         }
         @media (max-width: 600px) {
-            .container, .password-container {
-                width: 100%;
+            body {
+                justify-content: center;
                 padding: 10px;
             }
-            .password-container {
-                max-width: 100%;
+            .container, .password-container {
+                padding: 15px;
+                font-size: 14px;
+            }
+            input[type="password"], button {
+                font-size: 16px;
+            }
+        }
+        @media (min-width: 1080px) {
+            .container, .password-container {
+                max-width: 1200px;
+            }
+            button {
+                font-size: 20px;
+                padding: 15px;
             }
         }
     </style>
-    <script>
-        // Prevent right-click
-        document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // Prevent text selection
-        document.addEventListener('selectstart', e => e.preventDefault());
-
-        // Detect DevTools and hide source
-        (function() {
-            let devtoolsOpen = false;
-            const threshold = 160; // Threshold in px
-            const checkDevTools = () => {
-                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        alert("Access to developer tools is restricted.");
-                        // Optionally: redirect or hide content
-                        document.body.innerHTML = "<h1>Access Restricted</h1>";
-                    }
-                } else {
-                    devtoolsOpen = false;
-                }
-            };
-            setInterval(checkDevTools, 1000); // Check every second
-        })();
-
-        function checkPassword() {
-            const password = "nekochan";
-            const inputPassword = document.getElementById("password").value;
-            const errorMsg = document.getElementById("error-message");
-            if (inputPassword === password) {
-                localStorage.setItem("authenticated", "true");
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content-container").style.display = "block";
-            } else {
-                errorMsg.style.display = "block";
-            }
-        }
-
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById("password");
-            const eyeIcon = document.getElementById("togglePassword");
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("password").addEventListener("keydown", (event) => {
-                if (event.keyCode === 13) checkPassword();
-            });
-            document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
-            if (localStorage.getItem("authenticated") === "true") {
-                document.getElementById("password-container").style.display = "none";
-                document.getElementById("content-container").style.display = "block";
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-
-        // Prevent dev tools inspection
-        document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                e.preventDefault();
-            }
-        });
-    </script>
 </head>
 <body>
-
 <div class="password-container" id="password-container">
     <h2>Enter Password</h2>
     <div style="position: relative;">
-        <input type="password" id="password" placeholder="Password" style="padding-right: 30px;">
+        <input type="password" id="password" placeholder="Password" style="width: 100%; padding-right: 40px;">
         <i class="fas fa-eye eye-icon" id="togglePassword"></i>
     </div>
     <button onclick="checkPassword()">Submit</button>
@@ -219,6 +147,44 @@
 </footer>
 
 <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+<script>
+    function checkPassword() {
+        const password = "nekochan";
+        const inputPassword = document.getElementById("password").value;
+        const errorMsg = document.getElementById("error-message");
+        if (inputPassword === password) {
+            localStorage.setItem("authenticated", "true");
+            document.getElementById("password-container").style.display = "none";
+            document.getElementById("content-container").style.display = "block";
+        } else {
+            errorMsg.style.display = "block";
+        }
+    }
 
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.getElementById("togglePassword");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("password").addEventListener("keydown", (event) => {
+            if (event.keyCode === 13) checkPassword();
+        });
+        document.getElementById("togglePassword").addEventListener("click", togglePasswordVisibility);
+        if (localStorage.getItem("authenticated") === "true") {
+            document.getElementById("password-container").style.display = "none";
+            document.getElementById("content-container").style.display = "block";
+        }
+    });
+</script>
 </body>
 </html>
