@@ -6,11 +6,10 @@
     <title>HDO Pro | Terminal</title>
     <meta property="og:url" content="/terminal" />
     <meta property="og:title" content="HDO Pro | Terminal">
-    <meta property="og:description" content="Terminal for accessing HDO Pro. Intended for PC usage.">
+    <meta property="og:description" content="Terminal for accessing HDO Pro. Intended for PC and mobile usage.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         body {
@@ -19,7 +18,6 @@
             font-family: "Courier New", Courier, monospace;
             padding: 0;
             margin: 0;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -33,13 +31,24 @@
         }
         .line {
             margin: 5px 0;
+            word-wrap: break-word; /* Ensure text wraps on small screens */
         }
         #input-line {
             display: flex;
-            outline: none;
+            align-items: center;
         }
         #input-line span {
             white-space: pre;
+        }
+        #user-input {
+            flex: 1;
+            outline: none;
+            border: none;
+            background: transparent;
+            color: #00ff00;
+            font-family: inherit;
+            font-size: inherit;
+            caret-color: #00ff00; /* Green caret for better visibility */
         }
         .blinking {
             animation: blink 1s step-end infinite;
@@ -57,211 +66,68 @@
             color: #00ff00;
             text-align: center;
             padding: 5px 10px;
-            display: none; /* Hidden by default */
-        }
-        #keyboard-button {
-            position: fixed;
-            bottom: 50px;
-            right: 10px;
-            background: #444;
-            color: #00ff00;
-            border: none;
-            padding: 10px;
-            font-size: 14px;
-            cursor: pointer;
             border-radius: 5px;
+            font-size: 12px;
             display: none; /* Hidden by default */
         }
-        #keyboard-button:hover {
-            background: #555;
-        }
-        @media (hover: none) and (pointer: coarse) {
-            #keyboard-button {
-                display: block; /* Show on touch devices */
+        @media (max-width: 768px) {
+            #terminal {
+                font-size: 14px;
+            }
+            #viewer-count {
+                font-size: 10px;
+                padding: 5px;
             }
         }
-        .easter-egg-message {
-            display: none; /* Hide by default */
-            color: #ff9900; /* Special color for the Easter egg message */
+        @media (max-width: 480px) {
+            #terminal {
+                font-size: 12px;
+                padding: 5px;
+            }
+            #viewer-count {
+                font-size: 9px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="terminal">
-        <div class="line"><span>Welcome to the HDO Pro Download Terminal</span></div>
-        <div class="line"><span>Please expect errors, this is in beta and still being worked on..</span></div>
-        <div class="line"><span>This terminal is to access HDO Pro and is meant to be used on PC.</span></div>
-        <div class="line"><span>Make sure to enter the exact commands..</span></div>
-        <div class="line"><span>Enter the startup code to proceed. Hint: 404. So what's the other part?</span></div>
-        <div id="input-line" contenteditable="true" role="textbox" aria-placeholder="Type here...">
-            <span>&gt; </span><span id="user-input"></span><span class="blinking">|</span>
+        <div class="line">Welcome to the HDO Pro Download Terminal</div>
+        <div class="line">This terminal is to access HDO Pro and works on PC and mobile.</div>
+        <div class="line">Make sure to enter the exact commands..</div>
+        <div id="input-line">
+            <span>&gt; </span>
+            <input id="user-input" type="text" autofocus placeholder="Type here...">
         </div>
     </div>
     <div id="viewer-count">Viewers: 0</div>
-    <button id="keyboard-button">Open Keyboard</button>
-    <div class="easter-egg-message" id="easter-egg-message">
-        🎉🎉 Congratulations, you're a true HDO Pro fan! 🎉🎉
-    </div>
-
     <script>
+        const userInput = document.getElementById("user-input");
         const terminal = document.getElementById("terminal");
-        const userInputDisplay = document.getElementById("user-input");
-        const viewerCountDisplay = document.getElementById("viewer-count");
-        const keyboardButton = document.getElementById("keyboard-button");
-        const easterEggMessage = document.getElementById("easter-egg-message");
-        let inputBuffer = "";
-        let hasAccess = false;
-        let awaitingResponse = null;
-        let viewerCount = 0;
-        let commandHistory = []; // History of commands entered
-        let currentHistoryIndex = -1; // To navigate the history
 
-        // Disable right-click, text selection, and developer tools
-        document.addEventListener("contextmenu", (e) => e.preventDefault());
-        document.addEventListener("keydown", (e) => {
-            const blockedKeys = ["F12", "I", "C", "J", "U"];
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && blockedKeys.includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toLowerCase() === "u")) {
-                e.preventDefault();
-            }
+        // Focus input field on load
+        window.addEventListener("load", () => {
+            userInput.focus();
         });
 
-        window.addEventListener("keydown", (e) => {
+        // Add command execution on Enter
+        userInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                if (!hasAccess) {
-                    verifyStartupCode(inputBuffer.trim());
-                } else {
-                    addLine(`> ${inputBuffer}`);
-                    processCommand(inputBuffer.trim());
+                const inputText = userInput.value.trim();
+                if (inputText) {
+                    const newLine = document.createElement("div");
+                    newLine.className = "line";
+                    newLine.textContent = `> ${inputText}`;
+                    terminal.insertBefore(newLine, userInput.parentElement);
+                    userInput.value = ""; // Clear the input
+                    terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
                 }
-                clearInput();
-            } else if (e.key === "Backspace") {
-                inputBuffer = inputBuffer.slice(0, -1);
-                userInputDisplay.textContent = inputBuffer;
-            } else if (e.key === "ArrowUp") {
-                // Navigate up in command history
-                if (currentHistoryIndex > 0) {
-                    currentHistoryIndex--;
-                    inputBuffer = commandHistory[currentHistoryIndex];
-                    userInputDisplay.textContent = inputBuffer;
-                }
-            } else if (e.key === "ArrowDown") {
-                // Navigate down in command history
-                if (currentHistoryIndex < commandHistory.length - 1) {
-                    currentHistoryIndex++;
-                    inputBuffer = commandHistory[currentHistoryIndex];
-                    userInputDisplay.textContent = inputBuffer;
-                } else {
-                    currentHistoryIndex = commandHistory.length;
-                    inputBuffer = "";
-                    userInputDisplay.textContent = "";
-                }
-            } else if (e.key.length === 1) {
-                inputBuffer += e.key;
-                userInputDisplay.textContent = inputBuffer;
             }
         });
 
-        function verifyStartupCode(code) {
-            if (code.toLowerCase() === "neko") {
-                addLine("Access granted. You may now enter commands.");
-                listCommands();
-                hasAccess = true;
-                incrementViewerCount();
-            } else {
-                addLine("Invalid code. Hint: 404");
-            }
-        }
-
-        function listCommands() {
-            addLine("Available commands:");
-            addLine("- /apk: Get APK links (Stable or Beta).");
-            addLine("- /apk-tv: Get the TV APK link.");
-            addLine("- /player: Get player links (Stable or Beta).");
-            addLine("- /stable: Select Stable version (if prompted).");
-            addLine("- /beta: Select Beta version (if prompted).");
-            addLine("- /back: Go back to the previous step.");
-            addLine("- /startover: Start over and reset everything.");
-            addLine("- /apps: Other apps available.");
-        }
-
-        function processCommand(command) {
-            commandHistory.push(command); // Save command to history
-            currentHistoryIndex = commandHistory.length; // Reset history navigation
-
-            if (awaitingResponse === "apk-version") {
-                if (command === "/stable") {
-                    addLine(`Stable APK link: <a href="https://hdopro.netlify.app/apk" target="_blank">Download Stable APK</a>`);
-                } else if (command === "/beta") {
-                    addLine(`Beta APK link: <a href="https://hdopro.netlify.app/apk-b" target="_blank">Download Beta APK</a>`);
-                } else {
-                    addLine(`Unknown option: ${command}`);
-                }
-                awaitingResponse = null;
-                return;
-            }
-
-            switch (command.toLowerCase()) {
-                case "/apk":
-                    awaitingResponse = "apk-version";
-                    addLine("Which version would you like? Type /stable or /beta.");
-                    break;
-                case "/apk-tv":
-                    addLine(`TV APK link: <a href="https://hdopro.netlify.app/apk-tv" target="_blank">Download TV APK</a>`);
-                    break;
-                case "/apps":
-                    addLine("Here are some other apps you might like:");
-                    addLine("<a href='https://github.com/Nekomo-App/Nekomo' target='_blank'>Nekomo (Anime)</a>");
-                    addLine("<a href='https://github.com/rebelonion/Dantotsu' target='_blank'>Dantotsu (Anime)</a>");
-                    addLine("<a href='https://github.com/recloudstream/cloudstream' target='_blank'>Cloudstream</a>");
-                    break;
-                case "/player":
-                    addLine("Player links will be added soon.");
-                    break;
-                case "/startover":
-                    resetTerminal();
-                    break;
-                case "/back":
-                    addLine("Going back to the previous step...");
-                    break;
-                case "/easteregg":
-                    easterEggMessage.style.display = "block"; // Show the Easter egg
-                    break;
-                default:
-                    addLine(`Unknown command: ${command}`);
-            }
-        }
-
-        function addLine(text) {
-            const newLine = document.createElement("div");
-            newLine.className = "line";
-            newLine.innerHTML = `<span>${text}</span>`;
-            terminal.appendChild(newLine);
-            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
-        }
-
-        function clearInput() {
-            inputBuffer = "";
-            userInputDisplay.textContent = "";
-        }
-
-        function resetTerminal() {
-            terminal.innerHTML = '';
-            hasAccess = false;
-            inputBuffer = "";
-            currentHistoryIndex = -1;
-            commandHistory = [];
-            addLine("Terminal reset. Enter startup code to proceed.");
-        }
-
-        function incrementViewerCount() {
-            viewerCount++;
-            viewerCountDisplay.textContent = `Viewers: ${viewerCount}`;
-            viewerCountDisplay.style.display = "block"; // Show viewer count
-        }
-
-        // Open the keyboard button on touch devices
-        keyboardButton.addEventListener("click", function () {
-            document.getElementById("input-line").focus();
+        // Ensure input field regains focus if user clicks outside
+        terminal.addEventListener("click", () => {
+            userInput.focus();
         });
     </script>
 </body>
