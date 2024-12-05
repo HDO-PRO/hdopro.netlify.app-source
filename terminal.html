@@ -142,9 +142,11 @@
         function handleDownload(platform) {
             switch (platform) {
                 case "android":
+                    addLine("Redirecting to Android download...");
                     window.location.href = "/downloads/android";
                     break;
                 case "roku":
+                    addLine("Redirecting to Roku download page...");
                     window.location.href = "/downloads/roku";
                     break;
                 case "ios":
@@ -159,12 +161,15 @@
         function handleAPK(version) {
             switch (version) {
                 case "latest":
+                    addLine("Redirecting to the latest APK download...");
                     window.location.href = "/downloads/apk/latest";
                     break;
                 case "beta":
+                    addLine("Redirecting to the beta APK download...");
                     window.location.href = "/downloads/apk/beta";
                     break;
                 case "stable":
+                    addLine("Redirecting to the stable APK download...");
                     window.location.href = "/downloads/apk/stable";
                     break;
                 default:
