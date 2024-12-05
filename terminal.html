@@ -88,7 +88,7 @@
         let isAuthenticated = false;
 
         const commands = {
-            help: "Available commands: /help, /clear, /download [platform], /apk [version], /downloads",
+            help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads",
             clear: "clear",
             "/download android": "Redirecting to Android download...",
             "/download ios": "iOS downloads are no longer available.",
@@ -96,7 +96,9 @@
             "/apk latest": "Redirecting to the latest APK download...",
             "/apk beta": "Redirecting to the beta APK download...",
             "/apk stable": "Redirecting to the stable APK download...",
-            "/downloads": "Available downloads: /download android, /download roku, /apk latest, /apk beta, /apk stable"
+            "/tv-apk": "Redirecting to the TV APK download...",
+            "/apps": "Redirecting to the apps player download page...",
+            "/downloads": "Available downloads: /download android, /download roku, /apk latest, /apk beta, /apk stable, /tv-apk, /apps"
         };
 
         const password = "neko";
@@ -143,11 +145,11 @@
             switch (platform) {
                 case "android":
                     addLine("Redirecting to Android download...");
-                    window.location.href = "/downloads/android";
+                    window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/MaVF2JpS";
                     break;
                 case "roku":
                     addLine("Redirecting to Roku download page...");
-                    window.location.href = "/downloads/roku";
+                    window.location.href = "https://hdopro.netlify.app/roku-download";
                     break;
                 case "ios":
                     addLine("iOS downloads are no longer available.");
@@ -162,19 +164,31 @@
             switch (version) {
                 case "latest":
                     addLine("Redirecting to the latest APK download...");
-                    window.location.href = "/downloads/apk/latest";
+                    window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/MaVF2JpS";
                     break;
                 case "beta":
                     addLine("Redirecting to the beta APK download...");
-                    window.location.href = "/downloads/apk/beta";
+                    window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/FDsWHATS";
                     break;
                 case "stable":
                     addLine("Redirecting to the stable APK download...");
-                    window.location.href = "/downloads/apk/stable";
+                    window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/MaVF2JpS";
                     break;
                 default:
                     addLine(`Unknown APK version: "${version}"`);
             }
+        }
+
+        // Handle TV APK command
+        function handleTVAPK() {
+            addLine("Redirecting to TV APK download...");
+            window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/NHNwGZbC";
+        }
+
+        // Handle apps player command
+        function handleAppsPlayer() {
+            addLine("Redirecting to the apps player download page...");
+            window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/folder/selziYzD";
         }
 
         // Add a new line
@@ -226,18 +240,12 @@
         userInput.addEventListener("keydown", handleInput);
 
         // Prevent right-click, inspect, and dev tools
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        window.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.ctrlKey && e.key === "U")) {
                 e.preventDefault();
             }
         });
-
-        // Disable text selection
-        document.body.style.userSelect = 'none';
     </script>
 </body>
 </html>
