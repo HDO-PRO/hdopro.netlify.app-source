@@ -21,31 +21,26 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            user-select: none;
-            overflow: hidden;
+            user-select: none; /* Prevent text selection */
+            overflow: hidden; /* Prevent scrollbars */
         }
-
         #terminal {
             flex: 1;
             overflow-y: auto;
             padding: 10px;
             box-sizing: border-box;
         }
-
         .line {
             margin: 5px 0;
             word-wrap: break-word;
         }
-
         #input-line {
             display: flex;
             align-items: center;
         }
-
-            #input-line span {
-                white-space: pre;
-            }
-
+        #input-line span {
+            white-space: pre;
+        }
         #user-input {
             flex: 1;
             outline: none;
@@ -56,23 +51,19 @@
             font-size: inherit;
             caret-color: #00ff00;
         }
-
         .blinking {
             animation: blink 1s step-end infinite;
         }
-
         @keyframes blink {
             50% {
                 opacity: 0;
             }
         }
-
         @media (max-width: 768px) {
             #terminal {
                 font-size: 14px;
             }
         }
-
         @media (max-width: 480px) {
             #terminal {
                 font-size: 12px;
@@ -105,8 +96,8 @@
             "/apk latest": "Redirecting to the latest APK download...",
             "/apk beta": "Redirecting to the beta APK download...",
             "/apk stable": "Redirecting to the stable APK download...",
-            "/tv-apk": "Redirecting to TV APK download...",
-            "/apps": "Displaying list of apps...",
+            "/tv-apk": "Redirecting to the TV APK download...",
+            "/apps": "Redirecting to the apps player download page...",
             "/downloads": "Available downloads: /download android, /download roku, /apk latest, /apk beta, /apk stable, /tv-apk, /apps"
         };
 
@@ -141,38 +132,12 @@
                 } else if (inputLower === "/clear") {
                     terminal.innerHTML = "";
                     createInputLine();
-                } else if (inputLower === "/apps") {
-                    displayApps();
                 } else {
                     addLine(commands[inputLower]);
                 }
             } else {
                 addLine(`Unknown command: "${input}"`);
             }
-        }
-
-        // Display list of apps
-        function displayApps() {
-            const appsList = [
-                { name: "Crunchyroll", website: "https://www.crunchyroll.com", github: "https://github.com/Crunchyroll" },
-                { name: "Funimation", website: "https://www.funimation.com", github: "https://github.com/funimation" },
-                { name: "Jellyfin", website: "https://jellyfin.org", github: "https://github.com/jellyfin/jellyfin" },
-                { name: "Kitsu", website: "https://kitsu.io", github: "https://github.com/Kitsu" },
-                { name: "Shinobi", website: "https://github.com/Shinobi-App", github: "https://github.com/Shinobi-App" },
-                { name: "Tubi TV", website: "https://www.tubi.tv", github: "https://github.com/tubi" },
-                { name: "AnimeTV", website: "https://github.com/AnimeTV/AnimeTV", github: "https://github.com/AnimeTV/AnimeTV" },
-                { name: "Neko", website: "https://github.com/MarshMeadow/Neko", github: "https://github.com/MarshMeadow/Neko" },
-                { name: "Stremio", website: "https://www.stremio.com", github: "https://github.com/Stremio" },
-                { name: "Anime-Loader", website: "https://github.com/Anime-Loader/Anime-Loader", github: "https://github.com/Anime-Loader/Anime-Loader" },
-                { name: "Sakura", website: "https://github.com/Sakura-Stream/Sakura", github: "https://github.com/Sakura-Stream/Sakura" }
-            ];
-
-            addLine("Anime Apps List:");
-            appsList.forEach(app => {
-                addLine(`${app.name}:`);
-                addLine(`Official Website: <a href="${app.website}" target="_blank">${app.website}</a>`);
-                addLine(`GitHub: <a href="${app.github}" target="_blank">${app.github}</a>`);
-            });
         }
 
         // Handle download commands
@@ -214,31 +179,65 @@
             }
         }
 
-        // Add a new line to the terminal
+        // Handle TV APK command
+        function handleTVAPK() {
+            addLine("Redirecting to TV APK download...");
+            window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/NHNwGZbC";
+        }
+
+        // Handle apps player command
+        function handleAppsPlayer() {
+            addLine("Redirecting to the apps player download page...");
+            window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/folder/selziYzD";
+        }
+
+        // Add a new line
         function addLine(text) {
             const newLine = document.createElement("div");
             newLine.className = "line";
-            newLine.innerHTML = text;
-            terminal.appendChild(newLine);
+            newLine.textContent = text;
+            terminal.insertBefore(newLine, userInput.parentElement);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Create input line
+        // Add input line after clearing
         function createInputLine() {
             const inputLine = document.createElement("div");
             inputLine.id = "input-line";
-            inputLine.innerHTML = '<span>&gt; </span><input id="user-input" type="text" autofocus>';
+            inputLine.innerHTML = `<span>&gt; </span><input id="user-input" type="text" autofocus placeholder="Type command...">`;
             terminal.appendChild(inputLine);
-            userInput.focus();
-            userInput.addEventListener("keydown", function (event) {
-                if (event.key === "Enter") {
-                    executeCommand(userInput.value.trim());
-                    userInput.value = "";
-                }
-            });
+            const newInput = document.getElementById("user-input");
+            newInput.addEventListener("keydown", handleInput);
+            newInput.focus();
         }
 
-        createInputLine(); // Create the initial input line
+        // Handle user input
+        function handleInput(e) {
+            if (e.key === "Enter") {
+                const inputText = userInput.value.trim();
+                if (inputText) {
+                    const commandLine = document.createElement("div");
+                    commandLine.className = "line";
+                    commandLine.textContent = `> ${inputText}`;
+                    terminal.insertBefore(commandLine, userInput.parentElement);
+                    executeCommand(inputText);
+                    userInput.value = "";
+                }
+            }
+        }
+
+        // Focus input field on load
+        window.addEventListener("load", () => {
+            userInput.focus();
+        });
+
+        // Ensure input field regains focus
+        terminal.addEventListener("click", () => {
+            userInput.focus();
+        });
+
+        // Attach input handler
+        userInput.addEventListener("keydown", handleInput);
 
         // Prevent right-click, inspect, and dev tools
         document.addEventListener("contextmenu", (e) => e.preventDefault());
