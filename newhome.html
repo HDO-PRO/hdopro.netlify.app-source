@@ -70,16 +70,24 @@
 
         /* Hero Section */
         .hero {
-            text-align: left;
-            padding: 4rem 1.5rem; /* Reduced padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3rem 1.5rem; /* Reduced padding */
             background: rgba(0, 0, 0, 0.7);
             margin: 0 auto;
-            max-width: 1000px;
+            max-width: 1200px; /* Smaller width */
             border-radius: 10px;
+            margin-top: 3rem;
+        }
+
+        .hero div {
+            flex: 1;
+            padding-right: 2rem;
         }
 
         .hero h2 {
-            font-size: 3rem; /* Smaller font size */
+            font-size: 2.5rem; /* Smaller font size */
             color: #ff69b4;
         }
 
@@ -163,41 +171,12 @@
             max-width: 1000px;
         }
 
-        /* App Features Section */
-        .app-features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 3rem 2rem;
-        }
-
-        .app-feature {
-            background-color: rgba(34, 0, 34, 0.8);
-            padding: 1.2rem; /* Smaller padding */
-            border-radius: 10px;
-            text-align: center;
-            width: 220px; /* Smaller width */
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .app-feature h4 {
-            font-size: 1.2rem; /* Smaller font size */
-            color: #ff85c2;
-            margin-bottom: 0.8rem;
-        }
-
-        .app-feature p {
-            color: #ddd;
-            font-size: 0.9rem; /* Smaller font size */
-        }
-
-        /* Image at the Bottom */
-        .bottom-image {
+        /* Image on the Right */
+        .hero-image {
             width: 100%;
-            max-height: 300px; /* Adjust the height */
+            max-width: 500px; /* Set max width */
             object-fit: cover;
-            margin-top: 1rem;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -215,16 +194,19 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h2>Discover Your Favorite Movies and TV Shows</h2>
-        <p>
-            <strong>Easy Navigation</strong><br>
-            Seamlessly browse and discover your favorite content.<br><br>
-            <strong>High-Quality Streams</strong><br>
-            Enjoy the latest movies and shows in HD quality.<br><br>
-            <strong>Customizable Interface</strong><br>
-            Personalize your experience with our easy-to-use settings.
-        </p>
-        <a href="#" class="get-started-btn">Get Started</a>
+        <div>
+            <h2>Discover Your Favorite Movies and TV Shows</h2>
+            <p>
+                <strong>Easy Navigation</strong><br>
+                Seamlessly browse and discover your favorite content.<br><br>
+                <strong>High-Quality Streams</strong><br>
+                Enjoy the latest movies and shows in HD quality.<br><br>
+                <strong>Customizable Interface</strong><br>
+                Personalize your experience with our easy-to-use settings.
+            </p>
+            <a href="#" class="get-started-btn">Get Started</a>
+        </div>
+        <img src="Images/android1-upscale.png" alt="App Screenshot" class="hero-image"> <!-- Update with the actual path of your screenshot -->
     </section>
 
     <!-- Features Section -->
@@ -242,9 +224,6 @@
             <p>Customize your library and create watchlists with ease.</p>
         </div>
     </section>
-
-    <!-- Image at the Bottom -->
-    <img src="/mnt/data/image.png" alt="Bottom Image" class="bottom-image">
 
     <!-- Footer -->
     <footer>
