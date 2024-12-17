@@ -66,6 +66,8 @@
             margin: 0 auto;
             max-width: 900px;
             border-radius: 10px;
+            display: flex;
+            align-items: center;
         }
 
         .hero h2 {
@@ -149,9 +151,18 @@
             max-width: 1000px;
         }
 
+        /* Image Styling */
+        .screenshot {
+            width: 50%; /* Set to 50% size */
+            max-width: 400px; /* Optional: restrict max width for very large screens */
+            height: auto;
+            margin-left: 20px;
+        }
+
         /* Responsiveness */
         @media (max-width: 768px) {
             .hero {
+                flex-direction: column;
                 padding: 2rem;
                 max-width: 100%;
             }
@@ -163,6 +174,10 @@
 
             header h1 {
                 font-size: 2rem;
+            }
+
+            .screenshot {
+                width: 80%;
             }
         }
 
@@ -185,9 +200,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h2>Tachiyomi</h2>
-        <p>Full-featured movie and TV show viewer. Discover and stream the latest movies and TV shows – easier than ever on your device.</p>
-        <a href="#" class="get-started-btn">Get Started</a>
+        <div class="text-content">
+            <h2>Tachiyomi</h2>
+            <p>Full-featured movie and TV show viewer. Discover and stream the latest movies and TV shows – easier than ever on your device.</p>
+            <a href="#" class="get-started-btn">Get Started</a>
+        </div>
+        <img src="images/screenshot.png" alt="App Screenshot" class="screenshot"> <!-- Screenshot Image -->
     </section>
 
     <!-- Features Section -->
