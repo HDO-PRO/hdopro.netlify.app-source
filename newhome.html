@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDO Pro</title>
+    <title>HDO Pro - Movie & TV Streaming</title>
     <link rel="icon" href="images/f16a67b93d7e7c64355e35851377e1eb.jpg">
     <style>
         /* General Reset */
@@ -23,14 +23,28 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            position: relative;
         }
 
+        /* Dim Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* Header */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: rgba(34, 0, 34, 0.8); /* Semi-transparent */
-            padding: 1.5rem 2rem;
+            background-color: rgba(34, 0, 34, 0.8);
+            padding: 2rem;
             border-bottom: 2px solid #555;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
@@ -56,15 +70,15 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 4rem 1rem;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            padding: 6rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
             margin: 0 auto;
             max-width: 1000px;
             border-radius: 10px;
         }
 
         .hero h2 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #ff69b4;
         }
 
@@ -96,12 +110,12 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 2rem;
-            margin: 3rem 1.5rem;
+            margin: 4rem 2rem;
             padding: 2rem;
         }
 
         .feature-card {
-            background-color: rgba(34, 0, 34, 0.8); /* Semi-transparent */
+            background-color: rgba(34, 0, 34, 0.8);
             padding: 1.5rem;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -129,10 +143,12 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background-color: rgba(34, 0, 34, 0.8); /* Semi-transparent */
+            padding: 2rem;
+            background-color: rgba(34, 0, 34, 0.8);
             border-top: 2px solid #555;
-            margin-top: 2rem;
+            margin-top: 4rem;
+            font-size: 1rem;
+            color: #aaa;
         }
 
         footer p {
@@ -145,6 +161,35 @@
             margin: 1rem auto 0.5rem;
             max-width: 1000px;
         }
+
+        /* App Features Section */
+        .app-features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 4rem 2rem;
+        }
+
+        .app-feature {
+            background-color: rgba(34, 0, 34, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            width: 250px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .app-feature h4 {
+            font-size: 1.5rem;
+            color: #ff85c2;
+            margin-bottom: 1rem;
+        }
+
+        .app-feature p {
+            color: #ddd;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -155,6 +200,7 @@
             <a href="#">Home</a>
             <a href="#">Trending</a>
             <a href="#">Favorites</a>
+            <a href="#">Download</a>
         </nav>
     </header>
 
@@ -163,6 +209,22 @@
         <h2>Discover Your Favorite Movies</h2>
         <p>Stream and explore the latest movies, TV shows, and more in one place.</p>
         <a href="#" class="get-started-btn">Get Started</a>
+    </section>
+
+    <!-- App Features Section -->
+    <section class="app-features">
+        <div class="app-feature">
+            <h4>Easy Navigation</h4>
+            <p>Seamlessly browse and discover your favorite content.</p>
+        </div>
+        <div class="app-feature">
+            <h4>High-Quality Streams</h4>
+            <p>Enjoy the latest movies and shows in HD quality.</p>
+        </div>
+        <div class="app-feature">
+            <h4>Customizable Interface</h4>
+            <p>Personalize your experience with our easy-to-use settings.</p>
+        </div>
     </section>
 
     <!-- Features Section -->
