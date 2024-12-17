@@ -28,13 +28,12 @@
             background-size: cover;
             color: #f5f5f5;
             line-height: 1.6;
-            height: 100vh; /* Ensures no scrolling by restricting height to 100% */
-            overflow: hidden; /* Prevent scrolling */
-            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center; /* Center content horizontally and vertically */
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto; /* Allows scrolling on mobile */
         }
 
         /* Dim the wallpaper */
@@ -57,7 +56,7 @@
             padding: 1rem 2rem;
             border-bottom: 2px solid #555;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
@@ -132,6 +131,7 @@
             width: 80%;
             max-width: 1000px; /* Ensures no overlap on wide screens */
             z-index: 5;
+            margin-top: 90px; /* Adjusted to avoid overlap with fixed header */
         }
 
         .hero h2 {
@@ -178,6 +178,7 @@
             gap: 3rem; /* Increased space between feature cards */
             margin: 2rem;
             z-index: 5;
+            margin-top: 2rem;
         }
 
         .feature-card {
@@ -238,6 +239,7 @@
                 padding: 2rem;
                 width: 90%;
                 max-width: 100%;
+                margin-top: 80px; /* Adjusted to prevent overlap with header */
             }
 
             .feature-card {
@@ -256,6 +258,15 @@
 
             .hamburger {
                 display: flex;
+            }
+
+            .sidebar {
+                width: 200px; /* Reduced width for mobile */
+            }
+
+            footer {
+                position: relative; /* Make footer appear after content */
+                margin-top: 20px;
             }
         }
     </style>
