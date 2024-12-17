@@ -11,7 +11,6 @@
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <script src="index.js" type="text/javascript"></script>
-    <link rel="manifest" href="/manifest.json">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
@@ -35,9 +34,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center; /* Center content horizontally and vertically */
+            user-select: none; /* Prevent text selection */
         }
 
-        /* Dim the wallpaper */
         body::before {
             content: '';
             position: absolute;
@@ -52,7 +51,7 @@
         header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end; /* Aligns links and hamburger button to the right */
             background-color: rgba(34, 34, 34, 0.7);
             padding: 1rem 2rem;
             border-bottom: 2px solid #555;
@@ -68,6 +67,7 @@
             font-size: 2.2rem;
             color: #ff69b4;
             font-weight: bold;
+            margin-right: auto; /* Pushes the title to the left */
         }
 
         header nav a {
@@ -83,14 +83,15 @@
         }
 
         .hamburger {
-            display: none;
+            display: flex;
             flex-direction: column;
             cursor: pointer;
             margin-left: 1.5rem;
+            padding: 5px;
         }
 
         .hamburger div {
-            width: 25px;
+            width: 20px; /* Reduced size of hamburger lines */
             height: 4px;
             margin: 5px 0;
             background-color: #fff;
@@ -105,7 +106,7 @@
         }
 
         .waffle-btn div {
-            width: 25px;
+            width: 20px; /* Reduced size */
             height: 4px;
             margin: 5px 0;
             background-color: #fff;
@@ -122,6 +123,7 @@
             box-shadow: -4px 0 6px rgba(0, 0, 0, 0.7);
             padding: 20px;
             transition: right 0.3s ease;
+            z-index: 20; /* Ensures it comes over everything */
         }
 
         .sidebar-menu a {
@@ -134,6 +136,13 @@
 
         .sidebar-menu a:hover {
             color: #ff69b4;
+        }
+
+        .close-btn {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-bottom: 20px;
         }
 
         /* Hero Section */
@@ -276,6 +285,10 @@
             .waffle-btn {
                 display: flex;
             }
+
+            .sidebar-menu a {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -297,6 +310,7 @@
 
     <!-- Sidebar Menu -->
     <div class="sidebar-menu" id="sidebarMenu">
+        <span class="close-btn" onclick="toggleMenu()">&#10005;</span>
         <a href="#">Option 1</a>
         <a href="#">Option 2</a>
         <a href="#">Option 3</a>
@@ -337,11 +351,14 @@
     </footer>
 
     <script>
-        // Toggle sliding menu
         function toggleMenu() {
-            const menu = document.getElementById('sidebarMenu');
-            const currentPosition = menu.style.right;
-            menu.style.right = currentPosition === '0px' ? '-250px' : '0px';
+            const sidebar = document.getElementById('sidebarMenu');
+            const currentRight = sidebar.style.right;
+            if (currentRight === '0px') {
+                sidebar.style.right = '-250px'; // Close the sidebar
+            } else {
+                sidebar.style.right = '0'; // Open the sidebar
+            }
         }
     </script>
 </body>
