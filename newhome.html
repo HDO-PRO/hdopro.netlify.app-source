@@ -31,6 +31,10 @@
             height: 100vh; /* Ensures no scrolling by restricting height to 100% */
             overflow: hidden; /* Prevent scrolling */
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center content horizontally and vertically */
         }
 
         /* Dim the wallpaper */
@@ -118,16 +122,15 @@
 
         /* Hero Section */
         .hero {
-            text-align: left;
-            padding: 2rem 1.5rem;
-            background: rgba(0, 0, 0, 0.7);
-            margin: 0 auto;
-            max-width: 800px; /* Smaller width for the Tachiyomi window */
-            border-radius: 10px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            position: relative;
+            align-items: center;
+            flex-direction: row;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1000px; /* Ensures no overlap on wide screens */
             z-index: 5;
         }
 
@@ -159,12 +162,21 @@
             background-color: #ff85c2;
         }
 
+        /* Screenshot Image */
+        .screenshot {
+            width: 40%; /* Reduced size of the screenshot */
+            max-width: 250px;
+            height: auto;
+            margin-left: 20px;
+        }
+
+        /* Features Section */
         .features {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin: 2rem 1.5rem;
+            margin: 2rem;
             z-index: 5;
         }
 
@@ -217,19 +229,12 @@
             max-width: 1000px;
         }
 
-        /* Image Styling */
-        .screenshot {
-            width: 40%; /* Reduced size of the screenshot */
-            max-width: 250px; /* Ensures it doesn't get too big */
-            height: auto;
-            margin-left: 20px;
-        }
-
         /* Responsiveness */
         @media (max-width: 768px) {
             .hero {
                 flex-direction: column;
                 padding: 2rem;
+                width: 90%;
                 max-width: 100%;
             }
 
@@ -295,12 +300,12 @@
             <p>Automatically keep track of your favorite movies and shows.</p>
         </div>
         <div class="feature-card">
-            <h3>Custom Lists</h3>
-            <p>Create custom watchlists for easy access to your content.</p>
+            <h3>Discover New Content</h3>
+            <p>Explore curated lists, trending picks, and classic films.</p>
         </div>
         <div class="feature-card">
-            <h3>HD Streaming</h3>
-            <p>Enjoy content in crystal clear HD quality with no interruptions.</p>
+            <h3>Personalize Your Library</h3>
+            <p>Customize your library and create watchlists with ease.</p>
         </div>
     </section>
 
@@ -310,5 +315,13 @@
         <div class="footer-line"></div>
         <p>Privacy Policy | Terms of Service</p>
     </footer>
+
+    <script>
+        // Sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.right = sidebar.style.right === '0px' ? '-250px' : '0px';
+        }
+    </script>
 </body>
 </html>
