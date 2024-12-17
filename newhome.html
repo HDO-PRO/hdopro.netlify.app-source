@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie App - Tachiomi Style</title>
+    <title>Movie App</title>
     <link rel="icon" href="images/f16a67b93d7e7c64355e35851377e1eb.jpg">
     <style>
         /* General Reset */
@@ -15,114 +15,146 @@
         }
 
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #0d0d0d;
+            color: #f5f5f5;
             line-height: 1.6;
         }
 
         header {
-            text-align: center;
-            background-color: #1e1e1e;
-            padding: 1rem;
-            border-bottom: 2px solid #6a1b9a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1b1b1b;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 2px solid #444;
         }
 
         header h1 {
-            font-size: 2rem;
-            color: #ba68c8;
-            letter-spacing: 1px;
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        header nav a:hover {
+            color: #6a5acd;
         }
 
         .search-bar {
             display: flex;
             justify-content: center;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
         .search-bar input {
-            width: 80%;
-            max-width: 400px;
-            padding: 0.5rem;
-            border: 1px solid #6a1b9a;
-            border-radius: 4px;
-            background: #1e1e1e;
-            color: #e0e0e0;
+            width: 90%;
+            max-width: 500px;
+            padding: 0.6rem;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #1b1b1b;
+            color: #f5f5f5;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #888;
         }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            padding: 1.5rem;
         }
 
         .movie-card {
-            background-color: #1e1e1e;
-            padding: 0.5rem;
+            background-color: #1b1b1b;
             border-radius: 8px;
-            text-align: center;
-            transition: transform 0.2s;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .movie-card img {
             width: 100%;
             height: auto;
-            border-radius: 4px;
         }
 
         .movie-card h3 {
-            margin: 0.5rem 0;
+            padding: 0.8rem;
             font-size: 1rem;
-            color: #ba68c8;
+            text-align: center;
+            color: #f5f5f5;
         }
 
         .movie-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
         }
 
         footer {
             text-align: center;
             padding: 1rem;
-            background-color: #1e1e1e;
-            border-top: 2px solid #6a1b9a;
+            background-color: #1b1b1b;
+            border-top: 2px solid #444;
         }
 
         footer p {
             font-size: 0.9rem;
+            color: #888;
         }
+
     </style>
 </head>
 <body>
     <header>
         <h1>Movie App</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Trending</a>
+            <a href="#">Favorites</a>
+        </nav>
     </header>
 
     <!-- Search Bar -->
     <div class="search-bar">
-        <input type="text" placeholder="Search for movies...">
+        <input type="text" placeholder="Search for movies or shows...">
     </div>
 
     <!-- Movie Grid -->
     <section class="container">
-        <!-- Example Movie Cards -->
         <div class="movie-card">
-            <img src="https://via.placeholder.com/150x220" alt="Movie Poster">
+            <img src="https://via.placeholder.com/180x270" alt="Movie Poster">
             <h3>Movie Title</h3>
         </div>
         <div class="movie-card">
-            <img src="https://via.placeholder.com/150x220" alt="Movie Poster">
+            <img src="https://via.placeholder.com/180x270" alt="Movie Poster">
             <h3>Another Movie</h3>
         </div>
         <div class="movie-card">
-            <img src="https://via.placeholder.com/150x220" alt="Movie Poster">
-            <h3>Cool Movie</h3>
+            <img src="https://via.placeholder.com/180x270" alt="Movie Poster">
+            <h3>Popular Movie</h3>
         </div>
-        <!-- Add more movie cards here -->
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/180x270" alt="Movie Poster">
+            <h3>Classic Movie</h3>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Movie App | Dark Mode Design</p>
+        <p>&copy; 2024 Movie App | All Rights Reserved</p>
     </footer>
 </body>
 </html>
