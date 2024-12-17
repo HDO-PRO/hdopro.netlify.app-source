@@ -24,22 +24,40 @@
         }
 
         body {
-            background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed; /* Set your wallpaper here */
-            background-size: cover; /* Ensure the wallpaper covers the entire screen */
+            background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
+            background-size: cover;
             color: #f5f5f5;
             line-height: 1.6;
-            min-height: 100vh;
-            overflow: hidden; /* Disable scrolling */
+            height: 100vh; /* Ensures no scrolling by restricting height to 100% */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative;
+        }
+
+        /* Dim the wallpaper */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Adds a dimming effect */
+            z-index: -1; /* Keeps the dimmed layer behind other content */
         }
 
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: rgba(34, 34, 34, 0.7); /* Slight transparency for readability */
+            background-color: rgba(34, 34, 34, 0.7);
             padding: 1rem 2rem;
             border-bottom: 2px solid #555;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
         }
 
         header h1 {
@@ -60,19 +78,61 @@
             color: #ff69b4;
         }
 
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-left: 1.5rem;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 4px;
+            margin: 5px 0;
+            background-color: #fff;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px; /* Hidden offscreen */
+            width: 250px;
+            height: 100%;
+            background-color: rgba(34, 34, 34, 0.9);
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            transition: right 0.3s ease;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar a:hover {
+            color: #ff69b4;
+        }
+
+        /* Hero Section */
         .hero {
             text-align: left;
-            padding: 3rem 2rem;
+            padding: 2rem 1.5rem;
             background: rgba(0, 0, 0, 0.7);
             margin: 0 auto;
-            max-width: 900px;
+            max-width: 800px; /* Smaller width for the Tachiyomi window */
             border-radius: 10px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 5;
         }
 
         .hero h2 {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             color: #ff69b4;
             margin-bottom: 1rem;
         }
@@ -104,7 +164,8 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin: 3rem 1.5rem;
+            margin: 2rem 1.5rem;
+            z-index: 5;
         }
 
         .feature-card {
@@ -113,7 +174,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
-            width: 250px;
+            width: 200px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -139,6 +200,10 @@
             background-color: rgba(34, 34, 34, 0.7);
             border-top: 2px solid #555;
             margin-top: 2rem;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            z-index: 5;
         }
 
         footer p {
@@ -154,8 +219,8 @@
 
         /* Image Styling */
         .screenshot {
-            width: 50%; /* Set to 50% size */
-            max-width: 400px; /* Optional: restrict max width for very large screens */
+            width: 40%; /* Reduced size of the screenshot */
+            max-width: 250px; /* Ensures it doesn't get too big */
             height: auto;
             margin-left: 20px;
         }
@@ -169,7 +234,7 @@
             }
 
             .feature-card {
-                width: 200px;
+                width: 180px;
                 padding: 1rem;
             }
 
@@ -178,13 +243,13 @@
             }
 
             .screenshot {
-                width: 80%;
+                width: 70%;
+                margin-left: 0;
             }
-        }
 
-        /* Ensuring the content stays within view without scrolling */
-        html, body {
-            height: 100%;
+            .hamburger {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -197,13 +262,27 @@
             <a href="#">Trending</a>
             <a href="#">Favorites</a>
         </nav>
+        <div class="hamburger" onclick="toggleSidebar()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <a href="#">Home</a>
+        <a href="#">Trending</a>
+        <a href="#">Favorites</a>
+        <a href="#">Settings</a>
+        <a href="#">Log Out</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="text-content">
-            <h2>Tachiyomi</h2>
-            <p>Full-featured movie and TV show viewer. Discover and stream the latest movies and TV shows – easier than ever on your device.</p>
+            <h2>HDO Pro</h2>
+            <p>Discover and stream the latest movies and TV shows – easier than ever on your device.</p>
             <a href="#" class="get-started-btn">Get Started</a>
         </div>
         <img src="Images/android1-upscale.png" alt="App Screenshot" class="screenshot"> <!-- Screenshot Image -->
@@ -216,19 +295,20 @@
             <p>Automatically keep track of your favorite movies and shows.</p>
         </div>
         <div class="feature-card">
-            <h3>Discover New Content</h3>
-            <p>Explore curated lists, trending picks, and classic films.</p>
+            <h3>Custom Lists</h3>
+            <p>Create custom watchlists for easy access to your content.</p>
         </div>
         <div class="feature-card">
-            <h3>Personalize Your Library</h3>
-            <p>Customize your library and create watchlists with ease.</p>
+            <h3>HD Streaming</h3>
+            <p>Enjoy content in crystal clear HD quality with no interruptions.</p>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
+        <p>&copy; 2024 HDO Pro. All rights reserved.</p>
         <div class="footer-line"></div>
-        <p>&copy; 2024 Movie App | Open-source Project</p>
+        <p>Privacy Policy | Terms of Service</p>
     </footer>
 </body>
 </html>
