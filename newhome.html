@@ -1,28 +1,287 @@
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Hide the menu off-screen */
-    width: 250px;
-    height: 100%;
-    background-color: #1a001a;
-    transition: 0.3s;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDO Pro - Private Community</title>
+    <meta property="og:url" content="/home" />
+    <meta property="og:title" content="HDO Pro | Home">
+    <meta property="og:description" content="Homepage of HDO Pro.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
 
-.side-menu.open {
-    left: 0; /* Show the menu */
-}
+    <!-- Favicon -->
+    <link rel="icon" href="/Images/logo.png" type="image/png">
 
-.side-menu ul {
-    list-style: none;
-    padding: 20px;
-}
+    <!-- External CSS -->
+    <style>
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-.side-menu li {
-    margin-bottom: 15px;
-}
+        /* Body Styling */
+        body {
+            background: linear-gradient(to bottom, #1a001a, #290029);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.side-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #2e002e;
+            color: white;
+        }
+
+        header .logo {
+            color: #ff66b2;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ff66b2;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #1a001a;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .side-menu .close-btn {
+            text-align: right;
+            padding: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #ff66b2;
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .side-menu li {
+            margin-bottom: 15px;
+        }
+
+        .side-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: #ff66b2;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #2e002e, #440044);
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            color: #ff66b2;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #ff66b2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e05599;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #290029;
+        }
+
+        .feature {
+            background: #1a001a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #440044;
+            width: 30%;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px #ff66b2;
+        }
+
+        .feature h3 {
+            color: #ff66b2;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #2e002e;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">HDO Pro</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Trending</a></li>
+                <li><a href="#">Favorites</a></li>
+            </ul>
+        </nav>
+        <!-- Hamburger Menu -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Trending</a></li>
+            <li><a href="#">Favorites</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Help</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Discover Your Favorite Movies</h1>
+        <p>Stream and explore the latest movies, TV shows, and more in one place.</p>
+        <button class="btn">Get Started</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <h3>Track Progress</h3>
+            <p>Automatically keep track of your favorite movies and shows.</p>
+        </div>
+        <div class="feature">
+            <h3>Discover New Content</h3>
+            <p>Explore curated lists, trending picks, and classic films.</p>
+        </div>
+        <div class="feature">
+            <h3>Personalize Your Library</h3>
+            <p>Customize your library and create watchlists with ease.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HDO Pro | Open-source Project</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            document.getElementById("sideMenu").classList.toggle("open");
+        }
+    </script>
+</body>
+</html>
