@@ -298,5 +298,31 @@
             menu.classList.toggle('open');
         }
     </script>
+
+// Disable text selection
+document.body.style.userSelect = "none"; // Prevent text selection
+
+// Disable right-click
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});
+
+// Prevent opening Developer Tools via keypress (F12, Ctrl+Shift+I, Ctrl+Shift+J)
+(function() {
+    window.onkeydown = function(event) {
+        // Block F12, Ctrl+Shift+I, Ctrl+Shift+J
+        if ((event.key === "F12") || 
+            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
+            event.preventDefault();
+            alert("Inspecting is disabled.");
+        }
+    };
+
+    // Prevent right-click for dev tools
+    document.oncontextmenu = function() {
+        return false;
+    };
+})();
+    
 </body>
 </html>
