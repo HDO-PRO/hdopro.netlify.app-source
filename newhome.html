@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDO Pro</title>
+    <title>HDO Pro - Private Community</title>
+    <meta property="og:url" content="/home" />
+    <meta property="og:title" content="HDO Pro | Home">
+    <meta property="og:description" content="Homepage of HDO Pro.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+
+    <!-- External Scripts and Styles -->
+    <script src="index.js" type="text/javascript"></script>
+    <link rel="manifest" href="/manifest.json">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/Images/logo.png" type="image/png">
+
+    <!-- Custom Styles -->
     <style>
         /* General Reset */
         * {
@@ -11,9 +26,9 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
+            user-select: none; /* Prevent text highlighting */
         }
 
-        /* Body Styling */
         body {
             background: linear-gradient(to bottom, #1a001a, #290029);
             color: white;
@@ -116,100 +131,11 @@
             color: #ff66b2;
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
-            animation: colorChange 8s infinite alternate;
-        }
-
-        .hero h1 {
-            font-size: 2.5em;
-            color: #ff66b2;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background-color: #ff66b2;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #e05599;
-        }
-
-        /* Features Section */
-        .features {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 40px 20px;
-            text-align: center;
-            background-color: #290029;
-        }
-
-        .feature {
-            background: linear-gradient(145deg, #1a001a, #330033);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px #440044;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 280px;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 20px #ff66b2;
-        }
-
-        .feature h3 {
-            color: #ff66b2;
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #290029;
-            border-top: 1px solid #442044;
-            font-size: 0.9em;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            nav ul {
-                display: none;
-            }
-        }
-
-        /* Animation for Hero */
-        @keyframes colorChange {
-            0% {
-                background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
-            }
-            50% {
-                background: linear-gradient(135deg, #440044, #290029, #1a001a, #330033);
-            }
-            100% {
-                background: linear-gradient(135deg, #290029, #1a001a, #440044, #330033);
-            }
+        /* Prevent text highlighting */
+        body, button {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
@@ -248,32 +174,47 @@
     <section class="hero">
         <h1>Discover Your Favorite Movies</h1>
         <p>Stream and explore the latest movies, TV shows, and more in one place.</p>
-        <button class="btn">Get Started</button>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="feature">
-            <h3>Track Progress</h3>
-            <p>Automatically keep track of your favorite movies and shows.</p>
-        </div>
-        <div class="feature">
-            <h3>Discover New Content</h3>
-            <p>Explore curated lists, trending picks, and classic films.</p>
-        </div>
-        <div class="feature">
-            <h3>Personalize Your Library</h3>
-            <p>Customize your library and create watchlists with ease.</p>
-        </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 HDO Pro | Open-source Project</p>
+        <p>&copy; 2024 HDO Pro | Private Community</p>
     </footer>
 
-    <!-- JavaScript for Side Menu -->
+    <!-- JavaScript to Disable Developer Tools -->
     <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable copying
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+
+        // Block access to developer tools
+        (function blockDevTools() {
+            document.onkeydown = function (e) {
+                if (
+                    e.ctrlKey && 
+                    (e.key === "u" || e.key === "U" || e.key === "s" || e.key === "S" || e.key === "i" || e.key === "I") || 
+                    e.key === "F12" || 
+                    (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "C")) ||
+                    (e.metaKey && (e.key === "S" || e.key === "I"))
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            };
+        })();
+
+        // Side Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             menu.classList.toggle('open');
