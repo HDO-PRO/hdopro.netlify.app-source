@@ -28,6 +28,14 @@
             font-family: Arial, sans-serif;
         }
 
+        /* Disable text selection */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version */
+        }
+
         /* Body Styling */
         body {
             background: linear-gradient(to bottom, #1a001a, #290029);
@@ -270,10 +278,10 @@
         <div class="logo">HDO Pro</div>
         <nav>
             <ul>
-            <li><a href="rules">Rules</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="support">Support</a></li>
-            <li><a href="dmca">DMCA</a></li>
+                <li><a href="rules">Rules</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="support">Support</a></li>
+                <li><a href="dmca">DMCA</a></li>
             </ul>
         </nav>
         <!-- Hamburger Icon -->
@@ -327,7 +335,7 @@
         <p>&copy; 2024 HDO Pro | A project for the weak!</p>
     </footer>
 
-    <!-- JavaScript for Side Menu -->
+    <!-- JavaScript for Side Menu and Restrictions -->
     <script>
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
@@ -342,7 +350,21 @@
                 menu.classList.remove('open');
             }
         });
-    </script>
 
+        // Disable right-click
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Disable keyboard shortcuts for inspecting
+        document.addEventListener('keydown', function(event) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, etc.
+            if (event.key === 'F12' || 
+                (event.ctrlKey && (event.key === 'I' || event.key === 'J')) || 
+                (event.ctrlKey && event.shiftKey && event.key === 'C')) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
