@@ -234,10 +234,10 @@
         <div class="logo">HDO Pro</div>
         <nav>
             <ul>
-            <li><a href="rules">Rules</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="support">Support</a></li>
-            <li><a href="dmca">DMCA</a></li>
+                <li><a href="rules">Rules</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="support">Support</a></li>
+                <li><a href="dmca">DMCA</a></li>
             </ul>
         </nav>
         <!-- Hamburger Icon -->
@@ -260,12 +260,12 @@
         </ul>
     </div>
 
-<!-- Hero Section -->
-<section class="hero">
-    <h1>Discover Your Favorite Movies</h1>
-    <p>Stream and explore the latest movies, TV shows, and more in one place.</p>
-    <button class="btn" onclick="window.location.href='https://hdopro.netlify.app/guide'">Get Started</button>
-</section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Discover Your Favorite Movies</h1>
+        <p>Stream and explore the latest movies, TV shows, and more in one place.</p>
+        <button class="btn" onclick="window.location.href='https://hdopro.netlify.app/guide'">Get Started</button>
+    </section>
 
     <!-- Features Section -->
     <section class="features">
@@ -283,46 +283,46 @@
         </div>
     </section>
 
-<!-- Footer -->
-<footer>
-    <p>Friends: Nekomo & Dantotsu | Contact: hdo@pro.protonmail.com</p>
-    <p>iOS access is no longer available. Download links are private; join our community for access.</p>
-    <p>We don't host content or servers. For DMCA info, <a href="/dmca">click here</a>.</p>
-    <p>&copy; 2024 HDO Pro | A project for the weak!</p>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <p>Friends: Nekomo & Dantotsu | Contact: hdo@pro.protonmail.com</p>
+        <p>iOS access is no longer available. Download links are private; join our community for access.</p>
+        <p>We don't host content or servers. For DMCA info, <a href="/dmca">click here</a>.</p>
+        <p>&copy; 2024 HDO Pro | A project for the weak!</p>
+    </footer>
 
-    <!-- JavaScript for Side Menu -->
+    <!-- JavaScript for Side Menu and Block Features -->
     <script>
+        // Disable text selection
+        document.body.style.userSelect = "none"; // Prevent text selection
+
+        // Disable right-click
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Prevent opening Developer Tools via keypress (F12, Ctrl+Shift+I, Ctrl+Shift+J)
+        (function() {
+            window.onkeydown = function(event) {
+                // Block F12, Ctrl+Shift+I, Ctrl+Shift+J
+                if ((event.key === "F12") || 
+                    (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
+                    event.preventDefault();
+                    alert("Inspecting is disabled.");
+                }
+            };
+
+            // Prevent right-click for dev tools
+            document.oncontextmenu = function() {
+                return false;
+            };
+        })();
+
+        // Side menu toggle function
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             menu.classList.toggle('open');
         }
     </script>
-    
 </body>
 </html>
-
-// Disable text selection
-document.body.style.userSelect = "none"; // Prevent text selection
-
-// Disable right-click
-document.addEventListener('contextmenu', function(event) {
-    event.preventDefault();
-});
-
-// Prevent opening Developer Tools via keypress (F12, Ctrl+Shift+I, Ctrl+Shift+J)
-(function() {
-    window.onkeydown = function(event) {
-        // Block F12, Ctrl+Shift+I, Ctrl+Shift+J
-        if ((event.key === "F12") || 
-            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
-            event.preventDefault();
-            alert("Inspecting is disabled.");
-        }
-    };
-
-    // Prevent right-click for dev tools
-    document.oncontextmenu = function() {
-        return false;
-    };
-})();
