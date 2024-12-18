@@ -32,7 +32,7 @@
         body {
             background: linear-gradient(to bottom, #1a001a, #290029);
             color: white;
-            line-height: 1.6;
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
@@ -41,15 +41,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 20px 40px;
             background: linear-gradient(to right, #1a001a, #440044, #1a001a);
-            border-bottom: 1px solid #442044;
+            border-bottom: 2px solid #442044;
         }
 
         header .logo {
             color: #ff66b2;
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 2em;
         }
 
         nav ul {
@@ -58,12 +58,13 @@
         }
 
         nav ul li {
-            margin: 0 10px;
+            margin: 0 15px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
+            font-size: 1.2em;
             transition: color 0.3s ease;
         }
 
@@ -79,10 +80,10 @@
         }
 
         .hamburger div {
-            width: 25px;
-            height: 3px;
+            width: 30px;
+            height: 4px;
             background-color: white;
-            margin: 3px 0;
+            margin: 4px 0;
             transition: transform 0.3s ease;
         }
 
@@ -90,13 +91,13 @@
         .side-menu {
             position: fixed;
             top: 0;
-            right: -300px;
-            width: 250px;
+            right: -350px;
+            width: 280px;
             height: 100%;
             background-color: #1a001a;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.5);
             transition: right 0.3s ease;
-            padding: 20px;
+            padding: 30px;
             z-index: 1000;
         }
 
@@ -106,24 +107,24 @@
 
         .side-menu .close-btn {
             text-align: right;
-            font-size: 1.5em;
+            font-size: 2em;
             color: #ff66b2;
             cursor: pointer;
         }
 
         .side-menu ul {
             list-style: none;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .side-menu ul li {
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         .side-menu ul li a {
             color: white;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.4em;
             transition: color 0.3s ease;
         }
 
@@ -134,30 +135,30 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 50px 20px;
+            padding: 80px 30px;
             background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
             animation: colorChange 8s infinite alternate;
         }
 
         .hero h1 {
-            font-size: 2.5em;
+            font-size: 3.5em;
             color: #ff66b2;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+            font-size: 1.5em;
+            margin-bottom: 30px;
         }
 
         .btn {
             background-color: #ff66b2;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
             cursor: pointer;
-            font-size: 1em;
-            border-radius: 5px;
+            font-size: 1.2em;
+            border-radius: 8px;
             transition: background-color 0.3s ease;
         }
 
@@ -169,38 +170,39 @@
         .features {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            padding: 40px 20px;
+            gap: 50px;
+            padding: 60px 30px;
             text-align: center;
             background-color: #290029;
         }
 
         .feature {
             background: linear-gradient(145deg, #1a001a, #330033);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px #440044;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px #440044;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 280px;
+            width: 320px;
         }
 
         .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 20px #ff66b2;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 25px #ff66b2;
         }
 
         .feature h3 {
             color: #ff66b2;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background-color: #290029;
-            border-top: 1px solid #442044;
-            font-size: 0.9em;
+            border-top: 2px solid #442044;
+            font-size: 1.1em;
         }
 
         /* Responsive Design */
@@ -234,10 +236,10 @@
         <div class="logo">HDO Pro</div>
         <nav>
             <ul>
-                <li><a href="rules">Rules</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="support">Support</a></li>
-                <li><a href="dmca">DMCA</a></li>
+            <li><a href="rules">Rules</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="support">Support</a></li>
+            <li><a href="dmca">DMCA</a></li>
             </ul>
         </nav>
         <!-- Hamburger Icon -->
@@ -291,38 +293,13 @@
         <p>&copy; 2024 HDO Pro | A project for the weak!</p>
     </footer>
 
-    <!-- JavaScript for Side Menu and Block Features -->
+    <!-- JavaScript for Side Menu -->
     <script>
-        // Disable text selection
-        document.body.style.userSelect = "none"; // Prevent text selection
-
-        // Disable right-click
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-        });
-
-        // Prevent opening Developer Tools via keypress (F12, Ctrl+Shift+I, Ctrl+Shift+J)
-        (function() {
-            window.onkeydown = function(event) {
-                // Block F12, Ctrl+Shift+I, Ctrl+Shift+J
-                if ((event.key === "F12") || 
-                    (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
-                    event.preventDefault();
-                    alert("Inspecting is disabled.");
-                }
-            };
-
-            // Prevent right-click for dev tools
-            document.oncontextmenu = function() {
-                return false;
-            };
-        })();
-
-        // Side menu toggle function
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             menu.classList.toggle('open');
         }
     </script>
+
 </body>
 </html>
