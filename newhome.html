@@ -44,6 +44,7 @@
             padding: 10px 20px;
             background: linear-gradient(to right, #1a001a, #440044, #1a001a);
             border-bottom: 1px solid #442044;
+            position: relative;
         }
 
         header .logo {
@@ -76,6 +77,9 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 20px;
         }
 
         .hamburger div {
@@ -205,12 +209,35 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
             .hamburger {
                 display: flex;
             }
 
-            nav ul {
-                display: none;
+            .side-menu {
+                width: 100%;
+                right: -100%;
+                transition: right 0.5s ease;
+            }
+
+            .side-menu.open {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .features {
+                flex-direction: column;
+                gap: 20px;
             }
         }
 
