@@ -44,6 +44,9 @@
             padding: 10px 20px;
             background: linear-gradient(to right, #1a001a, #440044, #1a001a);
             border-bottom: 1px solid #442044;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         header .logo {
@@ -71,9 +74,9 @@
             color: #ff66b2;
         }
 
-        /* Hamburger Menu */
+        /* Hamburger Menu (always visible) */
         .hamburger {
-            display: none;
+            display: flex;
             flex-direction: column;
             cursor: pointer;
         }
@@ -131,11 +134,50 @@
             color: #ff66b2;
         }
 
-        /* Prevent text highlighting */
-        body, button {
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #1a001a;
+            color: #ff66b2;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header nav ul {
+                display: none; /* Hide full navigation on mobile */
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            .hamburger {
+                display: none; /* Hide hamburger menu on larger screens */
+            }
         }
     </style>
 </head>
@@ -181,7 +223,7 @@
         <p>&copy; 2024 HDO Pro | Private Community</p>
     </footer>
 
-    <!-- JavaScript to Disable Developer Tools -->
+    <!-- JavaScript -->
     <script>
         // Disable right-click
         document.addEventListener('contextmenu', function(e) {
@@ -198,21 +240,17 @@
             e.preventDefault();
         });
 
-        // Block access to developer tools
-        (function blockDevTools() {
-            document.onkeydown = function (e) {
-                if (
-                    e.ctrlKey && 
-                    (e.key === "u" || e.key === "U" || e.key === "s" || e.key === "S" || e.key === "i" || e.key === "I") || 
-                    e.key === "F12" || 
-                    (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "C")) ||
-                    (e.metaKey && (e.key === "S" || e.key === "I"))
-                ) {
-                    e.preventDefault();
-                    return false;
-                }
-            };
-        })();
+        // Block developer tools
+        document.onkeydown = function(e) {
+            if (
+                e.ctrlKey && 
+                (e.key === "u" || e.key === "U" || e.key === "s" || e.key === "S" || e.key === "i" || e.key === "I") || 
+                e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "C"))
+            ) {
+                e.preventDefault();
+            }
+        };
 
         // Side Menu Toggle
         function toggleMenu() {
