@@ -44,6 +44,10 @@
             padding: 10px 20px;
             background: linear-gradient(to right, #1a001a, #440044, #1a001a);
             border-bottom: 1px solid #442044;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         header .logo {
@@ -73,7 +77,7 @@
 
         /* Hamburger Menu */
         .hamburger {
-            display: none;
+            display: flex;
             flex-direction: column;
             cursor: pointer;
         }
@@ -134,7 +138,7 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 50px 20px;
+            padding: 100px 20px 50px; /* Adjusted for fixed header */
             background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
             animation: colorChange 8s infinite alternate;
         }
@@ -168,6 +172,7 @@
         /* Features Section */
         .features {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
             padding: 40px 20px;
@@ -182,6 +187,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px #440044;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 280px;
+            max-width: 100%;
         }
 
         .feature:hover {
@@ -205,12 +211,16 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
             nav ul {
                 display: none;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
             }
         }
 
