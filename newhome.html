@@ -91,8 +91,8 @@
         .side-menu {
             position: fixed;
             top: 0;
-            right: -350px;
-            width: 280px;
+            right: -100%; /* Initially off-screen */
+            width: 80%;
             height: 100%;
             background-color: #1a001a;
             box-shadow: -3px 0 8px rgba(0, 0, 0, 0.5);
@@ -333,6 +333,15 @@
             const menu = document.getElementById('sideMenu');
             menu.classList.toggle('open');
         }
+
+        // Close the menu if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            const menu = document.getElementById('sideMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove('open');
+            }
+        });
     </script>
 
 </body>
