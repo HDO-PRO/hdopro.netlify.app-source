@@ -44,18 +44,7 @@
             font-size: 16px;
             z-index: 9999;
             border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-            animation: slideUp 1s forwards;
-        }
-
-        @keyframes slideUp {
-            0% {
-                top: 0;
-                opacity: 1;
-            }
-            100% {
-                top: -60px; /* Slide up out of view */
-                opacity: 0;
-            }
+            display: none; /* Initially hidden */
         }
 
         .container {
@@ -263,8 +252,14 @@
 
     <script>
         window.onload = function() {
+            // Show the announcement banner immediately
+            document.getElementById("announcement").style.display = 'block';
+
+            // After 30 seconds, start the slide-up animation
             setTimeout(function() {
-                document.getElementById("announcement").style.animation = 'slideUp 1s forwards'; // Trigger the slide-up animation
+                document.getElementById("announcement").style.transition = "top 1s ease-in-out, opacity 1s ease-in-out";
+                document.getElementById("announcement").style.top = "-60px"; // Slide up out of view
+                document.getElementById("announcement").style.opacity = "0"; // Fade out
             }, 30000); // 30 seconds
         };
 
