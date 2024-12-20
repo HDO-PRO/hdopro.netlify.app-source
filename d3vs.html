@@ -27,10 +27,10 @@
   }
 
   .container {
-    max-width: 700px; /* Smaller container */
+    max-width: 900px; /* Desktop-friendly width */
     margin: 20px auto;
-    padding: 15px; /* Reduced padding */
-    background-color: rgba(58, 22, 83, 0.8); /* Darker, slightly transparent background */
+    padding: 15px;
+    background-color: rgba(58, 22, 83, 0.8);
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
     position: relative;
@@ -39,47 +39,48 @@
 
   h1 {
     color: #ffc0cb;
-    font-size: 28px; /* Smaller font size */
+    font-size: 28px;
     margin-top: 15px;
+    text-align: center;
   }
 
   .dev-profile {
     display: flex;
     align-items: center;
-    margin-bottom: 15px; /* Reduced margin */
-    background-color: rgba(58, 22, 83, 0.8); /* Same dark theme background */
+    margin-bottom: 20px;
+    background-color: rgba(58, 22, 83, 0.8);
     border: 1px solid #ffc0cb;
     border-radius: 8px;
-    padding: 8px; /* Reduced padding */
+    padding: 12px;
   }
 
   .dev-profile img {
     border-radius: 50%;
     margin-right: 15px;
-    width: 80px; /* Smaller image size */
-    height: 80px; /* Smaller image size */
+    width: 80px;
+    height: 80px;
   }
 
   .dev-profile h2 {
     margin: 0;
-    font-size: 18px; /* Slightly smaller font */
+    font-size: 18px;
   }
 
   .dev-profile p {
     margin: 4px 0;
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px;
   }
 
   .contact-links {
     text-align: center;
-    margin-top: 15px; /* Reduced margin */
+    margin-top: 15px;
   }
 
   .contact-links a {
     color: #ffc0cb;
     text-decoration: none;
     margin-right: 10px;
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px;
   }
 
   .contact-links a:hover {
@@ -89,12 +90,12 @@
   .social-icons {
     display: flex;
     justify-content: center;
-    margin-top: 15px; /* Reduced margin */
+    margin-top: 20px;
   }
 
   .social-icons img {
-    width: 30px; /* Smaller social icon size */
-    height: 30px; /* Smaller social icon size */
+    width: 30px;
+    height: 30px;
     margin: 0 8px;
     cursor: not-allowed;
     opacity: 0.6;
@@ -104,8 +105,8 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px 0;
-    background-color: rgba(58, 22, 83, 0.5); /* Dark footer */
-    font-size: 12px; /* Smaller font size */
+    background-color: rgba(58, 22, 83, 0.5);
+    font-size: 12px;
     color: #aaa;
   }
 
@@ -125,7 +126,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    background-color: rgba(0, 0, 0, 0.7);
     display: none;
     justify-content: center;
     align-items: center;
@@ -146,12 +147,12 @@
 
   .popup h2 {
     margin-top: 0;
-    font-size: 20px; /* Smaller font size */
+    font-size: 20px;
   }
 
   .popup p {
-    margin-bottom: 15px; /* Reduced margin */
-    font-size: 14px; /* Smaller font size */
+    margin-bottom: 15px;
+    font-size: 14px;
   }
 
   .popup button {
@@ -167,12 +168,65 @@
     background-color: #d4448c;
   }
 
-  @media screen and (max-width: 600px) {
-    h1 {
-      font-size: 20px; /* Smaller heading on small screens */
-    }
+  /* Mobile responsiveness */
+  @media screen and (max-width: 768px) {
     .container {
+      width: 95%;
       padding: 10px;
+    }
+
+    .dev-profile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .dev-profile img {
+      margin-bottom: 10px;
+      width: 60px;
+      height: 60px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .contact-links a {
+      font-size: 12px;
+    }
+
+    .social-icons img {
+      width: 25px;
+      height: 25px;
+    }
+
+    footer {
+      font-size: 10px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    h1 {
+      font-size: 20px;
+    }
+
+    .dev-profile h2 {
+      font-size: 16px;
+    }
+
+    .dev-profile p {
+      font-size: 12px;
+    }
+
+    .popup h2 {
+      font-size: 18px;
+    }
+
+    .popup p {
+      font-size: 12px;
+    }
+
+    .popup button {
+      padding: 8px 16px;
     }
   }
 </style>
