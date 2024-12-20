@@ -14,8 +14,8 @@
 <link rel="icon" href="/images/logo.png" type="image/png">
 <style>
   body {
-    background-color: #3a1653;
-    color: #ffc0cb;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text for dark theme */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -23,58 +23,63 @@
     background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
     background-size: cover;
     background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.6); /* Darken background image */
   }
 
   .container {
-    max-width: 800px;
+    max-width: 700px; /* Smaller container */
     margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(114, 137, 218, 0.7); /* Discord light theme background color with transparency */
+    padding: 15px; /* Reduced padding */
+    background-color: rgba(58, 22, 83, 0.8); /* Darker, slightly transparent background */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
     position: relative;
-    z-index: 1; /* Ensure content is above the blurred background */
+    z-index: 1;
   }
 
   h1 {
     color: #ffc0cb;
-    margin-top: 20px;
+    font-size: 28px; /* Smaller font size */
+    margin-top: 15px;
   }
 
   .dev-profile {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    background-color: rgba(114, 137, 218, 0.7); /* Discord light theme background color with transparency */
+    margin-bottom: 15px; /* Reduced margin */
+    background-color: rgba(58, 22, 83, 0.8); /* Same dark theme background */
     border: 1px solid #ffc0cb;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px; /* Reduced padding */
   }
 
   .dev-profile img {
     border-radius: 50%;
-    margin-right: 20px;
-    width: 100px;
-    height: 100px;
+    margin-right: 15px;
+    width: 80px; /* Smaller image size */
+    height: 80px; /* Smaller image size */
   }
 
   .dev-profile h2 {
     margin: 0;
+    font-size: 18px; /* Slightly smaller font */
   }
 
   .dev-profile p {
-    margin: 5px 0;
+    margin: 4px 0;
+    font-size: 14px; /* Smaller font size */
   }
 
   .contact-links {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px; /* Reduced margin */
   }
 
   .contact-links a {
     color: #ffc0cb;
     text-decoration: none;
     margin-right: 10px;
+    font-size: 14px; /* Smaller font size */
   }
 
   .contact-links a:hover {
@@ -84,13 +89,13 @@
   .social-icons {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 15px; /* Reduced margin */
   }
 
   .social-icons img {
-    width: 40px;
-    height: 40px;
-    margin: 0 10px;
+    width: 30px; /* Smaller social icon size */
+    height: 30px; /* Smaller social icon size */
+    margin: 0 8px;
     cursor: not-allowed;
     opacity: 0.6;
   }
@@ -99,8 +104,8 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px 0;
-    background-color: rgba(58, 22, 83, 0.4); /* Lighter background color for footer */
-    font-size: 14px;
+    background-color: rgba(58, 22, 83, 0.5); /* Dark footer */
+    font-size: 12px; /* Smaller font size */
     color: #aaa;
   }
 
@@ -120,35 +125,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Higher z-index to ensure it's above everything */
+    z-index: 1000;
   }
 
   .popup {
-    background-color: #38124b;
+    background-color: #2b1e3d;
     color: #ffc0cb;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     text-align: center;
     max-width: 80%;
     position: relative;
-    z-index: 1001; /* Popup should be above overlay */
+    z-index: 1001;
   }
 
   .popup h2 {
     margin-top: 0;
+    font-size: 20px; /* Smaller font size */
   }
 
   .popup p {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced margin */
+    font-size: 14px; /* Smaller font size */
   }
 
   .popup button {
-    padding: 10px 20px;
+    padding: 8px 18px;
     background-color: #ff69b4;
     color: #fff;
     border: none;
@@ -162,7 +169,7 @@
 
   @media screen and (max-width: 600px) {
     h1 {
-      font-size: 24px;
+      font-size: 20px; /* Smaller heading on small screens */
     }
     .container {
       padding: 10px;
@@ -177,65 +184,58 @@
     overlay.style.display = 'flex'; // Show overlay
     popup.style.display = 'block'; // Show popup
 
-    // Function to close popup and remove blur
     function closePopup() {
-      overlay.style.display = 'none'; // Hide overlay
-      popup.style.display = 'none'; // Hide popup
-      document.body.style.filter = 'none'; // Remove blur from body
+      overlay.style.display = 'none';
+      popup.style.display = 'none';
+      document.body.style.filter = 'none';
     }
 
-    // Handle click outside of popup to close it
     overlay.addEventListener('click', function(event) {
       if (event.target === overlay) {
         closePopup();
       }
     });
 
-    // Function to check if user is a robot (dummy function for demo)
     function isRobot() {
-      return false; // Replace with your actual logic to check if user is a robot
+      return false;
     }
 
-    // Close popup when user confirms
     document.getElementById('confirmButton').addEventListener('click', function() {
       if (!isRobot()) {
         closePopup();
       } else {
         alert('Please verify that you are not a robot.');
       }
-      });
-    };
+    });
+  };
 
-    // Disable right-click and text selection
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-  
-    document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-          e.preventDefault();
-      }
-    });
-  
-    document.addEventListener('selectstart', function (e) {
-      e.preventDefault();
-    });
-  
-    // Prevent dev tools inspection
-    document.addEventListener('keydown', function (e) {
-      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
         e.preventDefault();
-      }
-    });
-  
-    // Alert message on inspect element
-      window.addEventListener('devtoolschange', function(event) {
-        document.body.style.display = 'none';
-        alert('Please respect our work! Do not inspect the page.');
-      });
+    }
+  });
+
+  document.addEventListener('selectstart', function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+      e.preventDefault();
+    }
+  });
+
+  window.addEventListener('devtoolschange', function(event) {
+    document.body.style.display = 'none';
+    alert('Please respect our work! Do not inspect the page.');
+  });
 </script>
 </head>
-<body class="dark-mode">
+<body>
 <div class="overlay">
   <div class="popup">
     <h2>Important Notice</h2>
@@ -265,30 +265,12 @@
       <p>Best helper you might find.</p>
       <p>GitHub: <a href="https://github.com/itsmechinmoy" target="_blank">@itsmechinmoy</a></p>
     </div>
-       </div>
-    <p style="color: #ff69b4; text-align: center;">No info or code/source code for HDO Pro will be on this GitHub for privacy reasons.</p>
-      <style>
-      .donate-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff69b4;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 18px;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-  }
-
-  .donate-button:hover {
-    background-color: #d4448c;
-  }
-</style>
-
   </div>
+
+  <p style="color: #ff69b4; text-align: center;">No info or code/source code for HDO Pro will be on this GitHub for privacy reasons.</p>
+
   <div style="text-align: center;">
     <a class="donate-button" href="https://ko-fi.com/marshmeadow" target="_blank">Donate</a>
-  </div>
   </div>
 </div>
 
