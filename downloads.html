@@ -44,6 +44,18 @@
             font-size: 16px;
             z-index: 9999;
             border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+            animation: slideUp 1s forwards;
+        }
+
+        @keyframes slideUp {
+            0% {
+                top: 0;
+                opacity: 1;
+            }
+            100% {
+                top: -60px; /* Slide up out of view */
+                opacity: 0;
+            }
         }
 
         .container {
@@ -206,7 +218,7 @@
 </head>
 <body>
     <!-- Announcement Banner -->
-    <div class="announcement-banner">
+    <div class="announcement-banner" id="announcement">
         Download keys may be integrated soon. Stay tuned!
     </div>
 
@@ -245,82 +257,70 @@
         <button onclick="closePopup()">Got it</button>
     </div>
 
-<div class="notification" id="notification">
-    <p>Sorry, Anime App not available at this time.</p>
-</div>
+    <div class="notification" id="notification">
+        <p>Sorry, Anime App not available at this time.</p>
+    </div>
 
-<script>
-    window.onload = function() {
-        setTimeout(function() {
-            document.getElementById("notification").classList.add('hide');
-        }, 5000); // 5000ms = 10 seconds
-    };
-</script>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById("announcement").style.animation = 'slideUp 1s forwards'; // Trigger the slide-up animation
+            }, 30000); // 30 seconds
+        };
 
-<script>
-    if (!sessionStorage.getItem('popupShown')) {
-        showPopup();
-    }
-
-    function showPopup() {
-        document.getElementById('popup-overlay').style.display = 'block';
-        document.getElementById('popup-message').style.display = 'block';
-        sessionStorage.setItem('popupShown', true);
-    }
-
-    var gifs = [
-        '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-        '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-    ];
-
-    var gifElement = document.getElementById('animated-gif');
-    var currentGifIndex = 0;
-
-    function switchGif() {
-        currentGifIndex = (currentGifIndex + 1) % gifs.length;
-        gifElement.src = gifs[currentGifIndex];
-    }
-
-    function showNotification() {
-        var notification = document.getElementById('notification');
-        notification.style.display = 'block';
-        setTimeout(function () {
-            notification.style.display = 'none';
-        }, 5000); // 5 seconds
-    }
-
-    function closePopup() {
-        document.getElementById('popup-overlay').style.display = 'none';
-        document.getElementById('popup-message').style.display = 'none';
-    }
-
-    switchGif();
-    setInterval(switchGif, 5 * 60 * 1000);
-
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-            e.preventDefault();
+        function showNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(function () {
+                notification.style.display = 'none';
+            }, 5000); // 5 seconds
         }
-    });
 
-    document.addEventListener('selectstart', function (e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-            e.preventDefault();
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup-message').style.display = 'none';
         }
-    });
 
-    window.addEventListener('devtoolschange', function(event) {
-        document.body.style.display = 'none';
-        alert('Please respect our work! Do not inspect the page.');
-    });
-</script>
+        var gifs = [
+            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
+            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
+        ];
+
+        var gifElement = document.getElementById('animated-gif');
+        var currentGifIndex = 0;
+
+        function switchGif() {
+            currentGifIndex = (currentGifIndex + 1) % gifs.length;
+            gifElement.src = gifs[currentGifIndex];
+        }
+
+        switchGif();
+        setInterval(switchGif, 5 * 60 * 1000);
+
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('devtoolschange', function(event) {
+            document.body.style.display = 'none';
+            alert('Please respect our work! Do not inspect the page.');
+        });
+    </script>
 </body>
 </html>
