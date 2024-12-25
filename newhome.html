@@ -164,46 +164,56 @@
         }
 
         /* Features Section */
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin: 40px 20px;
-            gap: 10px; /* Adjusted gap to make the features closer */
-        }
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 40px 20px;
+    gap: 10px;
+    background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a); /* Add gradient background */
+    padding: 40px;
+    border-radius: 8px;
+}
 
-        .feature {
-            background-color: #290029;
-            border-radius: 8px;
-            padding: 15px 20px;
-            width: 28%; /* Adjust width to make them smaller */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            text-align: center;
-        }
+.feature {
+    background-color: #290029;
+    border-radius: 8px;
+    padding: 15px 20px;
+    width: 28%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
 
-        .feature h3 {
-            font-size: 1.5em;
-            color: #ff66b2;
-            margin-bottom: 10px;
-        }
+.feature h3 {
+    font-size: 1.5em;
+    color: #ff66b2;
+    margin-bottom: 10px;
+}
 
-        .feature p {
-            font-size: 1.1em;
-            color: white;
-        }
+.feature p {
+    font-size: 1.1em;
+    color: white;
+}
 
-        .feature:hover {
-            transform: translateY(-10px); /* Add hover effect */
-        }
+.feature:hover {
+    transform: translateY(-10px);
+}
 
-        /* Responsive Design for Features Section */
-        @media (max-width: 768px) {
-            .feature {
-                width: 100%; /* Stack vertically on mobile */
-                margin-bottom: 30px;
-            }
-        }
+/* Footer */
+footer {
+    text-align: center;
+    background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a); /* Add gradient background */
+    padding: 20px;
+    color: white;
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+footer a {
+    color: #ff66b2;
+    text-decoration: none;
+}
 
         /* Animation for Hero */
         @keyframes colorChange {
