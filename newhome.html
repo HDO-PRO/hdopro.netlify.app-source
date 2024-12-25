@@ -163,6 +163,60 @@
             background-color: #e05599;
         }
 
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 40px 20px;
+        }
+
+        .feature {
+            background-color: #290029;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%; /* Adjust width for desktop */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature h3 {
+            font-size: 1.8em;
+            color: #ff66b2;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px); /* Add hover effect */
+        }
+
+        /* Responsive Design for Features Section */
+        @media (max-width: 768px) {
+            .feature {
+                width: 100%; /* Stack vertically on mobile */
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Animation for Hero */
+        @keyframes colorChange {
+            0% {
+                background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
+            }
+            50% {
+                background: linear-gradient(135deg, #440044, #290029, #1a001a, #330033);
+            }
+            100% {
+                background: linear-gradient(135deg, #290029, #1a001a, #440044, #330033);
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             nav ul {
@@ -204,24 +258,6 @@
                 font-size: 1.5em;
                 padding: 18px 36px;
             }
-
-            .feature {
-                width: 100%;
-                margin-bottom: 30px;
-            }
-        }
-
-        /* Animation for Hero */
-        @keyframes colorChange {
-            0% {
-                background: linear-gradient(135deg, #1a001a, #440044, #290029, #1a001a);
-            }
-            50% {
-                background: linear-gradient(135deg, #440044, #290029, #1a001a, #330033);
-            }
-            100% {
-                background: linear-gradient(135deg, #290029, #1a001a, #440044, #330033);
-            }
         }
     </style>
 </head>
@@ -259,16 +295,6 @@
         </ul>
     </div>
 
-    <script>
-        // Toggle the side menu visibility
-        function toggleMenu() {
-            const sideMenu = document.getElementById('sideMenu');
-            sideMenu.classList.toggle('open');
-        }
-    </script>
-</body>
-</html>
-
     <!-- Hero Section -->
     <section class="hero">
         <h1>Discover Your Favorite Movies</h1>
@@ -291,6 +317,16 @@
             <p>Customize your library and create watchlists with ease.</p>
         </div>
     </section>
+
+    <script>
+        // Toggle the side menu visibility
+        function toggleMenu() {
+            const sideMenu = document.getElementById('sideMenu');
+            sideMenu.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
 
 <!-- Download Section -->
 <section id="download-hdo-pro" style="text-align: center; background-color: #290029; padding: 50px 20px;">
