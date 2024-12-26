@@ -3,108 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifying Connection</title>
+    <title>HDO Pro - Test Page</title>
+    <meta name="theme-color" content="#8d2249" />
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #121212; /* Dark background for dark mode */
-            color: white; /* Light text on dark background */
-            overflow: hidden;
-        }
-        .verification-box {
-            background-color: #1e1e1e; /* Darker box */
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            background: url('/Images/test-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
             text-align: center;
-            width: 350px;
-            font-size: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid #333;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            min-height: 100vh;
         }
-        .cloudflare-logo {
-            width: 50px;
-            height: 50px;
-            background: url('https://www.cloudflare.com/img/cf-logo.svg') no-repeat center center;
-            background-size: contain;
-            margin-bottom: 20px;
-            animation: rotate 2s linear infinite;
+        .container {
+            max-width: 800px;
+            margin: 100px auto 0;
+            background-color: rgba(51, 51, 51, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            padding-top: 60px;
+            border: 2px solid rgba(153, 51, 153, 0.5);
+            box-shadow: 0 0 5px rgba(153, 51, 153, 0.2);
         }
-        .message {
+        h1 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .alert {
+            margin: 20px 0;
+            background-color: rgba(255, 69, 0, 0.9);
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
             font-size: 16px;
-            color: #ccc; /* Lighter text for better contrast */
-            margin-bottom: 20px;
+            font-weight: bold;
         }
-        .spinner {
-            border: 4px solid #444; /* Darker spinner background */
-            border-top: 4px solid #4CAF50; /* Green spinner top */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 2s linear infinite;
-        }
-        .verify-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-        .verify-button:hover {
-            background-color: #45a049;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .info {
+            margin: 20px 0;
+            background-color: rgba(51, 153, 255, 0.9);
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="verification-box" id="verificationBox">
-        <div class="cloudflare-logo"></div>
-        <div class="message">Please wait while we verify your connection...</div>
-        <div class="spinner" id="spinner"></div>
-        <button class="verify-button" id="verifyButton" style="display:none;">Verify Now</button>
+    <div class="container">
+        <h1>HDO Pro - Test Page</h1>
+        <p class="info">This is a test page available only for contributors or donators.</p>
+        <p class="alert">This page is temporary and may not always be accessible.</p>
     </div>
 
     <script>
-        function verifyCloudflare() {
-            // Simulating the Cloudflare verification process with a delay
-            setTimeout(() => {
-                // Check if verified (simulated with a random outcome)
-                const isVerified = Math.random() > 0.2; // 80% chance of success
-                if (isVerified) {
-                    document.getElementById('verificationBox').innerHTML = `
-                        <div class="cloudflare-logo" style="background-image: url('https://www.cloudflare.com/img/cf-logo.svg');"></div>
-                        <div class="message">Your connection has been verified!</div>
-                        <a href="/" class="verify-button">Continue to the site</a>
-                    `;
-                } else {
-                    // Retry if verification failed
-                    document.getElementById('spinner').style.animation = 'none'; // Stop spinner
-                    document.getElementById('verifyButton').style.display = 'inline-block'; // Show retry button
-                    document.getElementById('verifyButton').onclick = () => location.reload(); // Retry
-                }
-            }, 3000); // Simulating Cloudflare verification delay
-        }
-
-        // Start the verification process on page load
-        window.onload = verifyCloudflare;
+        // Redirect to homepage after 30 seconds
+        setTimeout(() => {
+            window.location.href = "https://hdopro.netlify.app";
+        }, 30000);
     </script>
 </body>
 </html>
