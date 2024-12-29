@@ -72,6 +72,25 @@
             color: #ddd;
         }
 
+        .sign-in-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #555;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sign-in-button:hover {
+            background-color: #555;
+            border-color: #777;
+        }
+
         .gif-container {
             position: relative;
             margin: 10px 0;
@@ -162,6 +181,7 @@
 </head>
 <body>
     <div class="mist"></div>
+    <a href="/login" class="sign-in-button">Sign In</a>
     <div class="container">
         <h1>Welcome!</h1>
         <p>"When you’re in trouble, you need to rely on your friends. Don’t worry, I’m here for you." - Muta</p>
