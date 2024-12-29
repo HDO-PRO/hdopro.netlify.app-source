@@ -27,9 +27,137 @@
             align-items: center;
             height: 100vh;
             box-sizing: border-box;
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
         }
 
-        .github-button {
+        .mist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/Images/mist.png') repeat;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+            animation: moveMist 60s linear infinite;
+        }
+
+        @keyframes moveMist {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            width: 400px;
+            background-color: rgba(51, 51, 51, 0.8);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .gif-container {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .gif-container img {
+            width: 100px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .speech-bubble {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -150%);
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .loading-dots div {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: dot-blink 1.5s infinite ease-in-out;
+        }
+
+        .loading-dots div:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-dots div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dot-blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+    </style>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sign-in-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
             padding: 10px 20px;
             font-size: 16px;
             color: purple;
@@ -38,23 +166,28 @@
             border-radius: 5px;
             text-decoration: none;
             font-family: Arial, sans-serif;
-            cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .github-button:hover {
+        .sign-in-button:hover {
             background-color: purple;
             color: white;
         }
 
+        /* Dark mode styles */
         @media (prefers-color-scheme: dark) {
-            .github-button {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+
+            .sign-in-button {
                 color: #bb86fc;
                 background-color: #333333;
                 border: 2px solid #bb86fc;
             }
 
-            .github-button:hover {
+            .sign-in-button:hover {
                 background-color: #bb86fc;
                 color: #333333;
             }
@@ -62,8 +195,12 @@
     </style>
 </head>
 <body>
-    <button class="github-button" onclick="openGitHub()">Check Out Our GitHub</button>
+    <a href="https://hdopro.netlify.app/sign-in" class="sign-in-button">Sign In</a>
+</body>
+</html>
 
+</head>
+<body>
     <div class="mist"></div>
     <div class="container">
         <h1>Welcome!</h1>
@@ -114,23 +251,39 @@
             }
         }
 
-        function openGitHub() {
-            const width = 800;
-            const height = 600;
-            const left = (screen.width - width) / 2;
-            const top = (screen.height - height) / 2;
-            window.open(
-                'https://github.com/HDO-PRO',
-                'GitHubWindow',
-                `width=${width},height=${height},top=${top},left=${left},resizable=yes`
-            );
-        }
-
         // Set initial GIF randomly on page load
         switchGif();
 
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
+
+        // Disable right-click and text selection
+          document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+          });
+        
+          document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+            }
+          });
+        
+          document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+          });
+        
+          // Prevent dev tools inspection
+          document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+              e.preventDefault();
+            }
+          });
+        
+          // Alert message on inspect element
+            window.addEventListener('devtoolschange', function(event) {
+              document.body.style.display = 'none';
+              alert('Please respect our work! Do not inspect the page.');
+            });
     </script>
 </body>
 </html>
