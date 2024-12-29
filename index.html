@@ -28,9 +28,6 @@
             height: 100vh;
             box-sizing: border-box;
             user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
         }
 
         .mist {
@@ -112,6 +109,24 @@
             border-color: #fff transparent transparent transparent;
         }
 
+        .github-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #555;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .github-button:hover {
+            background-color: #555;
+            border-color: #777;
+        }
+
         .loading-dots {
             display: flex;
             justify-content: center;
@@ -144,61 +159,6 @@
             }
         }
     </style>
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .sign-in-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: purple;
-            background-color: white;
-            border: 2px solid purple;
-            border-radius: 5px;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .sign-in-button:hover {
-            background-color: purple;
-            color: white;
-        }
-
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #e0e0e0;
-            }
-
-            .sign-in-button {
-                color: #bb86fc;
-                background-color: #333333;
-                border: 2px solid #bb86fc;
-            }
-
-            .sign-in-button:hover {
-                background-color: #bb86fc;
-                color: #333333;
-            }
-        }
-    </style>
-</head>
-<body>
-    <a href="https://hdopro.netlify.app/sign-in" class="sign-in-button">Sign In</a>
-</body>
-</html>
-
 </head>
 <body>
     <div class="mist"></div>
@@ -207,6 +167,7 @@
         <p>"When you’re in trouble, you need to rely on your friends. Don’t worry, I’m here for you." - Muta</p>
         <p>Please check the URL in the address bar.</p>
         <p>What you're looking for may not be here.</p>
+        <a href="https://github.com/HDO-PRO" target="_blank" class="github-button">Check out GitHub</a>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="handleGifClick()">
             <div id="speech-bubble" class="speech-bubble"></div>
@@ -217,7 +178,6 @@
             <div></div>
         </div>
     </div>
-
     <script>
         const gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
@@ -256,34 +216,6 @@
 
         // Switch GIF every 5 minutes (300,000 milliseconds)
         setInterval(switchGif, 300000);
-
-        // Disable right-click and text selection
-          document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-          });
-        
-          document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-                e.preventDefault();
-            }
-          });
-        
-          document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-          });
-        
-          // Prevent dev tools inspection
-          document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-              e.preventDefault();
-            }
-          });
-        
-          // Alert message on inspect element
-            window.addEventListener('devtoolschange', function(event) {
-              document.body.style.display = 'none';
-              alert('Please respect our work! Do not inspect the page.');
-            });
     </script>
 </body>
 </html>
