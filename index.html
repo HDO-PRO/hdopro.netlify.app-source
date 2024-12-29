@@ -29,48 +29,32 @@
             box-sizing: border-box;
         }
 
-        .sign-in-button, .github-button {
-            position: absolute;
+        .github-button {
             padding: 10px 20px;
             font-size: 16px;
+            color: purple;
             background-color: white;
-            border-radius: 5px;
             border: 2px solid purple;
+            border-radius: 5px;
             text-decoration: none;
             font-family: Arial, sans-serif;
+            cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .sign-in-button {
-            top: 20px;
-            right: 20px;
-            color: purple;
-        }
-
-        .github-button {
-            bottom: 20px;
-            left: 20px;
-            color: purple;
-        }
-
-        .sign-in-button:hover, .github-button:hover {
+        .github-button:hover {
             background-color: purple;
             color: white;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #e0e0e0;
-            }
-
-            .sign-in-button, .github-button {
+            .github-button {
                 color: #bb86fc;
                 background-color: #333333;
                 border: 2px solid #bb86fc;
             }
 
-            .sign-in-button:hover, .github-button:hover {
+            .github-button:hover {
                 background-color: #bb86fc;
                 color: #333333;
             }
@@ -78,8 +62,7 @@
     </style>
 </head>
 <body>
-    <a href="https://hdopro.netlify.app/sign-in" class="sign-in-button">Sign In</a>
-    <a href="https://github.com/HDO-PRO" class="github-button" target="_blank">Check Out Our GitHub</a>
+    <button class="github-button" onclick="openGitHub()">Check Out Our GitHub</button>
 
     <div class="mist"></div>
     <div class="container">
@@ -129,6 +112,18 @@
             } else if (clickCount === 4) {
                 window.location.href = 'https://hdopro.netlify.app/invite'; // Redirect on fourth click
             }
+        }
+
+        function openGitHub() {
+            const width = 800;
+            const height = 600;
+            const left = (screen.width - width) / 2;
+            const top = (screen.height - height) / 2;
+            window.open(
+                'https://github.com/HDO-PRO',
+                'GitHubWindow',
+                `width=${width},height=${height},top=${top},left=${left},resizable=yes`
+            );
         }
 
         // Set initial GIF randomly on page load
