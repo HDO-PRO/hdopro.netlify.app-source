@@ -279,17 +279,14 @@
         });
 
         window.onload = function () {
-            // Show the announcement banner immediately
-            document.getElementById("announcement").style.display = 'block';
-
-            // Function to show the overlay and popup after 30 seconds
+            // Function to show the popup and overlay after 30 seconds
             setTimeout(function () {
                 document.getElementById("overlay").style.display = 'block';
                 document.getElementById("popup").style.display = 'block';
             }, 30000); // 30 seconds delay
         };
 
-        // Function to close the popup and remove the dimming
+        // Function to close the popup and remove the overlay
         function closePopup() {
             document.getElementById("overlay").style.display = 'none';
             document.getElementById("popup").style.display = 'none';
