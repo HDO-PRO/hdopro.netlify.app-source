@@ -26,10 +26,11 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            user-select: none;
+            user-select: none; /* Disable text selection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            pointer-events: auto; /* Prevent interaction with the page elements */
         }
 
         .announcement-banner {
@@ -253,6 +254,23 @@
     </div>
 
     <script>
+        // Prevent right-click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Prevent copying and text selection
+        document.addEventListener('copy', function (e) {
+            e.preventDefault();
+        });
+
+        // Prevent inspecting by disabling F12 and Ctrl+Shift+I
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C'))) {
+                e.preventDefault();
+            }
+        });
+
         window.onload = function () {
             // Show the announcement banner immediately
             document.getElementById("announcement").style.display = 'block';
@@ -275,28 +293,14 @@
             document.getElementById("popup").style.display = 'none';
         }
 
+        // Function to show a notification
         function showNotification() {
-            var notification = document.getElementById('notification');
+            const notification = document.getElementById('notification');
             notification.style.display = 'block';
             setTimeout(function () {
                 notification.style.display = 'none';
-            }, 5000); // 5 seconds
+            }, 4000); // Hide after 4 seconds
         }
-
-        var gifs = [
-            '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-            '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-        ];
-
-        var gifElement = document.getElementById('animated-gif');
-        var currentGifIndex = 0;
-
-        function switchGif() {
-            currentGifIndex = (currentGifIndex + 1) % gifs.length;
-            gifElement.src = gifs[currentGifIndex];
-        }
-
-        setInterval(switchGif, 4000); // Change GIF every 4 seconds
     </script>
 </body>
 </html>
