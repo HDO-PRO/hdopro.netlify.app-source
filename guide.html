@@ -22,6 +22,7 @@
             padding: 0;
             user-select: none;
         }
+
         .notification {
             background-color: rgba(51, 51, 51, 0.8);
             color: #fff;
@@ -36,6 +37,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -45,28 +47,35 @@
             border: 2px solid rgba(0, 128, 0, 0.5);
             box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
         }
+
         h1 {
             color: #ffc0cb;
             margin-top: 20px;
         }
+
         p, ul, h2 {
             text-align: left;
         }
+
         ul {
             padding-left: 20px;
         }
+
         li {
             margin-bottom: 10px;
         }
+
         .video-guide {
             text-align: center;
             margin-top: 20px;
         }
-        .video-guide a {
-            color: #ffc0cb;
-            text-decoration: none;
-            font-weight: bold;
-        }
+
+            .video-guide a {
+                color: #ffc0cb;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
         .contact-community {
             text-align: center;
             margin-top: 10px;
@@ -79,7 +88,7 @@
         document.addEventListener('selectstart', e => e.preventDefault());
 
         // Detect DevTools and prevent access
-        (function() {
+        (function () {
             let devtoolsOpen = false;
             const threshold = 160; // Threshold in px
             const checkDevTools = () => {
@@ -113,20 +122,20 @@
     <div class="notification">
         <p style="margin: 0; text-align: center; width: 100%;"><strong>Notice:</strong> If you are having trouble updating, go to Step 6. HDO Pro may only work with Android 14 and older.</p>
     </div>
-    
+
     <div class="container">
         <h1>Installation Guide for HDO Pro</h1>
         <p>Welcome to the installation guide for the HDO Pro app. Follow the steps below to install the app on your Android device.</p>
 
         <h2>Step 1: Download the App</h2>
         <p>Visit our official website (<a href="https://hdopro.netlify.app/home" target="_blank">Home Page</a> and <a href="https://hdopro.netlify.app/sign-in" target="_blank">Sign Up</a>) and download the latest version of the HDO Pro app for your operating system (Android only). Links are not listed for privacy reasons; please join the community to get links from the servers.</p>
-        
+
         <h2>Step 2: Install the App</h2>
         <ul>
             <li><strong>For Android:</strong> Open the downloaded .apk file and follow the on-screen instructions.</li>
             <li><strong>For iOS (Apple):</strong> No longer available.</li>
         </ul>
-        
+
         <h2>Step 3: How to Install an APK</h2>
         <ul>
             <li>Download the APK file to your Android device.</li>
