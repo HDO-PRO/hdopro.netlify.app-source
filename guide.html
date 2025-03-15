@@ -82,10 +82,45 @@
             color: #ffc0cb;
         }
     </style>
+    <script>
+        // Prevent right-click and text selection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+
+        // Detect DevTools and prevent access
+        (function () {
+            let devtoolsOpen = false;
+            const threshold = 160; // Threshold in px
+            const checkDevTools = () => {
+                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        alert("Access to developer tools is restricted.");
+                        document.body.innerHTML = "<h1>Access Restricted</h1>";
+                    }
+                } else {
+                    devtoolsOpen = false;
+                }
+            };
+            setInterval(checkDevTools, 1000); // Check every second
+        })();
+
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="notification">
-        <p style="margin: 0; text-align: center;"><strong>Notice:</strong> If you are having trouble updating, go to Step 6. HDO Pro may only work with Android 14 and older.</p>
+        <p style="margin: 0; text-align: center; width: 100%;"><strong>Notice:</strong> If you are having trouble updating, go to Step 6. HDO Pro may only work with Android 14 and older.</p>
     </div>
 
     <div class="container">
@@ -109,29 +144,6 @@
             <li>You may be prompted to allow installation from unknown sources. If so, follow the instructions to enable this setting.</li>
             <li>Proceed with the installation by following the on-screen prompts.</li>
         </ul>
-
-        <h2>Step 4: Allow Installation from Unknown Sources</h2>
-        <p>If you encounter a message saying installation is blocked, you need to allow installation from unknown sources. Follow these steps:</p>
-        <ul>
-            <li>Open <strong>Settings</strong>.</li>
-            <li>Go to <strong>Security</strong> (or <strong>Privacy</strong>).</li>
-            <li>Enable <strong>Unknown Sources</strong>.</li>
-            <li>Confirm the action by tapping <strong>OK</strong>.</li>
-        </ul>
-
-        <h2>Step 5: Launch the App</h2>
-        <p>Once the installation is complete, open the HDO Pro app.</p>
-
-        <h2>Step 6: Updating the App</h2>
-        <p>To update to a new version of HDO Pro (same applies to the player), follow these steps:</p>
-        <ul>
-            <li>Uninstall the current version of HDO Pro from your device.</li>
-            <li>Download the latest version from the official website.</li>
-            <li>Follow the installation steps as outlined above.</li>
-        </ul>
-
-        <h2>Step 7: Enjoy!</h2>
-        <p>Explore the features of HDO Pro and enjoy using the app.</p>
 
         <div class="video-guide">
             <p><a href="/tutorial">Video Guide if needed</a></p>
