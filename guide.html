@@ -22,19 +22,19 @@
             padding: 0;
             user-select: none; /* Disable text selection */
         }
+
         .notification {
-            background-color: rgba(51, 51, 51, 0.6); /* Slightly greener */
-            color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px auto;
-            max-width: 90%; /* Wider than the container */
-            box-shadow: 0 0 10px rgba(0, 128, 0, 0.3);
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
+            background-color: rgba(51, 51, 51, 0.8); /* More subtle background */
+            color: #ffc0cb;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px auto;
+            max-width: 80%;
+            font-size: 14px;
             text-align: center;
+            box-shadow: 0 0 8px rgba(255, 192, 203, 0.4);
         }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -44,87 +44,54 @@
             border: 2px solid rgba(0, 128, 0, 0.5); /* Semi-transparent green border */
             box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
         }
+
         h1 {
             color: #ffc0cb;
             margin-top: 20px;
         }
+
         p, ul, h2 {
             text-align: left;
         }
+
         ul {
             padding-left: 20px;
         }
+
         li {
             margin-bottom: 10px;
         }
+
         .video-guide {
             text-align: center;
             margin-top: 20px;
         }
-        .video-guide a {
-            color: #ffc0cb;
-            text-decoration: none;
-            font-weight: bold;
-        }
+
+            .video-guide a {
+                color: #ffc0cb;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
         .contact-community {
             text-align: center;
             margin-top: 10px;
             color: #ffc0cb;
         }
     </style>
-    <script>
-        // Prevent right-click and text selection
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
-
-        // Detect DevTools and prevent access
-        (function() {
-            let devtoolsOpen = false;
-            const threshold = 160; // Threshold in px
-            const checkDevTools = () => {
-                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        alert("Access to developer tools is restricted.");
-                        // Optionally: redirect or hide content
-                        document.body.innerHTML = "<h1>Access Restricted</h1>";
-                    }
-                } else {
-                    devtoolsOpen = false;
-                }
-            };
-            setInterval(checkDevTools, 1000); // Check every second
-        })();
-
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-
-        // Prevent dev tools inspection
-        document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                e.preventDefault();
-            }
-        });
-    </script>
 </head>
 <body>
     <div class="notification">
-        <p>Alert! If you are having trouble updating, go to Step 6.</p>
+        <p><strong>Notice:</strong> If you are having trouble updating, go to Step 6. HDO Pro may only work with Android 14 and older.</p>
     </div>
-    
+
     <div class="container">
         <h1>Installation Guide for HDO Pro</h1>
         <p>Welcome to the installation guide for the HDO Pro app. Follow the steps below to install the app on your Android device.</p>
 
         <h2>Step 1: Download the App</h2>
-<p>Visit our official website (<a href="https://hdopro.netlify.app/home" target="_blank">Home Page</a> and <a href="https://hdopro.netlify.app/sign-in" target="_blank">Sign Up</a>) and download the latest version of the HDO Pro app for your operating system (Android only). Links are not listed for privacy reasons; please join the community to get links from the servers.</p>
+        <p>Visit our official website (<a href="https://hdopro.netlify.app/home" target="_blank">Home Page</a> and <a href="https://hdopro.netlify.app/sign-in" target="_blank">Sign Up</a>) and download the latest version of the HDO Pro app for your operating system (Android only). Links are not listed for privacy reasons; please join the community to get links from the servers.</p>
+
         <h2>Step 2: Install the App</h2>
         <ul>
             <li><strong>For Android:</strong> Open the downloaded .apk file and follow the on-screen instructions.</li>
