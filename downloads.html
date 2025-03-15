@@ -181,14 +181,23 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #333;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark mode background */
+            color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             z-index: 9999;
             text-align: center;
+            border: 2px solid #fff; /* Light border */
         }
+
+            .popup h2 {
+                margin-top: 0;
+            }
+
+            .popup p {
+                font-size: 14px;
+            }
 
             .popup button {
                 background-color: #4CAF50;
@@ -249,7 +258,9 @@
     <!-- Overlay and Popup -->
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
-        <p><strong>Attention!</strong> Please read this important message before proceeding.</p>
+        <h2>Attention!</h2>
+        <p>Please do not share and respect our privacy.</p>
+        <p>Failure to comply may result in an account or IP ban.</p>
         <button onclick="closePopup()">Got it</button>
     </div>
 
@@ -275,20 +286,15 @@
             // Show the announcement banner immediately
             document.getElementById("announcement").style.display = 'block';
 
-            // After 30 seconds, start the slide-up animation
+            // After 30 seconds, show the overlay and popup
             setTimeout(function () {
-                document.getElementById("announcement").style.transition = "top 1s ease-in-out, opacity 1s ease-in-out";
-                document.getElementById("announcement").style.top = "-60px"; // Slide up out of view
-                document.getElementById("announcement").style.opacity = "0"; // Fade out
-            }, 30000); // 30 seconds
-
-            // Show the overlay and popup on load
-            document.getElementById("overlay").style.display = 'block';
-            document.getElementById("popup").style.display = 'block';
+                document.getElementById("overlay").style.display = 'block';
+                document.getElementById("popup").style.display = 'block';
+            }, 30000); // 30 seconds delay
         };
 
+        // Function to close the popup and remove the dimming
         function closePopup() {
-            // Hide the overlay and popup, stop the dimming
             document.getElementById("overlay").style.display = 'none';
             document.getElementById("popup").style.display = 'none';
         }
