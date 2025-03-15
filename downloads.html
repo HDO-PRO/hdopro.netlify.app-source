@@ -3,386 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDO Pro | Downloads</title>
-    <meta property="og:url" content="/downloads" />
-    <meta property="og:title" content="HDO Pro | Downloads">
-    <meta property="og:description" content="Download HDO Pro APKs">
-    <meta property="og:image" content="/images/logo.png">
-    <meta property="og:image:type" content="image/png">
-    <meta name="theme-color" content="#8d2249" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="/Images/logo.png" type="image/png">
+    <title>Your Webpage</title>
     <style>
+        /* General styles */
         body {
             font-family: Arial, sans-serif;
-            background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #121212;
             color: #fff;
-            text-align: center;
-            padding: 20px;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            padding: 0;
         }
 
-        .announcement-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(99, 184, 255, 0.9); /* Soft light blue */
-            color: #fff;
-            text-align: center;
-            padding: 12px;
-            font-size: 16px;
-            z-index: 9999;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-            display: none; /* Initially hidden */
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
-
-            .container h1 {
-                font-size: 20px;
-                margin-bottom: 10px;
-            }
-
-            .container p {
-                font-size: 14px;
-                margin-bottom: 10px;
-                color: #ddd;
-            }
-
-        .gif-container img {
-            width: 150px;
-            border-radius: 8px;
-            cursor: pointer;
-            pointer-events: none; /* Prevent click */
-            -webkit-user-drag: none; /* Prevent drag and drop */
-            user-drag: none;
-            -webkit-touch-callout: none; /* Prevent long tap context menu */
-        }
-
-        .loading-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-            .loading-dots .dot {
-                width: 8px;
-                height: 8px;
-                background-color: #fff;
-                border-radius: 50%;
-                margin: 0 3px;
-                opacity: 0.2;
-                animation: dot-blink 1.5s infinite ease-in-out alternate;
-            }
-
-        @keyframes dot-blink {
-            0%, 100% {
-                opacity: 0.2;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-            .button-container a {
-                display: inline-block;
-                margin: 10px;
-                text-decoration: none;
-                color: #fff;
-                background-color: #7289DA;
-                border-radius: 5px;
-                padding: 10px 20px;
-                transition: background-color 0.3s ease;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                width: 200px;
-                text-align: center;
-            }
-
-                .button-container a:hover {
-                    background-color: #677BC4;
-                }
-
-        .info-message {
-            font-size: 12px;
-            color: #ddd;
-            margin-top: 10px;
-        }
-
-        .notification {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 300px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-            display: none;
-            z-index: 99999; /* Ensure it's on top of all elements */
-            border-radius: 5px;
-            animation: fadeOut 2s ease-in-out forwards;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        <style >
-        /* Body dimming when popup is active */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Overlay style for dimming the entire page */
-        .page-dim {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
-            z-index: 999; /* Below the popup */
-            display: block; /* Always show on load */
-            pointer-events: none; /* Allow clicks only on the popup */
-        }
-
-        /* Popup overlay styles */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-            display: block; /* Always show on load */
-            z-index: 1000;
-        }
-
-        /* Popup styles */
+        /* Popup modal styles */
         .popup {
+            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.9); /* Dark background for popup */
+            background-color: #333;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Glow effect */
-            z-index: 1001;
-            color: #fff;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            display: block; /* Show popup on page load */
-            animation: fadeIn 0.5s ease-out; /* Fade in effect */
+            z-index: 1000;
         }
 
             .popup h2 {
-                font-size: 24px;
-                margin-bottom: 15px;
+                margin-top: 0;
             }
 
-            .popup p {
-                font-size: 16px;
-                margin-bottom: 20px;
-            }
-
-            .popup button {
-                background-color: #7289DA;
-                color: #fff;
+            .popup .close-btn {
+                background-color: #f44336;
+                color: white;
                 border: none;
-                padding: 12px 25px;
-                border-radius: 5px;
+                padding: 10px;
                 cursor: pointer;
-                font-size: 16px;
-                transition: background-color 0.3s ease;
+                border-radius: 5px;
             }
 
-                .popup button:hover {
-                    background-color: #677BC4;
+                .popup .close-btn:hover {
+                    background-color: #d32f2f;
                 }
 
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
+        /* Button to trigger popup */
+        .trigger-popup {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
         }
+
+            .trigger-popup:hover {
+                background-color: #45a049;
+            }
     </style>
 </head>
 <body>
-    <!-- Dim page when popup appears -->
-    <div class="page-dim" id="page-dim"></div>
 
-    <!-- Popup Overlay and Popup Message -->
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="popup-message">
-        <h2>Attention!</h2>
-        <p>Please do not share and respect our privacy.</p>
-        <p>Failure to comply may result in an account or IP ban.</p>
-        <button onclick="closePopup()">Got it</button>
+    <!-- Content of the page -->
+    <h1>Welcome to My Website</h1>
+    <p>Click the button below to open the popup modal.</p>
+    <button class="trigger-popup" id="openPopupBtn">Open Popup</button>
+
+    <!-- Popup modal -->
+    <div class="popup" id="popupModal">
+        <h2>Popup Title</h2>
+        <p>This is a simple popup message.</p>
+        <button class="close-btn" id="closePopupBtn">Close</button>
     </div>
 
     <script>
-        // Function to close the popup and remove the dimming effect
-        function closePopup() {
-            // Hide the popup and overlay
-            document.getElementById('popup-overlay').style.display = 'none';
-            document.getElementById('popup-message').style.display = 'none';
-            // Remove the dimming effect on the page
-            document.getElementById('page-dim').style.display = 'none';
-        }
+        // Get references to the button and popup
+        const openPopupBtn = document.getElementById('openPopupBtn');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const popupModal = document.getElementById('popupModal');
+
+        // Open the popup when the button is clicked
+        openPopupBtn.addEventListener('click', function () {
+            popupModal.style.display = 'block';
+        });
+
+        // Close the popup when the close button is clicked
+        closePopupBtn.addEventListener('click', function () {
+            popupModal.style.display = 'none';
+        });
     </script>
-</body>
-</html>
-
-<!-- Announcement Banner -->
-<div class="announcement-banner" id="announcement">
-    Security Alert: Download Keys Required!
-</div>
-
-<div class="container">
-    <h1>HDO Pro Downloads</h1>
-    <p>Download the latest versions of HDO Pro.</p>
-    <p>Please note that you will need keys for the downloads now!</p>
-    <p>Please Read! Stable APK (or TV) goes with Old Player & beta APK with New Player..</p>
-    <p>Check out the new HDO Pro download terminal <a href="/terminal">here</a>.</p>
-    <div class="gif-container">
-        <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF">
-    </div>
-    <div class="loading-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-    <div class="button-container">
-        <a href="https://mega.nz/file/kKcQ2BgL" target="_blank" rel="noopener noreferrer">Stable APK (v2.0.19)</a>
-        <a href="https://mega.nz/file/wG1CxLBD" target="_blank" rel="noopener noreferrer">Beta APK (v2.0.20) - (Donators Only)</a>
-        <a href="https://mega.nz/file/cLN2gCDa" target="_blank" rel="noopener noreferrer">TV APK (v1.1.5)</a>
-        <a href="https://mega.nz/file/JXsDlRKI" target="_blank" rel="noopener noreferrer">UPDATED! MediaOn (OLD) - (v1.0.20)</a>
-        <a href="https://mega.nz/file/YOEUFTJb" target="_blank" rel="noopener noreferrer">Drama Player (New) - (v1.0.5) - Limited</a>
-        <a href="#" onclick="showNotification()">Anime App (Coming!)</a>
-        <a href="/roku-download" target="_blank" rel="noopener noreferrer">NEW! Roku Downlaod!</a>
-        <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Get Download Keys!</a>
-        <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Download Server 2 (Easy)</a>
-        <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Download Server 3 (Easy)</a>
-    </div>
-    <p class="info-message">Everything you need should be here, some files or folders may not be named correctly.</p>
-    <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
-</div>
-
-<div class="notification" id="notification">
-    <p>Sorry, Anime App not available at this time.</p>
-</div>
-
-<script>
-    window.onload = function () {
-        // Show the announcement banner immediately
-        document.getElementById("announcement").style.display = 'block';
-
-        // After 30 seconds, start the slide-up animation
-        setTimeout(function () {
-            document.getElementById("announcement").style.transition = "top 1s ease-in-out, opacity 1s ease-in-out";
-            document.getElementById("announcement").style.top = "-60px"; // Slide up out of view
-            document.getElementById("announcement").style.opacity = "0"; // Fade out
-        }, 30000); // 30 seconds
-    };
-
-    function showNotification() {
-        var notification = document.getElementById('notification');
-        notification.style.display = 'block';
-        setTimeout(function () {
-            notification.style.display = 'none';
-        }, 5000); // 5 seconds
-    }
-
-    function closePopup() {
-        document.getElementById('popup-overlay').style.display = 'none';
-        document.getElementById('popup-message').style.display = 'none';
-    }
-
-    var gifs = [
-        '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
-        '/Images/8e752cf446947d3d01c0eaaf9e1504e2.gif'
-    ];
-
-    var gifElement = document.getElementById('animated-gif');
-    var currentGifIndex = 0;
-
-    function switchGif() {
-        currentGifIndex = (currentGifIndex + 1) % gifs.length;
-        gifElement.src = gifs[currentGifIndex];
-    }
-
-    switchGif();
-    setInterval(switchGif, 5 * 60 * 1000);
-
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-            e.preventDefault();
-        }
-    });
-
-    document.addEventListener('selectstart', function (e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-            e.preventDefault();
-        }
-    });
-
-    window.addEventListener('devtoolschange', function (event) {
-        document.body.style.display = 'none';
-        alert('Please respect our work! Do not inspect the page.');
-    });
-</script>
 </body>
 </html>
