@@ -27,10 +27,6 @@
             min-height: 100vh;
             box-sizing: border-box;
             user-select: none; /* Disable text selection */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            pointer-events: auto; /* Prevent interaction with the page elements */
         }
 
         .announcement-banner {
@@ -286,7 +282,7 @@
             // Show the announcement banner immediately
             document.getElementById("announcement").style.display = 'block';
 
-            // After 30 seconds, show the overlay and popup
+            // Function to show the overlay and popup after 30 seconds
             setTimeout(function () {
                 document.getElementById("overlay").style.display = 'block';
                 document.getElementById("popup").style.display = 'block';
