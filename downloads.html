@@ -82,9 +82,27 @@
             color: #ddd;
             margin-top: 10px;
         }
+
+        .notice {
+            background-color: #ff5555;
+            color: #fff;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function (event) {
+            if (event.ctrlKey && (event.key === 'u' || event.key === 's' || event.key === 'i' || event.key === 'c' || event.key === 'j')) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body>
+    <div class="notice">Tsk tsk tsk</div>
     <div class="container">
         <h1>HDO Pro Downloads</h1>
         <p>Download the latest versions of HDO Pro.</p>
