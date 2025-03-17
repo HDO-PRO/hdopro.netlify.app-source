@@ -26,7 +26,7 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            user-select: none; /* Disable text selection */
+            user-select: none;
         }
 
         .announcement-banner {
@@ -34,14 +34,14 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(99, 184, 255, 0.9); /* Soft light blue */
+            background-color: rgba(99, 184, 255, 0.9);
             color: #fff;
             text-align: center;
             padding: 12px;
             font-size: 16px;
             z-index: 9999;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-            display: none; /* Initially hidden */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: none;
         }
 
         .container {
@@ -71,10 +71,10 @@
             width: 150px;
             border-radius: 8px;
             cursor: pointer;
-            pointer-events: none; /* Prevent click */
-            -webkit-user-drag: none; /* Prevent drag and drop */
+            pointer-events: none;
+            -webkit-user-drag: none;
             user-drag: none;
-            -webkit-touch-callout: none; /* Prevent long tap context menu */
+            -webkit-touch-callout: none;
         }
 
         .loading-dots {
@@ -146,7 +146,7 @@
             padding: 10px 20px;
             text-align: center;
             display: none;
-            z-index: 99999; /* Ensure it's on top of all elements */
+            z-index: 99999;
             border-radius: 5px;
             animation: fadeOut 2s ease-in-out forwards;
         }
@@ -160,69 +160,13 @@
                 opacity: 0;
             }
         }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9980; /* Behind the modal but in front of the page */
-            display: none; /* Initially hidden */
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.9); /* Dark mode background */
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
-            text-align: center;
-            border: 2px solid #fff; /* Light border */
-        }
-
-            .popup h2 {
-                margin-top: 0;
-            }
-
-            .popup p {
-                font-size: 14px;
-            }
-
-            .popup button {
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-top: 10px;
-                transition: background-color 0.3s ease;
-            }
-
-                .popup button:hover {
-                    background-color: #45a049;
-                }
     </style>
 </head>
 <body>
-    <!-- Announcement Banner -->
-    <div class="announcement-banner" id="announcement">
-        Security Alert: Download Keys Required!
-    </div>
-
     <div class="container">
         <h1>HDO Pro Downloads</h1>
         <p>Download the latest versions of HDO Pro.</p>
         <p>Please note that you will need keys for the downloads now!</p>
-        <p>Please Read! Stable APK (or TV) goes with Old Player & beta APK with New Player..</p>
-        <p>Check out the new HDO Pro download terminal <a href="/terminal">here</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="/Images/150f78d18fd597611f77b4ae7d2f1f58.gif" alt="Dancing Cat GIF">
         </div>
@@ -235,71 +179,9 @@
             <a href="https://mega.nz/file/kKcQ2BgL" target="_blank" rel="noopener noreferrer">Stable APK (v2.0.19)</a>
             <a href="https://mega.nz/file/wG1CxLBD" target="_blank" rel="noopener noreferrer">Beta APK (v2.0.20) - (Donators Only)</a>
             <a href="https://mega.nz/file/cLN2gCDa" target="_blank" rel="noopener noreferrer">TV APK (v1.1.5)</a>
-            <a href="https://mega.nz/file/JXsDlRKI" target="_blank" rel="noopener noreferrer">UPDATED! MediaOn (OLD) - (v1.0.20)</a>
-            <a href="https://mega.nz/file/YOEUFTJb" target="_blank" rel="noopener noreferrer">Drama Player (New) - (v1.0.5) - Limited</a>
-            <a href="#" onclick="showNotification()">Anime App (Coming!)</a>
-            <a href="/roku-download" target="_blank" rel="noopener noreferrer">NEW! Roku Download!</a>
             <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Get Download Keys!</a>
-            <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Download Server 2 (Easy)</a>
-            <a href="https://hdopro.netlify.app/invite" target="_blank" rel="noopener noreferrer">Download Server 3 (Easy)</a>
         </div>
-        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly.</p>
         <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
-
-    <div class="notification" id="notification">
-        <p>Sorry, Anime App not available at this time.</p>
-    </div>
-
-    <!-- Overlay and Popup -->
-    <div class="overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <h2>Attention!</h2>
-        <p>Please do not share and respect our privacy.</p>
-        <p>Failure to comply may result in an account or IP ban.</p>
-        <button onclick="closePopup()">Got it</button>
-    </div>
-
-    <script>
-        // Prevent right-click
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
-
-        // Prevent copying and text selection
-        document.addEventListener('copy', function (e) {
-            e.preventDefault();
-        });
-
-        // Prevent inspecting by disabling F12 and Ctrl+Shift+I
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C'))) {
-                e.preventDefault();
-            }
-        });
-
-        window.onload = function () {
-            // Function to show the popup and overlay after 30 seconds
-            setTimeout(function () {
-                document.getElementById("overlay").style.display = 'block';
-                document.getElementById("popup").style.display = 'block';
-            }, 30000); // 30 seconds delay
-        };
-
-        // Function to close the popup and remove the overlay
-        function closePopup() {
-            document.getElementById("overlay").style.display = 'none';
-            document.getElementById("popup").style.display = 'none';
-        }
-
-        // Function to show a notification
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
-            setTimeout(function () {
-                notification.style.display = 'none';
-            }, 4000); // Hide after 4 seconds
-        }
-    </script>
 </body>
 </html>
