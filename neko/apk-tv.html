@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0;url="https://www.mediafire.com/file/adcbltsjlyo5ofp/com.tv.hdobox.pro-12.apk/file">
-    <meta property="og:url" content="/apk-tv" />
-    <meta property="og:title" content="HDO Pro | TV">
-    <meta property="og:description" content="Download the TV version of HDO Pro.">
+    <meta http-equiv="refresh" content="0;url=https://www.mediafire.com/file/adcbltsjlyo5ofp/com.tv.hdobox.pro-12.apk/file">
+    <meta property="og:url" content="/apk" />
+    <meta property="og:title" content="HDO Pro | Apk">
+    <meta property="og:description" content="Download the apk of HDO Pro.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
@@ -22,6 +22,7 @@
             color: #e0e0e0;
             overflow: hidden;
         }
+
         .container {
             max-width: 600px;
             margin: 10% auto;
@@ -30,21 +31,24 @@
             background: #1e1e1e;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1.5s ease-in-out;
-            position: relative;
         }
+
         p {
             font-size: 18px;
             margin: 20px 0;
         }
+
         a {
             color: #bb86fc;
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
         }
-        a:hover {
-            color: #ff4081;
-        }
+
+            a:hover {
+                color: #ff4081;
+            }
+
         .container::before {
             content: "";
             position: absolute;
@@ -55,11 +59,13 @@
             background: radial-gradient(circle, rgba(0,0,0,0.4), transparent);
             z-index: -1;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -89,7 +95,7 @@
 
         // Detect key combinations for DevTools
         document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105 || e.keyCode === 117 || e.keyCode === 85 || e.keyCode === 86 || e.keyCode === 67 || e.keyCode === 73 || e.keyCode === 123)) {
+            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
                 redirectToRickRoll();
             }
         });
@@ -105,11 +111,21 @@
             window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
         }
 
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117 || e.keyCode === 123 || e.keyCode === 73)) {
+                e.preventDefault();
+                redirectToRickRoll();
+            }
+        });
+
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
     </script>
 </head>
 <body>
     <div class="container">
-        <p>You are being redirected to the download page. If you are not redirected automatically, <a href="https://download1322.mediafire.com/6sibao7fq8fg_f_28JUujxHDGWUZlUCLPA-1iOLFDOGq_tW7aaI5KEEBcRLZwQOmx32LneYiTrfDRsCAlxRRAgEpLnova5iBEkAD4N0jyBImyQstdNF9rj8fQPSwVLLQNTHLeuaYt6gCi6gf6uov7cgXrhXaHOqRU3QW8y04/ws49g8bvqtz7dpy/HDO.TV.Pro.v.1.1.5.b.10.minSDK21.MultiPatch.apk">click here</a>.</p>
+        <p>You are being redirected to the download page. If you are not redirected automatically, <a href="https://download1509.mediafire.com/jb9xvf1985ogW9pGhUTm3wsbR7tibgiWDQ_c77pFjQA5jtZEgqAWqnPXVQ1JZ68aOI2QFwVcsvSqgBiVqkx9Q2kxDSbHTD-JGek5WYB1b-CTWHkKc3nRclzlir3VQHIFBTqeV8DUImspUAcEXkOs3GOWlLnTDsDO0oMAP4y7/kt9d6trv8vg9ccp/HDO.Pro.Beta.v.2.0.20.b.45.minSDK21.MultiPatch.apk">click here</a>.</p>
         <p>Contact our community if you need help.</p>
     </div>
 </body>
