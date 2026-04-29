@@ -16,6 +16,9 @@
     align-items: center;
     height: 100vh;
     text-align: center;
+
+    /* blocks selection */
+    user-select: none;
   }
 
   .box {
@@ -42,7 +45,6 @@
     font-size: 14px;
     filter: blur(6px);
     transition: 0.3s;
-    user-select: none;
   }
 
   .email.revealed {
@@ -57,23 +59,38 @@
     border-top: 1px solid #222;
     padding-top: 12px;
   }
+
+  .verify {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.1);
+    margin-right: 6px;
+  }
 </style>
 
 <script>
-  // Disable right click
+  // block right click
   document.addEventListener("contextmenu", e => e.preventDefault());
 
-  // Disable common devtools keys
+  // block copy/cut/paste
+  document.addEventListener("copy", e => e.preventDefault());
+  document.addEventListener("cut", e => e.preventDefault());
+  document.addEventListener("paste", e => e.preventDefault());
+
+  // block devtools shortcuts (basic)
   document.addEventListener("keydown", function(e) {
-    if (e.key === "F12" || 
-        (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
-        (e.ctrlKey && e.key === "U")) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
       e.preventDefault();
     }
   });
-
-  // Disable copy
-  document.addEventListener("copy", e => e.preventDefault());
 
   function openMailApp() {
     window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
@@ -84,11 +101,20 @@
   }
 
   function revealEmail() {
-    document.getElementById("email").classList.add("revealed");
+    const check = document.getElementById("verifyCheck");
+    const email = document.getElementById("email");
+
+    if (!check.checked) {
+      alert("Please confirm the usage rules before viewing the email.");
+      return;
+    }
+
+    email.classList.add("revealed");
   }
 </script>
 
 </head>
+
 <body>
   <div class="box">
     <h2>Contact HDO Pro</h2>
@@ -96,18 +122,25 @@
     <button onclick="openMailApp()">Open in Email App</button>
     <button onclick="openBrowserMail()">Open in Browser</button>
 
+    <div class="verify">
+      <label>
+        <input type="checkbox" id="verifyCheck">
+        I agree this email is private, for members only, and will not be misused.
+      </label>
+    </div>
+
     <div id="email" class="email" onclick="revealEmail()">
       hdopro.n3k0.app@proton.me
     </div>
 
-    <p style="font-size:12px; color:#777;">Click email to reveal</p>
+    <p style="font-size:12px; color:#777;">Click email to reveal (verification required)</p>
 
     <div class="rules">
       <strong>Privacy & Usage Notice</strong><br><br>
-      This email is intended for personal communication with verified members only.<br>
-      It is not for general messages, support requests, or public inquiries.<br><br>
-      Do not misuse, spam, or abuse this contact method. Any misuse may result in being blocked or reported.<br><br>
-      By using this contact, you agree to respect its intended purpose and privacy boundaries.
+      This email is strictly for personal communication with verified members only.<br>
+      It is not intended for general messages, support requests, or public inquiries.<br><br>
+      Any spam, abuse, or misuse of this contact method will result in blocking or reporting.<br><br>
+      Unauthorized sharing of this email is not permitted.
     </div>
   </div>
 </body>
