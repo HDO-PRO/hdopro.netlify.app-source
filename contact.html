@@ -16,8 +16,6 @@
     align-items: center;
     height: 100vh;
     text-align: center;
-
-    /* blocks selection */
     user-select: none;
   }
 
@@ -34,6 +32,14 @@
     margin: 8px;
     cursor: pointer;
     border-radius: 6px;
+    opacity: 0.4;
+    pointer-events: none;
+    transition: 0.2s;
+  }
+
+  button.enabled {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   button:hover {
@@ -73,15 +79,11 @@
 </style>
 
 <script>
-  // block right click
   document.addEventListener("contextmenu", e => e.preventDefault());
-
-  // block copy/cut/paste
   document.addEventListener("copy", e => e.preventDefault());
   document.addEventListener("cut", e => e.preventDefault());
   document.addEventListener("paste", e => e.preventDefault());
 
-  // block devtools shortcuts (basic)
   document.addEventListener("keydown", function(e) {
     if (
       e.key === "F12" ||
@@ -92,24 +94,41 @@
     }
   });
 
+  function updateAccess() {
+    const check = document.getElementById("verifyCheck");
+    const buttons = document.querySelectorAll(".secure-btn");
+
+    buttons.forEach(btn => {
+      if (check.checked) {
+        btn.classList.add("enabled");
+      } else {
+        btn.classList.remove("enabled");
+      }
+    });
+  }
+
+  function requireAccess() {
+    const check = document.getElementById("verifyCheck");
+    if (!check.checked) {
+      alert("You must agree to the usage rules first.");
+      return false;
+    }
+    return true;
+  }
+
   function openMailApp() {
+    if (!requireAccess()) return;
     window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
   }
 
   function openBrowserMail() {
+    if (!requireAccess()) return;
     window.location.href = "https://mail.proton.me";
   }
 
   function revealEmail() {
-    const check = document.getElementById("verifyCheck");
-    const email = document.getElementById("email");
-
-    if (!check.checked) {
-      alert("Please confirm the usage rules before viewing the email.");
-      return;
-    }
-
-    email.classList.add("revealed");
+    if (!requireAccess()) return;
+    document.getElementById("email").classList.add("revealed");
   }
 </script>
 
@@ -119,15 +138,15 @@
   <div class="box">
     <h2>Contact HDO Pro</h2>
 
-    <button onclick="openMailApp()">Open in Email App</button>
-    <button onclick="openBrowserMail()">Open in Browser</button>
-
     <div class="verify">
       <label>
-        <input type="checkbox" id="verifyCheck">
+        <input type="checkbox" id="verifyCheck" onchange="updateAccess()">
         I agree this email is private, for members only, and will not be misused.
       </label>
     </div>
+
+    <button class="secure-btn" onclick="openMailApp()">Open in Email App</button>
+    <button class="secure-btn" onclick="openBrowserMail()">Open in Browser</button>
 
     <div id="email" class="email" onclick="revealEmail()">
       hdopro.n3k0.app@proton.me
@@ -139,8 +158,8 @@
       <strong>Privacy & Usage Notice</strong><br><br>
       This email is strictly for personal communication with verified members only.<br>
       It is not intended for general messages, support requests, or public inquiries.<br><br>
-      Any spam, abuse, or misuse of this contact method will result in blocking or reporting.<br><br>
-      Unauthorized sharing of this email is not permitted.
+      Any spam, abuse, or misuse may result in blocking or reporting.<br><br>
+      Unauthorized sharing is not permitted.
     </div>
   </div>
 </body>
