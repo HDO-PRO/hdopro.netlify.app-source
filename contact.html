@@ -76,6 +76,27 @@
     transform: scale(1.1);
     margin-right: 6px;
   }
+
+  /* Notification */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+
+  .toast.show {
+    opacity: 1;
+  }
 </style>
 
 <script>
@@ -94,6 +115,16 @@
     }
   });
 
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.innerText = msg;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2500);
+  }
+
   function updateAccess() {
     const check = document.getElementById("verifyCheck");
     const buttons = document.querySelectorAll(".secure-btn");
@@ -107,10 +138,11 @@
     });
   }
 
-  function requireAccess() {
+  function requireAccess(action) {
     const check = document.getElementById("verifyCheck");
+
     if (!check.checked) {
-      alert("You must agree to the usage rules first.");
+      showToast("Please read and accept the terms before using this feature.");
       return false;
     }
     return true;
@@ -156,11 +188,13 @@
 
     <div class="rules">
       <strong>Privacy & Usage Notice</strong><br><br>
-      This email is strictly for personal communication with verified members only.<br>
-      It is not intended for general messages, support requests, or public inquiries.<br><br>
-      Any spam, abuse, or misuse may result in blocking or reporting.<br><br>
-      Unauthorized sharing is not permitted.
+      This email is strictly for verified member communication only.<br>
+      Not for general support, spam, or public contact.<br><br>
+      Misuse or abuse may result in blocking or reporting.<br><br>
+      Unauthorized sharing is prohibited.
     </div>
   </div>
+
+  <div id="toast" class="toast"></div>
 </body>
 </html>
