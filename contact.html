@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact HDO Pro</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    color: #eaeaea;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+
+  .box {
+    max-width: 400px;
+  }
+
+  button {
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    margin: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  button:hover {
+    background: #222;
+  }
+
+  .email {
+    margin-top: 15px;
+    font-size: 14px;
+    filter: blur(6px);
+    transition: 0.3s;
+    user-select: none;
+  }
+
+  .email.revealed {
+    filter: blur(0);
+  }
+</style>
+
+<script>
+  // Disable right click
+  document.addEventListener("contextmenu", e => e.preventDefault());
+
+  // Disable common devtools keys
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "F12" || 
+        (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")) {
+      e.preventDefault();
+    }
+  });
+
+  // Disable copy
+  document.addEventListener("copy", e => e.preventDefault());
+
+  function openMailApp() {
+    window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
+  }
+
+  function openBrowserMail() {
+    window.location.href = "https://mail.proton.me";
+  }
+
+  function revealEmail() {
+    document.getElementById("email").classList.add("revealed");
+  }
+</script>
+
+</head>
+<body>
+  <div class="box">
+    <h2>Contact HDO Pro</h2>
+
+    <button onclick="openMailApp()">Open in Email App</button>
+    <button onclick="openBrowserMail()">Open in Browser</button>
+
+    <div id="email" class="email" onclick="revealEmail()">
+      hdopro.n3k0.app@proton.me
+    </div>
+
+    <p style="font-size:12px; color:#777;">Click email to reveal</p>
+  </div>
+</body>
+</html>
