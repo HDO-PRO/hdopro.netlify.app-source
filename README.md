@@ -1,7 +1,3 @@
-Here’s a cleaned up, organized version of everything combined into a proper README-style layout (more structured, easier to scan, and a bit more professional while keeping your vibe):
-
----
-
 # 🎬 HDO PRO Website Index
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cf42b267-0610-441b-a82e-d4c126b4ce54/deploy-status)](https://app.netlify.com/sites/hdopro/deploys)
@@ -102,4 +98,3 @@ Do not redistribute or publicly share sensitive development links or code.
 
 ---
 
-If you want, I can also turn this into a *super aesthetic GitHub README* with collapsible sections, badges, and a dark-mode styled layout.
