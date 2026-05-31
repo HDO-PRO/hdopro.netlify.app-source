@@ -240,32 +240,88 @@
 </body>
 </html>
 
-<!-- Centered floating social icons at bottom -->
-<nav class="social-floating" aria-label="Social links">
-  <a class="social-btn" href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank" rel="noopener" aria-label="HDO Pro GitHub">
-    <!-- GitHub SVG -->
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.9 5.3.9 11.6c0 4.7 3 8.6 7.1 10 .5.1.7-.2.7-.5v-1.9c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1 .1 1.6 1 1.6 1 .9 1.6 2.3 1.2 2.9.9.1-.7.4-1.2.7-1.5-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.2 2.8 1 .8-.2 1.7-.3 2.6-.3s1.8.1 2.6.3c2-.1 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.8 1 .8 2v3c0 .3.2.6.7.5 4.1-1.4 7.1-5.3 7.1-10C23.1 5.3 18.3.5 12 .5z"/></svg>
-  </a>
+<!-- Floating Community Bar -->
 
-  <a class="social-btn" href="https://github.com/other-username" target="_blank" rel="noopener" aria-label="Other GitHub">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.9 5.3.9 11.6c0 4.7 3 8.6 7.1 10 .5.1.7-.2.7-.5v-1.9c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1 .1 1.6 1 1.6 1 .9 1.6 2.3 1.2 2.9.9.1-.7.4-1.2.7-1.5-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.2 2.8 1 .8-.2 1.7-.3 2.6-.3s1.8.1 2.6.3c2-.1 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.8 1 .8 2v3c0 .3.2.6.7.5 4.1-1.4 7.1-5.3 7.1-10C23.1 5.3 18.3.5 12 .5z"/></svg>
-  </a>
+<style>
+.community-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: rgba(35, 35, 35, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
 
-  <a class="social-btn" href="https://discord.com/invite/your-invite" target="_blank" rel="noopener" aria-label="Discord">
-    <!-- Discord SVG -->
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0016.5 3c-.2.3-.4.7-.6 1C12.6 3.7 11 4 11 4s-.4.7-.7 1.3c-3.1.2-4.3.9-4.3.9C4.1 8.2 3.5 9.9 3.5 11.8c0 0 1.2.9 2.2 1.4 0 0 .9.5 1.6.8.8.3 1.6.5 2.5.6 0 0 .5-.6.9-1.1-2.1-.6-3-1.8-3-1.8 0-1 .5-1.8 1.1-2.3 2-.1 3.4-.1 4.6.1.1.6.3 1.1.6 1.6.6 1 1.7 1.7 3.9 2.1 0 0 .4.8 1 1.5 1.6-.1 2.8-1 2.8-1 .1-2 .1-3.7-.8-5.3-.6-1.1-1.8-1.9-3.7-2.3z"/></svg>
-  </a>
+.community-bar a {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
 
-  <a class="social-btn" href="https://t.me/yourusername" target="_blank" rel="noopener" aria-label="Telegram">
-    <!-- Telegram SVG -->
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 .1 5.3.1 11.9 0 17.7 3.9 22.9 9.2 24v-8.2L7.1 11.9l9.9 6.9V24c5.3-1.1 9.2-6.3 9.2-12.1C25.9 5.3 20.6 0 14 0z"/></svg>
-  </a>
+.community-bar a:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+}
 
-  <div class="social-labels">
-    <span class="friend-label">Friends: <strong>Nekomo Community</strong> &amp; <strong>Dantotsu</strong></span>
-  </div>
-</nav>
+.community-bar .divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(255,255,255,0.15);
+}
 
+.dmca-notice {
+    position: fixed;
+    bottom: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 700px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    padding: 0 20px;
+    z-index: 9998;
+}
+
+.dmca-notice a {
+    color: #fff;
+}
+</style>
+
+<div class="dmca-notice">
+    HDO Pro is a community project. We do not host, upload, store, or distribute media content on our servers. Any content accessed through third-party applications or services remains the responsibility of its respective providers.
+    <a href="https://hdopro.netlify.app/dmca" target="_blank">DMCA Policy</a>
+</div>
+
+<div class="community-bar">
+    <a href="https://github.com/HDO-PRO" target="_blank">🐙 GitHub</a>
+
+```
+<a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank">📚 Web Index</a>
+
+<a href="/invite" target="_blank">💬 Discord</a>
+
+<a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
+
+<div class="divider"></div>
+
+<a href="https://github.com/nekomoe" target="_blank">🤝 NekoMoe</a>
+
+<a href="https://github.com/rebelonion/Dantotsu" target="_blank">🍜 Dantotsu</a>
+```
+
+</div>
 
 <!-- Bottom Right Curiosity Icon -->
 <style>
