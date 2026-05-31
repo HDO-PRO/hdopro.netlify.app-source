@@ -240,7 +240,8 @@
 </body>
 </html>
 
-<!-- HDO Pro Community Bar -->
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 /* DMCA Notice */
@@ -261,9 +262,7 @@
     z-index: 9997;
 }
 
-.dmca-notice a {
-    color: #fff;
-}
+.dmca-notice a { color: #fff; }
 
 /* Friends Notice */
 .friends-notice {
@@ -298,10 +297,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 6px;
 
     width: calc(100% - 20px);
-    max-width: 700px;
+    max-width: 720px;
 
     padding: 6px 8px;
 
@@ -311,35 +310,40 @@
     border: 1px solid rgba(255,255,255,.12);
     border-radius: 999px;
 
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
     z-index: 9999;
 
     overflow-x: auto;
     scrollbar-width: none;
 }
 
-.community-bar::-webkit-scrollbar {
-    display: none;
-}
+.community-bar::-webkit-scrollbar { display: none; }
 
+/* Buttons */
 .community-bar a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
     color: white;
     text-decoration: none;
 
     font-size: 11px;
-    line-height: 1;
     white-space: nowrap;
 
     padding: 5px 8px;
-
     border-radius: 999px;
-    background: rgba(255,255,255,.08);
 
-    transition: .2s ease;
+    background: rgba(255,255,255,.08);
+    transition: .2s;
 }
 
 .community-bar a:hover {
     background: rgba(255,255,255,.15);
+}
+
+/* Icons */
+.community-bar i {
+    font-size: 13px;
 }
 
 /* Curiosity Button */
@@ -355,12 +359,10 @@
     align-items: center;
     justify-content: center;
 
-    padding: 0 !important;
+    font-size: 16px;
 
-    font-size: 18px;
-    font-weight: bold;
-
-    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
 }
 
 .curiosity-tooltip {
@@ -380,7 +382,7 @@
     opacity: 0;
     visibility: hidden;
 
-    transition: .2s ease;
+    transition: .2s;
 }
 
 .community-help:hover .curiosity-tooltip {
@@ -392,20 +394,13 @@
 @media (max-width: 768px) {
 
     .community-bar {
-        width: calc(100% - 12px);
-        gap: 3px;
+        gap: 4px;
         padding: 5px 6px;
     }
 
     .community-bar a {
         font-size: 10px;
         padding: 4px 6px;
-    }
-
-    .curiosity-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
     }
 
     .dmca-notice {
@@ -420,11 +415,13 @@
 }
 </style>
 
+<!-- DMCA -->
 <div class="dmca-notice">
     HDO Pro is a community project. We do not host, upload, store, or distribute media content on our servers. Any content accessed through third-party applications or services remains the responsibility of its respective providers.
     <a href="https://hdopro.netlify.app/dmca" target="_blank">DMCA Policy</a>
 </div>
 
+<!-- Friends -->
 <div class="friends-notice">
     ❤️ Friends of HDO Pro:
     <a href="https://github.com/nekomoe" target="_blank">NekoMoe Community</a>
@@ -432,28 +429,39 @@
     <a href="https://github.com/rebelonion/Dantotsu" target="_blank">Dantotsu App</a>
 </div>
 
+<!-- Community Bar -->
 <div class="community-bar">
 
-```
-<a href="https://github.com/HDO-PRO" target="_blank">🐙 GitHub</a>
+    <a href="https://github.com/HDO-PRO" target="_blank">
+        <i class="fa-brands fa-github"></i> GitHub
+    </a>
 
-<a href="https://github.com/HDO-PRO/hdo-pro" target="_blank">📦 HDO-Pro</a>
+    <a href="https://github.com/HDO-PRO/hdo-pro" target="_blank">
+        <i class="fa-brands fa-github"></i> HDO-Pro
+    </a>
 
-<a href="/dev" target="_blank">👨‍💻 Dev</a>
+    <a href="/dev">
+        <i class="fa-solid fa-code"></i> Dev
+    </a>
 
-<a href="/invite" target="_blank">💬 Discord</a>
+    <a href="/invite">
+        <i class="fa-brands fa-discord"></i> Discord
+    </a>
 
-<a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
+    <a href="/telegram-signin">
+        <i class="fa-brands fa-telegram"></i> Telegram
+    </a>
 
-<div class="community-help">
-    <a href="https://github.com/HDO-PRO/hdo-pro"
-       target="_blank"
-       class="curiosity-icon">❔</a>
+    <!-- Curiosity -->
+    <div class="community-help">
+        <a href="https://github.com/HDO-PRO/hdo-pro"
+           class="curiosity-icon">
+            <i class="fa-solid fa-question"></i>
+        </a>
 
-    <div class="curiosity-tooltip">
-        Learn more
+        <div class="curiosity-tooltip">
+            Learn more
+        </div>
     </div>
-</div>
-```
 
 </div>
