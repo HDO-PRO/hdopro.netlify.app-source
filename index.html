@@ -243,6 +243,29 @@
 <!-- Floating Community Bar -->
 
 <style>
+/* DMCA Notice */
+.dmca-notice {
+    position: fixed;
+    bottom: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: calc(100% - 40px);
+    max-width: 700px;
+
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.75);
+
+    z-index: 9998;
+}
+
+.dmca-notice a {
+    color: #fff;
+}
+
+/* Community Bar */
 .community-bar {
     position: fixed;
     bottom: 16px;
@@ -250,13 +273,12 @@
     transform: translateX(-50%);
 
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 12px;
 
     width: calc(100% - 24px);
-    max-width: 720px;
+    max-width: 760px;
 
     padding: 8px 12px;
 
@@ -266,12 +288,19 @@
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 999px;
 
-    z-index: 9999;
     box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    z-index: 9999;
 }
 
-.community-bar a {
-    color: #fff;
+.community-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.community-links a {
+    color: white;
     text-decoration: none;
 
     background: rgba(255,255,255,0.08);
@@ -285,64 +314,110 @@
     transition: all .2s ease;
 }
 
-.community-bar a:hover {
+.community-links a:hover {
     background: rgba(255,255,255,0.16);
     transform: translateY(-1px);
 }
 
-.community-bar .divider {
+.divider {
     width: 1px;
     height: 14px;
     background: rgba(255,255,255,0.15);
 }
 
-.dmca-notice {
-    position: fixed;
-
-    /* Positioned safely above the bar */
-    bottom: 88px;
-
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: calc(100% - 40px);
-    max-width: 700px;
-
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.4;
-
-    color: rgba(255,255,255,0.75);
-
-    z-index: 9998;
+/* Curiosity Button */
+.community-help {
+    position: relative;
+    flex-shrink: 0;
 }
 
-.dmca-notice a {
-    color: #fff;
+.curiosity-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    font-size: 22px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+
+    transition: all .2s ease;
+}
+
+.curiosity-icon:hover {
+    background: rgba(255,255,255,0.22);
+    transform: scale(1.08);
+}
+
+.curiosity-tooltip {
+    position: absolute;
+    bottom: 52px;
+    right: 0;
+
+    background: white;
+    color: black;
+
+    padding: 8px 12px;
+    border-radius: 10px;
+
+    font-size: 13px;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .2s ease;
+}
+
+.community-help:hover .curiosity-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
+
     .community-bar {
-        max-width: 95%;
-        padding: 8px;
-        gap: 5px;
-        border-radius: 18px;
+        flex-direction: column;
+        gap: 8px;
+
+        width: calc(100% - 16px);
+        border-radius: 20px;
+        padding: 10px;
     }
 
-    .community-bar a {
-        font-size: 12px;
-        padding: 5px 8px;
+    .community-links {
+        justify-content: center;
     }
 
-    .community-bar .divider {
+    .divider {
         display: none;
     }
 
     .dmca-notice {
-        bottom: 130px;
+        bottom: 155px;
+        width: calc(100% - 20px);
         font-size: 10px;
-        width: calc(100% - 24px);
+    }
+
+    .curiosity-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 24px;
+    }
+
+    .curiosity-tooltip {
+        right: 50%;
+        transform: translateX(50%);
+        white-space: normal;
+        width: 180px;
+        text-align: center;
     }
 }
 </style>
@@ -353,84 +428,33 @@
 </div>
 
 <div class="community-bar">
+
+```
+<div class="community-links">
     <a href="https://github.com/HDO-PRO" target="_blank">🐙 GitHub</a>
 
-```
-<a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank">📚 Web Index</a>
+    <a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank">📚 Web Index</a>
 
-<a href="/invite" target="_blank">💬 Discord</a>
+    <a href="/invite" target="_blank">💬 Discord</a>
 
-<a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
+    <a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<a href="https://github.com/nekomoe" target="_blank">🤝 NekoMoe</a>
+    <a href="https://github.com/nekomoe" target="_blank">🤝 NekoMoe</a>
 
-<a href="https://github.com/rebelonion/Dantotsu" target="_blank">🍜 Dantotsu</a>
-```
-
+    <a href="https://github.com/rebelonion/Dantotsu" target="_blank">🍜 Dantotsu</a>
 </div>
 
-<!-- Bottom Right Curiosity Icon -->
-<style>
-.curiosity-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 55px;
-    height: 55px;
-    background: rgba(51, 51, 51, 0.9);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    color: white;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 9999;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
+<div class="community-help">
+    <a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index"
+       target="_blank"
+       class="curiosity-icon">❔</a>
 
-.curiosity-icon:hover {
-    background: rgba(85, 85, 85, 0.95);
-    transform: scale(1.1);
-}
+    <div class="curiosity-tooltip">
+        Not sure? Learn more here.
+    </div>
+</div>
+```
 
-.curiosity-tooltip {
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    background: white;
-    color: black;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 14px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 10000;
-}
-
-.curiosity-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    right: 20px;
-    border-width: 8px;
-    border-style: solid;
-    border-color: white transparent transparent transparent;
-}
-
-.curiosity-icon:hover + .curiosity-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-</style>
-
-<a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank" class="curiosity-icon">❔</a>
-<div class="curiosity-tooltip">
-    Note sure? More about here.
 </div>
