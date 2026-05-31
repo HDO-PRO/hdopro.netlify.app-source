@@ -240,23 +240,21 @@
 </body>
 </html>
 
-<!-- Floating Community Bar -->
-
 <style>
 /* DMCA Notice */
 .dmca-notice {
     position: fixed;
-    bottom: 95px;
     left: 50%;
     transform: translateX(-50%);
+    bottom: 70px;
 
-    width: calc(100% - 40px);
-    max-width: 700px;
+    width: calc(100% - 30px);
+    max-width: 650px;
 
     text-align: center;
-    font-size: 11px;
-    line-height: 1.4;
-    color: rgba(255,255,255,0.75);
+    font-size: 10px;
+    line-height: 1.3;
+    color: rgba(255,255,255,.75);
 
     z-index: 9998;
 }
@@ -268,111 +266,93 @@
 /* Community Bar */
 .community-bar {
     position: fixed;
-    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
+    bottom: 12px;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: center;
+    gap: 4px;
 
-    width: calc(100% - 24px);
-    max-width: 760px;
+    width: calc(100% - 20px);
+    max-width: 700px;
 
-    padding: 8px 12px;
+    padding: 6px 8px;
 
-    background: rgba(35,35,35,0.92);
+    background: rgba(35,35,35,.92);
     backdrop-filter: blur(10px);
 
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,.12);
     border-radius: 999px;
 
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
     z-index: 9999;
 }
 
-.community-links {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-}
-
-.community-links a {
+.community-bar a {
     color: white;
     text-decoration: none;
 
-    background: rgba(255,255,255,0.08);
-
-    padding: 6px 10px;
-    border-radius: 999px;
-
-    font-size: 13px;
+    font-size: 11px;
     line-height: 1;
 
-    transition: all .2s ease;
+    padding: 5px 8px;
+
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+
+    transition: .2s;
 }
 
-.community-links a:hover {
-    background: rgba(255,255,255,0.16);
-    transform: translateY(-1px);
+.community-bar a:hover {
+    background: rgba(255,255,255,.15);
 }
 
 .divider {
     width: 1px;
-    height: 14px;
-    background: rgba(255,255,255,0.15);
+    height: 12px;
+    background: rgba(255,255,255,.15);
 }
 
 /* Curiosity Button */
-.community-help {
-    position: relative;
-    flex-shrink: 0;
-}
-
 .curiosity-icon {
-    width: 42px;
-    height: 42px;
+    width: 30px;
+    height: 30px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    text-decoration: none;
-    font-size: 22px;
+    padding: 0 !important;
 
-    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
 
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-
-    transition: all .2s ease;
+    flex-shrink: 0;
 }
 
-.curiosity-icon:hover {
-    background: rgba(255,255,255,0.22);
-    transform: scale(1.08);
+.community-help {
+    position: relative;
 }
 
 .curiosity-tooltip {
     position: absolute;
-    bottom: 52px;
+    bottom: 40px;
     right: 0;
 
     background: white;
     color: black;
 
-    padding: 8px 12px;
-    border-radius: 10px;
+    padding: 6px 10px;
+    border-radius: 8px;
 
-    font-size: 13px;
+    font-size: 12px;
     white-space: nowrap;
 
     opacity: 0;
     visibility: hidden;
 
-    transition: .2s ease;
+    transition: .2s;
 }
 
 .community-help:hover .curiosity-tooltip {
@@ -384,40 +364,39 @@
 @media (max-width: 768px) {
 
     .community-bar {
-        flex-direction: column;
-        gap: 8px;
+        overflow-x: auto;
+        justify-content: flex-start;
 
-        width: calc(100% - 16px);
-        border-radius: 20px;
-        padding: 10px;
+        padding: 5px 6px;
+        gap: 3px;
+
+        scrollbar-width: none;
     }
 
-    .community-links {
-        justify-content: center;
+    .community-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .community-bar a {
+        font-size: 10px;
+        padding: 4px 6px;
+        white-space: nowrap;
+    }
+
+    .curiosity-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+
+    /* Guaranteed clearance above bar */
+    .dmca-notice {
+        bottom: 55px;
+        font-size: 9px;
     }
 
     .divider {
         display: none;
-    }
-
-    .dmca-notice {
-        bottom: 155px;
-        width: calc(100% - 20px);
-        font-size: 10px;
-    }
-
-    .curiosity-icon {
-        width: 46px;
-        height: 46px;
-        font-size: 24px;
-    }
-
-    .curiosity-tooltip {
-        right: 50%;
-        transform: translateX(50%);
-        white-space: normal;
-        width: 180px;
-        text-align: center;
     }
 }
 </style>
@@ -430,21 +409,15 @@
 <div class="community-bar">
 
 ```
-<div class="community-links">
-    <a href="https://github.com/HDO-PRO" target="_blank">🐙 GitHub</a>
+<a href="https://github.com/HDO-PRO" target="_blank">🐙 GitHub</a>
+<a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank">📚 Index</a>
+<a href="/invite" target="_blank">💬 Discord</a>
+<a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
 
-    <a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index" target="_blank">📚 Web Index</a>
+<div class="divider"></div>
 
-    <a href="/invite" target="_blank">💬 Discord</a>
-
-    <a href="https://t.me/YOUR_TELEGRAM" target="_blank">✈️ Telegram</a>
-
-    <div class="divider"></div>
-
-    <a href="https://github.com/nekomoe" target="_blank">🤝 NekoMoe</a>
-
-    <a href="https://github.com/rebelonion/Dantotsu" target="_blank">🍜 Dantotsu</a>
-</div>
+<a href="https://github.com/nekomoe" target="_blank">🤝 NekoMoe</a>
+<a href="https://github.com/rebelonion/Dantotsu" target="_blank">🍜 Dantotsu</a>
 
 <div class="community-help">
     <a href="https://github.com/HDO-PRO/HDO-Pro-Web-Index"
@@ -452,7 +425,7 @@
        class="curiosity-icon">❔</a>
 
     <div class="curiosity-tooltip">
-        Not sure? Learn more here.
+        Learn more
     </div>
 </div>
 ```
