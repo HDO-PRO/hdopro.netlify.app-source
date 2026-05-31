@@ -245,57 +245,105 @@
 <style>
 .community-bar {
     position: fixed;
-    bottom: 20px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
+
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    background: rgba(35, 35, 35, 0.92);
+    gap: 6px;
+
+    width: calc(100% - 24px);
+    max-width: 720px;
+
+    padding: 8px 12px;
+
+    background: rgba(35,35,35,0.92);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 999px;
+
     z-index: 9999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
 }
 
 .community-bar a {
-    color: white;
+    color: #fff;
     text-decoration: none;
+
     background: rgba(255,255,255,0.08);
-    padding: 8px 12px;
+
+    padding: 6px 10px;
     border-radius: 999px;
-    font-size: 14px;
-    transition: 0.2s ease;
+
+    font-size: 13px;
+    line-height: 1;
+
+    transition: all .2s ease;
 }
 
 .community-bar a:hover {
-    background: rgba(255,255,255,0.18);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.16);
+    transform: translateY(-1px);
 }
 
 .community-bar .divider {
     width: 1px;
-    height: 18px;
+    height: 14px;
     background: rgba(255,255,255,0.15);
 }
 
 .dmca-notice {
     position: fixed;
-    bottom: 85px;
+
+    /* Positioned safely above the bar */
+    bottom: 88px;
+
     left: 50%;
     transform: translateX(-50%);
+
+    width: calc(100% - 40px);
     max-width: 700px;
+
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.4;
+
     color: rgba(255,255,255,0.75);
-    padding: 0 20px;
+
     z-index: 9998;
 }
 
 .dmca-notice a {
     color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .community-bar {
+        max-width: 95%;
+        padding: 8px;
+        gap: 5px;
+        border-radius: 18px;
+    }
+
+    .community-bar a {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .community-bar .divider {
+        display: none;
+    }
+
+    .dmca-notice {
+        bottom: 130px;
+        font-size: 10px;
+        width: calc(100% - 24px);
+    }
 }
 </style>
 
