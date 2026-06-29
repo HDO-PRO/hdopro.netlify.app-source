@@ -180,7 +180,7 @@
                     isAuthenticated = true;
                     localStorage.setItem('hdoProAuth', 'true');
                     addLine("Password accepted. You may now use the terminal.", "success");
-                    addLine(commands.help);
+                    handleCommands();
                     userInput.placeholder = "Type command...";
                 } else {
                     addLine("Incorrect password. Try again.", "error");
@@ -332,7 +332,7 @@
             addLine("https://github.com/HDO-PRO/Xapk-Installer");
             addLine("");
             addLine("Discord Community:");
-            addLine("https://discord.me/hdopromod");
+            addLine("Currently unavailable");
             addLine("");
             addLine("Official Website:");
             addLine("https://hdopro.netlify.app");
@@ -435,7 +435,7 @@
             
             if (isAuthenticated) {
                 addLine("Welcome back! You are already authenticated.", "success");
-                addLine(commands.help);
+                handleCommands();
                 userInput.placeholder = "Type command...";
             }
             userInput.focus();
