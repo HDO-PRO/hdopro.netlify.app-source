@@ -80,6 +80,9 @@
 </head>
 <body>
     <div id="terminal">
+        <div class="line">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
+        <div class="line">You may only use this terminal if you know the passcode to the terminal's server.</div>
+        <div class="line">Unauthorized access is prohibited.</div>
         <div class="line">Welcome to the HDO Pro Download Terminal</div>
         <div class="line">This terminal is locked. Please enter the password.</div>
         <div class="line">(Hint: 404 what's the other part?)</div>
@@ -91,7 +94,7 @@
     <script>
         const terminal = document.getElementById("terminal");
         let userInput = document.getElementById("user-input");
-        let isAuthenticated = false;
+        let isAuthenticated = localStorage.getItem('hdoProAuth') === 'true';
 
         const commands = {
             help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github, /commands",
@@ -114,6 +117,7 @@
             if (!isAuthenticated) {
                 if (input === password) {
                     isAuthenticated = true;
+                    localStorage.setItem('hdoProAuth', 'true');
                     addLine("Password accepted. You may now use the terminal.", "success");
                     addLine(commands.help);
                     userInput.placeholder = "Type command...";
@@ -330,8 +334,13 @@
             }
         }
 
-        // Focus input field on load
+        // Focus input field on load and check auth status
         window.addEventListener("load", () => {
+            if (isAuthenticated) {
+                addLine("Welcome back! You are already authenticated.", "success");
+                addLine(commands.help);
+                userInput.placeholder = "Type command...";
+            }
             userInput.focus();
         });
 
