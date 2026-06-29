@@ -21,8 +21,8 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            user-select: none; /* Prevent text selection */
-            overflow: hidden; /* Prevent scrollbars */
+            user-select: none;
+            overflow: hidden;
         }
         #terminal {
             flex: 1;
@@ -33,6 +33,12 @@
         .line {
             margin: 5px 0;
             word-wrap: break-word;
+        }
+        .error {
+            color: #ff0000;
+        }
+        .success {
+            color: #00ff00;
         }
         #input-line {
             display: flex;
@@ -83,8 +89,8 @@
         </div>
     </div>
     <script>
-        const userInput = document.getElementById("user-input");
         const terminal = document.getElementById("terminal");
+        let userInput = document.getElementById("user-input");
         let isAuthenticated = false;
 
         const commands = {
@@ -108,36 +114,67 @@
             if (!isAuthenticated) {
                 if (input === password) {
                     isAuthenticated = true;
-                    addLine("Password accepted. You may now use the terminal.");
-                    addLine(commands.help); // Display help automatically after password entry
+                    addLine("Password accepted. You may now use the terminal.", "success");
+                    addLine(commands.help);
                     userInput.placeholder = "Type command...";
                 } else {
-                    addLine("Incorrect password. Try again.");
+                    addLine("Incorrect password. Try again.", "error");
                 }
                 return;
             }
 
             // Ensure the command starts with a slash
             if (!input.startsWith("/")) {
-                alert("Please prefix your command with a slash (/).");
+                addLine("Please prefix your command with a slash (/).", "error");
                 return;
             }
 
-            const inputLower = input.toLowerCase();
-            if (commands[inputLower]) {
-                if (inputLower.startsWith("/download ")) {
-                    handleDownload(inputLower.split(" ")[1]);
-                } else if (inputLower.startsWith("/apk ")) {
-                    handleAPK(inputLower.split(" ")[1]);
-                } else if (inputLower === "/clear") {
-                    terminal.innerHTML = "";
-                    createInputLine();
-                } else {
-                    addLine(commands[inputLower]);
-                }
-            } else {
-                addLine(`Unknown command: "${input}"`);
+            const inputLower = input.toLowerCase().trim();
+            
+            if (inputLower === "/clear") {
+                terminal.innerHTML = "";
+                createInputLine();
+                return;
             }
+
+            if (inputLower === "/tv-apk") {
+                handleTVAPK();
+                return;
+            }
+
+            if (inputLower === "/apps") {
+                handleAppsPlayer();
+                return;
+            }
+
+            if (inputLower === "/help" || inputLower === "/downloads") {
+                addLine(commands[inputLower]);
+                return;
+            }
+
+            if (inputLower.startsWith("/download ")) {
+                const parts = inputLower.split(" ");
+                const platform = parts[1];
+                if (platform) {
+                    handleDownload(platform);
+                } else {
+                    addLine("Please specify a platform: android, ios, or roku", "error");
+                }
+                return;
+            }
+
+            if (inputLower.startsWith("/apk ")) {
+                const parts = inputLower.split(" ");
+                const version = parts[1];
+                if (version) {
+                    handleAPK(version);
+                } else {
+                    addLine("Please specify a version: latest, beta, or stable", "error");
+                }
+                return;
+            }
+
+            addLine(`Unknown command: "${input}"`, "error");
         }
 
         // Handle download commands
@@ -155,7 +192,7 @@
                     addLine("iOS downloads are no longer available.");
                     break;
                 default:
-                    addLine(`Unknown platform: "${platform}"`);
+                    addLine(`Unknown platform: "${platform}"`, "error");
             }
         }
 
@@ -175,7 +212,7 @@
                     window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/MaVF2JpS";
                     break;
                 default:
-                    addLine(`Unknown APK version: "${version}"`);
+                    addLine(`Unknown APK version: "${version}"`, "error");
             }
         }
 
@@ -192,9 +229,9 @@
         }
 
         // Add a new line
-        function addLine(text) {
+        function addLine(text, className = "") {
             const newLine = document.createElement("div");
-            newLine.className = "line";
+            newLine.className = "line" + (className ? ` ${className}` : "");
             newLine.textContent = text;
             terminal.insertBefore(newLine, userInput.parentElement);
             terminal.scrollTop = terminal.scrollHeight;
@@ -206,9 +243,15 @@
             inputLine.id = "input-line";
             inputLine.innerHTML = `<span>&gt; </span><input id="user-input" type="text" autofocus placeholder="Type command...">`;
             terminal.appendChild(inputLine);
-            const newInput = document.getElementById("user-input");
-            newInput.addEventListener("keydown", handleInput);
-            newInput.focus();
+            
+            // Update the userInput reference to the new element
+            userInput = document.getElementById("user-input");
+            
+            userInput.addEventListener("keydown", handleInput);
+            userInput.focus();
+            
+            // Update placeholder based on auth state
+            userInput.placeholder = isAuthenticated ? "Type command..." : "Type password...";
         }
 
         // Handle user input
