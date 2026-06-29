@@ -37,6 +37,22 @@
         .centered {
             text-align: center;
         }
+        .warning {
+            color: #ff0000;
+        }
+        .dmca-notice {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #888;
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 1px solid #333;
+            z-index: 999;
+        }
         .error {
             color: #ff0000;
         }
@@ -114,9 +130,9 @@
 </head>
 <body>
     <div id="terminal">
-        <div class="line centered">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
-        <div class="line centered">You may only use this terminal if you know the passcode to the terminal's server.</div>
-        <div class="line centered">Unauthorized access is prohibited.</div>
+        <div class="line centered warning">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
+        <div class="line centered warning">You may only use this terminal if you know the passcode to the terminal's server.</div>
+        <div class="line centered warning">Unauthorized access is prohibited.</div>
         <div class="line centered">Welcome to the HDO Pro Download Terminal</div>
         <div class="line centered">This terminal is locked. Please enter the password.</div>
         <div class="line centered">(Hint: 404 what's the other part?)</div>
@@ -124,6 +140,10 @@
             <span>&gt; </span>
             <input id="user-input" type="text" autofocus placeholder="Type password...">
         </div>
+    </div>
+    
+    <div class="dmca-notice">
+        DMCA Notice: This terminal provides access to HDO Pro downloads. We do not host any servers or content.
     </div>
     
     <a href="https://github.com/HDO-PRO" target="_blank" class="github-icon">
