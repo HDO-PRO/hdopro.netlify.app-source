@@ -94,7 +94,7 @@
         let isAuthenticated = false;
 
         const commands = {
-            help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github",
+            help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github, /commands",
             clear: "clear",
             "/download android": "Redirecting to Android download...",
             "/download ios": "iOS downloads are no longer available.",
@@ -154,6 +154,11 @@
 
             if (inputLower === "/github") {
                 handleGitHub();
+                return;
+            }
+
+            if (inputLower === "/commands") {
+                handleCommands();
                 return;
             }
 
@@ -259,6 +264,31 @@
             addLine("https://hdopro.netlify.app");
         }
 
+        // Handle commands command
+        function handleCommands() {
+            addLine("=== Available Commands ===");
+            addLine("");
+            addLine("/help - Display available commands");
+            addLine("/commands - Display detailed list of all commands");
+            addLine("/clear - Clear the terminal screen");
+            addLine("/downloads - Show available download options");
+            addLine("/github - Display HDO Pro GitHub resources");
+            addLine("");
+            addLine("=== Download Commands ===");
+            addLine("/download android - Redirect to Android download");
+            addLine("/download ios - iOS downloads (no longer available)");
+            addLine("/download roku - Redirect to Roku download page");
+            addLine("");
+            addLine("=== APK Commands ===");
+            addLine("/apk latest - Download latest APK");
+            addLine("/apk beta - Download beta APK");
+            addLine("/apk stable - Download stable APK");
+            addLine("");
+            addLine("=== Other Commands ===");
+            addLine("/tv-apk - Download TV APK");
+            addLine("/apps - Redirect to apps player download page");
+        }
+
         // Add a new line
         function addLine(text, className = "") {
             const newLine = document.createElement("div");
@@ -315,8 +345,57 @@
 
         // Prevent right-click, inspect, and dev tools
         document.addEventListener("contextmenu", (e) => e.preventDefault());
+        
+        // Prevent keyboard shortcuts for copy, paste, cut, select all, etc.
         document.addEventListener("keydown", (e) => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.ctrlKey && e.key === "U")) {
+            // Dev tools shortcuts
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && e.key === "I") || 
+                (e.ctrlKey && e.key === "U") ||
+                (e.ctrlKey && e.shiftKey && e.key === "J") ||
+                (e.ctrlKey && e.shiftKey && e.key === "C") ||
+                (e.key === "F11")) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Copy, paste, cut, select all (only prevent outside input)
+            if (e.target.id !== "user-input") {
+                if ((e.ctrlKey || e.metaKey) && 
+                    (e.key === "c" || e.key === "v" || e.key === "x" || e.key === "a")) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+            
+            // Print, save, find shortcuts
+            if ((e.ctrlKey || e.metaKey) && 
+                (e.key === "p" || e.key === "s" || e.key === "f")) {
+                e.preventDefault();
+                return;
+            }
+        });
+        
+        // Prevent text selection
+        document.addEventListener("selectstart", (e) => e.preventDefault());
+        
+        // Prevent drag and drop
+        document.addEventListener("dragstart", (e) => e.preventDefault());
+        document.addEventListener("drop", (e) => e.preventDefault());
+        
+        // Prevent copy/paste via clipboard events
+        document.addEventListener("copy", (e) => {
+            if (e.target.id !== "user-input") {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener("paste", (e) => {
+            if (e.target.id !== "user-input") {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener("cut", (e) => {
+            if (e.target.id !== "user-input") {
                 e.preventDefault();
             }
         });
