@@ -1,29 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="30;url=https://hdopro.netlify.app">
+<title>HDO PRO • Reddit Notice</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:#000;
+    color:#fff;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* Animated Background */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top,#450000 0%,transparent 40%),
+        radial-gradient(circle at bottom,#220000 0%,transparent 45%);
+    animation:pulse 6s ease-in-out infinite alternate;
+    z-index:-2;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,0,0,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,0,0,.04) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:.35;
+    z-index:-1;
+}
+
+@keyframes pulse{
+    from{transform:scale(1);}
+    to{transform:scale(1.15);}
+}
+
+.card{
+    width:min(92%,760px);
+    background:rgba(10,10,10,.94);
+    border:1px solid #8b0000;
+    border-radius:22px;
+    padding:50px;
+    text-align:center;
+    backdrop-filter:blur(12px);
+    box-shadow:
+        0 0 50px rgba(255,0,0,.18),
+        inset 0 0 25px rgba(255,0,0,.06);
+}
+
+.icon{
+    font-size:80px;
+    margin-bottom:20px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{transform:translateY(-8px);}
+}
+
+h1{
+    color:#ff4545;
+    font-size:2.5rem;
+    margin-bottom:15px;
+}
+
+.subtitle{
+    color:#9c9c9c;
+    margin-bottom:35px;
+    font-size:1.05rem;
+}
+
+.notice{
+    background:#140000;
+    border:1px solid #5f0000;
+    border-left:5px solid #ff2d2d;
+    border-radius:14px;
+    padding:25px;
+    text-align:left;
+    line-height:1.8;
+}
+
+.notice strong{
+    color:#ff5555;
+}
+
+.redirect{
+    margin-top:25px;
+    padding:18px;
+    border-radius:12px;
+    background:#1b0000;
+    color:#ffbaba;
+    border:1px solid #500000;
+}
+
+.countdown{
+    font-size:2rem;
+    font-weight:bold;
+    color:#ff3b3b;
+    margin-top:10px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:35px;
+}
+
+.button{
+    padding:14px 28px;
+    background:#b30000;
+    color:#fff;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.button:hover{
+    background:#d60000;
+    transform:translateY(-2px);
+    box-shadow:0 0 20px rgba(255,0,0,.45);
+}
+
+.button.secondary{
+    background:#222;
+    border:1px solid #444;
+}
+
+.button.secondary:hover{
+    background:#333;
+}
+
+.footer{
+    margin-top:35px;
+    color:#666;
+    font-size:.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="icon">🚫</div>
+
+<h1>HDO PRO Was Banned From Reddit</h1>
+
+<p class="subtitle">
+Official Community Notice
+</p>
+
 <div class="notice">
-    <p><strong>Status:</strong> The HDO PRO community on Reddit has been banned and is no longer active.</p>
 
-    <br>
+<p><strong>Status:</strong> The HDO PRO subreddit has been banned and is no longer available for community discussions or updates.</p>
 
-    <p>As a result, updates, announcements, discussions, and community support are no longer available through Reddit.</p>
+<br>
 
-    <br>
+<p>If you would like to view the subreddit page yourself, you can still visit:</p>
 
-    <p>If you'd like to view the banned subreddit page yourself, you can still visit:</p>
+<p style="margin-top:12px;">
+<a style="color:#ff6666;" href="https://www.reddit.com/r/hdopro/" target="_blank">
+https://www.reddit.com/r/hdopro/
+</a>
+</p>
 
-    <p style="margin-top:15px;">
-        <a href="https://www.reddit.com/r/hdopro/" target="_blank">
-            reddit.com/r/hdopro
-        </a>
-    </p>
+<br>
 
-    <br>
+<p>Please use the official HDO PRO website and GitHub project for future announcements and updates.</p>
 
-    <p>Please use our official website or GitHub project for future updates and information.</p>
 </div>
 
-<a class="button" href="https://hdopro.netlify.app" target="_blank">
-    Visit Official Website
+<div class="redirect">
+<strong>Automatic Redirect</strong><br>
+You will automatically be redirected to the official HDO PRO website in
+
+<div class="countdown" id="countdown">30</div>
+
+seconds.
+</div>
+
+<div class="buttons">
+<a class="button" href="https://hdopro.netlify.app">
+Official Website
 </a>
 
-<a class="button" href="https://www.reddit.com/r/hdopro/" target="_blank" style="margin-left:12px;background:#2b2b2b;">
-    View Banned Subreddit
+<a class="button secondary" href="https://www.reddit.com/r/hdopro/" target="_blank">
+View Reddit
 </a>
+</div>
+
+<div class="footer">
+HDO PRO Community • Thank you for your support ❤️
+</div>
+
+</div>
+
+<script>
+let seconds = 30;
+const countdown = document.getElementById("countdown");
+
+const timer = setInterval(() => {
+    seconds--;
+    countdown.textContent = seconds;
+
+    if (seconds <= 0) {
+        clearInterval(timer);
+        window.location.href = "https://hdopro.netlify.app";
+    }
+}, 1000);
+</script>
+
+</body>
+</html>
