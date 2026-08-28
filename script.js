@@ -6,6 +6,12 @@
 
   const isIndex = /index\.html$/i.test(location.pathname) || location.pathname === '/' || location.pathname === '';
 
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
   // Register service worker on every page
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -21,14 +27,16 @@
   // Run security before anything else
   initSecurity();
 
-  // Skip UI injection on the index/landing page
-  if (isIndex) return;
+  // UI injection is skipped in completeInit() when on the index/landing page
 
   const config = {
     navLinks: [
       { href: '/home.html', label: 'Home', icon: 'fa-house' },
       { href: '/about.html', label: 'About', icon: 'fa-circle-info' },
       { href: '/downloads.html', label: 'Downloads', icon: 'fa-download' },
+      { href: '/releases.html', label: 'Releases', icon: 'fa-clipboard-list' },
+      { href: '/status.html', label: 'Status', icon: 'fa-signal' },
+      { href: '/faq.html', label: 'FAQ', icon: 'fa-circle-question' },
       { href: '/guide.html', label: 'Guide', icon: 'fa-book' },
       { href: '/tutorial.html', label: 'Tutorial', icon: 'fa-graduation-cap' },
       { href: '/rules.html', label: 'Rules', icon: 'fa-scale-balanced' },
@@ -36,7 +44,8 @@
       { href: '/contact.html', label: 'Contact', icon: 'fa-envelope' },
       { href: '/invite.html', label: 'Community', icon: 'fa-users' },
       { href: '/donate.html', label: 'Donate', icon: 'fa-heart' },
-      { href: 'https://github.com/HDO-PRO', label: 'GitHub', icon: 'fa-github', external: true }
+      { href: 'https://github.com/HDO-PRO', label: 'GitHub', icon: 'fa-github', external: true },
+      { id: 'pwa-install', label: 'Install', icon: 'fa-mobile-screen', action: 'install' }
     ]
   };
 
@@ -193,6 +202,20 @@
     document.head.appendChild(style);
   }
 
+  function promptInstall() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(choice => {
+        if (choice.outcome === 'accepted') {
+          console.log('PWA installed');
+        }
+        deferredPrompt = null;
+      });
+    } else {
+      console.log('PWA install prompt not available.');
+    }
+  }
+
   function buildUI() {
     injectStyles();
     ensureIcons();
@@ -217,9 +240,17 @@
     const navList = createEl('ul', { class: 'hdo-ui-navlist' });
     config.navLinks.forEach(link => {
       const li = createEl('li');
-      const a = createEl('a', Object.assign({ href: link.href }, link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}));
+      const a = createEl('a', Object.assign({ href: link.href || 'javascript:void(0)' }, link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}));
       a.innerHTML = `<i class="fa-solid ${link.icon}"></i> <span>${link.label}</span>`;
-      a.addEventListener('click', () => togglePanel('nav', false));
+      if (link.action === 'install') {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          togglePanel('nav', false);
+          promptInstall();
+        });
+      } else {
+        a.addEventListener('click', () => togglePanel('nav', false));
+      }
       li.appendChild(a);
       navList.appendChild(li);
     });
