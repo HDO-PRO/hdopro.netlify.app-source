@@ -128,7 +128,7 @@
         align-items: center;
         justify-content: center;
         font-size: 20px;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(8px);
         transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
       }
       .hdo-ui-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 28px rgba(0,0,0,0.6); background: rgba(255,255,255,0.08); }
@@ -144,7 +144,7 @@
         max-width: 420px;
         background: var(--hdo-glass);
         color: #fff;
-        backdrop-filter: blur(14px);
+        backdrop-filter: blur(10px);
         box-shadow: 0 0 40px rgba(0,0,0,0.6);
         z-index: 10001;
         padding: 28px;
@@ -316,7 +316,7 @@
     const style = createEl('style', { id: 'hdo-puzzle-styles' });
     style.textContent = `
       .hdo-puzzle-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 99998; display: flex; align-items: center; justify-content: center; padding: 20px; }
-      .hdo-puzzle-box { background: var(--hdo-glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; text-align: center; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+      .hdo-puzzle-box { background: var(--hdo-glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; text-align: center; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
       .hdo-puzzle-box h2 { margin: 0 0 16px; color: #ff66b2; font-size: 22px; }
       .hdo-puzzle-hint { color: #ccc; font-size: 13px; margin: 0 0 10px; }
       .hdo-puzzle-question { font-size: 18px; margin: 16px 0; color: #fff; }
@@ -326,6 +326,12 @@
       .hdo-puzzle-submit:hover { background: #e05599; }
       .hdo-puzzle-error { color: #ff6666; font-size: 13px; min-height: 18px; margin: 12px 0 0; }
       .hdo-puzzle-text { font-size: 14px; line-height: 1.5; color: #ddd; text-align: left; margin: 0 0 20px; }
+      @media (max-width: 480px) {
+        .hdo-puzzle-box { padding: 20px; border-radius: 12px; }
+        .hdo-puzzle-box h2 { font-size: 20px; }
+        .hdo-puzzle-question { font-size: 16px; }
+        .hdo-puzzle-text { font-size: 13px; }
+      }
     `;
     document.head.appendChild(style);
   }
