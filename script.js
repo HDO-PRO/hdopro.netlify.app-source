@@ -92,7 +92,7 @@
         height: 52px;
         border-radius: 50%;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(26, 0, 26, 0.92);
+        background: var(--hdo-glass);
         color: #fff;
         box-shadow: 0 6px 24px rgba(0,0,0,0.5);
         cursor: pointer;
@@ -104,7 +104,7 @@
         backdrop-filter: blur(10px);
         transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
       }
-      .hdo-ui-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 28px rgba(0,0,0,0.6); background: rgba(51, 17, 51, 0.96); }
+      .hdo-ui-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 28px rgba(0,0,0,0.6); background: rgba(255,255,255,0.08); }
       .hdo-ui-fab:active { transform: scale(0.95); }
       #hdo-menu-btn { left: 24px; }
       #hdo-settings-btn { right: 24px; }
@@ -115,7 +115,7 @@
         height: 100%;
         width: min(320px, 85vw);
         max-width: 420px;
-        background: rgba(26, 0, 26, 0.95);
+        background: var(--hdo-glass);
         color: #fff;
         backdrop-filter: blur(14px);
         box-shadow: 0 0 40px rgba(0,0,0,0.6);
