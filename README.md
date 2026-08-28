@@ -32,7 +32,7 @@ The original `.html` files still work as well:
 
 ### 🏠 Core Pages
 
-* H0M3 — [https://hdopro.netlify.app/H0M3.html](https://hdopro.netlify.app/H0M3.html)
+* h0m3 — [https://hdopro.netlify.app/h0m3.html](https://hdopro.netlify.app/h0m3.html)
 * Index — [https://hdopro.netlify.app/index.html](https://hdopro.netlify.app/index.html)
 * About — [https://hdopro.netlify.app/about.html](https://hdopro.netlify.app/about.html)
 * Guide — [https://hdopro.netlify.app/guide.html](https://hdopro.netlify.app/guide.html)

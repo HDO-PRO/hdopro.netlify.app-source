@@ -5,12 +5,12 @@
 
 [[redirects]]
   from = "/home"
-  to = "/H0M3"
+  to = "/h0m3"
   status = 301
 
 [[redirects]]
   from = "/home.html"
-  to = "/H0M3"
+  to = "/h0m3"
   status = 301
 
 [[redirects]]
