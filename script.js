@@ -128,7 +128,7 @@
         height: 52px;
         border-radius: 50%;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        background: var(--hdo-glass);
+        background: var(--hdo-glass, rgba(0,0,0,0.85));
         color: #fff;
         box-shadow: 0 6px 24px rgba(0,0,0,0.5);
         cursor: pointer;
@@ -151,7 +151,7 @@
         height: 100%;
         width: min(320px, 85vw);
         max-width: 420px;
-        background: var(--hdo-glass);
+        background: var(--hdo-glass, rgba(0,0,0,0.85));
         color: #fff;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 40px rgba(0,0,0,0.6);
@@ -354,7 +354,7 @@
     const style = createEl('style', { id: 'hdo-puzzle-styles' });
     style.textContent = `
       .hdo-puzzle-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 99998; display: flex; align-items: center; justify-content: center; padding: 20px; }
-      .hdo-puzzle-box { background: var(--hdo-glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; text-align: center; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+      .hdo-puzzle-box { background: var(--hdo-glass, rgba(0,0,0,0.85)); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; text-align: center; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
       .hdo-puzzle-box h2 { margin: 0 0 16px; color: #ff66b2; font-size: 22px; }
       .hdo-puzzle-hint { color: #ccc; font-size: 13px; margin: 0 0 10px; }
       .hdo-puzzle-question { font-size: 18px; margin: 16px 0; color: #fff; }
@@ -375,10 +375,12 @@
   }
 
   function initPuzzle() {
-    if (localStorage.getItem('hdo-verified') === 'true') {
-      completeInit();
-      return;
-    }
+    try {
+      if (localStorage.getItem('hdo-verified') === 'true') {
+        completeInit();
+        return;
+      }
+    } catch (e) { /* storage may be blocked */ }
     injectPuzzleStyles();
 
     const overlay = createEl('div', { id: 'hdo-puzzle-overlay', class: 'hdo-puzzle-overlay' });
@@ -442,7 +444,7 @@
       const dmcaBox = overlay.querySelector('.hdo-puzzle-box');
       if (dmcaBox) dmcaBox.classList.add('hdo-animate-fade');
       document.getElementById('hdo-puzzle-agree').addEventListener('click', function () {
-        localStorage.setItem('hdo-verified', 'true');
+        try { localStorage.setItem('hdo-verified', 'true'); } catch (e) { /* storage may be blocked */ }
         overlay.remove();
         completeInit();
       });
