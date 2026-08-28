@@ -1,162 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="green" data-font-size="normal" data-scanlines="off">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>HDO Pro | Terminal</title>
     <meta property="og:url" content="/terminal" />
     <meta property="og:title" content="HDO Pro | Terminal">
-    <meta property="og:description" content="Terminal for accessing HDO Pro. Intended for PC and mobile usage.">
+    <meta property="og:description" content="Linux-style terminal for HDO Pro.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
-    <meta name="theme-color" content="#8d2249" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
+        :root {
+            --term-bg: #000000;
+            --term-prompt: #00ff00;
+            --term-text: #00ff00;
+            --term-link: #00ffff;
+            --term-error: #ff0000;
+            --term-warn: #ffaa00;
+        }
+
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+
         body {
-            background-color: black;
-            color: #00ff00;
+            background: var(--term-bg);
+            color: var(--term-text);
             font-family: "Courier New", Courier, monospace;
-            padding: 0;
-            margin: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
             user-select: none;
-            overflow: hidden;
+            font-size: 16px;
+            line-height: 1.5;
         }
+
+        /* Themes */
+        [data-theme="green"]  { --term-text: #00ff00; --term-prompt: #00ff00; --term-link: #00ffff; }
+        [data-theme="white"]  { --term-text: #eeeeee; --term-prompt: #ffffff; --term-link: #55aaff; }
+        [data-theme="amber"]  { --term-text: #ffb000; --term-prompt: #ffb000; --term-link: #ffdd55; }
+        [data-theme="cyan"]   { --term-text: #00ffff; --term-prompt: #00ffff; --term-link: #88ffff; }
+        [data-theme="red"]    { --term-text: #ff4444; --term-prompt: #ff4444; --term-link: #ff8888; }
+
+        /* Font sizes */
+        [data-font-size="small"]  { font-size: 13px; }
+        [data-font-size="normal"] { font-size: 16px; }
+        [data-font-size="large"]  { font-size: 20px; }
+
+        #scanlines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.15),
+                rgba(0,0,0,0.15) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+        }
+        [data-scanlines="on"] #scanlines { opacity: 1; }
+
+        #settings-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            color: var(--term-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background 0.2s, transform 0.2s;
+        }
+        #settings-btn:hover { background: rgba(255,255,255,0.18); transform: rotate(30deg); }
+
+        #settings-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(320px, 85vw);
+            height: 100%;
+            background: rgba(10,10,10,0.96);
+            border-left: 2px solid var(--term-prompt);
+            z-index: 1001;
+            padding: 24px;
+            box-sizing: border-box;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(.4,.0,.2,1), opacity 0.2s;
+            overflow-y: auto;
+        }
+        #settings-panel.open { transform: translateX(0); opacity: 1; }
+
+        #settings-panel h2 {
+            color: var(--term-prompt);
+            margin: 0 0 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .setting {
+            margin: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .setting label { color: var(--term-text); font-size: 0.95rem; }
+        .setting select,
+        .setting button {
+            background: rgba(0,0,0,0.6);
+            color: var(--term-text);
+            border: 1px solid var(--term-prompt);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .setting button:hover { background: rgba(255,255,255,0.08); }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-row input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--term-prompt);
+            cursor: pointer;
+        }
+
         #terminal {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
+            padding: 12px;
             box-sizing: border-box;
         }
-        .line {
-            margin: 5px 0;
-            word-wrap: break-word;
+
+        .line { margin: 4px 0; word-wrap: break-word; }
+        .centered { text-align: center; }
+        .warning { color: var(--term-warn); }
+        .error   { color: var(--term-error); }
+        .success { color: var(--term-prompt); }
+        .link    { color: var(--term-link); text-decoration: underline; cursor: pointer; }
+        .link:hover { filter: brightness(1.3); }
+        .prompt  { color: var(--term-prompt); }
+
+        #input-line { display: flex; align-items: center; }
+        #input-line span { white-space: pre; color: var(--term-prompt); }
+        #user-input {
+            flex: 1;
+            outline: none;
+            border: none;
+            background: transparent;
+            color: var(--term-text);
+            font-family: inherit;
+            font-size: inherit;
+            caret-color: var(--term-prompt);
         }
-        .centered {
-            text-align: center;
-        }
-        .warning {
-            color: #ff0000;
-        }
+
         .dmca-notice {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: rgba(0,0,0,0.85);
             color: #888;
             text-align: center;
             padding: 8px;
             font-size: 11px;
             border-top: 1px solid #333;
-            z-index: 999;
+            z-index: 40;
         }
-        .error {
-            color: #ff0000;
-        }
-        .success {
-            color: #00ff00;
-        }
-        .link {
-            color: #00ffff;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        .link:hover {
-            color: #ffffff;
-        }
+
         .github-icon {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 40px;
             height: 40px;
-            background-color: #333;
+            background: #333;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: background-color 0.3s;
-            z-index: 1000;
+            z-index: 40;
         }
-        .github-icon:hover {
-            background-color: #555;
-        }
-        .github-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        #input-line {
-            display: flex;
-            align-items: center;
-        }
-        #input-line span {
-            white-space: pre;
-        }
-        #user-input {
-            flex: 1;
-            outline: none;
-            border: none;
-            background: transparent;
-            color: #00ff00;
-            font-family: inherit;
-            font-size: inherit;
-            caret-color: #00ff00;
-        }
-        .blinking {
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
+        .github-icon:hover { background: #555; }
+        .github-icon svg { width: 24px; height: 24px; fill: white; }
+
+        .hidden { display: none !important; }
+
         @media (max-width: 768px) {
-            #terminal {
-                font-size: 14px;
-            }
-        }
-        @media (max-width: 480px) {
-            #terminal {
-                font-size: 12px;
-                padding: 5px;
-            }
+            #terminal { padding: 10px; }
+            #settings-btn { top: 8px; right: 8px; width: 38px; height: 38px; }
         }
     </style>
-    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+    <div id="scanlines"></div>
+
+    <button id="settings-btn" aria-label="Terminal settings">
+        <i class="fa-solid fa-gear"></i>
+    </button>
+
+    <div id="settings-panel" aria-label="Terminal settings panel">
+        <h2>Terminal Settings</h2>
+
+        <div class="setting">
+            <label>Color theme</label>
+            <select id="theme-select">
+                <option value="green">Green (classic)</option>
+                <option value="white">White</option>
+                <option value="amber">Amber</option>
+                <option value="cyan">Cyan</option>
+                <option value="red">Red</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <label>Font size</label>
+            <select id="font-select">
+                <option value="small">Small</option>
+                <option value="normal">Normal</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="scanlines-toggle">CRT scanlines</label>
+            <input type="checkbox" id="scanlines-toggle">
+        </div>
+
+        <div class="setting setting-row">
+            <label for="sounds-toggle">Terminal sounds</label>
+            <input type="checkbox" id="sounds-toggle">
+        </div>
+
+        <div class="setting setting-row">
+            <label for="dmca-toggle">Show DMCA notice</label>
+            <input type="checkbox" id="dmca-toggle" checked>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="github-toggle">Show GitHub icon</label>
+            <input type="checkbox" id="github-toggle" checked>
+        </div>
+
+        <div class="setting">
+            <button id="reset-auth">Reset terminal access</button>
+        </div>
+    </div>
+
     <div id="terminal">
         <div class="line centered warning">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
         <div class="line centered warning">You may only use this terminal if you know the passcode to the terminal's server.</div>
         <div class="line centered warning">Unauthorized access is prohibited.</div>
+        <div class="line">HDO-Pro Terminal v1.0 — Linux x86_64</div>
+        <div class="line">Linux hdo-pro 5.15.0-generic #1 SMP HDO Pro</div>
+        <div class="line" id="last-login"></div>
         <div class="line centered">Welcome to the HDO Pro Download Terminal</div>
         <div class="line centered">This terminal is locked. Please enter the password.</div>
         <div class="line centered">(Hint: 404 what's the other part?)</div>
         <div id="input-line">
-            <span>&gt; </span>
-            <input id="user-input" type="text" autofocus placeholder="Type password...">
+            <span class="prompt">user@hdo-pro:~$ </span>
+            <input id="user-input" type="text" autofocus placeholder="Type password..." autocomplete="off" spellcheck="false">
         </div>
     </div>
-    
+
     <div class="dmca-notice">
         DMCA Notice: This terminal provides access to HDO Pro downloads. We do not host any servers or content.
     </div>
-    
-    <a href="https://github.com/HDO-PRO" target="_blank" class="github-icon">
+
+    <a href="https://github.com/HDO-PRO" target="_blank" class="github-icon" aria-label="HDO Pro GitHub">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
         </svg>
     </a>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script>
         const terminal = document.getElementById("terminal");
         let userInput = document.getElementById("user-input");
         let isAuthenticated = localStorage.getItem('hdoProAuth') === 'true';
         let initialLines = [];
+
+        const settings = Object.assign({
+            theme: 'green',
+            fontSize: 'normal',
+            scanlines: false,
+            sounds: false,
+            showDmca: true,
+            showGithub: true
+        }, JSON.parse(localStorage.getItem('hdoTerminalSettings') || '{}'));
 
         const commands = {
             help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github, /commands",
@@ -174,6 +324,61 @@
 
         const password = "neko";
 
+        function applySettings() {
+            const root = document.documentElement;
+            root.dataset.theme = settings.theme;
+            root.dataset.fontSize = settings.fontSize;
+            root.dataset.scanlines = settings.scanlines ? 'on' : 'off';
+
+            document.getElementById('theme-select').value = settings.theme;
+            document.getElementById('font-select').value = settings.fontSize;
+            document.getElementById('scanlines-toggle').checked = settings.scanlines;
+            document.getElementById('sounds-toggle').checked = settings.sounds;
+            document.getElementById('dmca-toggle').checked = settings.showDmca;
+            document.getElementById('github-toggle').checked = settings.showGithub;
+
+            document.querySelector('.dmca-notice').classList.toggle('hidden', !settings.showDmca);
+            document.querySelector('.github-icon').classList.toggle('hidden', !settings.showGithub);
+
+            localStorage.setItem('hdoTerminalSettings', JSON.stringify(settings));
+        }
+
+        function playSound() {
+            if (!settings.sounds) return;
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'square';
+            o.frequency.value = 800;
+            o.connect(g);
+            g.connect(ctx.destination);
+            o.start();
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.05);
+            o.stop(ctx.currentTime + 0.05);
+        }
+
+        function saveSettings() {
+            settings.theme = document.getElementById('theme-select').value;
+            settings.fontSize = document.getElementById('font-select').value;
+            settings.scanlines = document.getElementById('scanlines-toggle').checked;
+            settings.sounds = document.getElementById('sounds-toggle').checked;
+            settings.showDmca = document.getElementById('dmca-toggle').checked;
+            settings.showGithub = document.getElementById('github-toggle').checked;
+            applySettings();
+            addLine('Settings saved.', 'success');
+        }
+
+        // Settings panel toggle
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsPanel = document.getElementById('settings-panel');
+        settingsBtn.addEventListener('click', () => settingsPanel.classList.toggle('open'));
+        settingsPanel.addEventListener('change', saveSettings);
+        document.getElementById('reset-auth').addEventListener('click', () => {
+            localStorage.removeItem('hdoProAuth');
+            isAuthenticated = false;
+            addLine('Terminal access reset. Refresh to re-authenticate.', 'success');
+        });
+
         // Execute commands
         function executeCommand(input) {
             if (!isAuthenticated) {
@@ -189,25 +394,20 @@
                 return;
             }
 
-            // Ensure the command starts with a slash
             if (!input.startsWith("/")) {
                 addLine("Please prefix your command with a slash (/).", "error");
                 return;
             }
 
             const inputLower = input.toLowerCase().trim();
-            
+            playSound();
+
             if (inputLower === "/clear") {
-                // Clear only user-entered content, preserve initial messages
                 const inputLine = document.getElementById("input-line");
                 terminal.innerHTML = "";
-                
-                // Restore initial lines
                 initialLines.forEach(line => {
                     terminal.appendChild(line.cloneNode(true));
                 });
-                
-                // Recreate input line
                 createInputLine();
                 return;
             }
@@ -262,7 +462,6 @@
             addLine(`Unknown command: "${input}"`, "error");
         }
 
-        // Handle download commands
         function handleDownload(platform) {
             switch (platform) {
                 case "android":
@@ -281,7 +480,6 @@
             }
         }
 
-        // Handle APK commands
         function handleAPK(version) {
             switch (version) {
                 case "latest":
@@ -301,19 +499,16 @@
             }
         }
 
-        // Handle TV APK command
         function handleTVAPK() {
             addLine("Redirecting to TV APK download...");
             window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/file/NHNwGZbC";
         }
 
-        // Handle apps player command
         function handleAppsPlayer() {
             addLine("Redirecting to the apps player download page...");
             window.location.href = "https://mega.nz/folder/5Ot0RQZa#6WiqCV6DI8yssRZiCrQVgg/folder/selziYzD";
         }
 
-        // Handle GitHub command
         function handleGitHub() {
             addLine("=== HDO PRO GitHub Resources ===");
             addLine("");
@@ -339,7 +534,6 @@
             addLine("https://hdopro.netlify.app");
         }
 
-        // Handle commands command
         function handleCommands() {
             addLine("=== Available Commands ===");
             addLine("");
@@ -364,12 +558,9 @@
             addLine("/apps - Redirect to apps player download page");
         }
 
-        // Add a new line
         function addLine(text, className = "") {
             const newLine = document.createElement("div");
             newLine.className = "line" + (className ? ` ${className}` : "");
-            
-            // Check if text contains a URL and make it clickable
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             if (urlRegex.test(text)) {
                 const parts = text.split(urlRegex);
@@ -389,36 +580,28 @@
             } else {
                 newLine.textContent = text;
             }
-            
             terminal.insertBefore(newLine, userInput.parentElement);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Add input line after clearing
         function createInputLine() {
             const inputLine = document.createElement("div");
             inputLine.id = "input-line";
-            inputLine.innerHTML = `<span>&gt; </span><input id="user-input" type="text" autofocus placeholder="Type command...">`;
+            inputLine.innerHTML = `<span class="prompt">user@hdo-pro:~$ </span><input id="user-input" type="text" autofocus placeholder="Type command..." autocomplete="off" spellcheck="false">`;
             terminal.appendChild(inputLine);
-            
-            // Update the userInput reference to the new element
             userInput = document.getElementById("user-input");
-            
             userInput.addEventListener("keydown", handleInput);
             userInput.focus();
-            
-            // Update placeholder based on auth state
             userInput.placeholder = isAuthenticated ? "Type command..." : "Type password...";
         }
 
-        // Handle user input
         function handleInput(e) {
             if (e.key === "Enter") {
                 const inputText = userInput.value.trim();
                 if (inputText) {
                     const commandLine = document.createElement("div");
                     commandLine.className = "line";
-                    commandLine.textContent = `> ${inputText}`;
+                    commandLine.innerHTML = `<span class="prompt">user@hdo-pro:~$ </span> ${inputText}`;
                     terminal.insertBefore(commandLine, userInput.parentElement);
                     executeCommand(inputText);
                     userInput.value = "";
@@ -426,14 +609,14 @@
             }
         }
 
-        // Focus input field on load and check auth status
         window.addEventListener("load", () => {
-            // Store initial lines (welcome/warning messages)
+            const now = new Date().toString().split(' ').slice(0, 5).join(' ');
+            document.getElementById('last-login').textContent = `Last login: ${now}`;
             const lines = terminal.querySelectorAll('.line');
-            lines.forEach(line => {
-                initialLines.push(line.cloneNode(true));
-            });
-            
+            lines.forEach(line => initialLines.push(line.cloneNode(true)));
+
+            applySettings();
+
             if (isAuthenticated) {
                 addLine("Welcome back! You are already authenticated.", "success");
                 handleCommands();
@@ -442,71 +625,24 @@
             userInput.focus();
         });
 
-        // Ensure input field regains focus
-        terminal.addEventListener("click", () => {
-            userInput.focus();
-        });
-
-        // Attach input handler
+        terminal.addEventListener("click", () => userInput.focus());
         userInput.addEventListener("keydown", handleInput);
 
-        // Prevent right-click, inspect, and dev tools
+        // Basic deterrents
         document.addEventListener("contextmenu", (e) => e.preventDefault());
-        
-        // Prevent keyboard shortcuts for copy, paste, cut, select all, etc.
+        document.addEventListener("selectstart", (e) => e.preventDefault());
         document.addEventListener("keydown", (e) => {
-            // Dev tools shortcuts
-            if (e.key === "F12" || 
-                (e.ctrlKey && e.shiftKey && e.key === "I") || 
-                (e.ctrlKey && e.key === "U") ||
-                (e.ctrlKey && e.shiftKey && e.key === "J") ||
-                (e.ctrlKey && e.shiftKey && e.key === "C") ||
-                (e.key === "F11")) {
-                e.preventDefault();
-                return;
-            }
-            
-            // Copy, paste, cut, select all (only prevent outside input)
             if (e.target.id !== "user-input") {
-                if ((e.ctrlKey || e.metaKey) && 
-                    (e.key === "c" || e.key === "v" || e.key === "x" || e.key === "a")) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === "c" || e.key === "v" || e.key === "x" || e.key === "a")) {
                     e.preventDefault();
                     return;
                 }
             }
-            
-            // Print, save, find shortcuts
-            if ((e.ctrlKey || e.metaKey) && 
-                (e.key === "p" || e.key === "s" || e.key === "f")) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === "p" || e.key === "s" || e.key === "f")) {
                 e.preventDefault();
                 return;
             }
         });
-        
-        // Prevent text selection
-        document.addEventListener("selectstart", (e) => e.preventDefault());
-        
-        // Prevent drag and drop
-        document.addEventListener("dragstart", (e) => e.preventDefault());
-        document.addEventListener("drop", (e) => e.preventDefault());
-        
-        // Prevent copy/paste via clipboard events
-        document.addEventListener("copy", (e) => {
-            if (e.target.id !== "user-input") {
-                e.preventDefault();
-            }
-        });
-        document.addEventListener("paste", (e) => {
-            if (e.target.id !== "user-input") {
-                e.preventDefault();
-            }
-        });
-        document.addEventListener("cut", (e) => {
-            if (e.target.id !== "user-input") {
-                e.preventDefault();
-            }
-        });
     </script>
-<script src="script.js" defer></script>
 </body>
 </html>
