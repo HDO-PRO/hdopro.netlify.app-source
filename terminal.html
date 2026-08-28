@@ -46,6 +46,31 @@
         [data-font-size="normal"] { font-size: 16px; }
         [data-font-size="large"]  { font-size: 20px; }
 
+        /* Font family */
+        [data-font-family="courier"]  { font-family: "Courier New", Courier, monospace; }
+        [data-font-family="consolas"] { font-family: Consolas, "Liberation Mono", monospace; }
+        [data-font-family="monospace"] { font-family: monospace; }
+        [data-font-family="roboto"]   { font-family: "Roboto Mono", "Courier New", monospace; }
+
+        /* Line height */
+        [data-line-height="compact"] { line-height: 1.3; }
+        [data-line-height="normal"]  { line-height: 1.5; }
+        [data-line-height="relaxed"] { line-height: 1.9; }
+
+        /* Noise overlay */
+        #noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 55;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+            mix-blend-mode: overlay;
+        }
+        [data-noise="on"] #noise { opacity: 0.12; }
+
         #scanlines {
             position: fixed;
             inset: 0;
@@ -205,8 +230,8 @@
 
         #guide-btn {
             position: fixed;
-            top: 18px;
-            left: 18px;
+            bottom: 18px;
+            right: 70px;
             width: 44px;
             height: 44px;
             background: rgba(255,255,255,0.08);
@@ -336,12 +361,13 @@
             #terminal { padding: 10px; }
             #settings-btn { bottom: 12px; right: 12px; width: 40px; height: 40px; }
             .github-icon { bottom: 12px; left: 12px; width: 40px; height: 40px; }
-            #guide-btn { top: 12px; left: 12px; width: 40px; height: 40px; }
+            #guide-btn { bottom: 12px; right: 58px; width: 40px; height: 40px; }
         }
     </style>
 </head>
 <body>
     <div id="scanlines"></div>
+    <div id="noise"></div>
 
     <button id="guide-btn" aria-label="Terminal guide">
         <i class="fa-solid fa-book"></i>
@@ -385,11 +411,30 @@
         </div>
 
         <div class="setting">
+            <label>Font family</label>
+            <select id="font-family-select">
+                <option value="courier">Courier New</option>
+                <option value="consolas">Consolas</option>
+                <option value="monospace">System Mono</option>
+                <option value="roboto">Roboto Mono</option>
+            </select>
+        </div>
+
+        <div class="setting">
             <label>Font size</label>
             <select id="font-select">
                 <option value="small">Small</option>
                 <option value="normal">Normal</option>
                 <option value="large">Large</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <label>Line height</label>
+            <select id="line-height-select">
+                <option value="compact">Compact</option>
+                <option value="normal">Normal</option>
+                <option value="relaxed">Relaxed</option>
             </select>
         </div>
 
@@ -399,8 +444,23 @@
         </div>
 
         <div class="setting setting-row">
+            <label for="noise-toggle">CRT noise</label>
+            <input type="checkbox" id="noise-toggle">
+        </div>
+
+        <div class="setting setting-row">
             <label for="sounds-toggle">Terminal sounds</label>
             <input type="checkbox" id="sounds-toggle">
+        </div>
+
+        <div class="setting setting-row">
+            <label for="timestamps-toggle">Show timestamps</label>
+            <input type="checkbox" id="timestamps-toggle">
+        </div>
+
+        <div class="setting setting-row">
+            <label for="warnings-toggle">Show warning banner</label>
+            <input type="checkbox" id="warnings-toggle" checked>
         </div>
 
         <div class="setting setting-row">
@@ -414,14 +474,20 @@
         </div>
 
         <div class="setting">
+            <button id="open-guide">Open Terminal Guide</button>
+        </div>
+
+        <div class="setting">
             <button id="reset-auth">Reset terminal access</button>
         </div>
     </div>
 
     <div id="terminal">
-        <div class="line centered warning">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
-        <div class="line centered warning">You may only use this terminal if you know the passcode to the terminal's server.</div>
-        <div class="line centered warning">Unauthorized access is prohibited.</div>
+        <div id="warning-lines">
+            <div class="line centered warning">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
+            <div class="line centered warning">You may only use this terminal if you know the passcode to the terminal's server.</div>
+            <div class="line centered warning">Unauthorized access is prohibited.</div>
+        </div>
         <div class="line">HDO-Pro Terminal v1.0 — Linux x86_64</div>
         <div class="line">Linux hdo-pro 5.15.0-generic #1 SMP HDO Pro</div>
         <div class="line" id="last-login"></div>
