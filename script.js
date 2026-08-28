@@ -31,19 +31,19 @@
 
   const config = {
     navLinks: [
-      { href: '/home.html', label: 'Home', icon: 'fa-house' },
-      { href: '/about.html', label: 'About', icon: 'fa-circle-info' },
-      { href: '/downloads.html', label: 'Downloads', icon: 'fa-download' },
-      { href: '/releases.html', label: 'Releases', icon: 'fa-clipboard-list' },
-      { href: '/status.html', label: 'Status', icon: 'fa-signal' },
-      { href: '/faq.html', label: 'FAQ', icon: 'fa-circle-question' },
-      { href: '/guide.html', label: 'Guide', icon: 'fa-book' },
-      { href: '/tutorial.html', label: 'Tutorial', icon: 'fa-graduation-cap' },
-      { href: '/rules.html', label: 'Rules', icon: 'fa-scale-balanced' },
-      { href: '/support.html', label: 'Support', icon: 'fa-life-ring' },
-      { href: '/contact.html', label: 'Contact', icon: 'fa-envelope' },
-      { href: '/invite.html', label: 'Community', icon: 'fa-users' },
-      { href: '/donate.html', label: 'Donate', icon: 'fa-heart' },
+      { href: '/home', label: 'Home', icon: 'fa-house' },
+      { href: '/about', label: 'About', icon: 'fa-circle-info' },
+      { href: '/downloads', label: 'Downloads', icon: 'fa-download' },
+      { href: '/releases', label: 'Releases', icon: 'fa-clipboard-list' },
+      { href: '/status', label: 'Status', icon: 'fa-signal' },
+      { href: '/faq', label: 'FAQ', icon: 'fa-circle-question' },
+      { href: '/guide', label: 'Guide', icon: 'fa-book' },
+      { href: '/tutorial', label: 'Tutorial', icon: 'fa-graduation-cap' },
+      { href: '/rules', label: 'Rules', icon: 'fa-scale-balanced' },
+      { href: '/support', label: 'Support', icon: 'fa-life-ring' },
+      { href: '/contact', label: 'Contact', icon: 'fa-envelope' },
+      { href: '/invite', label: 'Community', icon: 'fa-users' },
+      { href: '/donate', label: 'Donate', icon: 'fa-heart' },
       { href: 'https://github.com/HDO-PRO', label: 'GitHub', icon: 'fa-github', external: true },
       { id: 'pwa-install', label: 'Install', icon: 'fa-mobile-screen', action: 'install' }
     ]

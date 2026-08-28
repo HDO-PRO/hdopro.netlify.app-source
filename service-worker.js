@@ -15,7 +15,8 @@ const urlsToCache = [
   '/style.css',
   '/releases.html',
   '/faq.html',
-  '/status.html'
+  '/status.html',
+  '/pixels.js'
 ];
 
 self.addEventListener('install', event => {
