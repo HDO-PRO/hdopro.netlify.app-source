@@ -5,131 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <meta http-equiv="refresh" content="0;url=/invite">
-    <meta property="og:url" content="/apk" />
-    <meta property="og:title" content="HDO Pro | Invite">
-    <meta property="og:description" content="Get your invite to HDO Pro.">
+    <meta property="og:url" content="/sign-in" />
+    <meta property="og:title" content="HDO Pro | Sign In">
+    <meta property="og:description" content="Redirecting to HDO Pro invite.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link href="style.css" rel="stylesheet" type="text/css" />
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
-            color: #e0e0e0;
-            overflow: hidden;
+            padding: 20px;
         }
-
         .container {
-            max-width: 600px;
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 12px;
-            background: #1e1e1e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1.5s ease-in-out;
+            max-width: 420px;
+            padding: 24px;
         }
-
-        p {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-
-        a {
-            color: #bb86fc;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-            a:hover {
-                color: #ff4081;
-            }
-
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4), transparent);
-            z-index: -1;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+        a { color: #ff99cc; }
     </style>
-    <script>
-        // Disable right-click
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-            redirectToRickRoll();
-        });
-
-        // Disable text selection
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-
-        // Redirect to Rick Roll if DevTools are opened
-        let threshold = 160;
-        let start = performance.now();
-        debugger;
-        let end = performance.now();
-        if (end - start > threshold) {
-            redirectToRickRoll();
-        }
-
-        // Detect key combinations for DevTools
-        document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
-                redirectToRickRoll();
-            }
-        });
-
-        // Detect right-click and prevent context menu
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-            redirectToRickRoll();
-        });
-
-        // Redirect function
-        function redirectToRickRoll() {
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117 || e.keyCode === 123 || e.keyCode === 73)) {
-                e.preventDefault();
-                redirectToRickRoll();
-            }
-        });
-
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-    </script>
 </head>
 <body>
     <div class="container">
-        <p>You are being redirected to the invite page. If you are not redirected automatically, <a href="/invite">click here</a>.</p>
-        <p>Contact our community if you need help.</p>
+        <p>Redirecting you to the invite page…</p>
+        <p>If you are not redirected automatically, <a href="/invite">click here</a>.</p>
     </div>
-
-    <canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
-    <script src="pixels.js" defer></script>
 </body>
 </html>
