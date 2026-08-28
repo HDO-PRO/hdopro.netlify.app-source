@@ -246,6 +246,45 @@ html.hdo-neon-glow :is(h1, h2, h3, h4, h5, h6) {
 }
 
 /*──────────────────
+     Hide/Show settings
+──────────────────*/
+
+html.hdo-hide-images img,
+html.hdo-hide-images .gif-container,
+html.hdo-hide-images video,
+html.hdo-hide-images iframe,
+html.hdo-hide-images object,
+html.hdo-hide-images embed {
+  display: none !important;
+}
+
+html.hdo-hide-header header,
+html.hdo-hide-header .site-header,
+html.hdo-hide-header .page-header {
+  display: none !important;
+}
+
+html.hdo-hide-hero .hero,
+html.hdo-hide-hero .hero-section,
+html.hdo-hide-hero .banner {
+  display: none !important;
+}
+
+html.hdo-hide-footer footer,
+html.hdo-hide-footer .bottom-stack,
+html.hdo-hide-footer .site-footer {
+  display: none !important;
+}
+
+html.hdo-plain-bg body::before,
+html.hdo-plain-bg body::after,
+html.hdo-plain-bg .mist,
+html.hdo-plain-bg .aurora,
+html.hdo-plain-bg #hdo-pixels {
+  display: none !important;
+}
+
+/*──────────────────
      Utility scale animation
 ──────────────────*/
 

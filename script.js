@@ -59,9 +59,15 @@
     'reduced-motion': false,
     'high-contrast': false,
     'large-text': false,
+    'small-text': false,
     'compact-mode': false,
     'neon-glow': false,
-    'no-creatures': false
+    'no-creatures': false,
+    'hide-images': false,
+    'hide-header': false,
+    'hide-hero': false,
+    'plain-bg': false,
+    'hide-footer': false
   }, saved || {});
 
   function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
@@ -70,9 +76,15 @@
     document.documentElement.classList.toggle('hdo-reduced-motion', state['reduced-motion']);
     document.documentElement.classList.toggle('hdo-high-contrast', state['high-contrast']);
     document.documentElement.classList.toggle('hdo-large-text', state['large-text']);
+    document.documentElement.classList.toggle('hdo-small-text', state['small-text']);
     document.documentElement.classList.toggle('hdo-compact-mode', state['compact-mode']);
     document.documentElement.classList.toggle('hdo-neon-glow', state['neon-glow']);
-    document.body.style.fontSize = state['large-text'] ? '112%' : '';
+    document.documentElement.classList.toggle('hdo-hide-images', state['hide-images']);
+    document.documentElement.classList.toggle('hdo-hide-header', state['hide-header']);
+    document.documentElement.classList.toggle('hdo-hide-hero', state['hide-hero']);
+    document.documentElement.classList.toggle('hdo-plain-bg', state['plain-bg']);
+    document.documentElement.classList.toggle('hdo-hide-footer', state['hide-footer']);
+    document.body.style.fontSize = state['large-text'] ? '1.12rem' : (state['small-text'] ? '0.9rem' : '');
     const pixelCanvas = document.getElementById('hdo-pixels');
     if (pixelCanvas) {
       pixelCanvas.style.display = state['no-creatures'] ? 'none' : '';
@@ -173,8 +185,8 @@
         transition: transform .35s cubic-bezier(.4,.0,.2,1), opacity .3s;
         overflow-y: auto;
       }
-      #hdo-nav-panel { left: 0; }
-      #hdo-settings-panel { right: 0; transform: translateX(100%); }
+      #hdo-nav-panel { left: 0; border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+      #hdo-settings-panel { right: 0; transform: translateX(100%); border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
       .hdo-ui-panel.open { transform: translateX(0); opacity: 1; }
       .hdo-ui-panel h2 { margin: 0 0 22px; font-size: 22px; color: #ff66b2; }
       .hdo-ui-panel .close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; }
@@ -277,9 +289,15 @@
       { id: 'reduced-motion', label: 'Reduced motion' },
       { id: 'high-contrast', label: 'High contrast' },
       { id: 'large-text', label: 'Large text' },
+      { id: 'small-text', label: 'Small text' },
       { id: 'compact-mode', label: 'Compact mode' },
       { id: 'neon-glow', label: 'Neon glow' },
-      { id: 'no-creatures', label: 'Hide pixel creatures' }
+      { id: 'no-creatures', label: 'Hide pixel creatures' },
+      { id: 'hide-images', label: 'Hide images' },
+      { id: 'hide-header', label: 'Hide header' },
+      { id: 'hide-hero', label: 'Hide hero' },
+      { id: 'plain-bg', label: 'Plain background' },
+      { id: 'hide-footer', label: 'Hide footer' }
     ];
 
     settingsDefs.forEach(setting => {
