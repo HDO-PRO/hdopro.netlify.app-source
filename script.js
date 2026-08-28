@@ -18,21 +18,24 @@
     });
   }
 
+  // Run security before anything else
+  initSecurity();
+
   // Skip UI injection on the index/landing page
   if (isIndex) return;
 
   const config = {
     navLinks: [
-      { href: '/home', label: 'Home', icon: 'fa-house' },
-      { href: '/about', label: 'About', icon: 'fa-circle-info' },
-      { href: '/downloads', label: 'Downloads', icon: 'fa-download' },
-      { href: '/guide', label: 'Guide', icon: 'fa-book' },
-      { href: '/tutorial', label: 'Tutorial', icon: 'fa-graduation-cap' },
-      { href: '/rules', label: 'Rules', icon: 'fa-scale-balanced' },
-      { href: '/support', label: 'Support', icon: 'fa-life-ring' },
-      { href: '/contact', label: 'Contact', icon: 'fa-envelope' },
-      { href: '/invite', label: 'Community', icon: 'fa-users' },
-      { href: '/donate', label: 'Donate', icon: 'fa-heart' },
+      { href: '/home.html', label: 'Home', icon: 'fa-house' },
+      { href: '/about.html', label: 'About', icon: 'fa-circle-info' },
+      { href: '/downloads.html', label: 'Downloads', icon: 'fa-download' },
+      { href: '/guide.html', label: 'Guide', icon: 'fa-book' },
+      { href: '/tutorial.html', label: 'Tutorial', icon: 'fa-graduation-cap' },
+      { href: '/rules.html', label: 'Rules', icon: 'fa-scale-balanced' },
+      { href: '/support.html', label: 'Support', icon: 'fa-life-ring' },
+      { href: '/contact.html', label: 'Contact', icon: 'fa-envelope' },
+      { href: '/invite.html', label: 'Community', icon: 'fa-users' },
+      { href: '/donate.html', label: 'Donate', icon: 'fa-heart' },
       { href: 'https://github.com/HDO-PRO', label: 'GitHub', icon: 'fa-github', external: true }
     ]
   };
@@ -55,6 +58,30 @@
     document.documentElement.classList.toggle('hdo-high-contrast', state['high-contrast']);
     document.documentElement.classList.toggle('hdo-large-text', state['large-text']);
     document.body.style.fontSize = state['large-text'] ? '112%' : '';
+  }
+
+  function initSecurity() {
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy', e => e.preventDefault());
+    document.addEventListener('cut', e => e.preventDefault());
+    document.addEventListener('paste', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.ctrlKey && ['u','s','c','i','j'].includes(e.key))
+      ) {
+        e.preventDefault();
+      }
+    });
+    function detectDevTools() {
+      const threshold = 160;
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        console.warn('DevTools detected');
+      }
+    }
+    setInterval(detectDevTools, 1000);
   }
 
   function setSetting(id, value) {

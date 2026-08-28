@@ -91,6 +91,32 @@ All pages follow this structure:
 
 ---
 
+## ✨ Theme & UI
+
+The site now ships with a shared, AMOLED-friendly dark theme and glassmorphism UI:
+
+- Pure black base (`#000000`) with a CSS-only animated aurora background.
+- Glass windows: frosted black cards with `backdrop-filter: blur()` and soft white borders.
+- Floating bottom navigation menu (left) and settings panel (right) on active pages.
+- Smooth scroll, improved scrollbar, focus styles, and reduced-motion support.
+
+## 🛡️ Security
+
+Active pages load a shared security script that helps protect the site from casual inspection:
+
+- Right-click context menu is disabled.
+- Common dev-tools shortcuts are blocked (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, etc.).
+- Copy, cut, paste, and text selection are prevented by default.
+- A simple viewport-gap check runs to detect when developer tools may be open.
+
+## 🚀 Navigation
+
+Use the floating menu and settings buttons on the bottom of most pages, or open any page directly:
+
+`https://hdopro.netlify.app/<page>.html`
+
+For the cleanest URLs, all internal links in the nav now use `.html` endings.
+
 ## 🔒 Important Notice
 
 Please note: this project and its resources are considered **private/internal**.
