@@ -45,6 +45,7 @@ The original `.html` files still work as well:
 * Releases — [https://hdopro.netlify.app/releases.html](https://hdopro.netlify.app/releases.html)
 * Status — [https://hdopro.netlify.app/status.html](https://hdopro.netlify.app/status.html)
 * FAQ — [https://hdopro.netlify.app/faq.html](https://hdopro.netlify.app/faq.html)
+* Site Map — [https://hdopro.netlify.app/sitemap.html](https://hdopro.netlify.app/sitemap.html)
 
 ---
 

@@ -37,6 +37,7 @@
       { href: '/releases', label: 'Releases', icon: 'fa-clipboard-list' },
       { href: '/status', label: 'Status', icon: 'fa-signal' },
       { href: '/faq', label: 'FAQ', icon: 'fa-circle-question' },
+      { href: '/sitemap', label: 'Site Map', icon: 'fa-sitemap' },
       { href: '/guide', label: 'Guide', icon: 'fa-book' },
       { href: '/tutorial', label: 'Tutorial', icon: 'fa-graduation-cap' },
       { href: '/rules', label: 'Rules', icon: 'fa-scale-balanced' },

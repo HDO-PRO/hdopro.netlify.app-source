@@ -16,6 +16,7 @@ const urlsToCache = [
   '/releases.html',
   '/faq.html',
   '/status.html',
+  '/sitemap.html',
   '/pixels.js'
 ];
 
