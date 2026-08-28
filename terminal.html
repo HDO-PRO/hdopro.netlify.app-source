@@ -131,7 +131,22 @@
             font-size: 1.2rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             padding-bottom: 10px;
+            padding-right: 40px;
         }
+
+        #settings-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 2;
+        }
+        #settings-close:hover { color: var(--term-prompt); }
 
         .setting {
             margin: 16px 0;
@@ -398,6 +413,7 @@
 
     <div id="settings-panel" aria-label="Terminal settings panel">
         <h2>Terminal Settings</h2>
+        <button id="settings-close" aria-label="Close settings" title="Close settings">&times;</button>
 
         <div class="setting">
             <label>Color theme</label>
@@ -520,8 +536,13 @@
         const settings = Object.assign({
             theme: 'green',
             fontSize: 'normal',
+            fontFamily: 'courier',
+            lineHeight: 'normal',
             scanlines: false,
+            noise: false,
             sounds: false,
+            timestamps: false,
+            showWarnings: true,
             showDmca: true,
             showGithub: true
         }, JSON.parse(localStorage.getItem('hdoTerminalSettings') || '{}'));
@@ -546,15 +567,25 @@
             const root = document.documentElement;
             root.dataset.theme = settings.theme;
             root.dataset.fontSize = settings.fontSize;
+            root.dataset.fontFamily = settings.fontFamily;
+            root.dataset.lineHeight = settings.lineHeight;
             root.dataset.scanlines = settings.scanlines ? 'on' : 'off';
+            root.dataset.noise = settings.noise ? 'on' : 'off';
 
             document.getElementById('theme-select').value = settings.theme;
             document.getElementById('font-select').value = settings.fontSize;
+            document.getElementById('font-family-select').value = settings.fontFamily;
+            document.getElementById('line-height-select').value = settings.lineHeight;
             document.getElementById('scanlines-toggle').checked = settings.scanlines;
+            document.getElementById('noise-toggle').checked = settings.noise;
             document.getElementById('sounds-toggle').checked = settings.sounds;
+            document.getElementById('timestamps-toggle').checked = settings.timestamps;
+            document.getElementById('warnings-toggle').checked = settings.showWarnings;
             document.getElementById('dmca-toggle').checked = settings.showDmca;
             document.getElementById('github-toggle').checked = settings.showGithub;
 
+            const warnings = document.getElementById('warning-lines');
+            if (warnings) warnings.classList.toggle('hidden', !settings.showWarnings);
             document.querySelector('.dmca-notice').classList.toggle('hidden', !settings.showDmca);
             document.querySelector('.github-icon').classList.toggle('hidden', !settings.showGithub);
 
@@ -578,8 +609,13 @@
         function saveSettings() {
             settings.theme = document.getElementById('theme-select').value;
             settings.fontSize = document.getElementById('font-select').value;
+            settings.fontFamily = document.getElementById('font-family-select').value;
+            settings.lineHeight = document.getElementById('line-height-select').value;
             settings.scanlines = document.getElementById('scanlines-toggle').checked;
+            settings.noise = document.getElementById('noise-toggle').checked;
             settings.sounds = document.getElementById('sounds-toggle').checked;
+            settings.timestamps = document.getElementById('timestamps-toggle').checked;
+            settings.showWarnings = document.getElementById('warnings-toggle').checked;
             settings.showDmca = document.getElementById('dmca-toggle').checked;
             settings.showGithub = document.getElementById('github-toggle').checked;
             applySettings();
@@ -595,6 +631,15 @@
             localStorage.removeItem('hdoProAuth');
             isAuthenticated = false;
             addLine('Terminal access reset. Refresh to re-authenticate.', 'success');
+        });
+
+        document.getElementById('settings-close').addEventListener('click', () => {
+            settingsPanel.classList.remove('open');
+        });
+
+        document.getElementById('open-guide').addEventListener('click', () => {
+            settingsPanel.classList.remove('open');
+            guideBtn.click();
         });
 
         // Guide panel + hard puzzle lock
@@ -884,13 +929,19 @@
             userInput.placeholder = isAuthenticated ? "Type command..." : "Type password...";
         }
 
+        function getTimestamp() {
+            const d = new Date();
+            return `[${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}] `;
+        }
+
         function handleInput(e) {
             if (e.key === "Enter") {
                 const inputText = userInput.value.trim();
                 if (inputText) {
                     const commandLine = document.createElement("div");
                     commandLine.className = "line";
-                    commandLine.innerHTML = `<span class="prompt">user@hdo-pro:~$ </span> ${inputText}`;
+                    const ts = settings.timestamps ? getTimestamp() : '';
+                    commandLine.innerHTML = `${ts}<span class="prompt">user@hdo-pro:~$ </span> ${inputText}`;
                     terminal.insertBefore(commandLine, userInput.parentElement);
                     executeCommand(inputText);
                     userInput.value = "";
