@@ -298,12 +298,107 @@
   }
 
   function init() {
+    initPuzzle();
+  }
+
+  function completeInit() {
     applySettings();
-    buildUI();
+    if (!isIndex) buildUI();
     // Subtle page entrance for main containers
     const firstContainer = document.querySelector('body > div, body > section, body > main');
     if (firstContainer && !firstContainer.classList.contains('hdo-animate-fade')) {
       firstContainer.classList.add('hdo-animate-fade');
+    }
+  }
+
+  function injectPuzzleStyles() {
+    if (document.getElementById('hdo-puzzle-styles')) return;
+    const style = createEl('style', { id: 'hdo-puzzle-styles' });
+    style.textContent = `
+      .hdo-puzzle-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 99998; display: flex; align-items: center; justify-content: center; padding: 20px; }
+      .hdo-puzzle-box { background: var(--hdo-glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; text-align: center; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+      .hdo-puzzle-box h2 { margin: 0 0 16px; color: #ff66b2; font-size: 22px; }
+      .hdo-puzzle-hint { color: #ccc; font-size: 13px; margin: 0 0 10px; }
+      .hdo-puzzle-question { font-size: 18px; margin: 16px 0; color: #fff; }
+      .hdo-puzzle-input { width: 100%; padding: 12px; margin: 16px 0 20px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; background: rgba(0,0,0,0.5); color: #fff; font-size: 16px; text-align: center; box-sizing: border-box; }
+      .hdo-puzzle-input:focus { outline: 2px solid #ff66b2; }
+      .hdo-puzzle-submit { background: #ff66b2; color: #fff; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-size: 16px; width: 100%; }
+      .hdo-puzzle-submit:hover { background: #e05599; }
+      .hdo-puzzle-error { color: #ff6666; font-size: 13px; min-height: 18px; margin: 12px 0 0; }
+      .hdo-puzzle-text { font-size: 14px; line-height: 1.5; color: #ddd; text-align: left; margin: 0 0 20px; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function initPuzzle() {
+    if (localStorage.getItem('hdo-verified') === 'true') {
+      completeInit();
+      return;
+    }
+    injectPuzzleStyles();
+
+    const overlay = createEl('div', { id: 'hdo-puzzle-overlay', class: 'hdo-puzzle-overlay' });
+    const box = createEl('div', { class: 'hdo-puzzle-box' });
+
+    const isIndexPage = isIndex;
+    let question, answer;
+    if (isIndexPage) {
+      const a = Math.floor(Math.random() * 5) + 2;
+      const b = Math.floor(Math.random() * 5) + 2;
+      question = 'What is ' + a + ' + ' + b + '?';
+      answer = String(a + b);
+    } else {
+      const a = Math.floor(Math.random() * 9) + 5;
+      const b = Math.floor(Math.random() * 9) + 5;
+      const c = Math.floor(Math.random() * 20) + 1;
+      question = 'What is (' + a + ' × ' + b + ') − ' + c + '?';
+      answer = String(a * b - c);
+    }
+
+    box.innerHTML = '<h2>Verify to enter</h2>' +
+      '<p class="hdo-puzzle-hint">' + (isIndexPage ? 'This is the easy gate.' : 'This is the harder gate for this page.') + '</p>' +
+      '<p class="hdo-puzzle-question">' + question + '</p>' +
+      '<input type="text" class="hdo-puzzle-input" id="hdo-puzzle-answer" placeholder="Answer" autocomplete="off">' +
+      '<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>' +
+      '<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>';
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+    document.getElementById('hdo-puzzle-answer').focus();
+
+    function check() {
+      const input = document.getElementById('hdo-puzzle-answer');
+      const error = document.getElementById('hdo-puzzle-error');
+      const userAnswer = input.value.trim();
+      if (userAnswer === answer) {
+        showDmca();
+      } else {
+        error.textContent = 'Incorrect. Please try again.';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('hdo-puzzle-submit').addEventListener('click', check);
+    document.getElementById('hdo-puzzle-answer').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') check();
+    });
+
+    function showDmca() {
+      overlay.innerHTML = '<div class="hdo-puzzle-box">' +
+        '<h2>DMCA & Disclaimer</h2>' +
+        '<p class="hdo-puzzle-text">' +
+          'This site and the HDO Pro project do not host, upload, store, or distribute any media content. ' +
+          'All content accessed through third-party applications or services remains the responsibility of its respective providers. ' +
+          'This is intended for personal use only. Users are responsible for complying with all applicable laws and regulations in their jurisdiction. ' +
+          'By entering, you acknowledge that you have read and understood this notice.' +
+        '</p>' +
+        '<button class="hdo-puzzle-submit" id="hdo-puzzle-agree">I agree, enter</button>' +
+      '</div>';
+      document.getElementById('hdo-puzzle-agree').addEventListener('click', function () {
+        localStorage.setItem('hdo-verified', 'true');
+        overlay.remove();
+        completeInit();
+      });
     }
   }
 
