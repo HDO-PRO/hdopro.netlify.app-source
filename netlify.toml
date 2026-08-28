@@ -4,6 +4,11 @@
   status = 200
 
 [[redirects]]
+  from = "/home"
+  to = "/H0M3"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/:splat.html"
   status = 200

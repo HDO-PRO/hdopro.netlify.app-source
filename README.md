@@ -18,9 +18,13 @@ This repo provides quick access to all available pages on the HDO PRO site.
 
 ## 📌 Quick Navigation Format
 
-All pages follow this structure:
+All pages are available through clean Netlify URLs:
 
-[https://hdopro.netlify.app/](https://hdopro.netlify.app/)<page>.html
+`https://hdopro.netlify.app/<page>`
+
+The original `.html` files still work as well:
+
+`https://hdopro.netlify.app/<page>.html`
 
 ---
 
@@ -28,12 +32,19 @@ All pages follow this structure:
 
 ### 🏠 Core Pages
 
-* Home — [https://hdopro.netlify.app/home.html](https://hdopro.netlify.app/home.html)
+* H0M3 — [https://hdopro.netlify.app/H0M3.html](https://hdopro.netlify.app/H0M3.html)
 * Index — [https://hdopro.netlify.app/index.html](https://hdopro.netlify.app/index.html)
-* New Home — [https://hdopro.netlify.app/newhome.html](https://hdopro.netlify.app/newhome.html)
 * About — [https://hdopro.netlify.app/about.html](https://hdopro.netlify.app/about.html)
 * Guide — [https://hdopro.netlify.app/guide.html](https://hdopro.netlify.app/guide.html)
 * Tutorial — [https://hdopro.netlify.app/tutorial.html](https://hdopro.netlify.app/tutorial.html)
+
+---
+
+### 📰 New & Info Pages
+
+* Releases — [https://hdopro.netlify.app/releases.html](https://hdopro.netlify.app/releases.html)
+* Status — [https://hdopro.netlify.app/status.html](https://hdopro.netlify.app/status.html)
+* FAQ — [https://hdopro.netlify.app/faq.html](https://hdopro.netlify.app/faq.html)
 
 ---
 
@@ -50,8 +61,8 @@ All pages follow this structure:
 ### 📺 Media & Tools
 
 * Downloads — [https://hdopro.netlify.app/downloads.html](https://hdopro.netlify.app/downloads.html)
-* Player APK — [https://hdopro.netlify.app/player-apk.html](https://hdopro.netlify.app/player-apk.html)
 * Fire APK — [https://hdopro.netlify.app/fire-apk.html](https://hdopro.netlify.app/fire-apk.html)
+* Player APK — [https://hdopro.netlify.app/player-apk.html](https://hdopro.netlify.app/player-apk.html)
 * Roku Download — [https://hdopro.netlify.app/roku-download.html](https://hdopro.netlify.app/roku-download.html)
 * Frame — [https://hdopro.netlify.app/frame.html](https://hdopro.netlify.app/frame.html)
 * Terminal — [https://hdopro.netlify.app/terminal.html](https://hdopro.netlify.app/terminal.html)
@@ -75,13 +86,6 @@ All pages follow this structure:
 
 ---
 
-### 🧪 Development / Testing
-
-* D3VS — [https://hdopro.netlify.app/d3vs.html](https://hdopro.netlify.app/d3vs.html)
-* Test — [https://hdopro.netlify.app/test.html](https://hdopro.netlify.app/test.html)
-
----
-
 ## ⚡ Notes
 
 * All pages are hosted under the main domain: [https://hdopro.netlify.app](https://hdopro.netlify.app)
@@ -95,32 +99,30 @@ All pages follow this structure:
 
 The site now ships with a shared, AMOLED-friendly dark theme and glassmorphism UI:
 
-- Pure black base (`#000000`) with a CSS-only animated aurora background.
-- Glass windows: frosted black cards with `backdrop-filter: blur()` and soft white borders.
-- Floating bottom navigation menu (left) and settings panel (right) on active pages.
-- Smooth scroll, improved scrollbar, focus styles, and reduced-motion support.
+* Pure black base (`#000000`) with a CSS-only animated aurora background.
+* Glass windows: frosted black cards with `backdrop-filter: blur()` and soft white borders.
+* Floating bottom navigation menu (left) and settings panel (right) on active pages.
+* Smooth scroll, improved scrollbar, focus styles, and reduced-motion support.
+* Animated page entrance with staggered fade-in effects.
 
 ## 🛡️ Security
 
 Active pages load a shared security script that helps protect the site from casual inspection:
 
-- Right-click context menu is disabled.
-- Common dev-tools shortcuts are blocked (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, etc.).
-- Copy, cut, paste, and text selection are prevented by default.
-- A simple viewport-gap check runs to detect when developer tools may be open.
+* Right-click context menu is disabled.
+* Common dev-tools shortcuts are blocked (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, etc.).
+* Copy, cut, paste, and text selection are prevented by default.
+* A simple viewport-gap check runs to detect when developer tools may be open.
 
 ## 🚀 Navigation
 
 Use the floating menu and settings buttons on the bottom of most pages, or open any page directly:
 
-`https://hdopro.netlify.app/<page>.html`
+`https://hdopro.netlify.app/<page>`
 
-For the cleanest URLs, all internal links in the nav now use `.html` endings.
+For the cleanest URLs, all internal links in the nav now use forward-slash paths.
 
 ## 🔒 Important Notice
 
 Please note: this project and its resources are considered **private/internal**.
 Do not redistribute or publicly share sensitive development links or code.
-
----
-

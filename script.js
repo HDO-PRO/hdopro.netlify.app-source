@@ -31,7 +31,7 @@
 
   const config = {
     navLinks: [
-      { href: '/home', label: 'Home', icon: 'fa-house' },
+      { href: '/H0M3', label: 'H0M3', icon: 'fa-house' },
       { href: '/about', label: 'About', icon: 'fa-circle-info' },
       { href: '/downloads', label: 'Downloads', icon: 'fa-download' },
       { href: '/releases', label: 'Releases', icon: 'fa-clipboard-list' },

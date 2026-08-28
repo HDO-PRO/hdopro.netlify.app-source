@@ -2,7 +2,7 @@ const CACHE_NAME = 'my-pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/home.html',
+  '/H0M3',
   '/dev.html',
   '/downloads.html',
   '/about.html',
