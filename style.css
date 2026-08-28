@@ -69,12 +69,9 @@ html body {
   outline-offset: 2px;
 }
 
-a {
-  transition: color 0.2s ease;
-}
-
+a,
 button {
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 img,
@@ -98,6 +95,16 @@ iframe {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55),
               inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+html :is(.container, .box, .app-container, .announcement-container, .discord-container,
+    .contact-container, .password-container, .feature, .notification, .modal-content,
+    .side-menu, .hero, #download-hdo-pro, .dmca-notice, .github-icon, .hdo-glass):hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65),
+              0 0 25px rgba(255, 102, 178, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
 /* ensure headings inside main glass windows are white and readable */
@@ -194,6 +201,50 @@ html body::after {
 
 .hdo-animate-float {
   animation: hdo-float 4s ease-in-out infinite;
+}
+
+/*──────────────────
+     Settings variants
+──────────────────*/
+
+html.hdo-high-contrast {
+  filter: contrast(1.25);
+}
+
+html.hdo-compact-mode {
+  font-size: 14px;
+}
+
+html.hdo-compact-mode :is(.container, .box, .app-container, .announcement-container, .discord-container,
+    .contact-container, .password-container, .feature, .notification, .modal-content,
+    .side-menu, .hero, #download-hdo-pro, .dmca-notice, .github-icon, .hdo-glass) {
+  padding: 12px 16px !important;
+}
+
+html.hdo-neon-glow :is(.container, .box, .app-container, .announcement-container, .discord-container,
+    .contact-container, .password-container, .feature, .notification, .modal-content,
+    .side-menu, .hero, #download-hdo-pro, .dmca-notice, .github-icon, .hdo-glass) {
+  box-shadow: 0 0 30px rgba(255, 102, 178, 0.35),
+              0 10px 40px rgba(0, 0, 0, 0.55),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 153, 204, 0.25) !important;
+}
+
+html.hdo-neon-glow :is(h1, h2, h3, h4, h5, h6) {
+  text-shadow: 0 0 12px rgba(255, 102, 178, 0.5);
+}
+
+/*──────────────────
+     Utility scale animation
+──────────────────*/
+
+@keyframes hdo-scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hdo-animate-scale {
+  animation: hdo-scaleIn 0.45s ease-out both;
 }
 
 /* Respect reduced motion */

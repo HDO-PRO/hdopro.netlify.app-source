@@ -57,7 +57,10 @@
   const state = Object.assign({
     'reduced-motion': false,
     'high-contrast': false,
-    'large-text': false
+    'large-text': false,
+    'compact-mode': false,
+    'neon-glow': false,
+    'no-creatures': false
   }, saved || {});
 
   function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
@@ -66,7 +69,13 @@
     document.documentElement.classList.toggle('hdo-reduced-motion', state['reduced-motion']);
     document.documentElement.classList.toggle('hdo-high-contrast', state['high-contrast']);
     document.documentElement.classList.toggle('hdo-large-text', state['large-text']);
+    document.documentElement.classList.toggle('hdo-compact-mode', state['compact-mode']);
+    document.documentElement.classList.toggle('hdo-neon-glow', state['neon-glow']);
     document.body.style.fontSize = state['large-text'] ? '112%' : '';
+    const pixelCanvas = document.getElementById('hdo-pixels');
+    if (pixelCanvas) {
+      pixelCanvas.style.display = state['no-creatures'] ? 'none' : '';
+    }
   }
 
   function initSecurity() {
@@ -227,11 +236,13 @@
     const menuBtn = createEl('button', { id: 'hdo-menu-btn', class: 'hdo-ui-fab', 'aria-label': 'Open navigation menu' });
     menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
     menuBtn.addEventListener('click', () => togglePanel('nav'));
+    menuBtn.classList.add('hdo-animate-fade');
     document.body.appendChild(menuBtn);
 
     const settingsBtn = createEl('button', { id: 'hdo-settings-btn', class: 'hdo-ui-fab', 'aria-label': 'Open settings' });
     settingsBtn.innerHTML = '<i class="fa-solid fa-gear"></i>';
     settingsBtn.addEventListener('click', () => togglePanel('settings'));
+    settingsBtn.classList.add('hdo-animate-fade');
     document.body.appendChild(settingsBtn);
 
     const navPanel = createEl('aside', { id: 'hdo-nav-panel', class: 'hdo-ui-panel', 'aria-label': 'Navigation menu' });
@@ -264,7 +275,10 @@
     const settingsDefs = [
       { id: 'reduced-motion', label: 'Reduced motion' },
       { id: 'high-contrast', label: 'High contrast' },
-      { id: 'large-text', label: 'Large text' }
+      { id: 'large-text', label: 'Large text' },
+      { id: 'compact-mode', label: 'Compact mode' },
+      { id: 'neon-glow', label: 'Neon glow' },
+      { id: 'no-creatures', label: 'Hide pixel creatures' }
     ];
 
     settingsDefs.forEach(setting => {
@@ -298,6 +312,7 @@
     const backToTop = createEl('button', { id: 'hdo-back-to-top', class: 'hdo-ui-backtotop', 'aria-label': 'Back to top' });
     backToTop.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
     backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    backToTop.classList.add('hdo-animate-fade');
     document.body.appendChild(backToTop);
 
     window.addEventListener('scroll', () => {
@@ -343,6 +358,15 @@
         el.classList.add('hdo-animate-fade');
       }
     });
+    // Staggered text and control animations inside glass blocks
+    const childEls = document.querySelectorAll('.container > h1, .container > h2, .container > h3, .container > p, .container > li, .container > a, .box > h1, .box > h2, .box > p, .box > li, .box > a, .app-container > h1, .app-container > h2, .app-container > p, .app-container > li, .app-container > a, .announcement-container > h1, .announcement-container > p, .discord-container > h1, .discord-container > p, .contact-container > h1, .contact-container > p, .password-container > h1, .password-container > p, .feature > h3, .feature > p, .notification > p, .modal-content > h2, .modal-content > p, .side-menu > li, .side-menu > a, .hero > h1, .hero > p, .hero > a, #download-hdo-pro > h1, #download-hdo-pro > p, #download-hdo-pro > a, .dmca-notice > a, .github-icon > a, .hdo-glass > h1, .hdo-glass > p, .hdo-glass > a, .hdo-glass > li');
+    childEls.forEach(function (el, i) {
+      if (!el.classList.contains('hdo-animate-fade')) {
+        el.style.animationDelay = (i * 40) + 'ms';
+        el.classList.add('hdo-animate-fade');
+      }
+    });
+
     const firstContainer = document.querySelector('body > div, body > section, body > main');
     if (firstContainer && !firstContainer.classList.contains('hdo-animate-fade')) {
       firstContainer.classList.add('hdo-animate-fade');
@@ -407,7 +431,7 @@
       '<input type="text" class="hdo-puzzle-input" id="hdo-puzzle-answer" placeholder="Answer" autocomplete="off">' +
       '<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>' +
       '<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>';
-    box.classList.add('hdo-animate-fade');
+    box.classList.add('hdo-animate-fade', 'hdo-animate-scale');
     overlay.appendChild(box);
     document.body.appendChild(overlay);
     document.getElementById('hdo-puzzle-answer').focus();
@@ -442,7 +466,7 @@
         '<button class="hdo-puzzle-submit" id="hdo-puzzle-agree">I agree, enter</button>' +
       '</div>';
       const dmcaBox = overlay.querySelector('.hdo-puzzle-box');
-      if (dmcaBox) dmcaBox.classList.add('hdo-animate-fade');
+      if (dmcaBox) dmcaBox.classList.add('hdo-animate-fade', 'hdo-animate-scale');
       document.getElementById('hdo-puzzle-agree').addEventListener('click', function () {
         try { localStorage.setItem('hdo-verified', 'true'); } catch (e) { /* storage may be blocked */ }
         overlay.remove();
