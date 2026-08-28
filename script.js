@@ -304,7 +304,14 @@
   function completeInit() {
     applySettings();
     if (!isIndex) buildUI();
-    // Subtle page entrance for main containers
+    // Staggered page entrance for glass containers
+    const glass = document.querySelectorAll('.container, .box, .app-container, .announcement-container, .discord-container, .contact-container, .password-container, .feature, .notification, .modal-content, .side-menu, .hero, #download-hdo-pro, .dmca-notice, .github-icon, .hdo-glass');
+    glass.forEach(function (el, i) {
+      if (!el.classList.contains('hdo-animate-fade')) {
+        el.style.animationDelay = (i * 60) + 'ms';
+        el.classList.add('hdo-animate-fade');
+      }
+    });
     const firstContainer = document.querySelector('body > div, body > section, body > main');
     if (firstContainer && !firstContainer.classList.contains('hdo-animate-fade')) {
       firstContainer.classList.add('hdo-animate-fade');
@@ -367,6 +374,7 @@
       '<input type="text" class="hdo-puzzle-input" id="hdo-puzzle-answer" placeholder="Answer" autocomplete="off">' +
       '<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>' +
       '<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>';
+    box.classList.add('hdo-animate-fade');
     overlay.appendChild(box);
     document.body.appendChild(overlay);
     document.getElementById('hdo-puzzle-answer').focus();
@@ -400,6 +408,8 @@
         '</p>' +
         '<button class="hdo-puzzle-submit" id="hdo-puzzle-agree">I agree, enter</button>' +
       '</div>';
+      const dmcaBox = overlay.querySelector('.hdo-puzzle-box');
+      if (dmcaBox) dmcaBox.classList.add('hdo-animate-fade');
       document.getElementById('hdo-puzzle-agree').addEventListener('click', function () {
         localStorage.setItem('hdo-verified', 'true');
         overlay.remove();
