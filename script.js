@@ -180,7 +180,7 @@
 
       .hdo-ui-navlist { list-style: none; padding: 0; margin: 0; }
       .hdo-ui-navlist li { margin: 14px 0; }
-      .hdo-ui-navlist a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 10px; transition: background .2s, color .2s, transform .15s; }
+      .hdo-ui-navlist a { color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 11px 14px; border-radius: 10px; transition: background .2s, color .2s, transform .15s; }
       .hdo-ui-navlist a:hover { background: rgba(255,255,255,0.1); color: #ff66b2; transform: translateX(4px); }
       .hdo-ui-navlist i { width: 22px; text-align: center; }
 
