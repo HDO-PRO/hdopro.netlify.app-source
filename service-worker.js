@@ -3,15 +3,15 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/home.html',
-  '/devs.html',
+  '/dev.html',
   '/downloads.html',
   '/about.html',
   '/dmca.html',
   '/guide.html',
   '/privacy.html',
   '/script.js',
-  '/images/logo.png',
-  '/images/android1-upscale.png'
+  '/Images/logo.png',
+  '/Images/android1-upscale.png'
 ];
 
 self.addEventListener('install', event => {
