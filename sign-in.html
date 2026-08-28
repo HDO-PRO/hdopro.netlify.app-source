@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <meta http-equiv="refresh" content="0;url=/invite">
+    <script>location.replace('/invite');</script>
     <meta property="og:url" content="/sign-in" />
     <meta property="og:title" content="HDO Pro | Sign In">
     <meta property="og:description" content="Redirecting to HDO Pro invite.">
@@ -12,26 +13,9 @@
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 420px;
-            padding: 24px;
-        }
-        a { color: #ff99cc; }
-    </style>
+    <style>html,body{height:100%;margin:0;background:#000}</style>
 </head>
 <body>
-    <div class="container">
-        <p>Redirecting you to the invite page…</p>
-        <p>If you are not redirected automatically, <a href="/invite">click here</a>.</p>
-    </div>
+    <a href="/invite" style="display:none">Continue</a>
 </body>
 </html>

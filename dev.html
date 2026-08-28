@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Redirecting…</title>
-  <!-- Fast meta redirect as fallback -->
+  <title>Redirecting...</title>
   <meta http-equiv="refresh" content="0;url=https://github.com/MarshMeadow">
-  <!-- JavaScript redirect — executes immediately -->
-  <script>
-    // Replace current history entry so back button doesn't return here
-    location.replace("https://github.com/MarshMeadow");
-  </script>
-  <!-- Minimal style to avoid visible flash on very slow clients -->
-  <style>html,body{height:100%;margin:0;background:#fff}</style>
+  <script>location.replace("https://github.com/MarshMeadow");</script>
+  <meta property="og:url" content="/dev" />
+  <meta property="og:title" content="HDO Pro | Dev">
+  <meta property="og:description" content="Redirecting to the HDO Pro developer page.">
+  <meta property="og:image" content="/images/logo.png">
+  <meta name="theme-color" content="#8d2249" />
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>html,body{height:100%;margin:0;background:#000}</style>
 </head>
 <body>
-  <!-- Accessible fallback link for browsers without JS or meta-refresh support -->
-  <a href="https://github.com/MarshMeadow">Continue to GitHub</a>
-<script src="script.js" defer></script>
+  <a href="https://github.com/MarshMeadow" style="display:none">Continue to GitHub</a>
 </body>
 </html>
