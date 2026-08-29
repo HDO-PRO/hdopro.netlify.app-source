@@ -90,12 +90,13 @@
             background-color: #7289DA;
             border-radius: 5px;
             padding: 10px;
-            width: calc(33% - 20px); /* Flexible button width */
+            width: calc(33% - 20px);
             min-width: 120px;
             max-width: 150px;
             box-sizing: border-box;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
         .button-container a:hover {
@@ -113,6 +114,18 @@
             border-radius: 8px;
             cursor: pointer;
             margin-top: 20px;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .gif-container img.tapped {
+            border-color: #ff66b2;
+        }
+
+        .click-counter {
+            color: #ff66b2;
+            font-size: 12px;
+            margin-top: 4px;
         }
 
         .loading-dots {
@@ -156,6 +169,80 @@
             50% { opacity: 1; }
         }
 
+        /* Verification overlay */
+        #verify-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #verify-box {
+            background: rgba(51, 51, 51, 0.95);
+            border: 2px solid #ff66b2;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #verify-box h2 {
+            color: #ff66b2;
+            margin: 0 0 16px;
+            font-size: 1.3rem;
+        }
+
+        #verify-box p {
+            color: #fff;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        #verify-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ff66b2;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #verify-box button {
+            background: #ff66b2;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        #verify-box button:hover { background: #e05599; }
+
+        #verify-error {
+            color: #ff5555;
+            font-size: 13px;
+            min-height: 1.2em;
+            margin-top: 8px;
+        }
+
+        #terminal-link {
+            color: #ff66b2;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             .container {
@@ -163,13 +250,13 @@
             }
 
             .button-container a {
-                width: calc(50% - 20px); /* Adjust button width for smaller screens */
+                width: calc(50% - 20px);
             }
         }
 
         @media screen and (max-width: 480px) {
             .button-container a {
-                width: 100%; /* Full-width buttons on very small screens */
+                width: 100%;
             }
         }
     </style>
@@ -180,9 +267,10 @@
         <h1>HDO Pro Invitations</h1>
         <p>Invite others to join HDO Pro.</p>
         <p>Please note that invites can open and close at any time.</p>
-        <p>Access the <a href="/terminal" style="color: blue;">HDO Pro Terminal</a>.</p>
+        <p>Access the <span id="terminal-link" data-href="/terminal">HDO Pro Terminal</span>.</p>
         <div class="gif-container">
-            <img id="animated-gif" src="" alt="Dancing Cat GIF" onclick="redirectToHome()">
+            <img id="animated-gif" src="" alt="Dancing Cat GIF" data-href="/h0m3">
+            <div class="click-counter" id="cat-counter">Click the cat 6 times to go home</div>
         </div>
         <div class="loading-dots">
             <div></div>
@@ -190,20 +278,22 @@
             <div></div>
         </div>
         <div class="button-container">
-            <a href="/game" aria-label="Play the HDO Pro arcade game">
+            <a class="verify-link" href="/game" data-href="/game" aria-label="Play the HDO Pro arcade game">
                 <img src="/Images/logo.png" alt="Arcade" style="width:48px;height:48px;">
                 Play Arcade
             </a>
 
-            <a href="https://discord.gg/BbJaESA5N" target="_blank">
+            <a class="verify-link" href="https://discord.gg/BbJaESA5N" data-href="https://discord.gg/BbJaESA5N" target="_blank">
                 <img src="/Images/discord.png" alt="Discord">
                 Join us on Discord
             </a>
-            <a href="javascript:void(0)" onclick="showTelegramNotification()">
+
+            <a class="verify-link" href="javascript:void(0)" data-telegram="true">
                 <img src="/Images/telegram.png" alt="Telegram">
                 Join us on Telegram
             </a>
-            <a href="https://forms.gle/HTxApPVkDmhhWLxGA" target="_blank">
+
+            <a class="verify-link" href="https://forms.gle/HTxApPVkDmhhWLxGA" data-href="https://forms.gle/HTxApPVkDmhhWLxGA" target="_blank">
                 <img src="/Images/7257807.png" alt="Message Form">
                 Message Form
             </a>
@@ -212,6 +302,19 @@
     <div id="telegram-notification" class="notification">
         Invite not available at this time.
     </div>
+
+    <div id="verify-overlay">
+        <div id="verify-box">
+            <h2>Verify Access</h2>
+            <p>Solve the puzzle:</p>
+            <p id="puzzle-question">What is 7 + 5?</p>
+            <input type="text" id="puzzle-answer" placeholder="Answer" autocomplete="off">
+            <input type="password" id="terminal-password" placeholder="Terminal password">
+            <button id="verify-submit">Submit</button>
+            <p id="verify-error"></p>
+        </div>
+    </div>
+
     <script>
         const gifs = [
             '/Images/150f78d18fd597611f77b4ae7d2f1f58.gif',
@@ -219,6 +322,17 @@
         ];
 
         const gifElement = document.getElementById('animated-gif');
+        const catCounter = document.getElementById('cat-counter');
+        const overlay = document.getElementById('verify-overlay');
+        const puzzleAnswer = document.getElementById('puzzle-answer');
+        const passwordInput = document.getElementById('terminal-password');
+        const verifyError = document.getElementById('verify-error');
+
+        let catClicks = 0;
+        let pendingAction = null;
+
+        const PUZZLE = { q: 'What is 7 + 5?', a: '12' };
+        const TERM_PASSWORD = 'neko';
 
         function getRandomIndex() {
             return Math.floor(Math.random() * gifs.length);
@@ -228,19 +342,96 @@
             gifElement.src = gifs[getRandomIndex()];
         }
 
-        function redirectToHome() {
-            window.location.href = '/h0m3';
-        }
-
-        switchGif();
-
-        setInterval(switchGif, 300000);
-
-        function showTelegramNotification() {
+        function showTelegram() {
             const notification = document.getElementById('telegram-notification');
             notification.style.display = 'block';
             setTimeout(() => notification.style.display = 'none', 3000);
         }
+
+        function openVerify(action) {
+            pendingAction = action;
+            puzzleAnswer.value = '';
+            passwordInput.value = '';
+            verifyError.textContent = '';
+            overlay.style.display = 'flex';
+            puzzleAnswer.focus();
+        }
+
+        function closeVerify() {
+            overlay.style.display = 'none';
+            pendingAction = null;
+        }
+
+        function runPendingAction() {
+            if (!pendingAction) return;
+            if (pendingAction.type === 'navigate') {
+                window.location.href = pendingAction.href;
+            } else if (pendingAction.type === 'open') {
+                window.open(pendingAction.href, '_blank');
+            } else if (pendingAction.type === 'telegram') {
+                showTelegram();
+            }
+            closeVerify();
+        }
+
+        function checkVerify() {
+            const answer = puzzleAnswer.value.trim();
+            const pass = passwordInput.value.trim();
+
+            if (answer !== PUZZLE.a) {
+                verifyError.textContent = 'Puzzle answer is wrong.';
+                return;
+            }
+            if (pass !== TERM_PASSWORD) {
+                verifyError.textContent = 'Terminal password is wrong.';
+                return;
+            }
+
+            runPendingAction();
+        }
+
+        gifElement.addEventListener('click', () => {
+            catClicks++;
+            gifElement.classList.add('tapped');
+            setTimeout(() => gifElement.classList.remove('tapped'), 150);
+
+            if (catClicks >= 6) {
+                catCounter.textContent = 'Cat ready — verify to continue!';
+                openVerify({ type: 'navigate', href: gifElement.dataset.href });
+            } else {
+                catCounter.textContent = `Click the cat ${6 - catClicks} more time${6 - catClicks === 1 ? '' : 's'} to go home`;
+            }
+        });
+
+        document.getElementById('verify-submit').addEventListener('click', checkVerify);
+        passwordInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkVerify(); });
+        puzzleAnswer.addEventListener('keypress', e => { if (e.key === 'Enter') passwordInput.focus(); });
+
+        document.querySelectorAll('.verify-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const href = link.dataset.href;
+                const target = link.getAttribute('target');
+                if (link.dataset.telegram) {
+                    openVerify({ type: 'telegram' });
+                } else if (target === '_blank') {
+                    openVerify({ type: 'open', href: href });
+                } else {
+                    openVerify({ type: 'navigate', href: href });
+                }
+            });
+        });
+
+        document.getElementById('terminal-link').addEventListener('click', () => {
+            openVerify({ type: 'navigate', href: document.getElementById('terminal-link').dataset.href });
+        });
+
+        overlay.addEventListener('click', e => {
+            if (e.target === overlay) closeVerify();
+        });
+
+        switchGif();
+        setInterval(switchGif, 300000);
     </script>
     <canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
     <script src="pixels.js" defer></script>
