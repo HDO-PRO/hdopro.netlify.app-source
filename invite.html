@@ -96,7 +96,6 @@
             box-sizing: border-box;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
         }
 
         .button-container a:hover {
@@ -169,7 +168,6 @@
             50% { opacity: 1; }
         }
 
-        /* Verification overlay */
         #verify-overlay {
             position: fixed;
             inset: 0;
@@ -243,21 +241,13 @@
             cursor: pointer;
         }
 
-        /* Responsive Design */
         @media screen and (max-width: 768px) {
-            .container {
-                width: 90%;
-            }
-
-            .button-container a {
-                width: calc(50% - 20px);
-            }
+            .container { width: 90%; }
+            .button-container a { width: calc(50% - 20px); }
         }
 
         @media screen and (max-width: 480px) {
-            .button-container a {
-                width: 100%;
-            }
+            .button-container a { width: 100%; }
         }
     </style>
 </head>
@@ -267,7 +257,7 @@
         <h1>HDO Pro Invitations</h1>
         <p>Invite others to join HDO Pro.</p>
         <p>Please note that invites can open and close at any time.</p>
-        <p>Access the <span id="terminal-link" data-href="/terminal">HDO Pro Terminal</span>.</p>
+        <p>Access the <a href="/terminal" style="color: #ff66b2;">HDO Pro Terminal</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" data-href="/h0m3">
             <div class="click-counter" id="cat-counter">Click the cat 6 times to go home</div>
@@ -278,22 +268,22 @@
             <div></div>
         </div>
         <div class="button-container">
-            <a class="verify-link" href="/game" data-href="/game" aria-label="Play the HDO Pro arcade game">
+            <a href="/game" aria-label="Play the HDO Pro arcade game">
                 <img src="/Images/logo.png" alt="Arcade" style="width:48px;height:48px;">
                 Play Arcade
             </a>
 
-            <a class="verify-link" href="https://discord.gg/BbJaESA5N" data-href="https://discord.gg/BbJaESA5N" target="_blank">
+            <a href="https://discord.gg/BbJaESA5N" target="_blank">
                 <img src="/Images/discord.png" alt="Discord">
                 Join us on Discord
             </a>
 
-            <a class="verify-link" href="javascript:void(0)" data-telegram="true">
+            <a href="javascript:void(0)" onclick="showTelegramNotification()">
                 <img src="/Images/telegram.png" alt="Telegram">
                 Join us on Telegram
             </a>
 
-            <a class="verify-link" href="https://forms.gle/HTxApPVkDmhhWLxGA" data-href="https://forms.gle/HTxApPVkDmhhWLxGA" target="_blank">
+            <a href="https://forms.gle/HTxApPVkDmhhWLxGA" target="_blank">
                 <img src="/Images/7257807.png" alt="Message Form">
                 Message Form
             </a>
@@ -329,8 +319,6 @@
         const verifyError = document.getElementById('verify-error');
 
         let catClicks = 0;
-        let pendingAction = null;
-
         const PUZZLE = { q: 'What is 7 + 5?', a: '12' };
         const TERM_PASSWORD = 'neko';
 
@@ -342,14 +330,13 @@
             gifElement.src = gifs[getRandomIndex()];
         }
 
-        function showTelegram() {
+        function showTelegramNotification() {
             const notification = document.getElementById('telegram-notification');
             notification.style.display = 'block';
             setTimeout(() => notification.style.display = 'none', 3000);
         }
 
-        function openVerify(action) {
-            pendingAction = action;
+        function openVerify() {
             puzzleAnswer.value = '';
             passwordInput.value = '';
             verifyError.textContent = '';
@@ -359,19 +346,6 @@
 
         function closeVerify() {
             overlay.style.display = 'none';
-            pendingAction = null;
-        }
-
-        function runPendingAction() {
-            if (!pendingAction) return;
-            if (pendingAction.type === 'navigate') {
-                window.location.href = pendingAction.href;
-            } else if (pendingAction.type === 'open') {
-                window.open(pendingAction.href, '_blank');
-            } else if (pendingAction.type === 'telegram') {
-                showTelegram();
-            }
-            closeVerify();
         }
 
         function checkVerify() {
@@ -387,7 +361,8 @@
                 return;
             }
 
-            runPendingAction();
+            window.location.href = gifElement.dataset.href;
+            closeVerify();
         }
 
         gifElement.addEventListener('click', () => {
@@ -397,7 +372,7 @@
 
             if (catClicks >= 6) {
                 catCounter.textContent = 'Cat ready — verify to continue!';
-                openVerify({ type: 'navigate', href: gifElement.dataset.href });
+                openVerify();
             } else {
                 catCounter.textContent = `Click the cat ${6 - catClicks} more time${6 - catClicks === 1 ? '' : 's'} to go home`;
             }
@@ -406,25 +381,6 @@
         document.getElementById('verify-submit').addEventListener('click', checkVerify);
         passwordInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkVerify(); });
         puzzleAnswer.addEventListener('keypress', e => { if (e.key === 'Enter') passwordInput.focus(); });
-
-        document.querySelectorAll('.verify-link').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const href = link.dataset.href;
-                const target = link.getAttribute('target');
-                if (link.dataset.telegram) {
-                    openVerify({ type: 'telegram' });
-                } else if (target === '_blank') {
-                    openVerify({ type: 'open', href: href });
-                } else {
-                    openVerify({ type: 'navigate', href: href });
-                }
-            });
-        });
-
-        document.getElementById('terminal-link').addEventListener('click', () => {
-            openVerify({ type: 'navigate', href: document.getElementById('terminal-link').dataset.href });
-        });
 
         overlay.addEventListener('click', e => {
             if (e.target === overlay) closeVerify();
