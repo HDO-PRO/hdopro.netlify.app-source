@@ -44,7 +44,9 @@
     showControlsHint: true,
     showScore: true,
     showHighScore: true,
-    compact: false
+    compact: false,
+    scrollLock: true,
+    speedMult: 1
   };
 
   let settings = loadSettings();
@@ -103,7 +105,8 @@
 
   function updateSpeed() {
     const levels = Math.floor(score / 50);
-    currentSpeed = Math.max(40, DIFFICULTY[settings.difficulty] - (levels * 12));
+    const base = Math.max(40, DIFFICULTY[settings.difficulty] - (levels * 12));
+    currentSpeed = Math.max(20, base / settings.speedMult);
   }
 
   function playBeep(freq, duration) {
@@ -134,7 +137,6 @@
     dx = grid;
     dy = 0;
     score = 0;
-    currentSpeed = DIFFICULTY[settings.difficulty];
     scoreEl.textContent = 'Score: ' + score;
     msgEl.textContent = 'Press Start or tap the D-pad / swipe';
     food = placeFood();
@@ -277,27 +279,28 @@
 
   // UI controls
   document.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'p' || e.key === 'P') {
+      e.preventDefault();
+      togglePause();
+      return;
+    }
     switch (e.key) {
-      case 'ArrowUp': case 'w': case 'W':
-        e.preventDefault();
-        setDir(0, -grid);
-        break;
-      case 'ArrowDown': case 's': case 'S':
-        e.preventDefault();
-        setDir(0, grid);
-        break;
-      case 'ArrowLeft': case 'a': case 'A':
-        e.preventDefault();
-        setDir(-grid, 0);
-        break;
-      case 'ArrowRight': case 'd': case 'D':
-        e.preventDefault();
-        setDir(grid, 0);
-        break;
-      case ' ': case 'p': case 'P':
-        e.preventDefault();
-        togglePause();
-        break;
+      case 'w': case 'W':
+        e.preventDefault(); setDir(0, -grid); break;
+      case 's': case 'S':
+        e.preventDefault(); setDir(0, grid); break;
+      case 'a': case 'A':
+        e.preventDefault(); setDir(-grid, 0); break;
+      case 'd': case 'D':
+        e.preventDefault(); setDir(grid, 0); break;
+    }
+    if (settings.scrollLock) {
+      switch (e.key) {
+        case 'ArrowUp': e.preventDefault(); setDir(0, -grid); break;
+        case 'ArrowDown': e.preventDefault(); setDir(0, grid); break;
+        case 'ArrowLeft': e.preventDefault(); setDir(-grid, 0); break;
+        case 'ArrowRight': e.preventDefault(); setDir(grid, 0); break;
+      }
     }
   }, { passive: false });
 
@@ -355,6 +358,9 @@
   const showScoreToggle = document.getElementById('show-score-toggle');
   const showHighScoreToggle = document.getElementById('show-highscore-toggle');
   const compactToggle = document.getElementById('compact-toggle');
+  const scrollLockToggle = document.getElementById('scroll-lock-toggle');
+  const scrollLockGameToggle = document.getElementById('scroll-lock-game');
+  const speedSelect = document.getElementById('speed-select');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
 
   function populateSettings() {
@@ -375,6 +381,9 @@
     showScoreToggle.checked = settings.showScore;
     showHighScoreToggle.checked = settings.showHighScore;
     compactToggle.checked = settings.compact;
+    scrollLockToggle.checked = settings.scrollLock;
+    scrollLockGameToggle.checked = settings.scrollLock;
+    speedSelect.value = String(settings.speedMult);
   }
 
   function applySettings() {
@@ -396,8 +405,11 @@
     settings.showScore = showScoreToggle.checked;
     settings.showHighScore = showHighScoreToggle.checked;
     settings.compact = compactToggle.checked;
+    settings.scrollLock = scrollLockToggle.checked;
+    settings.speedMult = parseFloat(speedSelect.value);
     saveSettings();
-    currentSpeed = DIFFICULTY[settings.difficulty];
+    updateSpeed();
+    document.documentElement.classList.toggle('scroll-locked', settings.scrollLock);
     document.body.classList.toggle('no-glow', !settings.glow);
     document.body.classList.toggle('no-border', !settings.showBorder);
     document.body.classList.toggle('hide-dpad', !settings.showDPad);
@@ -415,8 +427,16 @@
     draw();
   }
 
-  [themeSelect, difficultySelect, gridSelect].forEach(el => el.addEventListener('change', applySettings));
-  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle].forEach(el => el.addEventListener('change', applySettings));
+  [themeSelect, difficultySelect, gridSelect, speedSelect].forEach(el => el.addEventListener('change', applySettings));
+  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle, scrollLockToggle].forEach(el => el.addEventListener('change', applySettings));
+
+  scrollLockGameToggle.addEventListener('change', () => {
+    scrollLockToggle.checked = scrollLockGameToggle.checked;
+    applySettings();
+  });
+  scrollLockToggle.addEventListener('change', () => {
+    scrollLockGameToggle.checked = scrollLockToggle.checked;
+  });
 
   fullscreenBtn.addEventListener('click', () => {
     if (document.fullscreenElement && document.exitFullscreen) {

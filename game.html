@@ -14,8 +14,10 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        html body { min-height: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: auto; }
+        html body { min-height: 100%; height: auto; overflow: auto; display: flex; align-items: center; justify-content: center; }
+        html.scroll-locked, html.scroll-locked body { overflow: hidden; }
+        html.scroll-locked body { height: 100%; }
 
         .game-wrap {
             position: relative;
@@ -29,18 +31,20 @@
             box-shadow: 0 0 32px rgba(255, 102, 178, 0.35);
             padding: 16px;
             width: min(96vw, 520px);
-            max-height: 96vh;
-            overflow: hidden;
+            max-height: none;
+            overflow: visible;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             box-sizing: border-box;
         }
+        html.scroll-locked .game-wrap { max-height: 96vh; overflow: hidden; justify-content: space-between; }
 
         h1 { font-size: clamp(1.1rem, 4vh, 1.6rem); margin: 0 0 4px; }
         @media (hover: hover) and (pointer: fine) {
-            .game-wrap { width: min(90vw, 480px); max-height: 92vh; padding: 24px; }
+            .game-wrap { width: min(90vw, 480px); padding: 24px; }
+            html.scroll-locked .game-wrap { max-height: 92vh; }
         }
         .game-notice {
             color: rgba(255, 255, 255, 0.75);
@@ -84,6 +88,59 @@
         .d-pad button:active, .d-pad button:hover { background: #ff66b2; color: #000; }
         #startBtn { background: #ff66b2; color: #000; border: none; padding: 10px 22px; border-radius: 8px; font-size: 0.95rem; cursor: pointer; font-weight: bold; margin-top: 0; }
         #startBtn:hover { background: #e05599; }
+
+        .quick-toggles {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 6px 0 0;
+            width: 100%;
+        }
+        .quick-toggles label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            font-size: clamp(0.7rem, 2.2vh, 0.85rem);
+            cursor: pointer;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,102,178,0.4);
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+        .quick-toggles input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 36px;
+            height: 20px;
+            border-radius: 10px;
+            background: #444;
+            border: 2px solid #666;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s, border-color 0.2s;
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .quick-toggles input[type="checkbox"]:checked {
+            background: #ff66b2;
+            border-color: #ff66b2;
+        }
+        .quick-toggles input[type="checkbox"]::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+        .quick-toggles input[type="checkbox"]:checked::after {
+            transform: translateX(16px);
+        }
 
         #settings-btn {
             position: fixed;
@@ -395,6 +452,9 @@
         </div>
         <canvas id="gameCanvas" width="320" height="320"></canvas>
         <p id="gameMsg">Press Start or tap the D-pad / swipe</p>
+        <div class="quick-toggles">
+            <label for="scroll-lock-game"><input type="checkbox" id="scroll-lock-game" checked> Lock page scroll</label>
+        </div>
         <p class="controls-hint">Arrows / WASD to move &middot; Space or P to pause</p>
         <div class="help-row">
             <details class="guide" style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 0; text-align: left;">
@@ -449,6 +509,18 @@
                         <option value="slow">Slow</option>
                         <option value="normal">Normal</option>
                         <option value="fast">Fast</option>
+                    </select>
+                </div>
+
+                <div class="setting">
+                    <label for="speed-select">Speed multiplier</label>
+                    <select id="speed-select">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
                     </select>
                 </div>
 
@@ -523,6 +595,10 @@
         <div class="settings-section">
             <h3>Layout</h3>
             <div class="settings-grid">
+                <div class="setting setting-row">
+                    <label for="scroll-lock-toggle">Lock page scroll</label>
+                    <input type="checkbox" id="scroll-lock-toggle" checked>
+                </div>
                 <div class="setting setting-row">
                     <label for="pixel-rain-toggle">Retro pixel rain</label>
                     <input type="checkbox" id="pixel-rain-toggle" checked>
