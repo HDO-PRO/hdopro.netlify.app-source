@@ -327,6 +327,7 @@
   }
 
   function applySettings() {
+    const oldGrid = settings.grid;
     settings.theme = themeSelect.value;
     settings.difficulty = difficultySelect.value;
     settings.grid = parseInt(gridSelect.value, 10);
@@ -336,7 +337,13 @@
     settings.swipe = swipeToggle.checked;
     saveSettings();
     currentSpeed = DIFFICULTY[settings.difficulty];
-    if (!running) reset();
+    if (settings.grid !== oldGrid) {
+      if (loopId) clearTimeout(loopId);
+      running = false;
+      reset();
+    } else if (!running) {
+      reset();
+    }
     draw();
   }
 

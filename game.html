@@ -57,20 +57,20 @@
         #settings-panel {
             position: fixed;
             top: 0;
-            right: 0;
-            width: min(320px, 85vw);
-            height: 100%;
-            background: rgba(10,10,10,0.96);
-            border-left: 2px solid #ff66b2;
+            left: 0;
+            width: 100%;
+            max-height: 85vh;
+            background: rgba(10,10,10,0.97);
+            border-bottom: 2px solid #ff66b2;
             z-index: 1001;
-            padding: 24px;
+            padding: 20px;
             box-sizing: border-box;
-            transform: translateX(100%);
+            transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.3s cubic-bezier(.4,.0,.2,1), opacity 0.2s;
+            transition: transform 0.35s cubic-bezier(.4,.0,.2,1), opacity 0.25s;
             overflow-y: auto;
         }
-        #settings-panel.open { transform: translateX(0); opacity: 1; }
+        #settings-panel.open { transform: translateY(0); opacity: 1; }
 
         #settings-panel h2 {
             color: #ff66b2;
@@ -83,8 +83,8 @@
 
         #settings-close {
             position: absolute;
-            top: 24px;
-            right: 24px;
+            top: 16px;
+            right: 20px;
             background: transparent;
             border: none;
             color: #fff;
@@ -95,14 +95,21 @@
         }
         #settings-close:hover { color: #ff66b2; }
 
+        .settings-section { margin-bottom: 20px; }
+        .settings-section h3 { color: #fff; font-size: 1rem; margin: 0 0 12px; }
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+        }
+
         .setting {
-            margin: 16px 0;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             text-align: left;
         }
-        .setting label { color: #fff; font-size: 0.95rem; }
+        .setting label { color: #fff; font-size: 0.92rem; }
         .setting select,
         .setting button {
             background: rgba(0,0,0,0.6);
@@ -111,17 +118,24 @@
             border-radius: 6px;
             padding: 8px 10px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
         }
         .setting button:hover { background: rgba(255,255,255,0.08); }
         .setting-row { display: flex; justify-content: space-between; align-items: center; }
         .setting-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: #ff66b2; cursor: pointer; }
 
+        details { text-align: left; }
+        summary { color: #ff66b2; cursor: pointer; font-weight: bold; font-size: 1rem; padding: 6px 0; }
+        details[open] summary { margin-bottom: 12px; }
+
         @media (max-width: 400px) {
             .d-pad { grid-template-columns: repeat(3, 50px); }
             .d-pad button { padding: 12px; }
             .score-row { flex-direction: column; gap: 4px; }
+            .settings-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -156,57 +170,67 @@
         <button id="settings-close" aria-label="Close settings">&times;</button>
         <h2>Game Settings</h2>
 
-        <div class="setting">
-            <label for="theme-select">Theme</label>
-            <select id="theme-select">
-                <option value="hdo">HDO Pink</option>
-                <option value="classic">Classic Green</option>
-                <option value="matrix">Matrix</option>
-                <option value="neon">Neon</option>
-            </select>
+        <div class="settings-section">
+            <h3>Basic</h3>
+            <div class="settings-grid">
+                <div class="setting">
+                    <label for="theme-select">Theme</label>
+                    <select id="theme-select">
+                        <option value="hdo">HDO Pink</option>
+                        <option value="classic">Classic Green</option>
+                        <option value="matrix">Matrix</option>
+                        <option value="neon">Neon</option>
+                    </select>
+                </div>
+
+                <div class="setting">
+                    <label for="difficulty-select">Difficulty</label>
+                    <select id="difficulty-select">
+                        <option value="slow">Slow</option>
+                        <option value="normal">Normal</option>
+                        <option value="fast">Fast</option>
+                    </select>
+                </div>
+
+                <div class="setting setting-row">
+                    <label for="sound-toggle">Sound</label>
+                    <input type="checkbox" id="sound-toggle" checked>
+                </div>
+            </div>
         </div>
 
-        <div class="setting">
-            <label for="difficulty-select">Difficulty</label>
-            <select id="difficulty-select">
-                <option value="slow">Slow</option>
-                <option value="normal">Normal</option>
-                <option value="fast">Fast</option>
-            </select>
-        </div>
+        <details class="settings-section" id="advanced-settings">
+            <summary>Advanced</summary>
+            <div class="settings-grid">
+                <div class="setting">
+                    <label for="grid-select">Grid size</label>
+                    <select id="grid-select">
+                        <option value="20">Normal (16×16)</option>
+                        <option value="16">Small (20×20)</option>
+                        <option value="32">Large (10×10)</option>
+                    </select>
+                </div>
 
-        <div class="setting">
-            <label for="grid-select">Grid size</label>
-            <select id="grid-select">
-                <option value="20">Normal (16×16)</option>
-                <option value="16">Small (20×20)</option>
-                <option value="32">Large (10×10)</option>
-            </select>
-        </div>
+                <div class="setting setting-row">
+                    <label for="walls-toggle">Die on walls</label>
+                    <input type="checkbox" id="walls-toggle" checked>
+                </div>
 
-        <div class="setting setting-row">
-            <label for="walls-toggle">Die on walls</label>
-            <input type="checkbox" id="walls-toggle" checked>
-        </div>
+                <div class="setting setting-row">
+                    <label for="grid-toggle">Show grid</label>
+                    <input type="checkbox" id="grid-toggle" checked>
+                </div>
 
-        <div class="setting setting-row">
-            <label for="grid-toggle">Show grid</label>
-            <input type="checkbox" id="grid-toggle" checked>
-        </div>
+                <div class="setting setting-row">
+                    <label for="swipe-toggle">Swipe on canvas</label>
+                    <input type="checkbox" id="swipe-toggle" checked>
+                </div>
 
-        <div class="setting setting-row">
-            <label for="sound-toggle">Sound</label>
-            <input type="checkbox" id="sound-toggle" checked>
-        </div>
-
-        <div class="setting setting-row">
-            <label for="swipe-toggle">Swipe on canvas</label>
-            <input type="checkbox" id="swipe-toggle" checked>
-        </div>
-
-        <div class="setting">
-            <button id="reset-highscore">Reset High Score</button>
-        </div>
+                <div class="setting">
+                    <button id="reset-highscore">Reset High Score</button>
+                </div>
+            </div>
+        </details>
     </div>
 
     <script src="game.js" defer></script>
