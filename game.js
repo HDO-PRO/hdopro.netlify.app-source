@@ -46,7 +46,8 @@
     showHighScore: true,
     compact: false,
     scrollLock: true,
-    speedMult: 1
+    speedMult: 1,
+    fullscreenMode: 'page'
   };
 
   let settings = loadSettings();
@@ -360,7 +361,10 @@
   const compactToggle = document.getElementById('compact-toggle');
   const scrollLockToggle = document.getElementById('scroll-lock-toggle');
   const scrollLockGameToggle = document.getElementById('scroll-lock-game');
+  const pixelRainGame = document.getElementById('pixel-rain-game');
+  const dpadGame = document.getElementById('dpad-game');
   const speedSelect = document.getElementById('speed-select');
+  const fullscreenModeSelect = document.getElementById('fullscreen-mode');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
 
   function populateSettings() {
@@ -383,7 +387,10 @@
     compactToggle.checked = settings.compact;
     scrollLockToggle.checked = settings.scrollLock;
     scrollLockGameToggle.checked = settings.scrollLock;
+    pixelRainGame.checked = settings.pixelRain;
+    dpadGame.checked = settings.showDPad;
     speedSelect.value = String(settings.speedMult);
+    fullscreenModeSelect.value = settings.fullscreenMode;
   }
 
   function applySettings() {
@@ -407,7 +414,11 @@
     settings.compact = compactToggle.checked;
     settings.scrollLock = scrollLockToggle.checked;
     settings.speedMult = parseFloat(speedSelect.value);
+    settings.fullscreenMode = fullscreenModeSelect.value;
     saveSettings();
+    scrollLockGameToggle.checked = settings.scrollLock;
+    pixelRainGame.checked = settings.pixelRain;
+    dpadGame.checked = settings.showDPad;
     updateSpeed();
     document.documentElement.classList.toggle('scroll-locked', settings.scrollLock);
     document.body.classList.toggle('no-glow', !settings.glow);
@@ -428,7 +439,7 @@
   }
 
   [themeSelect, difficultySelect, gridSelect, speedSelect].forEach(el => el.addEventListener('change', applySettings));
-  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle, scrollLockToggle].forEach(el => el.addEventListener('change', applySettings));
+  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle, scrollLockToggle, fullscreenModeSelect].forEach(el => el.addEventListener('change', applySettings));
 
   scrollLockGameToggle.addEventListener('change', () => {
     scrollLockToggle.checked = scrollLockGameToggle.checked;
@@ -438,11 +449,29 @@
     scrollLockGameToggle.checked = scrollLockToggle.checked;
   });
 
+  pixelRainGame.addEventListener('change', () => {
+    pixelRainToggle.checked = pixelRainGame.checked;
+    applySettings();
+  });
+  dpadGame.addEventListener('change', () => {
+    dpadToggle.checked = dpadGame.checked;
+    applySettings();
+  });
+
+  const FULLSCREEN_TARGETS = {
+    page: document.documentElement,
+    card: document.querySelector('.game-wrap'),
+    canvas: canvas
+  };
+
   fullscreenBtn.addEventListener('click', () => {
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
-    } else if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      const target = FULLSCREEN_TARGETS[settings.fullscreenMode] || document.documentElement;
+      if (target && target.requestFullscreen) {
+        target.requestFullscreen().catch(() => {});
+      }
     }
   });
 
