@@ -418,10 +418,10 @@
   [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle].forEach(el => el.addEventListener('change', applySettings));
 
   fullscreenBtn.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
+    if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
+    } else if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
     }
   });
 

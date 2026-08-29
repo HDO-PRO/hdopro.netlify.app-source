@@ -177,7 +177,42 @@
         }
         .setting button:hover { background: rgba(255,255,255,0.08); }
         .setting-row { display: flex; justify-content: space-between; align-items: center; }
-        .setting-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: #ff66b2; cursor: pointer; }
+        .setting-row input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 48px;
+            height: 26px;
+            border-radius: 13px;
+            background: #444;
+            border: 2px solid #666;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+            margin: 0;
+        }
+        .setting-row input[type="checkbox"]:checked {
+            background: #ff66b2;
+            border-color: #ff66b2;
+        }
+        .setting-row input[type="checkbox"]::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+        .setting-row input[type="checkbox"]:checked::after {
+            transform: translateX(22px);
+        }
+        .setting-row input[type="checkbox"]:focus-visible {
+            outline: 2px solid #ff99cc;
+            outline-offset: 2px;
+        }
 
         @keyframes game-slide-up {
             from { opacity: 0; transform: translateY(20px); }
@@ -324,6 +359,18 @@
         body.game-compact .game-notice,
         body.game-compact .game-beta,
         body.game-compact .controls-hint { display: none; }
+
+        @media (min-width: 640px) {
+            #settings-panel {
+                left: 50%;
+                width: min(100%, 640px);
+                transform: translate(-50%, -100%);
+                border-radius: 0 0 24px 24px;
+                padding: 28px 32px;
+            }
+            #settings-panel.open { transform: translate(-50%, 0); }
+            .settings-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+        }
     </style>
 </head>
 <body>
