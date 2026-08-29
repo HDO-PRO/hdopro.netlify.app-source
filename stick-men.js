@@ -18,9 +18,7 @@
   }
 
   function getColor() {
-    const root = getComputedStyle(document.documentElement);
-    const c = root.getPropertyValue('--term-prompt').trim();
-    return c || '#00ff00';
+    return '#ffffff';
   }
 
   class StickMan {
@@ -29,7 +27,7 @@
     }
 
     reset(randomX) {
-      this.y = h - 8 + (Math.random() * 10 - 5);
+      this.y = h - 22 + (Math.random() * 10 - 5);
       this.scale = 0.55 + Math.random() * 0.35;
       this.speed = 0.5 + Math.random() * 0.9;
       this.direction = Math.random() > 0.5 ? 1 : -1;
