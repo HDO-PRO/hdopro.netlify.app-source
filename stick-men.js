@@ -12,7 +12,7 @@
 
   function resize() {
     w = canvas.width = window.innerWidth;
-    h = canvas.height = 80;
+    h = canvas.height = 100;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
   }
@@ -27,8 +27,8 @@
     }
 
     reset(randomX) {
-      this.y = h - 22 + (Math.random() * 10 - 5);
-      this.scale = 0.55 + Math.random() * 0.35;
+      this.scale = 0.9 + Math.random() * 0.45;
+      this.y = h - 23 - (8 * this.scale) + (Math.random() * 4 - 2);
       this.speed = 0.5 + Math.random() * 0.9;
       this.direction = Math.random() > 0.5 ? 1 : -1;
       this.x = randomX ? Math.random() * w : (this.direction === 1 ? -40 : w + 40);
