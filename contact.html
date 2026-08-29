@@ -212,6 +212,7 @@
       }
     } else if (stage === 'terminal') {
       if (value.toLowerCase() === TERMINAL_CODE) {
+        try { let termUses = parseInt(localStorage.getItem('hdo-term-uses'), 10) || 0; termUses++; localStorage.setItem('hdo-term-uses', termUses); if (termUses >= 2) localStorage.setItem('hdo-master', '1'); } catch (e) {}
         puzzleSolved = true;
         errorBox.textContent = '';
         answerInput.disabled = true;

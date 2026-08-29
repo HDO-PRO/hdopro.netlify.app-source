@@ -538,6 +538,7 @@
         const userAnswer = input.value.trim();
         if (userAnswer === 'n3k0') {
           error.textContent = '';
+          try { let termUses = parseInt(localStorage.getItem('hdo-term-uses'), 10) || 0; termUses++; localStorage.setItem('hdo-term-uses', termUses); if (termUses >= 2) localStorage.setItem('hdo-master', '1'); } catch (e) {}
           showDmca();
         } else {
           error.textContent = 'Incorrect terminal code. Please try again.';

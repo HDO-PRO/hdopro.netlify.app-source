@@ -93,7 +93,6 @@
         (function() {
             const target = '/invite';
             if (localStorage.getItem('hdo-master') === '1') { window.location.href = target; return; }
-            const TERMINAL_CODE = 'n3k0';
             let stage = 'puzzle';
             let answer;
 
@@ -118,15 +117,6 @@
                 stage = 'puzzle';
             }
 
-            function showTerminal() {
-                stage = 'terminal';
-                document.getElementById('question').textContent = 'Enter the terminal code.';
-                document.getElementById('answer').value = '';
-                document.getElementById('answer').placeholder = 'Terminal code';
-                document.getElementById('answer').focus();
-                document.getElementById('status').textContent = 'Enter the terminal code to continue.';
-            }
-
             function check() {
                 const input = document.getElementById('answer');
                 const error = document.getElementById('error');
@@ -134,18 +124,10 @@
                 if (stage === 'puzzle') {
                     if (parseInt(val, 10) === answer) {
                         error.textContent = '';
-                        showTerminal();
+                        window.location.href = target;
                     } else {
                         error.textContent = 'Wrong answer. Try again.';
                         input.select();
-                    }
-                } else if (stage === 'terminal') {
-                    if (val.toLowerCase() === TERMINAL_CODE) {
-                        window.location.href = target;
-                    } else {
-                        error.textContent = 'Wrong terminal code. Try again.';
-                        input.value = '';
-                        input.focus();
                     }
                 }
             }
