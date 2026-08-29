@@ -14,29 +14,50 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .game-wrap { text-align: center; padding-bottom: 24px; position: relative; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        html body { min-height: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+        .game-wrap {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.88);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border: 2px solid #ff66b2;
+            border-radius: 20px;
+            box-shadow: 0 0 32px rgba(255, 102, 178, 0.35);
+            padding: 16px;
+            width: min(96vw, 520px);
+            max-height: 96vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        h1 { font-size: clamp(1.1rem, 4vh, 1.6rem); margin: 0 0 4px; }
         @media (hover: hover) and (pointer: fine) {
-            html, body { overflow: hidden; height: 100%; }
-            body { display: flex; align-items: center; justify-content: center; }
-            .game-wrap { max-height: 100vh; width: 100%; overflow: hidden; }
+            .game-wrap { width: min(90vw, 480px); max-height: 92vh; padding: 24px; }
         }
         .game-notice {
             color: rgba(255, 255, 255, 0.75);
-            font-size: 0.85rem;
-            margin: 6px auto 10px;
-            max-width: 320px;
-            line-height: 1.4;
+            font-size: clamp(0.7rem, 2.2vh, 0.85rem);
+            margin: 2px 0;
+            line-height: 1.3;
         }
         .game-notice i { color: #ff66b2; margin-right: 6px; }
-        .game-beta { color: #ffaa00; font-size: 0.8rem; margin: 4px auto 8px; max-width: 320px; line-height: 1.4; }
+        .game-beta { color: #ffaa00; font-size: clamp(0.65rem, 2vh, 0.8rem); margin: 2px 0; line-height: 1.3; }
         .game-beta i { color: #ffaa00; margin-right: 6px; }
         canvas#gameCanvas {
-            background: transparent;
+            background: #000;
             border: 2px solid #ff66b2;
             border-radius: 8px;
             display: block;
             margin: 0 auto;
-            max-width: min(320px, 60vh);
+            max-width: min(280px, 38vh);
             width: 100%;
             height: auto;
             touch-action: none;
@@ -55,13 +76,13 @@
             display: block;
             background: #000;
         }
-        .score-row { display: flex; justify-content: center; gap: 20px; color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
-        #gameMsg { color: #fff; margin: 10px 0; min-height: 1.5em; }
-        .controls-hint { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 8px 0; }
-        .d-pad { display: grid; grid-template-columns: repeat(3, 60px); gap: 8px; justify-content: center; margin: 16px 0; user-select: none; }
-        .d-pad button { background: rgba(255,255,255,0.1); border: 1px solid #ff66b2; color: #fff; border-radius: 8px; padding: 14px; font-size: 1.2rem; cursor: pointer; }
+        .score-row { display: flex; justify-content: center; gap: 20px; color: #ff66b2; font-size: clamp(0.9rem, 2.8vh, 1.2rem); margin: 4px 0; }
+        #gameMsg { color: #fff; margin: 4px 0; min-height: 1.3em; font-size: clamp(0.75rem, 2.4vh, 1rem); }
+        .controls-hint { color: rgba(255,255,255,0.7); font-size: clamp(0.7rem, 2.2vh, 0.85rem); margin: 4px 0; }
+        .d-pad { display: grid; grid-template-columns: repeat(3, 60px); gap: 6px; justify-content: center; margin: 6px 0; user-select: none; }
+        .d-pad button { background: rgba(255,255,255,0.1); border: 1px solid #ff66b2; color: #fff; border-radius: 8px; padding: 10px; font-size: 1.1rem; cursor: pointer; }
         .d-pad button:active, .d-pad button:hover { background: #ff66b2; color: #000; }
-        #startBtn { background: #ff66b2; color: #000; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 12px; }
+        #startBtn { background: #ff66b2; color: #000; border: none; padding: 10px 22px; border-radius: 8px; font-size: 0.95rem; cursor: pointer; font-weight: bold; margin-top: 0; }
         #startBtn:hover { background: #e05599; }
 
         #settings-btn {
@@ -241,8 +262,8 @@
             align-items: flex-start;
             gap: 8px;
             flex-wrap: wrap;
-            margin: 8px auto;
-            max-width: 320px;
+            margin: 4px 0;
+            width: 100%;
         }
         .help-row details.guide,
         .help-row .help-btn {
@@ -254,8 +275,8 @@
             border: 1px solid #ff66b2;
             color: #ff66b2;
             border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
+            padding: 5px 10px;
+            font-size: clamp(0.7rem, 2.2vh, 0.85rem);
             font-weight: bold;
             cursor: pointer;
             text-align: center;
@@ -267,8 +288,8 @@
             border: 1px solid #ff66b2;
             color: #fff;
             border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
+            padding: 5px 10px;
+            font-size: clamp(0.7rem, 2.2vh, 0.85rem);
             cursor: pointer;
         }
         .help-row .help-btn:hover,
@@ -325,28 +346,17 @@
         #help-close:hover { color: #ff66b2; }
 
         @media (max-width: 400px) {
-            .d-pad { grid-template-columns: repeat(3, 50px); }
-            .d-pad button { padding: 12px; }
+            .game-wrap { padding: 12px; border-radius: 14px; }
+            .d-pad { grid-template-columns: repeat(3, 48px); }
+            .d-pad button { padding: 8px; }
             .score-row { flex-direction: column; gap: 4px; }
             .settings-grid { grid-template-columns: 1fr; }
         }
-        @media (max-height: 720px) {
-            h1 { font-size: 1.5rem; margin: 6px 0; }
-            .game-notice { margin: 2px auto 4px; font-size: 0.8rem; }
-            .game-beta { margin: 2px auto 4px; font-size: 0.75rem; }
-            .score-row { font-size: 1rem; margin: 4px 0; }
-            #gameMsg { margin: 4px 0; font-size: 0.9rem; }
-            .controls-hint { margin: 4px 0; font-size: 0.8rem; }
-            .d-pad { grid-template-columns: repeat(3, 52px); gap: 6px; margin: 8px 0; }
-            .d-pad button { padding: 10px; font-size: 1.1rem; }
-            #startBtn { padding: 10px 20px; font-size: 0.95rem; }
-            .guide { margin: 4px auto; font-size: 0.75rem; }
-            details.guide[open] { max-height: 25vh; overflow-y: auto; }
-            details[open] summary ~ ul { max-height: 120px; overflow-y: auto; }
-        }
         @media (max-height: 600px) {
-            canvas#gameCanvas { max-width: min(260px, 48vh); }
-            .d-pad { grid-template-columns: repeat(3, 44px); }
+            canvas#gameCanvas { max-width: min(220px, 30vh); }
+            .d-pad { grid-template-columns: repeat(3, 48px); }
+            .d-pad button { padding: 8px; }
+            #startBtn { padding: 8px 18px; }
         }
         body.no-pixel-rain #game-pixels { display: none; }
         body.hide-notices .game-notice,
@@ -375,7 +385,7 @@
 </head>
 <body>
     <canvas id="game-pixels" aria-hidden="true"></canvas>
-    <div class="container game-wrap">
+    <div class="game-wrap">
         <h1>HDO Pro Arcade</h1>
         <p class="game-notice"><i class="fa-solid fa-circle-info"></i> This is just for fun and does not give you anything.</p>
         <p class="game-beta"><i class="fa-solid fa-triangle-exclamation"></i> This game is in alpha/beta mode. Some things may not fully work yet.</p>

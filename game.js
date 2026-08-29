@@ -143,7 +143,8 @@
 
   function draw() {
     const t = THEMES[settings.theme] || THEMES.hdo;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = t.bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     if (settings.showGrid) {
       ctx.strokeStyle = t.grid;
