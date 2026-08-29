@@ -6,7 +6,7 @@
     <title>Arcade | HDO Pro</title>
     <meta property="og:url" content="/game" />
     <meta property="og:title" content="HDO Pro | Arcade">
-    <meta property="og:description" content="Play the HDO Pro retro arcade game.">
+    <meta property="og:description" content="Play the HDO Pro retro Snake arcade game.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
@@ -25,21 +25,26 @@
             height: auto;
             touch-action: none;
         }
-        #scoreBoard { color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
+        .score-row { display: flex; justify-content: center; gap: 20px; color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
         #gameMsg { color: #fff; margin: 10px 0; min-height: 1.5em; }
         .d-pad { display: grid; grid-template-columns: repeat(3, 60px); gap: 8px; justify-content: center; margin: 16px 0; user-select: none; }
         .d-pad button { background: rgba(255,255,255,0.1); border: 1px solid #ff66b2; color: #fff; border-radius: 8px; padding: 14px; font-size: 1.2rem; cursor: pointer; }
         .d-pad button:active, .d-pad button:hover { background: #ff66b2; color: #000; }
         #startBtn { background: #ff66b2; color: #000; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 12px; }
         #startBtn:hover { background: #e05599; }
+        .controls-hint { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 8px 0; }
     </style>
 </head>
 <body>
     <div class="container game-wrap">
         <h1>HDO Pro Arcade</h1>
-        <p id="scoreBoard">Score: 0</p>
+        <div class="score-row">
+            <p id="scoreBoard">Score: 0</p>
+            <p id="highScoreBoard">High Score: 0</p>
+        </div>
         <canvas id="gameCanvas" width="320" height="320"></canvas>
-        <p id="gameMsg">Press Start or tap the D-pad to play</p>
+        <p id="gameMsg">Press Start or tap the D-pad / swipe</p>
+        <p class="controls-hint">Arrows / WASD to move · Space or P to pause</p>
         <div class="d-pad">
             <span></span>
             <button id="up" aria-label="Up">▲</button>
