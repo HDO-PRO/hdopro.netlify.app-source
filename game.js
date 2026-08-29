@@ -341,8 +341,6 @@
       if (loopId) clearTimeout(loopId);
       running = false;
       reset();
-    } else if (!running) {
-      reset();
     }
     draw();
   }
