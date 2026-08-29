@@ -170,12 +170,13 @@
         color: #fff;
         box-shadow: 0 6px 24px rgba(0,0,0,0.5);
         cursor: pointer;
-        z-index: 10000;
+        z-index: 10002;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 20px;
         backdrop-filter: blur(8px);
+        touch-action: manipulation;
         transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
       }
       .hdo-ui-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 28px rgba(0,0,0,0.6); background: rgba(255,255,255,0.08); }
@@ -223,7 +224,7 @@
       .hdo-ui-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .3s; }
       .hdo-ui-overlay.open { opacity: 1; pointer-events: auto; }
 
-      .hdo-ui-backtotop { position: fixed; bottom: 90px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: none; background: #ff66b2; color: #fff; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 10000; box-shadow: 0 4px 16px rgba(0,0,0,0.4); transition: transform .2s, background .2s; }
+      .hdo-ui-backtotop { position: fixed; bottom: 90px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: none; background: #ff66b2; color: #fff; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 4px 16px rgba(0,0,0,0.4); transition: transform .2s, background .2s; }
       .hdo-ui-backtotop.visible { display: flex; }
       .hdo-ui-backtotop:hover { transform: translateY(-2px); background: #e05599; }
 
