@@ -260,16 +260,28 @@
   // UI controls
   document.addEventListener('keydown', e => {
     switch (e.key) {
-      case 'ArrowUp': case 'w': case 'W': setDir(0, -grid); break;
-      case 'ArrowDown': case 's': case 'S': setDir(0, grid); break;
-      case 'ArrowLeft': case 'a': case 'A': setDir(-grid, 0); break;
-      case 'ArrowRight': case 'd': case 'D': setDir(grid, 0); break;
+      case 'ArrowUp': case 'w': case 'W':
+        e.preventDefault();
+        setDir(0, -grid);
+        break;
+      case 'ArrowDown': case 's': case 'S':
+        e.preventDefault();
+        setDir(0, grid);
+        break;
+      case 'ArrowLeft': case 'a': case 'A':
+        e.preventDefault();
+        setDir(-grid, 0);
+        break;
+      case 'ArrowRight': case 'd': case 'D':
+        e.preventDefault();
+        setDir(grid, 0);
+        break;
       case ' ': case 'p': case 'P':
         e.preventDefault();
         togglePause();
         break;
     }
-  });
+  }, { passive: false });
 
   document.getElementById('up').addEventListener('click', () => setDir(0, -grid));
   document.getElementById('down').addEventListener('click', () => setDir(0, grid));

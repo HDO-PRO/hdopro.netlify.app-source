@@ -15,6 +15,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         .game-wrap { text-align: center; padding-bottom: 24px; position: relative; }
+        @media (hover: hover) and (pointer: fine) {
+            html, body { overflow: hidden; height: 100%; }
+        }
+        .game-notice {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            margin: 6px auto 10px;
+            max-width: 320px;
+            line-height: 1.4;
+        }
+        .game-notice i { color: #ff66b2; margin-right: 6px; }
         canvas#gameCanvas {
             background: #000;
             border: 2px solid #ff66b2;
@@ -182,6 +193,7 @@
 <body>
     <div class="container game-wrap">
         <h1>HDO Pro Arcade</h1>
+        <p class="game-notice"><i class="fa-solid fa-circle-info"></i> This is just for fun and does not give you anything.</p>
         <div class="score-row">
             <p id="scoreBoard">Score: 0</p>
             <p id="highScoreBoard">High Score: 0</p>
