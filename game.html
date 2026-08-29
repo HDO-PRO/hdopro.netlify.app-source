@@ -6,14 +6,15 @@
     <title>Arcade | HDO Pro</title>
     <meta property="og:url" content="/game" />
     <meta property="og:title" content="HDO Pro | Arcade">
-    <meta property="og:description" content="Play the HDO Pro retro Snake arcade game.">
+    <meta property="og:description" content="Play the HDO Pro retro arcade game.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link rel="icon" href="/Images/logo.png" type="image/png">
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .game-wrap { text-align: center; padding-bottom: 24px; }
+        .game-wrap { text-align: center; padding-bottom: 24px; position: relative; }
         canvas#gameCanvas {
             background: #000;
             border: 2px solid #ff66b2;
@@ -27,12 +28,101 @@
         }
         .score-row { display: flex; justify-content: center; gap: 20px; color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
         #gameMsg { color: #fff; margin: 10px 0; min-height: 1.5em; }
+        .controls-hint { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 8px 0; }
         .d-pad { display: grid; grid-template-columns: repeat(3, 60px); gap: 8px; justify-content: center; margin: 16px 0; user-select: none; }
         .d-pad button { background: rgba(255,255,255,0.1); border: 1px solid #ff66b2; color: #fff; border-radius: 8px; padding: 14px; font-size: 1.2rem; cursor: pointer; }
         .d-pad button:active, .d-pad button:hover { background: #ff66b2; color: #000; }
         #startBtn { background: #ff66b2; color: #000; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 12px; }
         #startBtn:hover { background: #e05599; }
-        .controls-hint { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 8px 0; }
+
+        #settings-btn {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background 0.2s, transform 0.2s;
+        }
+        #settings-btn:hover { background: rgba(255,255,255,0.18); transform: rotate(30deg); }
+
+        #settings-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(320px, 85vw);
+            height: 100%;
+            background: rgba(10,10,10,0.96);
+            border-left: 2px solid #ff66b2;
+            z-index: 1001;
+            padding: 24px;
+            box-sizing: border-box;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(.4,.0,.2,1), opacity 0.2s;
+            overflow-y: auto;
+        }
+        #settings-panel.open { transform: translateX(0); opacity: 1; }
+
+        #settings-panel h2 {
+            color: #ff66b2;
+            margin: 0 0 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            padding-right: 40px;
+        }
+
+        #settings-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 2;
+        }
+        #settings-close:hover { color: #ff66b2; }
+
+        .setting {
+            margin: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        .setting label { color: #fff; font-size: 0.95rem; }
+        .setting select,
+        .setting button {
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: 1px solid #ff66b2;
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .setting button:hover { background: rgba(255,255,255,0.08); }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; }
+        .setting-row input[type="checkbox"] { width: 22px; height: 22px; accent-color: #ff66b2; cursor: pointer; }
+
+        @media (max-width: 400px) {
+            .d-pad { grid-template-columns: repeat(3, 50px); }
+            .d-pad button { padding: 12px; }
+            .score-row { flex-direction: column; gap: 4px; }
+        }
     </style>
 </head>
 <body>
@@ -57,7 +147,68 @@
             <span></span>
         </div>
     </div>
-    <script src="script.js" defer></script>
+
+    <button id="settings-btn" aria-label="Game settings">
+        <i class="fa-solid fa-gear"></i>
+    </button>
+
+    <div id="settings-panel" aria-label="Game settings panel">
+        <button id="settings-close" aria-label="Close settings">&times;</button>
+        <h2>Game Settings</h2>
+
+        <div class="setting">
+            <label for="theme-select">Theme</label>
+            <select id="theme-select">
+                <option value="hdo">HDO Pink</option>
+                <option value="classic">Classic Green</option>
+                <option value="matrix">Matrix</option>
+                <option value="neon">Neon</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <label for="difficulty-select">Difficulty</label>
+            <select id="difficulty-select">
+                <option value="slow">Slow</option>
+                <option value="normal">Normal</option>
+                <option value="fast">Fast</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <label for="grid-select">Grid size</label>
+            <select id="grid-select">
+                <option value="20">Normal (16×16)</option>
+                <option value="16">Small (20×20)</option>
+                <option value="32">Large (10×10)</option>
+            </select>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="walls-toggle">Die on walls</label>
+            <input type="checkbox" id="walls-toggle" checked>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="grid-toggle">Show grid</label>
+            <input type="checkbox" id="grid-toggle" checked>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="sound-toggle">Sound</label>
+            <input type="checkbox" id="sound-toggle" checked>
+        </div>
+
+        <div class="setting setting-row">
+            <label for="swipe-toggle">Swipe on canvas</label>
+            <input type="checkbox" id="swipe-toggle" checked>
+        </div>
+
+        <div class="setting">
+            <button id="reset-highscore">Reset High Score</button>
+        </div>
+    </div>
+
     <script src="game.js" defer></script>
 </body>
 </html>
