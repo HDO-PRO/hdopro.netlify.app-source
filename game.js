@@ -36,7 +36,7 @@
   };
 
   let settings = loadSettings();
-  let grid = settings.grid;
+  let grid = parseInt(settings.grid, 10) || 20;
   let tileCount = 320 / grid;
   let snake = [centerTile(7, 7)];
   let dx = grid;
@@ -112,7 +112,7 @@
   }
 
   function reset() {
-    grid = settings.grid;
+    grid = parseInt(settings.grid, 10) || 20;
     tileCount = 320 / grid;
     canvas.width = 320;
     canvas.height = 320;
