@@ -121,12 +121,6 @@
             border-color: #ff66b2;
         }
 
-        .click-counter {
-            color: #ff66b2;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
         .loading-dots {
             display: flex;
             justify-content: center;
@@ -264,7 +258,6 @@
         <p>Access the <a href="/terminal" style="color: #ff66b2;">HDO Pro Terminal</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" data-href="/h0m3">
-            <div class="click-counter" id="cat-counter">Click the cat 6 times to go home</div>
         </div>
         <div class="loading-dots">
             <div></div>
@@ -316,7 +309,6 @@
         ];
 
         const gifElement = document.getElementById('animated-gif');
-        const catCounter = document.getElementById('cat-counter');
         const overlay = document.getElementById('verify-overlay');
         const puzzleAnswer = document.getElementById('puzzle-answer');
         const passwordInput = document.getElementById('terminal-password');
@@ -375,10 +367,9 @@
             setTimeout(() => gifElement.classList.remove('tapped'), 150);
 
             if (catClicks >= 6) {
-                catCounter.textContent = 'Cat ready — verify to continue!';
+                catClicks = 0;
                 openVerify();
-            } else {
-                catCounter.textContent = `Click the cat ${6 - catClicks} more time${6 - catClicks === 1 ? '' : 's'} to go home`;
+            } more time${6 - catClicks === 1 ? '' : 's'} to go home`;
             }
         });
 
