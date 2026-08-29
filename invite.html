@@ -146,19 +146,20 @@
 
         .notification {
             position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: none;
             background-color: rgba(200, 0, 0, 0.95);
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 0 0 8px 8px;
             display: none;
-            z-index: 3000;
+            z-index: 10000;
             font-weight: bold;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            max-width: 90%;
             text-align: center;
+            box-sizing: border-box;
         }
 
         @keyframes dot-blink {
