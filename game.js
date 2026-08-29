@@ -38,7 +38,13 @@
     glow: true,
     showBorder: true,
     showDPad: true,
-    vibrate: false
+    vibrate: false,
+    pixelRain: true,
+    showNotices: true,
+    showControlsHint: true,
+    showScore: true,
+    showHighScore: true,
+    compact: false
   };
 
   let settings = loadSettings();
@@ -137,8 +143,7 @@
 
   function draw() {
     const t = THEMES[settings.theme] || THEMES.hdo;
-    ctx.fillStyle = t.bg;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (settings.showGrid) {
       ctx.strokeStyle = t.grid;
@@ -343,6 +348,13 @@
   const borderToggle = document.getElementById('border-toggle');
   const dpadToggle = document.getElementById('dpad-toggle');
   const vibrateToggle = document.getElementById('vibrate-toggle');
+  const pixelRainToggle = document.getElementById('pixel-rain-toggle');
+  const noticesToggle = document.getElementById('notices-toggle');
+  const controlsHintToggle = document.getElementById('controls-hint-toggle');
+  const showScoreToggle = document.getElementById('show-score-toggle');
+  const showHighScoreToggle = document.getElementById('show-highscore-toggle');
+  const compactToggle = document.getElementById('compact-toggle');
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
 
   function populateSettings() {
     themeSelect.value = settings.theme;
@@ -356,6 +368,12 @@
     borderToggle.checked = settings.showBorder;
     dpadToggle.checked = settings.showDPad;
     vibrateToggle.checked = settings.vibrate;
+    pixelRainToggle.checked = settings.pixelRain;
+    noticesToggle.checked = settings.showNotices;
+    controlsHintToggle.checked = settings.showControlsHint;
+    showScoreToggle.checked = settings.showScore;
+    showHighScoreToggle.checked = settings.showHighScore;
+    compactToggle.checked = settings.compact;
   }
 
   function applySettings() {
@@ -371,11 +389,23 @@
     settings.showBorder = borderToggle.checked;
     settings.showDPad = dpadToggle.checked;
     settings.vibrate = vibrateToggle.checked;
+    settings.pixelRain = pixelRainToggle.checked;
+    settings.showNotices = noticesToggle.checked;
+    settings.showControlsHint = controlsHintToggle.checked;
+    settings.showScore = showScoreToggle.checked;
+    settings.showHighScore = showHighScoreToggle.checked;
+    settings.compact = compactToggle.checked;
     saveSettings();
     currentSpeed = DIFFICULTY[settings.difficulty];
     document.body.classList.toggle('no-glow', !settings.glow);
     document.body.classList.toggle('no-border', !settings.showBorder);
     document.body.classList.toggle('hide-dpad', !settings.showDPad);
+    document.body.classList.toggle('no-pixel-rain', !settings.pixelRain);
+    document.body.classList.toggle('hide-notices', !settings.showNotices);
+    document.body.classList.toggle('hide-controls-hint', !settings.showControlsHint);
+    document.body.classList.toggle('hide-score', !settings.showScore);
+    document.body.classList.toggle('hide-highscore', !settings.showHighScore);
+    document.body.classList.toggle('game-compact', settings.compact);
     if (settings.grid !== oldGrid) {
       if (loopId) clearTimeout(loopId);
       running = false;
@@ -385,7 +415,19 @@
   }
 
   [themeSelect, difficultySelect, gridSelect].forEach(el => el.addEventListener('change', applySettings));
-  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle].forEach(el => el.addEventListener('change', applySettings));
+  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle, pixelRainToggle, noticesToggle, controlsHintToggle, showScoreToggle, showHighScoreToggle, compactToggle].forEach(el => el.addEventListener('change', applySettings));
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    fullscreenBtn.textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Enter fullscreen';
+  });
 
   document.getElementById('reset-highscore').addEventListener('click', () => {
     highScore = 0;

@@ -28,8 +28,10 @@
             line-height: 1.4;
         }
         .game-notice i { color: #ff66b2; margin-right: 6px; }
+        .game-beta { color: #ffaa00; font-size: 0.8rem; margin: 4px auto 8px; max-width: 320px; line-height: 1.4; }
+        .game-beta i { color: #ffaa00; margin-right: 6px; }
         canvas#gameCanvas {
-            background: #000;
+            background: transparent;
             border: 2px solid #ff66b2;
             border-radius: 8px;
             display: block;
@@ -198,7 +200,34 @@
         .d-pad { animation: game-slide-up 0.5s ease-out 0.5s both; }
         #settings-btn { animation: game-slide-up 0.5s ease-out 0.6s both; }
 
-        .help-btn {
+        .help-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 8px auto;
+            max-width: 320px;
+        }
+        .help-row details.guide,
+        .help-row .help-btn {
+            flex: 1 1 120px;
+            min-width: 120px;
+        }
+        .help-row details.guide summary {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #ff66b2;
+            color: #ff66b2;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            list-style: none;
+        }
+        .help-row details.guide summary::-webkit-details-marker { display: none; }
+        .help-row .help-btn {
             background: rgba(0,0,0,0.6);
             border: 1px solid #ff66b2;
             color: #fff;
@@ -206,9 +235,9 @@
             padding: 6px 12px;
             font-size: 0.85rem;
             cursor: pointer;
-            margin: 8px auto;
         }
-        .help-btn:hover { background: rgba(255,255,255,0.08); }
+        .help-row .help-btn:hover,
+        .help-row details.guide summary:hover { background: rgba(255,255,255,0.08); }
 
         #help-overlay {
             position: fixed;
@@ -233,6 +262,9 @@
             border-radius: 12px;
             padding: 20px;
             box-sizing: border-box;
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             z-index: 10003;
             opacity: 0;
             pointer-events: none;
@@ -265,7 +297,8 @@
         }
         @media (max-height: 720px) {
             h1 { font-size: 1.5rem; margin: 6px 0; }
-            .game-notice { margin: 4px auto 6px; font-size: 0.8rem; }
+            .game-notice { margin: 2px auto 4px; font-size: 0.8rem; }
+            .game-beta { margin: 2px auto 4px; font-size: 0.75rem; }
             .score-row { font-size: 1rem; margin: 4px 0; }
             #gameMsg { margin: 4px 0; font-size: 0.9rem; }
             .controls-hint { margin: 4px 0; font-size: 0.8rem; }
@@ -280,6 +313,17 @@
             canvas#gameCanvas { max-width: min(260px, 48vh); }
             .d-pad { grid-template-columns: repeat(3, 44px); }
         }
+        body.no-pixel-rain #game-pixels { display: none; }
+        body.hide-notices .game-notice,
+        body.hide-notices .game-beta { display: none; }
+        body.hide-controls-hint .controls-hint { display: none; }
+        body.hide-score #scoreBoard { display: none; }
+        body.hide-highscore #highScoreBoard { display: none; }
+        body.game-compact .game-wrap { padding-bottom: 8px; }
+        body.game-compact h1 { margin: 4px 0; }
+        body.game-compact .game-notice,
+        body.game-compact .game-beta,
+        body.game-compact .controls-hint { display: none; }
     </style>
 </head>
 <body>
@@ -287,6 +331,7 @@
     <div class="container game-wrap">
         <h1>HDO Pro Arcade</h1>
         <p class="game-notice"><i class="fa-solid fa-circle-info"></i> This is just for fun and does not give you anything.</p>
+        <p class="game-beta"><i class="fa-solid fa-triangle-exclamation"></i> This game is in alpha/beta mode. Some things may not fully work yet.</p>
         <div class="score-row">
             <p id="scoreBoard">Score: 0</p>
             <p id="highScoreBoard">High Score: 0</p>
@@ -294,17 +339,19 @@
         <canvas id="gameCanvas" width="320" height="320"></canvas>
         <p id="gameMsg">Press Start or tap the D-pad / swipe</p>
         <p class="controls-hint">Arrows / WASD to move &middot; Space or P to pause</p>
-        <details class="guide" style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 8px auto; max-width: 320px; text-align: left;">
-            <summary style="color: #ff66b2; cursor: pointer; font-weight: bold; text-align: center;">How to Play</summary>
-            <ul style="margin: 8px 0 0; padding-left: 18px;">
-                <li>Eat the pink food to grow and score.</li>
-                <li>Avoid hitting the walls or your own tail.</li>
-                <li>Use arrow keys or WASD on PC.</li>
-                <li>Tap the D-pad or swipe on mobile.</li>
-                <li>Press Space or P to pause.</li>
-            </ul>
-        </details>
-        <button id="open-help" class="help-btn">How to Play</button>
+        <div class="help-row">
+            <details class="guide" style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin: 0; text-align: left;">
+                <summary style="list-style: none;">Quick Guide</summary>
+                <ul style="margin: 8px 0 0; padding-left: 18px;">
+                    <li>Eat the pink food to grow and score.</li>
+                    <li>Avoid hitting the walls or your own tail.</li>
+                    <li>Use arrow keys or WASD on PC.</li>
+                    <li>Tap the D-pad or swipe on mobile.</li>
+                    <li>Press Space or P to pause.</li>
+                </ul>
+            </details>
+            <button id="open-help" class="help-btn" title="Opens the full guide in a popup">Full Guide</button>
+        </div>
         <div class="d-pad">
             <span></span>
             <button id="up" aria-label="Up">▲</button>
@@ -413,6 +460,38 @@
 
                 <div class="setting">
                     <button id="help-in-settings" type="button">How to Play</button>
+                </div>
+            </div>
+        </div>
+        <div class="settings-section">
+            <h3>Layout</h3>
+            <div class="settings-grid">
+                <div class="setting setting-row">
+                    <label for="pixel-rain-toggle">Retro pixel rain</label>
+                    <input type="checkbox" id="pixel-rain-toggle" checked>
+                </div>
+                <div class="setting setting-row">
+                    <label for="notices-toggle">Show notices</label>
+                    <input type="checkbox" id="notices-toggle" checked>
+                </div>
+                <div class="setting setting-row">
+                    <label for="controls-hint-toggle">Show controls hint</label>
+                    <input type="checkbox" id="controls-hint-toggle" checked>
+                </div>
+                <div class="setting setting-row">
+                    <label for="show-score-toggle">Show score</label>
+                    <input type="checkbox" id="show-score-toggle" checked>
+                </div>
+                <div class="setting setting-row">
+                    <label for="show-highscore-toggle">Show high score</label>
+                    <input type="checkbox" id="show-highscore-toggle" checked>
+                </div>
+                <div class="setting setting-row">
+                    <label for="compact-toggle">Compact layout</label>
+                    <input type="checkbox" id="compact-toggle">
+                </div>
+                <div class="setting">
+                    <button id="fullscreen-btn" type="button">Toggle fullscreen</button>
                 </div>
             </div>
         </div>
