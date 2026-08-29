@@ -5,6 +5,9 @@
   window.__hdoUIInitialized = true;
 
   const isIndex = /index\.html$/i.test(location.pathname) || location.pathname === '/' || location.pathname === '';
+  const isInvite = /invite\.html$/i.test(location.pathname);
+  const isGame = /game\.html$/i.test(location.pathname);
+  const skipGlobalUI = isIndex || isInvite || isGame;
 
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', e => {
@@ -39,6 +42,7 @@
       { href: '/status', label: 'Status', icon: 'fa-signal' },
       { href: '/faq', label: 'FAQ', icon: 'fa-circle-question' },
       { href: '/sitemap', label: 'Site Map', icon: 'fa-sitemap' },
+      { href: '/terminal', label: 'Terminal', icon: 'fa-terminal' },
       { href: '/guide', label: 'Guide', icon: 'fa-book' },
       { href: '/tutorial', label: 'Tutorial', icon: 'fa-graduation-cap' },
       { href: '/rules', label: 'Rules', icon: 'fa-scale-balanced' },
@@ -355,7 +359,8 @@
 
     const anyOpen = nav.classList.contains('open') || settings.classList.contains('open');
     overlay.classList.toggle('open', anyOpen);
-    document.body.style.overflow = anyOpen ? 'hidden' : '';
+    document.documentElement.style.overflowY = anyOpen ? 'hidden' : '';
+    document.body.style.overflowY = anyOpen ? 'hidden' : '';
   }
 
   function closeAll() {
@@ -369,7 +374,7 @@
 
   function completeInit() {
     applySettings();
-    if (!isIndex) buildUI();
+    if (!skipGlobalUI) buildUI();
     // Staggered page entrance for glass containers
     const glass = document.querySelectorAll('.container, .box, .app-container, .announcement-container, .discord-container, .contact-container, .password-container, .feature, .notification, .modal-content, .side-menu, .hero, #download-hdo-pro, .dmca-notice, .github-icon, .hdo-glass');
     glass.forEach(function (el, i) {

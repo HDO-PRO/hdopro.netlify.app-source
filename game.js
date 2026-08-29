@@ -354,17 +354,24 @@
     try { localStorage.setItem(HIGHSCORE_KEY, '0'); } catch (e) {}
   });
 
-  document.getElementById('settings-btn').addEventListener('click', () => {
-    settingsPanel.classList.add('open');
-    populateSettings();
+  const settingsBtn = document.getElementById('settings-btn');
+
+  settingsBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const willOpen = !settingsPanel.classList.contains('open');
+    settingsPanel.classList.toggle('open', willOpen);
+    if (willOpen) populateSettings();
   });
 
-  document.getElementById('settings-close').addEventListener('click', () => {
+  document.getElementById('settings-close').addEventListener('click', e => {
+    e.stopPropagation();
     settingsPanel.classList.remove('open');
   });
 
-  window.addEventListener('click', e => {
-    if (e.target === settingsPanel) settingsPanel.classList.remove('open');
+  document.addEventListener('click', e => {
+    if (!settingsPanel.classList.contains('open')) return;
+    if (settingsPanel.contains(e.target) || settingsBtn.contains(e.target)) return;
+    settingsPanel.classList.remove('open');
   });
 
   loadHighScore();

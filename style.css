@@ -267,7 +267,8 @@ html.hdo-hide-header .page-header {
 
 html.hdo-hide-hero .hero,
 html.hdo-hide-hero .hero-section,
-html.hdo-hide-hero .banner {
+html.hdo-hide-hero .banner,
+html.hdo-hide-hero .h0m3-hero {
   display: none !important;
 }
 
