@@ -72,6 +72,39 @@
     color: #aaa;
   }
 
+  .puzzle {
+    margin: 18px 0;
+    padding: 12px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+  }
+
+  .puzzle p {
+    margin: 0 0 10px;
+    color: #ff66b2;
+    font-size: 14px;
+  }
+
+  .puzzle input[type="text"] {
+    width: 70px;
+    padding: 8px 10px;
+    text-align: center;
+    background: #000;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .puzzle-error {
+    margin-top: 8px;
+    color: #ff6666;
+    font-size: 12px;
+    min-height: 16px;
+  }
+
   input[type="checkbox"] {
     transform: scale(1.1);
     margin-right: 6px;
@@ -125,27 +158,43 @@
     }, 2500);
   }
 
-  function updateAccess() {
-    const check = document.getElementById("verifyCheck");
-    const buttons = document.querySelectorAll(".secure-btn");
+  const puzzleA = Math.floor(Math.random() * 9) + 2;
+  const puzzleB = Math.floor(Math.random() * 9) + 2;
+  const puzzleAnswer = puzzleA + puzzleB;
+  let puzzleSolved = false;
 
-    buttons.forEach(btn => {
-      if (check.checked) {
-        btn.classList.add("enabled");
-      } else {
-        btn.classList.remove("enabled");
-      }
-    });
+  document.getElementById('puzzle-question').textContent = 'What is ' + puzzleA + ' + ' + puzzleB + '?';
+
+  function enableContact() {
+    document.querySelectorAll(".secure-btn").forEach(btn => btn.classList.add("enabled"));
   }
 
-  function requireAccess(action) {
-    const check = document.getElementById("verifyCheck");
-
-    if (!check.checked) {
-      showToast("Please read and accept the terms before using this feature.");
+  function requireAccess() {
+    if (!puzzleSolved) {
+      showToast("Solve the puzzle to access the email.");
       return false;
     }
     return true;
+  }
+
+  function checkPuzzle() {
+    const input = document.getElementById("puzzle-answer");
+    const error = document.getElementById("puzzle-error");
+    const value = input.value.trim();
+
+    if (value === String(puzzleAnswer)) {
+      puzzleSolved = true;
+      error.textContent = "";
+      input.disabled = true;
+      document.querySelector('#puzzle-box button').disabled = true;
+      document.getElementById("puzzle-question").textContent = "Verified";
+      showToast("Verified. You can now reveal the email.");
+      enableContact();
+    } else {
+      error.textContent = "Wrong answer. Try again.";
+      input.value = "";
+      input.focus();
+    }
   }
 
   function openMailApp() {
@@ -171,11 +220,11 @@
   <div class="box">
     <h2>Contact HDO Pro</h2>
 
-    <div class="verify">
-      <label>
-        <input type="checkbox" id="verifyCheck" onchange="updateAccess()">
-        I agree this email is private, for members only, and will not be misused.
-      </label>
+    <div class="puzzle" id="puzzle-box">
+      <p id="puzzle-question">What is 7 + 5?</p>
+      <input type="text" id="puzzle-answer" placeholder="Answer" autocomplete="off" onkeydown="if (event.key === 'Enter') checkPuzzle()">
+      <button type="button" class="enabled" onclick="checkPuzzle()">Verify</button>
+      <p id="puzzle-error" class="puzzle-error"></p>
     </div>
 
     <button class="secure-btn" onclick="openMailApp()">Open in Email App</button>

@@ -425,7 +425,7 @@
 
   function initPuzzle() {
     try {
-      if (localStorage.getItem('hdo-verified') === 'true') {
+      if (isIndex && localStorage.getItem('hdo-verified') === 'true') {
         completeInit();
         return;
       }

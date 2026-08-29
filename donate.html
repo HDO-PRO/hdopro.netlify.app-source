@@ -14,24 +14,35 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        .donate-wrap { max-width: 760px; margin: 0 auto; padding: 80px 20px 120px; position: relative; z-index: 1; }
-        .donate-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 24px; }
+        .donate-wrap { max-width: 720px; margin: 0 auto; padding: 90px 20px 120px; position: relative; z-index: 1; }
+        .donate-header { text-align: center; font-size: 1.5rem; color: #ff66b2; margin-bottom: 32px; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
+        .donate-wrap .container { padding: 36px 32px; }
+        .donate-wrap h1 { color: #ff66b2; margin: 0 0 12px; }
+        .donate-wrap > .container > p { color: #eee; max-width: 520px; margin: 0 auto 32px; line-height: 1.5; }
+        .donate-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 24px; }
         .donate-card {
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px; padding: 22px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 220px; padding: 32px 26px;
+            background: linear-gradient(145deg, rgba(255,102,178,0.12) 0%, rgba(20,20,20,0.92) 100%);
+            border: 1px solid rgba(255,102,178,0.25);
+            border-radius: 20px;
             color: #fff; text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
         }
-        .donate-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .donate-card i { font-size: 1.6rem; }
+        .donate-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(255,102,178,0.55); box-shadow: 0 16px 40px rgba(255,102,178,0.2), 0 12px 30px rgba(0,0,0,0.5); }
+        .donate-card i { font-size: 2.2rem; margin-bottom: 10px; }
+        .donate-card strong { font-size: 1.2rem; margin-bottom: 8px; }
+        .donate-card span { font-size: 0.9rem; color: #ddd; text-align: center; }
         .donate-card.ko-fi i { color: #ff66b2; }
         .donate-card.patreon i { color: #ff9900; }
-        .donate-home { display: inline-block; margin-top: 28px; color: #ff66b2; text-decoration: none; }
-        .donate-home:hover { text-decoration: underline; }
-        @media (max-width: 480px) {
-            .donate-wrap { padding-top: 60px; }
-            .donate-card { padding: 18px; }
+        .donate-home { display: inline-block; margin-top: 34px; padding: 10px 18px; color: #ff66b2; text-decoration: none; border: 1px solid rgba(255,102,178,0.4); border-radius: 10px; transition: background 0.2s, color 0.2s; }
+        .donate-home:hover { background: rgba(255,102,178,0.12); }
+        @media (max-width: 540px) {
+            .donate-wrap { padding-top: 70px; }
+            .donate-wrap .container { padding: 28px 20px; }
+            .donate-header { font-size: 1.25rem; }
+            .donate-card { min-height: auto; padding: 26px 20px; }
         }
     </style>
 </head>
@@ -40,7 +51,7 @@
     <script src="pixels.js" defer></script>
 
     <div class="donate-wrap">
-        <header class="h0m3-header">HDO Pro</header>
+        <header class="donate-header">HDO Pro</header>
 
         <section class="container">
             <h1>Support HDO Pro</h1>
@@ -63,5 +74,6 @@
             <a class="donate-home" href="/h0m3"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
         </section>
     </div>
+    <script src="script.js" defer></script>
 </body>
 </html>

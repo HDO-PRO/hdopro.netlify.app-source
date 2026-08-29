@@ -1,266 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support - HDO Pro</title>
-<meta property="og:url" content="/privacy" />
-<meta property="og:title" content="HDO Pro | Support">
-<meta property="og:description" content="Need Support? Contact Us.">
-<meta property="og:image" content="/images/logo.png">
-<meta property="og:image:type" content="image/png">
-<meta name="theme-color" content="#8d2249" />
-<link href="style.css" rel="stylesheet" type="text/css" />
-<style>
-  body {
-    background-color: #3a1653;
-    color: #ffc0cb;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    -webkit-user-select: none; /* Disable text selection on Safari/Chrome */
-    -moz-user-select: none; /* Disable text selection on Firefox */
-    -ms-user-select: none; /* Disable text selection on IE/Edge */
-    user-select: none; /* Disable text selection on all browsers */
-  }
-
-  .notification {
-    background-color: rgba(49, 21, 75, 0.8); /* Purple with transparency */
-    color: #ffc0cb;
-    padding: 10px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(49, 21, 75, 0.8); /* Purple with transparency */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
-
-  .inactive {
-    filter: blur(2px);
-    opacity: 0.75;
-  }
-
-  .support-links {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-
-  .support-links a {
-    background: #7289da;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .support-links a:hover {
-    background: #677bc4;
-  }
-
-  h1 {
-    color: #ffc0cb;
-    margin-top: 20px;
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  /* Style for "crossing out" inputs */
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: rgba(255, 192, 203, 0.3);
-    color: #ffc0cb;
-    text-decoration: line-through;
-    pointer-events: none; /* Disable typing */
-  }
-
-  input[type="submit"] {
-    background-color: #7289da;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #677bc4;
-  }
-
-  /* Modal Styling */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-  }
-
-  .modal-content {
-    background-color: rgba(49, 21, 75, 0.9); /* Purple with transparency */
-    color: #ffc0cb;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 300px;
-    padding: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .modal-content button {
-    background-color: #7289da;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .modal-content button:hover {
-    background-color: #677bc4;
-  }
-
-  /* Spoiler effect for email */
-  .spoiler {
-    color: transparent;
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: inline-block;
-  }
-
-  .spoiler:hover {
-    color: initial;
-    text-shadow: none;
-  }
-</style>
-<script>
-  // Function to close the modal
-  function closeModal() {
-    document.getElementById('humanCheckModal').style.display = 'none';
-  }
-
-  // Function to display the modal
-  function showModal() {
-    document.getElementById('humanCheckModal').style.display = 'block';
-  }
-
-  // Prevent right-click context menu
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // Prevent copying
-  document.addEventListener('copy', function(e) {
-    e.preventDefault();
-  });
-
-  // Check for developer tools
-  function detectDevTools() {
-    const threshold = 160;
-    let start = performance.now();
-    debugger;
-    let end = performance.now();
-    if (end - start > threshold) {
-      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Rick Roll
-    }
-  }
-
-  // Event listeners to detect key combinations
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
-      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Rick Roll
-    }
-  });
-
-  // Disable text selection
-  document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-  });
-
-  // Prevent developer tools on load
-  window.onload = function() {
-    showModal();
-    detectDevTools();
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-      e.preventDefault();
-    }
-  });
-
-  document.addEventListener('selectstart', function (e) {
-    e.preventDefault();
-  });
-
-  // Prevent dev tools inspection
-  document.addEventListener('keydown', function (e) {
-    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-      e.preventDefault();
-    }
-  });
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - HDO Pro</title>
+    <meta property="og:url" content="/support" />
+    <meta property="og:title" content="HDO Pro | Support">
+    <meta property="og:description" content="This page is closed. Support has moved to the private community.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+    <link rel="icon" href="/Images/logo.png" type="image/png">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .closed-backdrop {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.55);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+        .closed-card {
+            width: 100%;
+            max-width: 540px;
+            background: rgba(20,20,20,0.92);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            padding: 36px 28px;
+            text-align: center;
+        }
+        .closed-card h1 { color: #ff66b2; margin: 0 0 18px; font-size: 1.6rem; }
+        .closed-card p { color: #eee; line-height: 1.6; margin: 0 0 22px; font-size: 1rem; }
+        .closed-card a { color: #ff66b2; text-decoration: none; }
+        .closed-card a:hover { text-decoration: underline; }
+        @media (max-width: 480px) {
+            .closed-card { padding: 28px 20px; }
+            .closed-card h1 { font-size: 1.4rem; }
+        }
+    </style>
 </head>
 <body>
-<!-- Modal -->
-<div id="humanCheckModal" class="modal">
-  <div class="modal-content">
-    <h2>Are you human?</h2>
-    <button onclick="closeModal()">Yes, I am human</button>
-  </div>
-</div>
-
-<div class="notification">
-  <p><strong>Alert:</strong> We are not accepting messages at this time on this page.</p>
-</div>
-
-<div class="container inactive">
-  <h1>Support</h1>
-  <p class="support-notice">Support is temporarily unavailable. It may have moved or will return later.</p>
-  <div class="support-links">
-    <a href="/h0m3">Back to Home</a>
-    <a href="/donate">Donate</a>
-  </div>
-</div>
-
-<script src="script.js" defer></script>
-<canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
-<script src="pixels.js" defer></script>
+    <div class="closed-backdrop">
+        <div class="closed-card">
+            <h1>Support Closed</h1>
+            <p>This support page is no longer active. All support resources and help channels have been moved to our private community servers.</p>
+            <p>Access is available to community members only. If you are a member, you already know how to find them.</p>
+            <p><a href="/h0m3">&larr; Back to Home</a></p>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
 </body>
 </html>
