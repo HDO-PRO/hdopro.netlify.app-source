@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-pwa-cache-v3';
+const CACHE_NAME = 'my-pwa-cache-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -13,6 +13,8 @@ const urlsToCache = [
   '/Images/logo.png',
   '/Images/android1-upscale.png',
   '/style.css',
+  '/game.html',
+  '/game.js',
   '/releases.html',
   '/faq.html',
   '/status.html',

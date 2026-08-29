@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arcade | HDO Pro</title>
+    <meta property="og:url" content="/game" />
+    <meta property="og:title" content="HDO Pro | Arcade">
+    <meta property="og:description" content="Play the HDO Pro retro arcade game.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+    <link rel="icon" href="/Images/logo.png" type="image/png">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .game-wrap { text-align: center; padding-bottom: 24px; }
+        canvas#gameCanvas {
+            background: #000;
+            border: 2px solid #ff66b2;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            touch-action: none;
+        }
+        #scoreBoard { color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
+        #gameMsg { color: #fff; margin: 10px 0; min-height: 1.5em; }
+        .d-pad { display: grid; grid-template-columns: repeat(3, 60px); gap: 8px; justify-content: center; margin: 16px 0; user-select: none; }
+        .d-pad button { background: rgba(255,255,255,0.1); border: 1px solid #ff66b2; color: #fff; border-radius: 8px; padding: 14px; font-size: 1.2rem; cursor: pointer; }
+        .d-pad button:active, .d-pad button:hover { background: #ff66b2; color: #000; }
+        #startBtn { background: #ff66b2; color: #000; border: none; padding: 12px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 12px; }
+        #startBtn:hover { background: #e05599; }
+    </style>
+</head>
+<body>
+    <div class="container game-wrap">
+        <h1>HDO Pro Arcade</h1>
+        <p id="scoreBoard">Score: 0</p>
+        <canvas id="gameCanvas" width="320" height="320"></canvas>
+        <p id="gameMsg">Press Start or tap the D-pad to play</p>
+        <div class="d-pad">
+            <span></span>
+            <button id="up" aria-label="Up">▲</button>
+            <span></span>
+            <button id="left" aria-label="Left">◀</button>
+            <button id="startBtn" aria-label="Start or restart">●</button>
+            <button id="right" aria-label="Right">▶</button>
+            <span></span>
+            <button id="down" aria-label="Down">▼</button>
+            <span></span>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+    <script src="game.js" defer></script>
+</body>
+</html>
