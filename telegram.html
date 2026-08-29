@@ -1,163 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HDO Pro - Telegram</title>
-<meta property="og:url" content="/telegram" />
-<meta property="og:title" content="HDO Pro | Telegram">
-<meta property="og:description" content="Join the HDO Pro Telegram Community.">
-<meta property="og:image" content="/images/logo.png">
-<meta property="og:image:type" content="image/png">
-<meta name="theme-color" content="#8d2249" />
-<link href="style.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="/images/logo.png" type="image/png">
-<style>
-  body {
-    background-color: #3a1653;
-    color: #ffc0cb;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    background-image: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh; /* Ensures full viewport height */
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(67, 181, 230, 0.5); /* Darker blue theme with transparency */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    position: relative;
-    z-index: 1; /* Ensure content is above the blurred background */
-  }
-
-  h1 {
-    color: #ffc0cb;
-    margin-top: 20px;
-  }
-
-  p {
-    margin-bottom: 10px;
-    color: #ffc0cb;
-  }
-
-  /* Modal Styling */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  .modal-content {
-    background-color: #38124b;
-    color: #ffc0cb;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 300px;
-    padding: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .modal-content button {
-    background-color: #7289da;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  .modal-content button:hover {
-    background-color: #677bc4;
-  }
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDO Pro - Telegram</title>
+    <meta property="og:url" content="/telegram" />
+    <meta property="og:title" content="HDO Pro | Telegram">
+    <meta property="og:description" content="Join the HDO Pro Telegram Community.">
+    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta name="theme-color" content="#8d2249" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 100%;
+            max-width: 420px;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .card h1 {
+            margin: 0 0 12px;
+            font-size: 1.6rem;
+        }
+        .card p {
+            margin: 10px 0;
+            color: #ddd;
+        }
+        @media (max-width: 480px) {
+            .card { padding: 22px; }
+            .card h1 { font-size: 1.35rem; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h1>Join HDO Pro on Telegram</h1>
-  <p>Sorry, the invite link is not available at this time. Please join our Discord to get access.</p>
-</div>
-
-<!-- Modal -->
-<div id="humanCheckModal" class="modal">
-  <div class="modal-content">
-    <h2>Are you human?</h2>
-    <button onclick="closeModal()">Yes, I am human</button>
-  </div>
-</div>
-
-<script>
-  function closeModal() {
-    document.getElementById('humanCheckModal').style.display = 'none';
-    localStorage.setItem('humanVerified', 'true'); // Store verification status in localStorage
-  }
-
-  window.onload = function() {
-    var humanVerified = localStorage.getItem('humanVerified');
-    if (!humanVerified) {
-      document.getElementById('humanCheckModal').style.display = 'block';
-    }
-  };
-
-  // Disable right-click
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // Disable text selection
-  document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-  });
-
-  // Disable developer tools
-  document.onkeydown = function(e) {
-    if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 123)) {
-      return false;
-    }
-  };
-
-  // Alert message on inspect element
-  window.addEventListener('devtoolschange', function(event) {
-    document.body.style.display = 'none';
-    alert('Please respect our work! Do not inspect the page.');
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-    e.preventDefault();
-    }
-  });
-
-  document.addEventListener('selectstart', function (e) {
-    e.preventDefault();
-  });
-
-  // Prevent dev tools inspection
-  document.addEventListener('keydown', function (e) {
-  if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-    e.preventDefault();
-    }
-  });
-</script>
-<script src="script.js" defer></script>
+    <main class="card hdo-glass">
+        <h1>Telegram</h1>
+        <p>Sorry, the Telegram invite link is not available at this time.</p>
+        <p>Join our Discord community for the latest updates and access.</p>
+    </main>
 </body>
 </html>

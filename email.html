@@ -1,202 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact HDO Pro</title>
-
-<style>
-  body {
-    margin: 0;
-    background: #000;
-    color: #eaeaea;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    user-select: none;
-  }
-
-  .box {
-    max-width: 420px;
-    padding: 20px;
-  }
-
-  button {
-    background: #111;
-    color: #fff;
-    border: 1px solid #333;
-    padding: 10px 15px;
-    margin: 8px;
-    cursor: pointer;
-    border-radius: 6px;
-    opacity: 0.4;
-    pointer-events: none;
-    transition: 0.2s;
-  }
-
-  button.enabled {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  button:hover {
-    background: #222;
-  }
-
-  .email {
-    margin-top: 15px;
-    font-size: 14px;
-    filter: blur(6px);
-    transition: 0.3s;
-  }
-
-  .email.revealed {
-    filter: blur(0);
-  }
-
-  .rules {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #888;
-    line-height: 1.4;
-    border-top: 1px solid #222;
-    padding-top: 12px;
-  }
-
-  .verify {
-    margin-top: 15px;
-    font-size: 12px;
-    color: #aaa;
-  }
-
-  input[type="checkbox"] {
-    transform: scale(1.1);
-    margin-right: 6px;
-  }
-
-  /* Notification */
-  .toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111;
-    border: 1px solid #333;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-size: 12px;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.3s;
-  }
-
-  .toast.show {
-    opacity: 1;
-  }
-</style>
-
-<script>
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("copy", e => e.preventDefault());
-  document.addEventListener("cut", e => e.preventDefault());
-  document.addEventListener("paste", e => e.preventDefault());
-
-  document.addEventListener("keydown", function(e) {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
-      (e.ctrlKey && e.key === "U")
-    ) {
-      e.preventDefault();
-    }
-  });
-
-  function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.innerText = msg;
-    toast.classList.add("show");
-
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2500);
-  }
-
-  function updateAccess() {
-    const check = document.getElementById("verifyCheck");
-    const buttons = document.querySelectorAll(".secure-btn");
-
-    buttons.forEach(btn => {
-      if (check.checked) {
-        btn.classList.add("enabled");
-      } else {
-        btn.classList.remove("enabled");
-      }
-    });
-  }
-
-  function requireAccess(action) {
-    const check = document.getElementById("verifyCheck");
-
-    if (!check.checked) {
-      showToast("Please read and accept the terms before using this feature.");
-      return false;
-    }
-    return true;
-  }
-
-  function openMailApp() {
-    if (!requireAccess()) return;
-    window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
-  }
-
-  function openBrowserMail() {
-    if (!requireAccess()) return;
-    window.location.href = "https://mail.proton.me";
-  }
-
-  function revealEmail() {
-    if (!requireAccess()) return;
-    document.getElementById("email").classList.add("revealed");
-  }
-</script>
-
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact HDO Pro</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .box {
+            width: 100%;
+            max-width: 420px;
+            padding: 26px;
+            border-radius: 12px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+        }
+        .box h2 {
+            margin: 0 0 14px;
+        }
+        .verify {
+            margin: 15px 0;
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+        .verify label {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 8px;
+            text-align: left;
+        }
+        .verify input {
+            margin-top: 4px;
+            transform: scale(1.1);
+        }
+        button {
+            background: #111;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 10px 14px;
+            margin: 6px;
+            cursor: default;
+            border-radius: 6px;
+            opacity: 0.4;
+            pointer-events: none;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        button.enabled {
+            opacity: 1;
+            pointer-events: auto;
+            cursor: pointer;
+            background: #ff66b2;
+            color: #000;
+            border-color: #ff66b2;
+            font-weight: bold;
+        }
+        button.enabled:hover {
+            background: #e05599;
+        }
+        .email {
+            margin: 14px 0 6px;
+            font-size: 1rem;
+            filter: blur(6px);
+            transition: 0.3s;
+            word-break: break-all;
+            cursor: pointer;
+        }
+        .email.revealed {
+            filter: blur(0);
+        }
+        .hint {
+            font-size: 0.8rem;
+            color: #777;
+            margin: 0 0 14px;
+        }
+        .rules {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: #888;
+            line-height: 1.4;
+            border-top: 1px solid #333;
+            padding-top: 14px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 10000;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        @media (max-width: 480px) {
+            .box { padding: 20px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="box">
-    <h2>Contact HDO Pro</h2>
+    <div class="box hdo-glass">
+        <h2>Contact HDO Pro</h2>
 
-    <div class="verify">
-      <label>
-        <input type="checkbox" id="verifyCheck" onchange="updateAccess()">
-        I agree this email is private, for members only, and will not be misused.
-      </label>
+        <div class="verify">
+            <label>
+                <input type="checkbox" id="verifyCheck" onchange="updateAccess()">
+                <span>I agree this email is private, for members only, and will not be misused.</span>
+            </label>
+        </div>
+
+        <button class="secure-btn" onclick="openMailApp()">Open in Email App</button>
+        <button class="secure-btn" onclick="openBrowserMail()">Open in Browser</button>
+
+        <div id="email" class="email" onclick="revealEmail()">
+            hdopro.n3k0.app@proton.me
+        </div>
+        <p class="hint">Click email to reveal (verification required)</p>
+
+        <div class="rules">
+            <strong>Privacy &amp; Usage Notice</strong><br><br>
+            This email is strictly for verified member communication only.<br>
+            Not for general support, spam, or public contact.<br><br>
+            Misuse or abuse may result in blocking or reporting.<br><br>
+            Unauthorized sharing is prohibited.
+        </div>
     </div>
 
-    <button class="secure-btn" onclick="openMailApp()">Open in Email App</button>
-    <button class="secure-btn" onclick="openBrowserMail()">Open in Browser</button>
+    <div id="toast" class="toast"></div>
 
-    <div id="email" class="email" onclick="revealEmail()">
-      hdopro.n3k0.app@proton.me
-    </div>
+    <script>
+        document.addEventListener("contextmenu", e => e.preventDefault());
 
-    <p style="font-size:12px; color:#777;">Click email to reveal (verification required)</p>
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.innerText = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
+        }
 
-    <div class="rules">
-      <strong>Privacy & Usage Notice</strong><br><br>
-      This email is strictly for verified member communication only.<br>
-      Not for general support, spam, or public contact.<br><br>
-      Misuse or abuse may result in blocking or reporting.<br><br>
-      Unauthorized sharing is prohibited.
-    </div>
-  </div>
+        function updateAccess() {
+            const check = document.getElementById("verifyCheck");
+            document.querySelectorAll(".secure-btn").forEach(btn => {
+                btn.classList.toggle("enabled", check.checked);
+            });
+        }
 
-  <div id="toast" class="toast"></div>
-<script src="script.js" defer></script>
+        function requireAccess() {
+            if (!document.getElementById("verifyCheck").checked) {
+                showToast("Please read and accept the terms before using this feature.");
+                return false;
+            }
+            return true;
+        }
+
+        function openMailApp() {
+            if (!requireAccess()) return;
+            window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
+        }
+
+        function openBrowserMail() {
+            if (!requireAccess()) return;
+            window.location.href = "https://mail.proton.me";
+        }
+
+        function revealEmail() {
+            if (!requireAccess()) return;
+            document.getElementById("email").classList.add("revealed");
+        }
+    </script>
 </body>
 </html>

@@ -3,130 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0;url=https://github.com/MarshMeadow/nothing/releases/download/all_in_one_3/com.tv.hdobox.pro-17.apk">
-    <meta property="og:url" content="/apk" />
+    <title>HDO Pro | TV Apk</title>
+    <meta property="og:url" content="/neko/apk-tv" />
     <meta property="og:title" content="HDO Pro | TV Apk">
     <meta property="og:description" content="Download the apk of HDO Pro TV.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
-            color: #e0e0e0;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        .container {
-            max-width: 600px;
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 12px;
-            background: #1e1e1e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        p {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-
-        a {
-            color: #bb86fc;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-            a:hover {
-                color: #ff4081;
-            }
-
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
+        .card {
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4), transparent);
-            z-index: -1;
+            max-width: 380px;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .card h1 {
+            margin: 0 0 10px;
+            font-size: 1.4rem;
+        }
+        .card p {
+            margin: 8px 0;
+            color: #ddd;
+        }
+        .puzzle input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ff66b2;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin: 12px 0 8px;
+        }
+        .puzzle button {
+            background: #ff66b2;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .puzzle button:hover {
+            background: #e05599;
+        }
+        .error {
+            color: #ff5555;
+            min-height: 1.2em;
+            font-size: 0.9rem;
+        }
+        .fallback a {
+            color: #ff66b2;
+        }
+        @media (max-width: 480px) {
+            .card { padding: 20px; }
+            .card h1 { font-size: 1.25rem; }
         }
     </style>
-    <script>
-        // Disable right-click
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-            redirectToRickRoll();
-        });
-
-        // Disable text selection
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-
-        // Redirect to Rick Roll if DevTools are opened
-        let threshold = 160;
-        let start = performance.now();
-        debugger;
-        let end = performance.now();
-        if (end - start > threshold) {
-            redirectToRickRoll();
-        }
-
-        // Detect key combinations for DevTools
-        document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && (e.shiftKey) && (e.keyCode == 73 || e.keyCode == 105)) {
-                redirectToRickRoll();
-            }
-        });
-
-        // Detect right-click and prevent context menu
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-            redirectToRickRoll();
-        });
-
-        // Redirect function
-        function redirectToRickRoll() {
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117 || e.keyCode === 123 || e.keyCode === 73)) {
-                e.preventDefault();
-                redirectToRickRoll();
-            }
-        });
-
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <p>You are being redirected to the download page. If you are not redirected automatically, <a href="https://github.com/MarshMeadow/nothing/releases/download/all_in_one_3/com.tv.hdobox.pro-17.apk">click here</a>.</p>
-        <p>Contact our community if you need help.</p>
-    </div>
+    <main class="card hdo-glass">
+        <h1>HDO Pro TV APK</h1>
+        <p id="status">Solve this quick puzzle to continue.</p>
+        <div class="puzzle">
+            <p id="question">Loading puzzle...</p>
+            <input type="text" id="answer" inputmode="numeric" autocomplete="off" placeholder="Answer">
+            <p id="error" class="error" aria-live="assertive"></p>
+            <button id="submit" type="button">Continue</button>
+        </div>
+        <noscript>
+            <p class="fallback">JavaScript is required for the puzzle gate. <a href="https://github.com/MarshMeadow/nothing/releases/download/all_in_one_3/com.tv.hdobox.pro-17.apk">Continue manually</a>.</p>
+        </noscript>
+    </main>
+    <script>
+        (function() {
+            const target = 'https://github.com/MarshMeadow/nothing/releases/download/all_in_one_3/com.tv.hdobox.pro-17.apk';
+            const puzzles = [
+                { q: 'What is 8 + 7?', a: 15 },
+                { q: 'What is 12 - 4?', a: 8 },
+                { q: 'What is 6 + 9?', a: 15 },
+                { q: 'What is 5 x 3?', a: 15 },
+                { q: 'What is 14 - 6?', a: 8 }
+            ];
+            const p = puzzles[Math.floor(Math.random() * puzzles.length)];
+            document.getElementById('question').textContent = p.q;
+            document.getElementById('answer').focus();
+
+            function check() {
+                const val = document.getElementById('answer').value.trim();
+                if (parseInt(val, 10) === p.a) {
+                    window.location.href = target;
+                } else {
+                    document.getElementById('error').textContent = 'Wrong answer. Try again.';
+                    document.getElementById('answer').select();
+                }
+            }
+
+            document.getElementById('answer').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') check();
+            });
+            document.getElementById('submit').addEventListener('click', check);
+            document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        })();
+    </script>
 </body>
 </html>

@@ -6,165 +6,53 @@
     <title>Installation Guide - HDO Pro</title>
     <meta property="og:url" content="/guide" />
     <meta property="og:title" content="HDO Pro | Guide">
-    <meta property="og:description" content="Take a look at the guide of HDO Pro.">
+    <meta property="og:description" content="This page is closed. Resources have moved to the private community.">
     <meta property="og:image" content="/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
+    <link rel="icon" href="/Images/logo.png" type="image/png">
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="/images/logo.png" type="image/png">
     <style>
-        body {
-            background: url('Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-
-        .notification {
-            background-color: rgba(51, 51, 51, 0.8);
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            max-width: 80%;
-            margin: 15px auto;
-            box-shadow: 0 0 8px rgba(0, 128, 0, 0.4);
-            text-align: center;
-            font-size: 14px;
+        .closed-backdrop {
+            position: fixed;
+            inset: 0;
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
+            justify-content: center;
             padding: 20px;
-            background-color: rgba(51, 51, 51, 0.6);
-            border-radius: 8px;
-            border: 2px solid rgba(0, 128, 0, 0.5);
-            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+            background: rgba(0,0,0,0.55);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
         }
-
-        h1 {
-            color: #ffc0cb;
-            margin-top: 20px;
-        }
-
-        p, h2 {
+        .closed-card {
+            width: 100%;
+            max-width: 540px;
+            background: rgba(20,20,20,0.92);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            padding: 36px 28px;
             text-align: center;
         }
-
-        ul {
-            text-align: left;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .video-guide {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-            .video-guide a {
-                color: #ffc0cb;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-        .contact-community {
-            text-align: center;
-            margin-top: 10px;
-            color: #ffc0cb;
-        }
-
-        .compat-warning {
-            color: #ff66b2;
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 0.95em;
+        .closed-card h1 { color: #ff66b2; margin: 0 0 18px; font-size: 1.6rem; }
+        .closed-card p { color: #eee; line-height: 1.6; margin: 0 0 22px; font-size: 1rem; }
+        .closed-card a { color: #ff66b2; text-decoration: none; }
+        .closed-card a:hover { text-decoration: underline; }
+        @media (max-width: 480px) {
+            .closed-card { padding: 28px 20px; }
+            .closed-card h1 { font-size: 1.4rem; }
         }
     </style>
-    <script>
-        // Prevent right-click and text selection
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
-
-        // Detect DevTools and prevent access
-        (function () {
-            let devtoolsOpen = false;
-            const threshold = 160; // Threshold in px
-            const checkDevTools = () => {
-                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        alert("Access to developer tools is restricted.");
-                        document.body.innerHTML = "<h1>Access Restricted</h1>";
-                    }
-                } else {
-                    devtoolsOpen = false;
-                }
-            };
-            setInterval(checkDevTools, 1000); // Check every second
-        })();
-
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                e.preventDefault();
-            }
-        });
-    </script>
 </head>
 <body>
-    <div class="notification">
-        <p style="margin: 0; text-align: center; width: 100%;"><strong>Notice:</strong> If you are having trouble updating, go to Step 6. HDO Pro may only work with Android 14 and older.</p>
-    </div>
-
-    <div class="container">
-        <h1>Installation Guide for HDO Pro</h1>
-        <p>Welcome to the installation guide for the HDO Pro app. Follow the steps below to install the app on your Android device.</p>
-
-        <h2>Step 1: Download the App</h2>
-        <p>Visit our official website (<a href="/h0m3" target="_blank">h0m3 Page</a> and <a href="/sign-in" target="_blank">Sign Up</a>) and download the latest version of the HDO Pro app for your operating system (Android only). Links are not listed for privacy reasons; please join the community to get links from the servers.</p>
-        <p class="compat-warning">The Android version is compatible with some Android versions only. Please check compatibility before installing.</p>
-
-        <h2>Step 2: Install the App</h2>
-        <ul>
-            <li><strong>For Android:</strong> Open the downloaded .apk file and follow the on-screen instructions.</li>
-            <li><strong>For iOS (Apple):</strong> No longer available.</li>
-        </ul>
-
-        <h2>Step 3: How to Install an APK</h2>
-        <ul>
-            <li>Download the APK file to your Android device.</li>
-            <li>Open your device's <strong>File Manager</strong> and navigate to the folder where the APK file is located.</li>
-            <li>Tap on the APK file to begin the installation process.</li>
-            <li>You may be prompted to allow installation from unknown sources. If so, follow the instructions to enable this setting.</li>
-            <li>Proceed with the installation by following the on-screen prompts.</li>
-        </ul>
-
-        <div class="video-guide">
-            <p><a href="/tutorial">Video Guide if needed</a></p>
-        </div>
-
-        <div class="contact-community">
-            <p><a href="/support">Contact our community if you need help.</a></p>
+    <div class="closed-backdrop">
+        <div class="closed-card">
+            <h1>Closed</h1>
+            <p>This page is no longer active. All guides and resources have been moved to our private community servers.</p>
+            <p>Access is available to community members only. If you are a member, you already know how to find them.</p>
+            <p><a href="/h0m3">&larr; Back to Home</a></p>
         </div>
     </div>
-<script src="script.js" defer></script>
 </body>
 </html>

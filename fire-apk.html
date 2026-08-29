@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0;url=/h0m3">
-    <script>location.replace('/h0m3');</script>
+    <title>HDO Pro | Fire APK</title>
     <meta property="og:url" content="/fire-apk" />
     <meta property="og:title" content="HDO Pro | Fire APK">
     <meta property="og:description" content="Redirecting to HDO Pro home.">
@@ -13,9 +11,114 @@
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <style>html,body{height:100%;margin:0;background:#000}</style>
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 100%;
+            max-width: 380px;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .card h1 {
+            margin: 0 0 10px;
+            font-size: 1.4rem;
+        }
+        .card p {
+            margin: 8px 0;
+            color: #ddd;
+        }
+        .puzzle input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ff66b2;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin: 12px 0 8px;
+        }
+        .puzzle button {
+            background: #ff66b2;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .puzzle button:hover {
+            background: #e05599;
+        }
+        .error {
+            color: #ff5555;
+            min-height: 1.2em;
+            font-size: 0.9rem;
+        }
+        .fallback a {
+            color: #ff66b2;
+        }
+        @media (max-width: 480px) {
+            .card { padding: 20px; }
+            .card h1 { font-size: 1.25rem; }
+        }
+    </style>
 </head>
 <body>
-    <a href="/h0m3" style="display:none">Continue</a>
+    <main class="card hdo-glass">
+        <h1>Fire APK</h1>
+        <p id="status">Solve this quick puzzle to continue.</p>
+        <div class="puzzle">
+            <p id="question">Loading puzzle...</p>
+            <input type="text" id="answer" inputmode="numeric" autocomplete="off" placeholder="Answer">
+            <p id="error" class="error" aria-live="assertive"></p>
+            <button id="submit" type="button">Continue</button>
+        </div>
+        <noscript>
+            <p class="fallback">JavaScript is required for the puzzle gate. <a href="/h0m3">Continue manually</a>.</p>
+        </noscript>
+    </main>
+    <script>
+        (function() {
+            const target = '/h0m3';
+            const puzzles = [
+                { q: 'What is 8 + 7?', a: 15 },
+                { q: 'What is 12 - 4?', a: 8 },
+                { q: 'What is 6 + 9?', a: 15 },
+                { q: 'What is 5 x 3?', a: 15 },
+                { q: 'What is 14 - 6?', a: 8 }
+            ];
+            const p = puzzles[Math.floor(Math.random() * puzzles.length)];
+            document.getElementById('question').textContent = p.q;
+            document.getElementById('answer').focus();
+
+            function check() {
+                const val = document.getElementById('answer').value.trim();
+                if (parseInt(val, 10) === p.a) {
+                    window.location.href = target;
+                } else {
+                    document.getElementById('error').textContent = 'Wrong answer. Try again.';
+                    document.getElementById('answer').select();
+                }
+            }
+
+            document.getElementById('answer').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') check();
+            });
+            document.getElementById('submit').addEventListener('click', check);
+            document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        })();
+    </script>
 </body>
 </html>
