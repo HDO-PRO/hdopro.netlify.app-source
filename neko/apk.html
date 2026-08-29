@@ -81,7 +81,7 @@
         <p id="status">Solve this quick puzzle to continue.</p>
         <div class="puzzle">
             <p id="question">Loading puzzle...</p>
-            <input type="text" id="answer" inputmode="numeric" autocomplete="off" placeholder="Answer">
+            <input type="text" id="answer" autocomplete="off" placeholder="Answer">
             <p id="error" class="error" aria-live="assertive"></p>
             <button id="submit" type="button">Continue</button>
         </div>
@@ -92,24 +92,61 @@
     <script>
         (function() {
             const target = 'https://github.com/MarshMeadow/nothing/releases/download/all_in_one_3/com.hdobox.pro-52.apk';
-            const puzzles = [
-                { q: 'What is 8 + 7?', a: 15 },
-                { q: 'What is 12 - 4?', a: 8 },
-                { q: 'What is 6 + 9?', a: 15 },
-                { q: 'What is 5 x 3?', a: 15 },
-                { q: 'What is 14 - 6?', a: 8 }
-            ];
-            const p = puzzles[Math.floor(Math.random() * puzzles.length)];
-            document.getElementById('question').textContent = p.q;
-            document.getElementById('answer').focus();
+            if (localStorage.getItem('hdo-master') === '1') { window.location.href = target; return; }
+            const TERMINAL_CODE = 'n3k0';
+            let stage = 'puzzle';
+            let answer;
+
+            function makePuzzle() {
+                let q, a;
+                if (Math.random() < 0.5) {
+                    const x = Math.floor(Math.random() * 11) + 2;
+                    const y = Math.floor(Math.random() * 11) + 2;
+                    q = 'What is ' + x + ' + ' + y + '?';
+                    a = x + y;
+                } else {
+                    const x = Math.floor(Math.random() * 10) + 3;
+                    const y = Math.floor(Math.random() * (x - 2)) + 2;
+                    q = 'What is ' + x + ' − ' + y + '?';
+                    a = x - y;
+                }
+                answer = a;
+                document.getElementById('question').textContent = q;
+                document.getElementById('answer').value = '';
+                document.getElementById('answer').focus();
+                document.getElementById('status').textContent = 'Solve this quick puzzle to continue.';
+                stage = 'puzzle';
+            }
+
+            function showTerminal() {
+                stage = 'terminal';
+                document.getElementById('question').textContent = 'Enter the terminal code.';
+                document.getElementById('answer').value = '';
+                document.getElementById('answer').placeholder = 'Terminal code';
+                document.getElementById('answer').focus();
+                document.getElementById('status').textContent = 'Enter the terminal code to continue.';
+            }
 
             function check() {
-                const val = document.getElementById('answer').value.trim();
-                if (parseInt(val, 10) === p.a) {
-                    window.location.href = target;
-                } else {
-                    document.getElementById('error').textContent = 'Wrong answer. Try again.';
-                    document.getElementById('answer').select();
+                const input = document.getElementById('answer');
+                const error = document.getElementById('error');
+                const val = input.value.trim();
+                if (stage === 'puzzle') {
+                    if (parseInt(val, 10) === answer) {
+                        error.textContent = '';
+                        showTerminal();
+                    } else {
+                        error.textContent = 'Wrong answer. Try again.';
+                        input.select();
+                    }
+                } else if (stage === 'terminal') {
+                    if (val.toLowerCase() === TERMINAL_CODE) {
+                        window.location.href = target;
+                    } else {
+                        error.textContent = 'Wrong terminal code. Try again.';
+                        input.value = '';
+                        input.focus();
+                    }
                 }
             }
 
@@ -118,6 +155,8 @@
             });
             document.getElementById('submit').addEventListener('click', check);
             document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+            makePuzzle();
         })();
     </script>
 </body>

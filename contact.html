@@ -133,83 +133,113 @@
 </style>
 
 <script>
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("copy", e => e.preventDefault());
-  document.addEventListener("cut", e => e.preventDefault());
-  document.addEventListener("paste", e => e.preventDefault());
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy', e => e.preventDefault());
+  document.addEventListener('cut', e => e.preventDefault());
+  document.addEventListener('paste', e => e.preventDefault());
 
-  document.addEventListener("keydown", function(e) {
+  document.addEventListener('keydown', function(e) {
     if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
-      (e.ctrlKey && e.key === "U")
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
+      (e.ctrlKey && e.key === 'U')
     ) {
       e.preventDefault();
     }
   });
 
   function showToast(msg) {
-    const toast = document.getElementById("toast");
+    const toast = document.getElementById('toast');
     toast.innerText = msg;
-    toast.classList.add("show");
+    toast.classList.add('show');
 
     setTimeout(() => {
-      toast.classList.remove("show");
+      toast.classList.remove('show');
     }, 2500);
   }
 
+  const TERMINAL_CODE = 'n3k0';
   const puzzleA = Math.floor(Math.random() * 9) + 2;
   const puzzleB = Math.floor(Math.random() * 9) + 2;
   const puzzleAnswer = puzzleA + puzzleB;
+  let stage = 'puzzle';
   let puzzleSolved = false;
 
-  document.getElementById('puzzle-question').textContent = 'What is ' + puzzleA + ' + ' + puzzleB + '?';
+  const questionBox = document.getElementById('puzzle-question');
+  const answerInput = document.getElementById('puzzle-answer');
+  const errorBox = document.getElementById('puzzle-error');
+  const verifyBtn = document.querySelector('#puzzle-box button');
+
+  questionBox.textContent = 'What is ' + puzzleA + ' + ' + puzzleB + '?';
 
   function enableContact() {
-    document.querySelectorAll(".secure-btn").forEach(btn => btn.classList.add("enabled"));
+    document.querySelectorAll('.secure-btn').forEach(btn => btn.classList.add('enabled'));
+  }
+
+  if (localStorage.getItem('hdo-master') === '1') {
+    stage = 'terminal';
+    puzzleSolved = true;
+    enableContact();
+    questionBox.textContent = 'Verified';
+    answerInput.disabled = true;
+    verifyBtn.disabled = true;
   }
 
   function requireAccess() {
     if (!puzzleSolved) {
-      showToast("Solve the puzzle to access the email.");
+      showToast('Solve the puzzle and enter the terminal code.');
       return false;
     }
     return true;
   }
 
   function checkPuzzle() {
-    const input = document.getElementById("puzzle-answer");
-    const error = document.getElementById("puzzle-error");
-    const value = input.value.trim();
+    const value = answerInput.value.trim();
 
-    if (value === String(puzzleAnswer)) {
-      puzzleSolved = true;
-      error.textContent = "";
-      input.disabled = true;
-      document.querySelector('#puzzle-box button').disabled = true;
-      document.getElementById("puzzle-question").textContent = "Verified";
-      showToast("Verified. You can now reveal the email.");
-      enableContact();
-    } else {
-      error.textContent = "Wrong answer. Try again.";
-      input.value = "";
-      input.focus();
+    if (stage === 'puzzle') {
+      if (value === String(puzzleAnswer)) {
+        stage = 'terminal';
+        errorBox.textContent = '';
+        answerInput.value = '';
+        answerInput.placeholder = 'Terminal code';
+        answerInput.focus();
+        questionBox.textContent = 'Enter the terminal code.';
+        verifyBtn.textContent = 'Verify Code';
+      } else {
+        errorBox.textContent = 'Wrong answer. Try again.';
+        answerInput.value = '';
+        answerInput.focus();
+      }
+    } else if (stage === 'terminal') {
+      if (value.toLowerCase() === TERMINAL_CODE) {
+        puzzleSolved = true;
+        errorBox.textContent = '';
+        answerInput.disabled = true;
+        verifyBtn.disabled = true;
+        questionBox.textContent = 'Verified';
+        showToast('Verified. You can now reveal the email.');
+        enableContact();
+      } else {
+        errorBox.textContent = 'Wrong terminal code. Try again.';
+        answerInput.value = '';
+        answerInput.focus();
+      }
     }
   }
 
   function openMailApp() {
     if (!requireAccess()) return;
-    window.location.href = "mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application";
+    window.location.href = 'mailto:hdopro.n3k0.app@proton.me?subject=HDO%20Pro%20Application';
   }
 
   function openBrowserMail() {
     if (!requireAccess()) return;
-    window.location.href = "https://mail.proton.me";
+    window.location.href = 'https://mail.proton.me';
   }
 
   function revealEmail() {
     if (!requireAccess()) return;
-    document.getElementById("email").classList.add("revealed");
+    document.getElementById('email').classList.add('revealed');
   }
 </script>
 
@@ -243,6 +273,7 @@
       Misuse or abuse may result in blocking or reporting.<br><br>
       Unauthorized sharing is prohibited.
     </div>
+
   </div>
 
   <div id="toast" class="toast"></div>

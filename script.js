@@ -7,6 +7,16 @@
   const isIndex = /index\.html$/i.test(location.pathname) || location.pathname === '/' || location.pathname === '';
   const isInvite = /invite\.html$/i.test(location.pathname);
   const isGame = /game\.html$/i.test(location.pathname);
+
+  function isSensitivePath() {
+    const p = location.pathname.toLowerCase();
+    const exact = ['/h0m3','/contact','/downloads','/email','/megaserver','/discord','/telegram','/donate','/fire-apk','/player-apk','/roku-download','/dev','/sign-in','/guide','/tutorial','/support'];
+    if (exact.some(function (x) { return p === x || p === x + '.html'; })) return true;
+    if (p.startsWith('/neko/') || p.startsWith('/never/')) return true;
+    return false;
+  }
+  const pageIsSensitive = isSensitivePath();
+
   const skipGlobalUI = isIndex || isInvite || isGame;
 
   let deferredPrompt = null;
@@ -42,6 +52,7 @@
       { href: '/status', label: 'Status', icon: 'fa-signal' },
       { href: '/faq', label: 'FAQ', icon: 'fa-circle-question' },
       { href: '/sitemap', label: 'Site Map', icon: 'fa-sitemap' },
+      { href: 'https://n3k0s-index.netlify.app/', label: 'n3k0 Index', icon: 'fa-layer-group', external: true },
       { href: '/terminal', label: 'Terminal', icon: 'fa-terminal' },
       { href: '/guide', label: 'Guide', icon: 'fa-book' },
       { href: '/tutorial', label: 'Tutorial', icon: 'fa-graduation-cap' },
@@ -369,6 +380,7 @@
   }
 
   function init() {
+    if (localStorage.getItem('hdo-master') === '1') { completeInit(); return; }
     initPuzzle();
   }
 
@@ -434,62 +446,98 @@
 
     const overlay = createEl('div', { id: 'hdo-puzzle-overlay', class: 'hdo-puzzle-overlay' });
     const box = createEl('div', { class: 'hdo-puzzle-box' });
-
-    const isIndexPage = isIndex;
-    let question, answer;
-    if (isIndexPage) {
-      const a = Math.floor(Math.random() * 5) + 2;
-      const b = Math.floor(Math.random() * 5) + 2;
-      question = 'What is ' + a + ' + ' + b + '?';
-      answer = String(a + b);
-    } else {
-      const a = Math.floor(Math.random() * 9) + 5;
-      const b = Math.floor(Math.random() * 9) + 5;
-      const c = Math.floor(Math.random() * 20) + 1;
-      question = 'What is (' + a + ' × ' + b + ') − ' + c + '?';
-      answer = String(a * b - c);
-    }
-
-    box.innerHTML = '<h2>Verify to enter</h2>' +
-      '<p class="hdo-puzzle-hint">' + (isIndexPage ? 'This is the easy gate.' : 'This is the harder gate for this page.') + '</p>' +
-      '<p class="hdo-puzzle-question">' + question + '</p>' +
-      '<input type="text" class="hdo-puzzle-input" id="hdo-puzzle-answer" placeholder="Answer" autocomplete="off">' +
-      '<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>' +
-      '<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>';
     box.classList.add('hdo-animate-fade', 'hdo-animate-scale');
     overlay.appendChild(box);
     document.body.appendChild(overlay);
-    document.getElementById('hdo-puzzle-answer').focus();
 
-    function check() {
-      const input = document.getElementById('hdo-puzzle-answer');
-      const error = document.getElementById('hdo-puzzle-error');
-      const userAnswer = input.value.trim();
-      if (userAnswer === answer) {
-        showDmca();
+    function makePuzzle() {
+      let q, a;
+      if (Math.random() < 0.5) {
+        const x = Math.floor(Math.random() * 11) + 2;
+        const y = Math.floor(Math.random() * 11) + 2;
+        q = `What is ${x} + ${y}?`;
+        a = String(x + y);
       } else {
-        error.textContent = 'Incorrect. Please try again.';
-        input.value = '';
-        input.focus();
+        const x = Math.floor(Math.random() * 10) + 3;
+        const y = Math.floor(Math.random() * (x - 2)) + 2;
+        q = `What is ${x} − ${y}?`;
+        a = String(x - y);
       }
+      return { q: q, a: a };
     }
 
-    document.getElementById('hdo-puzzle-submit').addEventListener('click', check);
-    document.getElementById('hdo-puzzle-answer').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') check();
-    });
+    function showPuzzle() {
+      const p = makePuzzle();
+      box.innerHTML = `<h2>Verify to enter</h2>` +
+        `<p class="hdo-puzzle-hint">Solve the simple arithmetic puzzle to continue.</p>` +
+        `<p class="hdo-puzzle-question">${p.q}</p>` +
+        `<input type="text" class="hdo-puzzle-input" id="hdo-puzzle-answer" placeholder="Answer" autocomplete="off" data-answer="${p.a}">` +
+        `<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>` +
+        `<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>`;
+      const input = document.getElementById('hdo-puzzle-answer');
+      input.focus();
+
+      function check() {
+        const error = document.getElementById('hdo-puzzle-error');
+        const userAnswer = input.value.trim();
+        if (userAnswer === input.dataset.answer) {
+          error.textContent = '';
+          if (pageIsSensitive) {
+            showTerminal();
+          } else {
+            showDmca();
+          }
+        } else {
+          error.textContent = 'Incorrect. Please try again.';
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      document.getElementById('hdo-puzzle-submit').addEventListener('click', check);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') check();
+      });
+    }
+
+    function showTerminal() {
+      box.innerHTML = `<h2>Terminal Code</h2>` +
+        `<p class="hdo-puzzle-hint">This page requires an extra terminal code.</p>` +
+        `<p class="hdo-puzzle-question">Enter the terminal code.</p>` +
+        `<input type="text" class="hdo-puzzle-input" id="hdo-terminal-answer" placeholder="Terminal code" autocomplete="off">` +
+        `<button class="hdo-puzzle-submit" id="hdo-puzzle-submit">Submit</button>` +
+        `<p class="hdo-puzzle-error" id="hdo-puzzle-error"></p>`;
+      const input = document.getElementById('hdo-terminal-answer');
+      input.focus();
+
+      function check() {
+        const error = document.getElementById('hdo-puzzle-error');
+        const userAnswer = input.value.trim();
+        if (userAnswer === 'n3k0') {
+          error.textContent = '';
+          showDmca();
+        } else {
+          error.textContent = 'Incorrect terminal code. Please try again.';
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      document.getElementById('hdo-puzzle-submit').addEventListener('click', check);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') check();
+      });
+    }
 
     function showDmca() {
-      overlay.innerHTML = '<div class="hdo-puzzle-box">' +
-        '<h2>DMCA & Disclaimer</h2>' +
-        '<p class="hdo-puzzle-text">' +
-          'This site and the HDO Pro project do not host, upload, store, or distribute any media content. ' +
-          'All content accessed through third-party applications or services remains the responsibility of its respective providers. ' +
-          'This is intended for personal use only. Users are responsible for complying with all applicable laws and regulations in their jurisdiction. ' +
-          'By entering, you acknowledge that you have read and understood this notice.' +
-        '</p>' +
-        '<button class="hdo-puzzle-submit" id="hdo-puzzle-agree">I agree, enter</button>' +
-      '</div>';
+      box.innerHTML = `<h2>DMCA & Disclaimer</h2>` +
+        `<p class="hdo-puzzle-text">` +
+          `This site and the HDO Pro project do not host, upload, store, or distribute any media content. ` +
+          `All content accessed through third-party applications or services remains the responsibility of its respective providers. ` +
+          `This is intended for personal use only. Users are responsible for complying with all applicable laws and regulations in their jurisdiction. ` +
+          `By entering, you acknowledge that you have read and understood this notice.` +
+        `</p>` +
+        `<button class="hdo-puzzle-submit" id="hdo-puzzle-agree">I agree, enter</button>`;
       const dmcaBox = overlay.querySelector('.hdo-puzzle-box');
       if (dmcaBox) dmcaBox.classList.add('hdo-animate-fade', 'hdo-animate-scale');
       document.getElementById('hdo-puzzle-agree').addEventListener('click', function () {
@@ -498,6 +546,8 @@
         completeInit();
       });
     }
+
+    showPuzzle();
   }
 
   if (document.readyState === 'loading') {

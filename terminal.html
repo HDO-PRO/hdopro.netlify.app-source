@@ -516,6 +516,7 @@
         </div>
     </div>
 
+
     <div class="dmca-notice">
         DMCA Notice: This terminal provides access to HDO Pro downloads. We do not host any servers or content.
     </div>
@@ -531,6 +532,7 @@
         const terminal = document.getElementById("terminal");
         let userInput = document.getElementById("user-input");
         let isAuthenticated = localStorage.getItem('hdoProAuth') === 'true';
+        if (localStorage.getItem('hdo-master') === '1') isAuthenticated = true;
         let initialLines = [];
 
         const settings = Object.assign({

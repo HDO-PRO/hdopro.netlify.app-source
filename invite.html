@@ -363,6 +363,7 @@
         }
 
         gifElement.addEventListener('click', () => {
+            if (localStorage.getItem('hdo-master') === '1') { window.location.href = gifElement.dataset.href; return; }
             catClicks++;
             gifElement.classList.add('tapped');
             setTimeout(() => gifElement.classList.remove('tapped'), 150);
