@@ -15,6 +15,7 @@
 <style>
   a { color: #ff66b2; }
   a:hover { color: #ff99cc; }
+  .container { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
@@ -43,5 +44,7 @@
     <p>The <a href="terminal.html">Terminal</a> is a password-protected download access page for verified members.</p>
   </div>
 <script src="script.js" defer></script>
+<canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+<script src="pixels.js" defer></script>
 </body>
 </html>

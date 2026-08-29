@@ -355,23 +355,34 @@
   });
 
   const settingsBtn = document.getElementById('settings-btn');
+  const settingsOverlay = document.getElementById('settings-overlay');
+
+  function setSettingsOpen(open) {
+    settingsPanel.classList.toggle('open', open);
+    settingsOverlay.classList.toggle('open', open);
+    if (open) populateSettings();
+  }
 
   settingsBtn.addEventListener('click', e => {
     e.stopPropagation();
-    const willOpen = !settingsPanel.classList.contains('open');
-    settingsPanel.classList.toggle('open', willOpen);
-    if (willOpen) populateSettings();
+    const opening = !settingsPanel.classList.contains('open');
+    setSettingsOpen(opening);
   });
 
   document.getElementById('settings-close').addEventListener('click', e => {
     e.stopPropagation();
-    settingsPanel.classList.remove('open');
+    setSettingsOpen(false);
   });
 
-  document.addEventListener('click', e => {
-    if (!settingsPanel.classList.contains('open')) return;
-    if (settingsPanel.contains(e.target) || settingsBtn.contains(e.target)) return;
-    settingsPanel.classList.remove('open');
+  settingsOverlay.addEventListener('click', e => {
+    e.stopPropagation();
+    setSettingsOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && settingsPanel.classList.contains('open')) {
+      setSettingsOpen(false);
+    }
   });
 
   loadHighScore();

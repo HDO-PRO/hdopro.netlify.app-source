@@ -4,6 +4,13 @@
 
   const canvas = document.getElementById('hdo-pixels');
   if (!canvas) return;
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasReducedClass = document.documentElement.classList.contains('hdo-reduced-motion');
+  if (prefersReduced || hasReducedClass) {
+    canvas.style.display = 'none';
+    return;
+  }
   const ctx = canvas.getContext('2d');
   let w, h;
   const creatures = [];

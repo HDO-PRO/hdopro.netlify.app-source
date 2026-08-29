@@ -39,6 +39,8 @@
             padding: 20px;
             margin-top: 50px;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
 
             .container h1 {
@@ -103,25 +105,18 @@
     </script>
 </head>
 <body>
-    <div class="notice">Tsk tsk tsk</div>
     <div class="container">
         <h1>HDO Pro Downloads</h1>
-        <p>Download the latest versions of HDO Pro.</p>
-        <p>Please note that you will need keys for the downloads now!</p>
+        <p>Downloads have moved to the terminal. You can also download the files through our Discord or Telegram communities.</p>
         <div class="button-container">
-            <a href="https://mega.nz/file/hTNGDQZT" target="_blank" rel="noopener noreferrer">Stable APK (v2.0.19)</a>
-            <a href="https://mega.nz/file/wG1CxLBD" target="_blank" rel="noopener noreferrer">Beta APK (v2.0.20) - (Donators Only)</a>
-            <a href="https://mega.nz/file/cCdwBBjb" target="_blank" rel="noopener noreferrer">TV APK (v1.1.5)</a>
-            <a href="https://mega.nz/file/BalSGDxY" target="_blank" rel="noopener noreferrer">UPDATED! MediaOn (OLD) - (v1.0.20)</a>
-            <a href="https://mega.nz/file/YOEUFTJb" target="_blank" rel="noopener noreferrer">Drama Player (New) - (v1.0.5) - Limited</a>
-            <a href="roku-download.html" target="_blank" rel="noopener noreferrer">NEW! Roku Download!</a>
-            <a href="invite.html" target="_blank" rel="noopener noreferrer">Get Download Keys!</a>
-            <a href="invite.html" target="_blank" rel="noopener noreferrer">Download Server 2 (Easy)</a>
-            <a href="invite.html" target="_blank" rel="noopener noreferrer">Download Server 3 (Easy)</a>
+            <a href="/terminal" target="_blank" rel="noopener noreferrer">Terminal</a>
+            <a href="/discord" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="/telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="/h0m3" target="_blank" rel="noopener noreferrer">Back to Home</a>
         </div>
-        <p class="info-message">Everything you need should be here, some files or folders may not be named correctly.</p>
-        <p class="info-message">If the button doesn't work or the link is incorrect, please let us know.</p>
     </div>
 <script src="script.js" defer></script>
+<canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+<script src="pixels.js" defer></script>
 </body>
 </html>
