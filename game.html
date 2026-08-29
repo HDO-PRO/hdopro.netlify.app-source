@@ -17,6 +17,8 @@
         .game-wrap { text-align: center; padding-bottom: 24px; position: relative; }
         @media (hover: hover) and (pointer: fine) {
             html, body { overflow: hidden; height: 100%; }
+            body { display: flex; align-items: center; justify-content: center; }
+            .game-wrap { max-height: 100vh; width: 100%; overflow: hidden; }
         }
         .game-notice {
             color: rgba(255, 255, 255, 0.75);
@@ -32,8 +34,8 @@
             border-radius: 8px;
             display: block;
             margin: 0 auto;
+            max-width: min(320px, 60vh);
             width: 100%;
-            max-width: 320px;
             height: auto;
             touch-action: none;
         }
@@ -187,6 +189,23 @@
             .d-pad button { padding: 12px; }
             .score-row { flex-direction: column; gap: 4px; }
             .settings-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-height: 720px) {
+            h1 { font-size: 1.5rem; margin: 6px 0; }
+            .game-notice { margin: 4px auto 6px; font-size: 0.8rem; }
+            .score-row { font-size: 1rem; margin: 4px 0; }
+            #gameMsg { margin: 4px 0; font-size: 0.9rem; }
+            .controls-hint { margin: 4px 0; font-size: 0.8rem; }
+            .d-pad { grid-template-columns: repeat(3, 52px); gap: 6px; margin: 8px 0; }
+            .d-pad button { padding: 10px; font-size: 1.1rem; }
+            #startBtn { padding: 10px 20px; font-size: 0.95rem; }
+            .guide { margin: 4px auto; font-size: 0.75rem; }
+            details.guide[open] { max-height: 25vh; overflow-y: auto; }
+            details[open] summary ~ ul { max-height: 120px; overflow-y: auto; }
+        }
+        @media (max-height: 600px) {
+            canvas#gameCanvas { max-width: min(260px, 48vh); }
+            .d-pad { grid-template-columns: repeat(3, 44px); }
         }
     </style>
 </head>
