@@ -297,6 +297,22 @@ html.hdo-plain-bg #hdo-pixels {
   animation: hdo-scaleIn 0.45s ease-out both;
 }
 
+/* Responsive media / forms */
+img, video, iframe, object, embed, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+pre, code {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+form, input, select, textarea, button {
+  text-align: left;
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
