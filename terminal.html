@@ -41,6 +41,13 @@
         [data-theme="cyan"]   { --term-text: #00ffff; --term-prompt: #00ffff; --term-link: #88ffff; }
         [data-theme="red"]    { --term-text: #ff4444; --term-prompt: #ff4444; --term-link: #ff8888; }
 
+        /* Modern palette (active when .modern class is present and CRT is off) */
+        html:not([data-crt="on"])[data-theme="green"] #terminal.modern  { --term-text: #00d26a; --term-prompt: #00d26a; --term-link: #00e5ff; }
+        html:not([data-crt="on"])[data-theme="white"] #terminal.modern  { --term-text: #f5f5f5; --term-prompt: #f5f5f5; --term-link: #55aaff; }
+        html:not([data-crt="on"])[data-theme="amber"] #terminal.modern  { --term-text: #ffb020; --term-prompt: #ffb020; --term-link: #ffdd55; }
+        html:not([data-crt="on"])[data-theme="cyan"] #terminal.modern   { --term-text: #00e5ff; --term-prompt: #00e5ff; --term-link: #88ffff; }
+        html:not([data-crt="on"])[data-theme="red"] #terminal.modern    { --term-text: #ff4d4d; --term-prompt: #ff4d4d; --term-link: #ff8888; }
+
         /* Font sizes */
         [data-font-size="small"]  { font-size: 13px; }
         [data-font-size="normal"] { font-size: 16px; }
@@ -88,10 +95,17 @@
         }
         [data-scanlines="on"] #scanlines { opacity: 1; }
 
-        #settings-btn {
+        #term-bottom-controls {
             position: fixed;
-            bottom: calc(42px + var(--keyboard-height, 0px));
+            bottom: 42px;
             right: 18px;
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+            will-change: transform, opacity;
+        }
+        #settings-btn {
+            position: relative;
             width: 44px;
             height: 44px;
             background: rgba(255,255,255,0.08);
@@ -102,8 +116,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 1000;
             transition: background 0.2s, transform 0.2s;
+            will-change: transform, opacity;
         }
         #settings-btn:hover { background: rgba(255,255,255,0.18); transform: rotate(30deg); }
 
@@ -113,17 +127,20 @@
             right: 0;
             width: min(320px, 85vw);
             height: var(--visual-height, 100%);
-            background: rgba(10,10,10,0.96);
+            background: rgba(0,0,0,0.75);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
             border-left: 2px solid var(--term-prompt);
             z-index: 1001;
             padding: 24px;
             box-sizing: border-box;
-            transform: translateX(100%);
+            transform: translate3d(100%, 0, 0);
             opacity: 0;
             transition: transform 0.3s cubic-bezier(.4,.0,.2,1), opacity 0.2s;
             overflow-y: auto;
+            will-change: transform, opacity;
         }
-        #settings-panel.open { transform: translateX(0); opacity: 1; }
+        #settings-panel.open { transform: translate3d(0, 0, 0); opacity: 1; }
 
         #settings-panel h2 {
             color: var(--term-prompt);
@@ -189,9 +206,17 @@
             scroll-behavior: smooth;
             padding: 12px;
             box-sizing: border-box;
+            background: rgba(0,0,0,0.96);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .line { margin: 4px 0; word-wrap: break-word; }
+        #terminal[data-background-dim="off"]  { background: rgba(0,0,0,1.0); }
+        #terminal[data-background-dim="low"]   { background: rgba(0,0,0,0.85); }
+        #terminal[data-background-dim="medium"]{ background: rgba(0,0,0,0.70); }
+        #terminal[data-background-dim="high"]  { background: rgba(0,0,0,0.55); }
+
+        .line { margin: 4px 0; word-wrap: break-word; text-shadow: none; }
         .centered { text-align: center; }
         .warning { color: var(--term-warn); font-size: 0.85rem; }
         .error   { color: var(--term-error); }
@@ -212,6 +237,9 @@
             font-size: inherit;
             caret-color: var(--term-prompt);
         }
+        #user-input.cursor-bar       { caret-shape: bar; }
+        #user-input.cursor-block     { caret-shape: block; }
+        #user-input.cursor-underscore { caret-shape: underscore; }
 
         .dmca-notice {
             position: fixed;
@@ -246,9 +274,7 @@
         .github-icon svg { width: 24px; height: 24px; fill: white; }
 
         #guide-btn {
-            position: fixed;
-            bottom: 42px;
-            right: 70px;
+            position: relative;
             width: 44px;
             height: 44px;
             background: rgba(255,255,255,0.08);
@@ -259,10 +285,42 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 1000;
             transition: background 0.2s, transform 0.2s;
+            will-change: transform, opacity;
         }
         #guide-btn:hover { background: rgba(255,255,255,0.18); transform: rotate(-15deg); }
+
+        .term-typing #term-bottom-controls,
+        .term-typing .dmca-notice,
+        .term-typing .github-icon {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.25s ease, transform 0.25s ease, bottom 0.25s ease;
+        }
+
+        .term-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translate3d(-50%, -150%, 0);
+            z-index: 2000;
+            max-width: min(90vw, 360px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: var(--term-text);
+            background: rgba(0,0,0,0.65);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            opacity: 0;
+            pointer-events: none;
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            transition: transform 0.35s ease, opacity 0.35s ease;
+            will-change: transform, opacity;
+        }
+        .term-toast.hidden { display: block !important; opacity: 0; transform: translate3d(-50%, -150%, 0); pointer-events: none; }
+        .term-toast.visible { display: block !important; transform: translate3d(-50%, 0, 0); opacity: 1; pointer-events: auto; }
 
         #guide-panel {
             position: fixed;
@@ -270,17 +328,20 @@
             left: 0;
             width: min(320px, 85vw);
             height: 100%;
-            background: rgba(10,10,10,0.96);
+            background: rgba(0,0,0,0.75);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
             border-right: 2px solid var(--term-prompt);
             z-index: 1001;
             padding: 24px;
             box-sizing: border-box;
-            transform: translateX(-100%);
+            transform: translate3d(-100%, 0, 0);
             opacity: 0;
             transition: transform 0.3s cubic-bezier(.4,.0,.2,1), opacity 0.2s;
             overflow-y: auto;
+            will-change: transform, opacity;
         }
-        #guide-panel.open { transform: translateX(0); opacity: 1; }
+        #guide-panel.open { transform: translate3d(0, 0, 0); opacity: 1; }
 
         #guide-panel h2 {
             color: var(--term-prompt);
@@ -376,9 +437,33 @@
 
         @media (max-width: 768px) {
             #terminal { padding: 10px; }
-            #settings-btn { bottom: calc(34px + var(--keyboard-height, 0px)); right: 12px; width: 40px; height: 40px; }
+            #term-bottom-controls { bottom: 34px; right: 12px; }
+            #settings-btn, #guide-btn { width: 40px; height: 40px; }
             .github-icon { bottom: calc(34px + var(--keyboard-height, 0px)); left: 12px; width: 40px; height: 40px; }
-            #guide-btn { bottom: 34px; right: 58px; width: 40px; height: 40px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #settings-btn,
+            #guide-btn,
+            #term-bottom-controls,
+            .term-toast,
+            #settings-panel,
+            #guide-panel,
+            .spacer,
+            .term-typing #term-bottom-controls,
+            .term-typing .dmca-notice,
+            .term-typing .github-icon {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-reduced-transparency: reduce) {
+            #settings-panel,
+            #guide-panel {
+                background: rgba(0,0,0,0.96);
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+            }
         }
     </style>
 </head>
@@ -386,13 +471,16 @@
     <div id="scanlines"></div>
     <div id="noise"></div>
 
-    <button id="guide-btn" aria-label="Terminal guide">
-        <i class="fa-solid fa-book"></i>
-    </button>
+    <div id="term-toast" class="term-toast hidden" role="status" aria-live="polite"></div>
 
-    <button id="settings-btn" aria-label="Terminal settings">
-        <i class="fa-solid fa-gear"></i>
-    </button>
+    <div id="term-bottom-controls">
+        <button id="guide-btn" aria-label="Terminal guide">
+            <i class="fa-solid fa-book"></i>
+        </button>
+        <button id="settings-btn" aria-label="Terminal settings">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+    </div>
 
     <div id="guide-panel" aria-label="Terminal guide panel">
         <h2>Terminal Guide</h2>
@@ -457,6 +545,11 @@
         </div>
 
         <div class="setting setting-row">
+            <label for="crt-toggle">CRT effects</label>
+            <input type="checkbox" id="crt-toggle">
+        </div>
+
+        <div class="setting setting-row">
             <label for="scanlines-toggle">CRT scanlines</label>
             <input type="checkbox" id="scanlines-toggle">
         </div>
@@ -464,6 +557,25 @@
         <div class="setting setting-row">
             <label for="noise-toggle">CRT noise</label>
             <input type="checkbox" id="noise-toggle">
+        </div>
+
+        <div class="setting">
+            <label>Background dim</label>
+            <select id="background-dim-select">
+                <option value="off">Off</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <label>Cursor style</label>
+            <select id="cursor-style-select">
+                <option value="bar">Bar</option>
+                <option value="block">Block</option>
+                <option value="underscore">Underscore</option>
+            </select>
         </div>
 
         <div class="setting setting-row">
@@ -496,6 +608,11 @@
             <input type="checkbox" id="center-input-toggle" checked>
         </div>
 
+        <div class="setting setting-row">
+            <label for="hide-bottom-ui-toggle">Hide bottom UI when typing</label>
+            <input type="checkbox" id="hide-bottom-ui-toggle" checked>
+        </div>
+
         <div class="setting">
             <button id="open-guide">Open Terminal Guide</button>
         </div>
@@ -505,7 +622,7 @@
         </div>
     </div>
 
-    <div id="terminal">
+    <div id="terminal" class="modern">
         <div id="warning-lines">
             <div class="line centered warning">⚠️  WARNING: This terminal is for PRIVATE MEMBER USE ONLY ⚠️</div>
             <div class="line centered warning">You may only use this terminal if you know the passcode to the terminal's server.</div>
@@ -539,24 +656,60 @@
         let userInput = document.getElementById("user-input");
         let isAuthenticated = false;
         let initialLines = [];
+        let toastTimeout = null;
+
+        function showToast(message) {
+            const toast = document.getElementById('term-toast');
+            if (!toast) return;
+            clearTimeout(toastTimeout);
+            toast.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('visible');
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('visible');
+                toast.classList.add('hidden');
+                setTimeout(() => { toast.textContent = ''; }, 300);
+            }, 4000);
+        }
+
+        function updateTypingState() {
+            if (!settings || !settings.hideBottomUI) {
+                document.body.classList.remove('term-typing');
+                return;
+            }
+            const isMobile = window.innerWidth <= 768 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+            const shouldShow = document.activeElement === userInput && isMobile;
+            document.body.classList.toggle('term-typing', shouldShow);
+        }
+
+        window.onerror = function(msg, src, line, col, err) { showToast(String(msg)); };
+        window.addEventListener('error', e => { if (e.message) showToast(String(e.message)); });
+        window.addEventListener('unhandledrejection', e => { showToast(String(e.reason || 'Unhandled promise rejection')); });
 
         const settings = Object.assign({
             theme: 'green',
             fontSize: 'normal',
             fontFamily: 'consolas',
             lineHeight: 'normal',
-            scanlines: true,
-            noise: true,
+            scanlines: false,
+            noise: false,
+            crtEffects: false,
+            backgroundDim: 'off',
+            cursorStyle: 'bar',
             sounds: false,
             timestamps: false,
             showWarnings: true,
             showDmca: true,
             showGithub: true,
-            centerInput: true
+            centerInput: true,
+            hideBottomUI: true
         }, JSON.parse(localStorage.getItem('hdoTerminalSettings') || '{}'));
 
+        const commandsHistory = JSON.parse(localStorage.getItem('hdoTerminalHistory') || '[]');
+        let historyIndex = commandsHistory.length;
+
         const commands = {
-            help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github, /commands",
+            help: "Available commands: /help, /clear, /download [platform], /apk [version], /tv-apk, /apps, /roku, /downloads, /github, /commands, /neofetch, /about, /date, /history",
             clear: "clear",
             "/download android": "Redirecting to Android download...",
             "/download ios": "iOS downloads are no longer available.",
@@ -577,26 +730,35 @@
             root.dataset.fontSize = settings.fontSize;
             root.dataset.fontFamily = settings.fontFamily;
             root.dataset.lineHeight = settings.lineHeight;
-            root.dataset.scanlines = settings.scanlines ? 'on' : 'off';
-            root.dataset.noise = settings.noise ? 'on' : 'off';
+            root.dataset.crt = settings.crtEffects ? 'on' : 'off';
+            root.dataset.scanlines = (settings.crtEffects || settings.scanlines) ? 'on' : 'off';
+            root.dataset.noise = (settings.crtEffects || settings.noise) ? 'on' : 'off';
+            terminal.dataset.backgroundDim = settings.backgroundDim;
+            userInput.classList.remove('cursor-bar','cursor-block','cursor-underscore');
+            userInput.classList.add('cursor-' + settings.cursorStyle);
 
             document.getElementById('theme-select').value = settings.theme;
             document.getElementById('font-select').value = settings.fontSize;
             document.getElementById('font-family-select').value = settings.fontFamily;
             document.getElementById('line-height-select').value = settings.lineHeight;
-            document.getElementById('scanlines-toggle').checked = settings.scanlines;
-            document.getElementById('noise-toggle').checked = settings.noise;
+            document.getElementById('crt-toggle').checked = settings.crtEffects;
+            document.getElementById('scanlines-toggle').checked = settings.scanlines || settings.crtEffects;
+            document.getElementById('noise-toggle').checked = settings.noise || settings.crtEffects;
+            document.getElementById('background-dim-select').value = settings.backgroundDim;
+            document.getElementById('cursor-style-select').value = settings.cursorStyle;
             document.getElementById('sounds-toggle').checked = settings.sounds;
             document.getElementById('timestamps-toggle').checked = settings.timestamps;
             document.getElementById('warnings-toggle').checked = settings.showWarnings;
             document.getElementById('dmca-toggle').checked = settings.showDmca;
             document.getElementById('github-toggle').checked = settings.showGithub;
             document.getElementById('center-input-toggle').checked = settings.centerInput;
+            document.getElementById('hide-bottom-ui-toggle').checked = settings.hideBottomUI;
 
             const warnings = document.getElementById('warning-lines');
             if (warnings) warnings.classList.toggle('hidden', !settings.showWarnings);
             document.querySelector('.dmca-notice').classList.toggle('hidden', !settings.showDmca);
             document.querySelector('.github-icon').classList.toggle('hidden', !settings.showGithub);
+            updateTypingState();
 
             localStorage.setItem('hdoTerminalSettings', JSON.stringify(settings));
         }
@@ -620,22 +782,37 @@
             settings.fontSize = document.getElementById('font-select').value;
             settings.fontFamily = document.getElementById('font-family-select').value;
             settings.lineHeight = document.getElementById('line-height-select').value;
-            settings.scanlines = document.getElementById('scanlines-toggle').checked;
-            settings.noise = document.getElementById('noise-toggle').checked;
+            settings.crtEffects = document.getElementById('crt-toggle').checked;
+            settings.backgroundDim = document.getElementById('background-dim-select').value;
+            settings.cursorStyle = document.getElementById('cursor-style-select').value;
+            if (settings.crtEffects) {
+                settings.scanlines = true;
+                settings.noise = true;
+                document.getElementById('scanlines-toggle').checked = true;
+                document.getElementById('noise-toggle').checked = true;
+            } else {
+                settings.scanlines = document.getElementById('scanlines-toggle').checked;
+                settings.noise = document.getElementById('noise-toggle').checked;
+            }
             settings.sounds = document.getElementById('sounds-toggle').checked;
             settings.timestamps = document.getElementById('timestamps-toggle').checked;
             settings.showWarnings = document.getElementById('warnings-toggle').checked;
             settings.showDmca = document.getElementById('dmca-toggle').checked;
             settings.showGithub = document.getElementById('github-toggle').checked;
             settings.centerInput = document.getElementById('center-input-toggle').checked;
+            settings.hideBottomUI = document.getElementById('hide-bottom-ui-toggle').checked;
             applySettings();
             addLine('Settings saved.', 'success');
         }
 
         function centerInput() {
-            if (!settings.centerInput) return;
             const input = document.getElementById('user-input');
             if (!input || document.activeElement !== input) return;
+            updateTypingState();
+            if (!settings.centerInput) return;
+
+            const isMobile = window.innerWidth <= 768 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+            if (!isMobile) return;
 
             if (window.visualViewport) {
                 const vv = window.visualViewport;
@@ -659,6 +836,7 @@
         }
 
         function removeCenterSpacer() {
+            updateTypingState();
             const spacer = document.querySelector('.spacer');
             if (spacer) spacer.remove();
         }
@@ -748,7 +926,8 @@
         }
 
         guideBtn.addEventListener('click', () => {
-            if (guideUnlocked) {
+            const hasMaster = localStorage.getItem('hdo-master') === '1';
+            if (guideUnlocked || isAuthenticated || hasMaster) {
                 guidePanel.classList.toggle('open');
             } else {
                 createGuideLock();
@@ -757,6 +936,13 @@
 
         // Execute commands
         function executeCommand(input) {
+            try {
+            if (isAuthenticated && input && input !== password) {
+                commandsHistory.push(input);
+                if (commandsHistory.length > 20) commandsHistory.shift();
+                localStorage.setItem('hdoTerminalHistory', JSON.stringify(commandsHistory));
+            }
+
             if (!isAuthenticated) {
                 let isMaster = false;
                 try { isMaster = localStorage.getItem('hdo-master') === '1'; } catch (e) {}
@@ -840,7 +1026,28 @@
                 return;
             }
 
+            if (inputLower === "/neofetch") {
+                handleNeofetch();
+                return;
+            }
+
+            if (inputLower === "/about") {
+                handleAbout();
+                return;
+            }
+
+            if (inputLower === "/date") {
+                handleDate();
+                return;
+            }
+
+            if (inputLower === "/history") {
+                handleHistory();
+                return;
+            }
+
             addLine(`Unknown command: "${input}"`, "error");
+            } catch (err) { showToast(err.message); }
         }
 
         function handleDownload(platform) {
@@ -937,6 +1144,60 @@
             addLine("=== Other Commands ===");
             addLine("/tv-apk - Download TV APK");
             addLine("/apps - Redirect to apps player download page");
+            addLine("/neofetch - Show system info with ASCII art");
+            addLine("/about - About this terminal");
+            addLine("/date - Show current date and time");
+            addLine("/history - Show recent command history");
+        }
+
+        function handleNeofetch() {
+            const logo = [
+                "    ██████╗ ",
+                "   ██╔═══██╗",
+                "   ██║   ██║",
+                "   ██║   ██║",
+                "   ╚██████╔╝",
+                "    ╚═════╝ "
+            ];
+            const now = new Date();
+            const info = [
+                "user@hdo-pro",
+                "────────────",
+                "OS: HDO Pro Web Terminal",
+                "Kernel: Linux x86_64",
+                "Shell: hdo-term v1.1",
+                `Resolution: ${window.innerWidth}x${window.innerHeight}`,
+                `Theme: ${settings.theme}`,
+                `Uptime: ${Math.round(performance.now() / 1000)}s`,
+                `Date: ${now.toLocaleString()}`
+            ];
+            const maxLines = Math.max(logo.length, info.length);
+            for (let i = 0; i < maxLines; i++) {
+                const art = logo[i] || ' '.repeat(14);
+                const text = info[i] || '';
+                addLine(art + '  ' + text);
+            }
+        }
+
+        function handleAbout() {
+            addLine("HDO Pro Terminal v1.1");
+            addLine("A web-based Linux-style download terminal.");
+            addLine("Use /commands for a full list of commands.");
+            addLine(`Authenticated: ${isAuthenticated}`);
+            addLine(`Current theme: ${settings.theme}`);
+        }
+
+        function handleDate() {
+            addLine(new Date().toString());
+        }
+
+        function handleHistory() {
+            const recent = commandsHistory.slice(-10);
+            if (!recent.length) {
+                addLine("No command history.");
+                return;
+            }
+            recent.forEach((cmd, i) => addLine(`${i + 1}  ${cmd}`));
         }
 
         function addLine(text, className = "") {
@@ -971,6 +1232,7 @@
             inputLine.innerHTML = `<span class="prompt">user@hdo-pro:~$ </span><input id="user-input" type="text" autofocus placeholder="Type command..." autocomplete="off" spellcheck="false">`;
             terminal.appendChild(inputLine);
             userInput = document.getElementById("user-input");
+            userInput.classList.add('cursor-' + settings.cursorStyle);
             userInput.addEventListener("keydown", handleInput);
             userInput.addEventListener("focus", centerInput);
             userInput.addEventListener("input", centerInput);
@@ -985,6 +1247,7 @@
         }
 
         function handleInput(e) {
+            try {
             if (e.key === "Enter") {
                 const inputText = userInput.value.trim();
                 if (inputText) {
@@ -996,7 +1259,29 @@
                     executeCommand(inputText);
                     userInput.value = "";
                 }
+                historyIndex = commandsHistory.length;
+                return;
             }
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (commandsHistory.length && historyIndex > 0) {
+                    historyIndex--;
+                    userInput.value = commandsHistory[historyIndex];
+                }
+                return;
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (historyIndex < commandsHistory.length - 1) {
+                    historyIndex++;
+                    userInput.value = commandsHistory[historyIndex];
+                } else {
+                    historyIndex = commandsHistory.length;
+                    userInput.value = "";
+                }
+                return;
+            }
+            } catch (err) { showToast(err.message); }
         }
 
         window.addEventListener("load", () => {
