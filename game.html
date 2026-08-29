@@ -38,6 +38,20 @@
             width: 100%;
             height: auto;
             touch-action: none;
+            box-shadow: 0 0 18px rgba(255, 102, 178, 0.45);
+        }
+        .no-glow canvas#gameCanvas { box-shadow: none; }
+        .no-border canvas#gameCanvas { border: none !important; }
+        .hide-dpad .d-pad { display: none !important; }
+        #game-pixels {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            display: block;
+            background: #000;
         }
         .score-row { display: flex; justify-content: center; gap: 20px; color: #ff66b2; font-size: 1.2rem; margin: 10px 0; }
         #gameMsg { color: #fff; margin: 10px 0; min-height: 1.5em; }
@@ -184,6 +198,65 @@
         .d-pad { animation: game-slide-up 0.5s ease-out 0.5s both; }
         #settings-btn { animation: game-slide-up 0.5s ease-out 0.6s both; }
 
+        .help-btn {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #ff66b2;
+            color: #fff;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin: 8px auto;
+        }
+        .help-btn:hover { background: rgba(255,255,255,0.08); }
+
+        #help-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 10002;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        #help-overlay.open { opacity: 1; pointer-events: auto; }
+
+        #help-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%) scale(0.95);
+            max-width: min(90vw, 360px);
+            width: 100%;
+            background: rgba(10,10,10,0.96);
+            border: 2px solid #ff66b2;
+            border-radius: 12px;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10003;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s ease, opacity 0.25s;
+            text-align: left;
+        }
+        #help-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+
+        #help-modal h2 { color: #ff66b2; margin: 0 0 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        #help-modal ul { margin: 8px 0 0; padding-left: 18px; color: #fff; }
+        #help-modal li { margin: 6px 0; }
+
+        #help-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        #help-close:hover { color: #ff66b2; }
+
         @media (max-width: 400px) {
             .d-pad { grid-template-columns: repeat(3, 50px); }
             .d-pad button { padding: 12px; }
@@ -210,6 +283,7 @@
     </style>
 </head>
 <body>
+    <canvas id="game-pixels" aria-hidden="true"></canvas>
     <div class="container game-wrap">
         <h1>HDO Pro Arcade</h1>
         <p class="game-notice"><i class="fa-solid fa-circle-info"></i> This is just for fun and does not give you anything.</p>
@@ -230,6 +304,7 @@
                 <li>Press Space or P to pause.</li>
             </ul>
         </details>
+        <button id="open-help" class="help-btn">How to Play</button>
         <div class="d-pad">
             <span></span>
             <button id="up" aria-label="Up">▲</button>
@@ -306,15 +381,58 @@
                     <label for="swipe-toggle">Swipe on canvas</label>
                     <input type="checkbox" id="swipe-toggle" checked>
                 </div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>More</h3>
+            <div class="settings-grid">
+                <div class="setting setting-row">
+                    <label for="glow-toggle">Food glow</label>
+                    <input type="checkbox" id="glow-toggle" checked>
+                </div>
+
+                <div class="setting setting-row">
+                    <label for="border-toggle">Show canvas border</label>
+                    <input type="checkbox" id="border-toggle" checked>
+                </div>
+
+                <div class="setting setting-row">
+                    <label for="dpad-toggle">Show D-pad</label>
+                    <input type="checkbox" id="dpad-toggle" checked>
+                </div>
+
+                <div class="setting setting-row">
+                    <label for="vibrate-toggle">Vibration</label>
+                    <input type="checkbox" id="vibrate-toggle">
+                </div>
 
                 <div class="setting">
                     <button id="reset-highscore">Reset High Score</button>
+                </div>
+
+                <div class="setting">
+                    <button id="help-in-settings" type="button">How to Play</button>
                 </div>
             </div>
         </div>
     </div>
     <div id="settings-overlay" aria-hidden="true"></div>
+    <div id="help-overlay" class="help-overlay" aria-hidden="true"></div>
+    <div id="help-modal" class="help-modal" aria-label="How to play">
+        <button id="help-close" type="button" aria-label="Close How to Play">&times;</button>
+        <h2>How to Play</h2>
+        <ul>
+            <li>Eat the pink food to grow and score.</li>
+            <li>Avoid hitting the walls or your own tail.</li>
+            <li>Use arrow keys or WASD on PC.</li>
+            <li>Tap the D-pad or swipe on mobile.</li>
+            <li>Press Space or P to pause.</li>
+        </ul>
+        <p class="controls-hint">Arrows / WASD to move &middot; Space or P to pause</p>
+    </div>
 
+    <script src="game-pixels.js" defer></script>
     <script src="game.js" defer></script>
 </body>
 </html>

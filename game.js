@@ -8,6 +8,8 @@
   const highScoreEl = document.getElementById('highScoreBoard');
   const msgEl = document.getElementById('gameMsg');
   const settingsPanel = document.getElementById('settings-panel');
+  const helpModal = document.getElementById('help-modal');
+  const helpOverlay = document.getElementById('help-overlay');
 
   const STORAGE_KEY = 'hdoArcadeSettings';
   const HIGHSCORE_KEY = 'hdoArcadeHighScore';
@@ -32,7 +34,11 @@
     walls: true,
     showGrid: true,
     sound: true,
-    swipe: true
+    swipe: true,
+    glow: true,
+    showBorder: true,
+    showDPad: true,
+    vibrate: false
   };
 
   let settings = loadSettings();
@@ -150,8 +156,12 @@
     }
 
     ctx.fillStyle = t.food;
-    ctx.shadowColor = t.food;
-    ctx.shadowBlur = 10;
+    if (settings.glow) {
+      ctx.shadowColor = t.food;
+      ctx.shadowBlur = 10;
+    } else {
+      ctx.shadowBlur = 0;
+    }
     ctx.fillRect(food.x + 4, food.y + 4, grid - 8, grid - 8);
     ctx.shadowBlur = 0;
 
@@ -208,6 +218,7 @@
       score += 10;
       scoreEl.textContent = 'Score: ' + score;
       playBeep(440, 80);
+      if (settings.vibrate && navigator.vibrate) navigator.vibrate(40);
       if (score > highScore) {
         highScore = score;
         highScoreEl.textContent = 'High Score: ' + highScore;
@@ -231,6 +242,7 @@
     running = false;
     if (loopId) clearTimeout(loopId);
     playBeep(150, 250);
+    if (settings.vibrate && navigator.vibrate) navigator.vibrate([100, 50, 100]);
     msgEl.textContent = 'Game Over — Score: ' + score + '. Press Start to restart.';
   }
 
@@ -327,6 +339,10 @@
   const gridToggle = document.getElementById('grid-toggle');
   const soundToggle = document.getElementById('sound-toggle');
   const swipeToggle = document.getElementById('swipe-toggle');
+  const glowToggle = document.getElementById('glow-toggle');
+  const borderToggle = document.getElementById('border-toggle');
+  const dpadToggle = document.getElementById('dpad-toggle');
+  const vibrateToggle = document.getElementById('vibrate-toggle');
 
   function populateSettings() {
     themeSelect.value = settings.theme;
@@ -336,6 +352,10 @@
     gridToggle.checked = settings.showGrid;
     soundToggle.checked = settings.sound;
     swipeToggle.checked = settings.swipe;
+    glowToggle.checked = settings.glow;
+    borderToggle.checked = settings.showBorder;
+    dpadToggle.checked = settings.showDPad;
+    vibrateToggle.checked = settings.vibrate;
   }
 
   function applySettings() {
@@ -347,8 +367,15 @@
     settings.showGrid = gridToggle.checked;
     settings.sound = soundToggle.checked;
     settings.swipe = swipeToggle.checked;
+    settings.glow = glowToggle.checked;
+    settings.showBorder = borderToggle.checked;
+    settings.showDPad = dpadToggle.checked;
+    settings.vibrate = vibrateToggle.checked;
     saveSettings();
     currentSpeed = DIFFICULTY[settings.difficulty];
+    document.body.classList.toggle('no-glow', !settings.glow);
+    document.body.classList.toggle('no-border', !settings.showBorder);
+    document.body.classList.toggle('hide-dpad', !settings.showDPad);
     if (settings.grid !== oldGrid) {
       if (loopId) clearTimeout(loopId);
       running = false;
@@ -358,7 +385,7 @@
   }
 
   [themeSelect, difficultySelect, gridSelect].forEach(el => el.addEventListener('change', applySettings));
-  [wallsToggle, gridToggle, soundToggle, swipeToggle].forEach(el => el.addEventListener('change', applySettings));
+  [wallsToggle, gridToggle, soundToggle, swipeToggle, glowToggle, borderToggle, dpadToggle, vibrateToggle].forEach(el => el.addEventListener('change', applySettings));
 
   document.getElementById('reset-highscore').addEventListener('click', () => {
     highScore = 0;
@@ -374,6 +401,8 @@
     settingsOverlay.classList.toggle('open', open);
     if (open) populateSettings();
   }
+
+  function setHelpOpen(open) { helpModal.classList.toggle('open', open); helpOverlay.classList.toggle('open', open); }
 
   settingsBtn.addEventListener('click', e => {
     e.stopPropagation();
@@ -391,14 +420,20 @@
     setSettingsOpen(false);
   });
 
+  document.getElementById('open-help').addEventListener('click', () => setHelpOpen(true));
+  document.getElementById('help-in-settings').addEventListener('click', () => { setSettingsOpen(false); setHelpOpen(true); });
+  document.getElementById('help-close').addEventListener('click', () => setHelpOpen(false));
+  helpOverlay.addEventListener('click', () => setHelpOpen(false));
+
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && settingsPanel.classList.contains('open')) {
-      setSettingsOpen(false);
+    if (e.key === 'Escape') {
+      if (helpModal.classList.contains('open')) { setHelpOpen(false); return; }
+      if (settingsPanel.classList.contains('open')) { setSettingsOpen(false); }
     }
   });
 
   loadHighScore();
   populateSettings();
   reset();
-  draw();
+  applySettings();
 })();
