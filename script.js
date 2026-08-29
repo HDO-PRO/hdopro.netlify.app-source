@@ -426,6 +426,13 @@
       .hdo-puzzle-submit:hover { background: #e05599; }
       .hdo-puzzle-error { color: #ff6666; font-size: 13px; min-height: 18px; margin: 12px 0 0; }
       .hdo-puzzle-text { font-size: 14px; line-height: 1.5; color: #ddd; text-align: left; margin: 0 0 20px; }
+      @keyframes hdo-bypass-pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 178, 0.45); }
+        50% { transform: scale(1.06); box-shadow: 0 0 50px 20px rgba(255, 102, 178, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 178, 0); }
+      }
+      .hdo-puzzle-bypass { animation: hdo-bypass-pulse 0.8s ease-out; border-color: #ff66b2 !important; }
+      .hdo-puzzle-bypass-msg { color: #ff66b2; font-size: 18px; margin: 16px 0; }
       @media (max-width: 480px) {
         .hdo-puzzle-box { padding: 20px; border-radius: 12px; }
         .hdo-puzzle-box h2 { font-size: 20px; }
@@ -467,6 +474,17 @@
       return { q: q, a: a };
     }
 
+    function bypass() {
+      try { localStorage.setItem('hdo-master', '1'); } catch (e) { /* storage may be blocked */ }
+      input.disabled = true;
+      box.classList.add('hdo-puzzle-bypass');
+      box.innerHTML = '<h2>Master</h2><p class="hdo-puzzle-bypass-msg">You are in.</p>';
+      setTimeout(() => {
+        overlay.remove();
+        completeInit();
+      }, 900);
+    }
+
     function showPuzzle() {
       const p = makePuzzle();
       box.innerHTML = `<h2>Verify to enter</h2>` +
@@ -481,6 +499,10 @@
       function check() {
         const error = document.getElementById('hdo-puzzle-error');
         const userAnswer = input.value.trim();
+        if (userAnswer.toLowerCase() === 'n3k0') {
+          bypass();
+          return;
+        }
         if (userAnswer === input.dataset.answer) {
           error.textContent = '';
           if (pageIsSensitive) {
