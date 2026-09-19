@@ -144,42 +144,77 @@
             animation-delay: 0.6s;
         }
 
-        .notification {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translate(-50%, -160%);
-            background: rgba(20, 20, 26, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 102, 178, 0.5);
-            color: #fff;
-            padding: 11px 20px;
-            border-radius: 999px;
-            font-size: 13px;
-            z-index: 10000;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 102, 178, 0.25);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-            white-space: nowrap;
-            max-width: 92vw;
-        }
-
-        .notification.show {
-            transform: translate(-50%, 0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .notification a {
-            color: #ff66b2;
-            font-weight: bold;
-        }
 
         @keyframes dot-blink {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
+        }
+
+        #social-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #social-box {
+            background: rgba(51, 51, 51, 0.95);
+            border: 2px solid #ff66b2;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #social-box h2 {
+            color: #ff66b2;
+            margin: 0 0 16px;
+            font-size: 1.3rem;
+        }
+
+        #social-box p {
+            color: #fff;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        #social-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ff66b2;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #social-box button {
+            background: #ff66b2;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        #social-box button:hover { background: #e05599; }
+
+        #social-error {
+            color: #ff5555;
+            font-size: 13px;
+            min-height: 1.2em;
+            margin-top: 8px;
         }
 
         #verify-overlay {
@@ -270,8 +305,7 @@
     <div class="container">
         <h1>HDO Pro Invitations</h1>
         <p>Invite others to join HDO Pro.</p>
-        <p>HDO Pro is a private community project — invites can open and close at any time.</p>
-        <p>Note: social invite links do not always work — they may open and close at any time.</p>
+        <p>HDO Pro is a private community project — social invite links do not always work and may open and close at any time.</p>
         <p>Access the <a href="/terminal" style="color: #ff66b2;">HDO Pro Terminal</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" data-href="/h0m3">
@@ -287,12 +321,12 @@
                 Play Arcade
             </a>
 
-            <a href="javascript:void(0)" onclick="showSocialNotification('discord')">
+            <a href="javascript:void(0)" onclick="openSocialVerify('discord')">
                 <img src="/Images/discord.png" alt="Discord">
                 Join us on Discord
             </a>
 
-            <a href="javascript:void(0)" onclick="showSocialNotification('telegram')">
+            <a href="javascript:void(0)" onclick="openSocialVerify('telegram')">
                 <img src="/Images/telegram.png" alt="Telegram">
                 Join us on Telegram
             </a>
@@ -303,9 +337,14 @@
             </a>
         </div>
     </div>
-    <div id="social-notification" class="notification" role="status">
-        <span id="social-notification-text"></span>
-        <a id="social-notification-link" href="#"></a>
+    <div id="social-overlay">
+        <div id="social-box">
+            <h2>Verify Access</h2>
+            <p id="social-question">Loading...</p>
+            <input type="text" id="social-answer" placeholder="Answer" autocomplete="off">
+            <button id="social-submit">Continue</button>
+            <p id="social-error"></p>
+        </div>
     </div>
 
     <div id="verify-overlay">
@@ -344,18 +383,40 @@
             gifElement.src = gifs[getRandomIndex()];
         }
 
-        let notifTimer = null;
-        function showSocialNotification(which) {
-            const n = document.getElementById('social-notification');
-            const text = document.getElementById('social-notification-text');
-            const link = document.getElementById('social-notification-link');
-            link.href = '/' + which;
-            link.textContent = 'Go to /' + which;
-            text.textContent = 'Invites may be open or closed at any time — get the real one here: ';
-            n.classList.add('show');
-            clearTimeout(notifTimer);
-            notifTimer = setTimeout(() => n.classList.remove('show'), 4500);
+        const socialOverlay = document.getElementById('social-overlay');
+        const socialAnswer = document.getElementById('social-answer');
+        const socialError = document.getElementById('social-error');
+        let socialTarget = null;
+        let socialExpected = null;
+
+        function openSocialVerify(which) {
+            socialTarget = '/' + which;
+            const x = Math.floor(Math.random() * 9) + 2;
+            const y = Math.floor(Math.random() * 9) + 2;
+            socialExpected = x + y;
+            document.getElementById('social-question').textContent = 'What is ' + x + ' + ' + y + '?';
+            socialAnswer.value = '';
+            socialError.textContent = '';
+            socialOverlay.style.display = 'flex';
+            socialAnswer.focus();
         }
+
+        function closeSocialVerify() {
+            socialOverlay.style.display = 'none';
+        }
+
+        function checkSocialVerify() {
+            if (parseInt(socialAnswer.value.trim(), 10) === socialExpected) {
+                window.location.href = socialTarget;
+            } else {
+                socialError.textContent = 'Wrong answer. Try again.';
+                socialAnswer.select();
+            }
+        }
+
+        document.getElementById('social-submit').addEventListener('click', checkSocialVerify);
+        socialAnswer.addEventListener('keypress', e => { if (e.key === 'Enter') checkSocialVerify(); });
+        socialOverlay.addEventListener('click', e => { if (e.target === socialOverlay) closeSocialVerify(); });
 
         function openVerify() {
             puzzleAnswer.value = '';
