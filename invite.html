@@ -146,20 +146,35 @@
 
         .notification {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            transform: none;
-            background-color: rgba(200, 0, 0, 0.95);
+            top: 16px;
+            left: 50%;
+            transform: translate(-50%, -160%);
+            background: rgba(20, 20, 26, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 102, 178, 0.5);
             color: #fff;
-            padding: 12px 20px;
-            border-radius: 0 0 8px 8px;
-            display: none;
+            padding: 11px 20px;
+            border-radius: 999px;
+            font-size: 13px;
             z-index: 10000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 102, 178, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            white-space: nowrap;
+            max-width: 92vw;
+        }
+
+        .notification.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .notification a {
+            color: #ff66b2;
             font-weight: bold;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            box-sizing: border-box;
         }
 
         @keyframes dot-blink {
@@ -256,7 +271,7 @@
         <h1>HDO Pro Invitations</h1>
         <p>Invite others to join HDO Pro.</p>
         <p>HDO Pro is a private community project — invites can open and close at any time.</p>
-        <p>New here? Read the <a href="/start" style="color: #ff66b2;">Getting Started guide</a>.</p>
+        <p>Note: social invite links do not always work — they may open and close at any time.</p>
         <p>Access the <a href="/terminal" style="color: #ff66b2;">HDO Pro Terminal</a>.</p>
         <div class="gif-container">
             <img id="animated-gif" src="" alt="Dancing Cat GIF" data-href="/h0m3">
@@ -272,12 +287,12 @@
                 Play Arcade
             </a>
 
-            <a href="https://discord.gg/BbJaESA5N" target="_blank">
+            <a href="javascript:void(0)" onclick="showSocialNotification('discord')">
                 <img src="/Images/discord.png" alt="Discord">
                 Join us on Discord
             </a>
 
-            <a href="javascript:void(0)" onclick="showTelegramNotification()">
+            <a href="javascript:void(0)" onclick="showSocialNotification('telegram')">
                 <img src="/Images/telegram.png" alt="Telegram">
                 Join us on Telegram
             </a>
@@ -288,8 +303,9 @@
             </a>
         </div>
     </div>
-    <div id="telegram-notification" class="notification">
-        Invite not available at this time.
+    <div id="social-notification" class="notification" role="status">
+        <span id="social-notification-text"></span>
+        <a id="social-notification-link" href="#"></a>
     </div>
 
     <div id="verify-overlay">
@@ -328,10 +344,17 @@
             gifElement.src = gifs[getRandomIndex()];
         }
 
-        function showTelegramNotification() {
-            const notification = document.getElementById('telegram-notification');
-            notification.style.display = 'block';
-            setTimeout(() => notification.style.display = 'none', 3000);
+        let notifTimer = null;
+        function showSocialNotification(which) {
+            const n = document.getElementById('social-notification');
+            const text = document.getElementById('social-notification-text');
+            const link = document.getElementById('social-notification-link');
+            link.href = '/' + which;
+            link.textContent = 'Go to /' + which;
+            text.textContent = 'Invites may be open or closed at any time — get the real one here: ';
+            n.classList.add('show');
+            clearTimeout(notifTimer);
+            notifTimer = setTimeout(() => n.classList.remove('show'), 4500);
         }
 
         function openVerify() {

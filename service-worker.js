@@ -3,7 +3,6 @@ const PRECACHE = [
   '/',
   '/index.html',
   '/h0m3',
-  '/start',
   '/about',
   '/invite',
   '/sign-in',
