@@ -6,190 +6,295 @@
 <title>HDO Pro - Server Rules</title>
 <meta property="og:url" content="/rules" />
 <meta property="og:title" content="HDO Pro | Rules">
-<meta property="og:description" content="Take a look at the RUles of HDO Pro.">
-<meta property="og:image" content="/images/logo.png">
+<meta property="og:description" content="Take a look at the rules of HDO Pro.">
+<meta property="og:image" content="/Images/logo.png">
 <meta property="og:image:type" content="image/png">
 <meta name="theme-color" content="#8d2249" />
 <link href="style.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="/images/logo.png" type="image/png">
+<link rel="icon" href="/Images/logo.png" type="image/png">
 <style>
   body {
-    background: url('/Images/purple-japanese-painting-ai-generated-1920x1080-v0-0y2eb9annv3b1.webp') no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff; /* White text color */
-    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    font-family: "gg sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #313338 !important;
+    color: #dbdee1;
     min-height: 100vh;
-    box-sizing: border-box;
+    overflow-x: hidden;
+    text-align: left;
   }
 
-  .discord-container {
-    max-width: 900px;
-    width: 100%;
-    background-color: rgba(51, 51, 51, 0.6); /* Light red with transparency */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    padding: 20px;
+  .d-app {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+  }
+
+  /* ── Sidebar ── */
+  .d-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: #2b2d31;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    box-sizing: border-box;
-    color: #ffffff; /* White text color */
-    font-weight: bold; /* Bold text */
-    font-size: 16px; /* Larger font size */
   }
 
-  .profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-    opacity: 0.7; /* Faded image */
+  .d-server-name {
+    padding: 14px 16px;
+    font-weight: 700;
+    color: #f2f3f5;
+    font-size: 15px;
+    border-bottom: 1px solid #232428;
+    box-shadow: 0 1px 0 rgba(2,2,2,.2);
   }
 
-  .content {
+  .d-channels {
+    padding: 12px 8px;
+    font-size: 15px;
+  }
+
+  .d-channel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    color: #949ba4;
+    margin-bottom: 2px;
+    cursor: default;
+  }
+
+  .d-channel .hash { color: #80848e; font-weight: 600; }
+
+  .d-channel.active {
+    background: #404249;
+    color: #f2f3f5;
+  }
+
+  .d-channel.active .hash { color: #b5bac1; }
+
+  /* ── Main chat ── */
+  .d-main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
 
-  .username {
-    color: #ff69b4; /* Pink color for username */
-    font-weight: bold;
-    font-size: 20px; /* Larger font size */
-    margin-bottom: 10px;
+  .d-channel-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #232428;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
-  .timestamp {
-    color: #72767d;
-    font-size: 14px; /* Larger font size */
+  .d-channel-header .hash {
+    color: #80848e;
+    font-size: 20px;
+    font-weight: 600;
   }
 
-  h1 {
-    color: #ffc0cb; /* Light pink color for headings */
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
+  .d-channel-header .name {
+    color: #f2f3f5;
+    font-weight: 700;
+    font-size: 15px;
   }
 
-  p {
-    margin-bottom: 10px;
-    line-height: 1.6;
+  .d-channel-header .topic {
+    color: #949ba4;
+    font-size: 13px;
+    border-left: 1px solid #3f4147;
+    padding-left: 10px;
   }
 
-  ul {
-    list-style-type: none;
+  .d-messages {
+    flex: 1;
+    padding: 16px 16px 8px;
+    overflow-y: auto;
+  }
+
+  .d-msg {
+    display: flex;
+    gap: 14px;
+    padding: 6px 8px;
+    margin: 0 -8px 4px;
+    border-radius: 4px;
+    transition: background 0.1s ease;
+  }
+
+  .d-msg:hover { background: #2e3035; }
+
+  .d-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    object-fit: cover;
+  }
+
+  .d-msg-body { min-width: 0; flex: 1; }
+
+  .d-msg-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .d-username {
+    color: #ff66b2;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .d-bot-tag {
+    background: #5865f2;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .d-timestamp {
+    color: #949ba4;
+    font-size: 12px;
+  }
+
+  .d-text {
+    color: #dbdee1;
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 2px 0;
+    font-weight: 400;
+  }
+
+  /* ── Embeds ── */
+  .d-embed {
+    background: #2b2d31;
+    border-left: 4px solid #ff66b2;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    max-width: 520px;
+  }
+
+  .d-embed-title {
+    color: #f2f3f5;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .d-embed ul {
+    list-style: none;
     padding: 0;
-    margin: 10px 0 20px 0;
+    margin: 0;
   }
 
-  li {
-    margin-bottom: 15px;
+  .d-embed li {
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: #b5bac1;
   }
 
-  .rule-header {
-    color: #ffc0cb; /* Light pink color for headers */
-    font-weight: bold;
-    margin-bottom: 5px;
+  .d-embed li strong {
+    color: #dbdee1;
+    display: block;
+    font-size: 13px;
   }
 
-  .reddot {
-    color: #ff69b4; /* Pink color for bullet points */
-    font-weight: bold;
-    margin-right: 5px;
+  .d-mention {
+    color: #c9cdfb;
+    background: rgba(88,101,242,.3);
+    border-radius: 3px;
+    padding: 0 3px;
+    font-weight: 500;
   }
 
-  .additional-guidelines {
-    margin-top: 20px;
+  /* ── Input bar (read-only) ── */
+  .d-input-wrap {
+    padding: 0 16px 20px;
   }
 
-  blockquote {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-left: 5px solid #ff69b4; /* Pink border for blockquote */
-    margin: 10px 0;
-    padding: 10px 20px;
-    font-style: normal; /* Normal font style */
+  .d-input {
+    background: #383a40;
+    border-radius: 8px;
+    padding: 11px 16px;
+    color: #6d6f78;
+    font-size: 15px;
+    cursor: not-allowed;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .rule-item {
-    font-size: 14px; /* Larger font size for subheadings */
-    font-style: normal; /* Normal font style */
-    font-weight: bold; /* Bold font style */
+  .d-input .plus {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #6d6f78;
+    color: #383a40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 
-  .rule-description {
-    font-size: 14px; /* Smaller font size for descriptions */
-    font-style: italic; /* Italic text */
-    font-weight: normal; /* Normal weight */
-  }
-
-  @media (max-width: 600px) {
-    .discord-container {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .profile-pic {
-      margin-bottom: 15px;
-    }
-
-    .username {
-      text-align: center;
-    }
-  }
-
-  /* Popup styling */
+  /* ── Popup ── */
   #popup {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    inset: 0;
+    background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: center;
     z-index: 1000;
   }
 
   #popup-content {
-    background-color: rgba(207, 84, 112, 0.9); /* Darker red with transparency */
+    background: #313338;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    color: #ffffff; /* White text color */
+    color: #dbdee1;
     max-width: 400px;
-    width: 80%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    font-weight: bold; /* Bold text */
-    font-size: 18px; /* Larger font size */
+    width: 85%;
+    box-shadow: 0 8px 24px rgba(0,0,0,.5);
   }
+
+  #popup-content h2 { color: #f2f3f5; margin: 0 0 10px; font-size: 18px; }
+  #popup-content p { font-size: 14px; color: #b5bac1; }
 
   #popup button {
-    background-color: #ff69b4; /* Pink button */
+    background: #5865f2;
     border: none;
-    color: white;
+    color: #fff;
     padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 20px;
-    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 16px;
+    border-radius: 4px;
     cursor: pointer;
-  }
-
-  #popup button:hover {
-    background-color: #e63946; /* Darker pink on hover */
-  }
-
-  .banner {
     width: 100%;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    opacity: 0.7; /* Faded image */
+    transition: background 0.15s ease;
+  }
+
+  #popup button:hover { background: #4752c4; }
+
+  @media (max-width: 720px) {
+    .d-sidebar { display: none; }
+    .d-embed { max-width: 100%; }
   }
 </style>
 </head>
@@ -202,49 +307,79 @@
   </div>
 </div>
 
-<div class="discord-container">
-  <img src="https://i.imgur.com/JWMcy1pg.png" alt="Banner" class="banner">
-  <img src="/images/logo.png" alt="HDO Pro's profile picture" class="profile-pic">
-  <div class="content">
-  <div class="username">HDO Pro <span class="timestamp">Sent from somewhere?</span></div>
-  <h1>Server Rules</h1>
-  
-  <h2>General Conduct</h2>
-  <blockquote>
-  <ul>
-    <li><span class="rule-item">NO EXTERNAL PROMOTION</span><br><span class="rule-description">• Do not discuss or promote this server outside of its intended community.</span></li>
-    <li><span class="rule-item">LANGUAGE</span><br><span class="rule-description">• Communicate in English only. Avoid spamming to keep the environment pleasant for everyone.</span></li>
-    <li><span class="rule-item">SPOILERS</span><br><span class="rule-description">• Share spoilers only in designated channels.</span></li>
-    <li><span class="rule-item">RESPECT PRIVACY</span><br><span class="rule-description">• Do not DM or send friend requests to other members without their permission.</span></li>
-    <li><span class="rule-item">RESPECTFUL BEHAVIOUR</span><br><span class="rule-description">• Avoid racial slurs or derogatory behaviour. Content flagged as derogatory will be dealt with appropriately.</span></li>
-    <li><span class="rule-item">DISCORD GUIDELINES</span><br><span class="rule-description">• Follow all Discord guidelines.</span></li>
-    <li><span class="rule-item">SERVER OPERATIONS</span><br><span class="rule-description">• Review the provided information to understand how the server operates.</span></li>
-  </ul>
-  </blockquote>
+<div class="d-app">
+  <aside class="d-sidebar">
+    <div class="d-server-name">HDO Pro</div>
+    <div class="d-channels">
+      <div class="d-channel"><span class="hash">#</span> announcements</div>
+      <div class="d-channel active"><span class="hash">#</span> rules</div>
+      <div class="d-channel"><span class="hash">#</span> general</div>
+      <div class="d-channel"><span class="hash">#</span> support</div>
+      <div class="d-channel"><span class="hash">#</span> downloads</div>
+    </div>
+  </aside>
 
-  <h2>Content and Posting</h2>
-  <blockquote>
-  <ul>
-    <li><span class="rule-item">PROMOTIONAL CONTENT</span><br><span class="rule-description">• Do not share promotional content, Discord server invites, torrent links, or discuss external anime streaming sites.</span></li>
-    <li><span class="rule-item">NSFW CONTENT</span><br><span class="rule-description">• Share only standard NSFW content in designated NSFW channels. Prohibited content includes child/loli, gore, or animal porn.</span></li>
-    <li><span class="rule-item">APPROPRIATE CHANNELS</span><br><span class="rule-description">• Post content in the appropriate channels to keep discussions organized.</span></li>
-    <li><span class="rule-item">NO HARMFUL MATERIAL</span><br><span class="rule-description">• Posting harmful material such as viruses, IP grabbers, or malware will result in an immediate and permanent ban.</span></li>
-    <li><span class="rule-item">NO ILLEGAL ACTIVITIES</span><br><span class="rule-description">• Discussions about hacking, piracy, or other illegal activities are strictly prohibited.</span></li>
-    <li><span class="rule-item">NO ADVERTISEMENTS</span><br><span class="rule-description">• Any form of advertising is not allowed.</span></li>
-  </ul>
-  </blockquote>
+  <main class="d-main">
+    <div class="d-channel-header">
+      <span class="hash">#</span>
+      <span class="name">rules</span>
+      <span class="topic">HDO Pro server rules — private community project</span>
+    </div>
 
-  <h2>Engagement and Interaction</h2>
-  <blockquote>
-  <ul>
-    <li><span class="rule-item">USER RESPONSIBILITY</span><br><span class="rule-description">• Users are responsible for their interactions and behavior within the server.</span></li>
-    <li><span class="rule-item">RESPECTFUL COMMUNICATION</span><br><span class="rule-description">• Engage in respectful and meaningful conversations. Avoid being disruptive or offensive.</span></li>
-    <li><span class="rule-item">CONSTRUCTIVE FEEDBACK</span><br><span class="rule-description">• Provide constructive feedback and avoid negativity.</span></li>
-    <li><span class="rule-item">HELP AND SUPPORT</span><br><span class="rule-description">• Offer help and support to fellow members when possible.</span></li>
-    <li><span class="rule-item">REPORTING ISSUES</span><br><span class="rule-description">• Report any issues or rule violations to the moderators.</span></li>
-  </ul>
-  </blockquote>
-  </div>
+    <div class="d-messages">
+      <div class="d-msg">
+        <img class="d-avatar" src="/Images/logo.png" alt="HDO Pro">
+        <div class="d-msg-body">
+          <div class="d-msg-header">
+            <span class="d-username">HDO Pro</span>
+            <span class="d-bot-tag">Bot</span>
+            <span class="d-timestamp">Today at 9:41 PM</span>
+          </div>
+          <p class="d-text">Welcome to the server! Please read and follow the rules below. Questions go in <span class="d-mention">#support</span>.</p>
+
+          <div class="d-embed">
+            <div class="d-embed-title">General Conduct</div>
+            <ul>
+              <li><strong>NO EXTERNAL PROMOTION</strong>Do not discuss or promote this server outside of its intended community.</li>
+              <li><strong>LANGUAGE</strong>Communicate in English only. Avoid spamming to keep the environment pleasant for everyone.</li>
+              <li><strong>SPOILERS</strong>Share spoilers only in designated channels.</li>
+              <li><strong>RESPECT PRIVACY</strong>Do not DM or send friend requests to other members without their permission.</li>
+              <li><strong>RESPECTFUL BEHAVIOUR</strong>Avoid racial slurs or derogatory behaviour. Content flagged as derogatory will be dealt with appropriately.</li>
+              <li><strong>DISCORD GUIDELINES</strong>Follow all Discord guidelines.</li>
+              <li><strong>SERVER OPERATIONS</strong>Review the provided information to understand how the server operates.</li>
+            </ul>
+          </div>
+
+          <div class="d-embed">
+            <div class="d-embed-title">Content and Posting</div>
+            <ul>
+              <li><strong>PROMOTIONAL CONTENT</strong>Do not share promotional content, Discord server invites, torrent links, or discuss external anime streaming sites.</li>
+              <li><strong>NSFW CONTENT</strong>Share only standard NSFW content in designated NSFW channels. Prohibited content includes child/loli, gore, or animal porn.</li>
+              <li><strong>APPROPRIATE CHANNELS</strong>Post content in the appropriate channels to keep discussions organized.</li>
+              <li><strong>NO HARMFUL MATERIAL</strong>Posting harmful material such as viruses, IP grabbers, or malware will result in an immediate and permanent ban.</li>
+              <li><strong>NO ILLEGAL ACTIVITIES</strong>Discussions about hacking, piracy, or other illegal activities are strictly prohibited.</li>
+              <li><strong>NO ADVERTISEMENTS</strong>Any form of advertising is not allowed.</li>
+            </ul>
+          </div>
+
+          <div class="d-embed">
+            <div class="d-embed-title">Engagement and Interaction</div>
+            <ul>
+              <li><strong>USER RESPONSIBILITY</strong>Users are responsible for their interactions and behavior within the server.</li>
+              <li><strong>RESPECTFUL COMMUNICATION</strong>Engage in respectful and meaningful conversations. Avoid being disruptive or offensive.</li>
+              <li><strong>CONSTRUCTIVE FEEDBACK</strong>Provide constructive feedback and avoid negativity.</li>
+              <li><strong>HELP AND SUPPORT</strong>Offer help and support to fellow members when possible.</li>
+              <li><strong>REPORTING ISSUES</strong>Report any issues or rule violations to the moderators.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-input-wrap">
+      <div class="d-input"><span class="plus">+</span> You do not have permission to send messages in this channel.</div>
+    </div>
+  </main>
 </div>
 
 <script>
@@ -281,5 +416,7 @@
   });
 </script>
 <script src="script.js" defer></script>
+<canvas id="hdo-pixels" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+<script src="pixels.js" defer></script>
 </body>
 </html>

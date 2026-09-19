@@ -7,11 +7,11 @@
     <meta property="og:url" content="/sign-in" />
     <meta property="og:title" content="HDO Pro | Sign In">
     <meta property="og:description" content="Redirecting to HDO Pro invite.">
-    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image" content="/Images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta name="theme-color" content="#8d2249" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="/images/logo.png" type="image/png">
+    <link rel="icon" href="/Images/logo.png" type="image/png">
     <style>
         body {
             display: flex;
@@ -69,6 +69,11 @@
         .fallback a {
             color: #ff66b2;
         }
+        .private-note {
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
         @media (max-width: 480px) {
             .card { padding: 20px; }
             .card h1 { font-size: 1.25rem; }
@@ -88,6 +93,7 @@
         <noscript>
             <p class="fallback">JavaScript is required for the puzzle gate. <a href="/invite">Continue manually</a>.</p>
         </noscript>
+        <p class="private-note">HDO Pro is a private community project.</p>
     </main>
     <script>
         (function() {

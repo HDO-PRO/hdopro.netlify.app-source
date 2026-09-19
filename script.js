@@ -4,9 +4,9 @@
   if (window.__hdoUIInitialized) return;
   window.__hdoUIInitialized = true;
 
-  const isIndex = /index\.html$/i.test(location.pathname) || location.pathname === '/' || location.pathname === '';
-  const isInvite = /invite\.html$/i.test(location.pathname);
-  const isGame = /game\.html$/i.test(location.pathname);
+  const isIndex = /\/index(\.html)?$/i.test(location.pathname) || location.pathname === '/' || location.pathname === '';
+  const isInvite = /\/invite(\.html)?$/i.test(location.pathname);
+  const isGame = /\/game(\.html)?$/i.test(location.pathname);
 
   function isSensitivePath() {
     const p = location.pathname.toLowerCase();
@@ -45,6 +45,7 @@
   const config = {
     navLinks: [
       { href: '/h0m3', label: 'h0m3', icon: 'fa-house' },
+      { href: '/start', label: 'Get Started', icon: 'fa-rocket' },
       { href: '/game', label: 'Arcade', icon: 'fa-gamepad' },
       { href: '/about', label: 'About', icon: 'fa-circle-info' },
       { href: '/downloads', label: 'Downloads', icon: 'fa-download' },
@@ -150,7 +151,9 @@
     if (document.querySelector('link[href*="font-awesome"]')) return;
     const link = createEl('link', {
       rel: 'stylesheet',
-      href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
+      href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
+      integrity: 'sha384-/o6I2CkkWC//PSjvWC/eYN7l3xM3tJm8ZzVkCOfp//W05QcE3mlGskpoHB6XqI+B',
+      crossorigin: 'anonymous'
     });
     document.head.appendChild(link);
   }

@@ -7,33 +7,158 @@
 <meta property="og:url" content="/releases" />
 <meta property="og:title" content="HDO Pro | Releases">
 <meta property="og:description" content="Track the latest HDO Pro releases and changelogs.">
-<meta property="og:image" content="/images/logo.png">
+<meta property="og:image" content="/Images/logo.png">
 <meta property="og:image:type" content="image/png">
 <meta name="theme-color" content="#8d2249" />
 <link href="style.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="/images/logo.png" type="image/png">
+<link rel="icon" href="/Images/logo.png" type="image/png">
 <style>
   a { color: #ff66b2; }
   a:hover { color: #ff99cc; }
   ul { padding-left: 20px; }
   li { margin-bottom: 10px; }
+  #repo-link {
+    transition: filter 0.4s ease;
+  }
+  #repo-link.locked {
+    filter: blur(5px);
+    text-decoration: none;
+  }
+  #latest-release {
+    margin: 16px 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,102,178,.35);
+    border-radius: 10px;
+    background: rgba(255,102,178,.08);
+    font-size: 0.95rem;
+    opacity: 0;
+    animation: hdo-fadeIn 0.6s ease-out 0.2s forwards;
+  }
+  #latest-release.loaded {
+    border-color: rgba(255,102,178,.6);
+    background: rgba(255,102,178,.14);
+  }
+  #repo-puzzle {
+    display: none;
+    margin-top: 8px;
+  }
+  #repo-puzzle input {
+    padding: 6px;
+    border: 1px solid #ff66b2;
+    border-radius: 4px;
+    background: #000;
+    color: #fff;
+    width: 100px;
+    text-align: center;
+  }
+  #repo-puzzle button {
+    background: #ff66b2;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #repo-puzzle button:hover { background: #e05599; }
+  #repo-err { color: #ff5555; font-size: 13px; margin-left: 8px; }
 </style>
 </head>
 <body>
   <div class="container">
     <h1>HDO Pro Releases</h1>
     <p>Track the latest versions and changes for the HDO Pro project.</p>
+    <div id="latest-release" aria-live="polite">
+      <span id="latest-release-text">Checking GitHub for project activity…</span>
+    </div>
     <ul>
-      <li><strong>Stable APK (v2.0.19)</strong> — latest public build. <a href="downloads.html">Get it</a>.</li>
+      <li><strong>Stable APK (v2.0.19)</strong> — latest public build. <a href="/downloads">Get it</a>.</li>
       <li><strong>Beta APK (v2.0.20)</strong> — donators only. Early access to upcoming features.</li>
       <li><strong>TV APK (v1.1.5)</strong> — built for Android TV and Fire TV devices.</li>
       <li><strong>MediaOn (v1.0.20)</strong> — updated standalone player (older release).</li>
       <li><strong>Drama Player (v1.0.5)</strong> — limited drama-only player.</li>
       <li><strong>Roku</strong> — currently on hold due to safety review.</li>
+      <li><strong>Community Repo</strong> — private community project source. <a id="repo-link" class="locked" href="#">https://github.com/MarshMeadow/nothing</a> <a href="#" id="repo-unlock">reveal</a>
+        <div id="repo-puzzle">
+          <span id="repo-q"></span>
+          <input id="repo-a" type="text" autocomplete="off" placeholder="Answer">
+          <button id="repo-submit" type="button">Unlock</button>
+          <span id="repo-err"></span>
+        </div>
+      </li>
     </ul>
-    <p>Visit the <a href="downloads.html">Downloads</a> page to grab the latest APKs.</p>
+    <p>Visit the <a href="/downloads">Downloads</a> page to grab the latest APKs.</p>
 
   </div>
+<script>
+  (function () {
+    var el = document.getElementById('latest-release');
+    var txt = document.getElementById('latest-release-text');
+    fetch('https://api.github.com/repos/HDO-PRO/hdo-pro')
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (repo) {
+        var date = repo.pushed_at ? new Date(repo.pushed_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+        txt.textContent = '';
+        txt.appendChild(document.createTextNode('GitHub: '));
+        var a = document.createElement('a');
+        a.href = repo.html_url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = repo.full_name;
+        txt.appendChild(a);
+        txt.appendChild(document.createTextNode(' — ' + repo.stargazers_count + ' stars' + (date ? ', updated ' + date : '')));
+        el.classList.add('loaded');
+      })
+      .catch(function () { el.style.display = 'none'; });
+  })();
+</script>
+<script>
+  (function () {
+    var repoUrl = 'https://github.com/MarshMeadow/nothing';
+    var link = document.getElementById('repo-link');
+    var unlockBtn = document.getElementById('repo-unlock');
+    var puzzle = document.getElementById('repo-puzzle');
+    var qEl = document.getElementById('repo-q');
+    var aEl = document.getElementById('repo-a');
+    var errEl = document.getElementById('repo-err');
+    var submitBtn = document.getElementById('repo-submit');
+    var answer;
+
+    function makePuzzle() {
+      var x = Math.floor(Math.random() * 9) + 2;
+      var y = Math.floor(Math.random() * 9) + 2;
+      qEl.textContent = 'What is ' + x + ' + ' + y + '? ';
+      answer = x + y;
+      aEl.value = '';
+      errEl.textContent = '';
+    }
+
+    unlockBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      puzzle.style.display = 'block';
+      unlockBtn.style.display = 'none';
+      makePuzzle();
+      aEl.focus();
+    });
+
+    function check() {
+      if (parseInt(aEl.value.trim(), 10) === answer) {
+        link.classList.remove('locked');
+        link.href = repoUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        puzzle.style.display = 'none';
+      } else {
+        errEl.textContent = 'Wrong answer.';
+        aEl.select();
+      }
+    }
+
+    submitBtn.addEventListener('click', check);
+    aEl.addEventListener('keypress', function (e) { if (e.key === 'Enter') check(); });
+    link.addEventListener('click', function (e) { if (link.classList.contains('locked')) e.preventDefault(); });
+  })();
+</script>
 <script src="script.js" defer></script>
 </body>
 </html>
