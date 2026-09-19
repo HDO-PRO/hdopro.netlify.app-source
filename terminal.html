@@ -301,7 +301,7 @@
 
         .term-toast {
             position: fixed;
-            top: 20px;
+            top: calc(16px + env(safe-area-inset-top, 0px));
             left: 50%;
             transform: translate3d(-50%, -150%, 0) scale(0.9);
             z-index: 2000;

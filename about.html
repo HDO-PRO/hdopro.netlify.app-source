@@ -142,7 +142,7 @@
 
         .notification {
             position: fixed;
-            top: 16px;
+            top: calc(16px + env(safe-area-inset-top, 0px));
             left: 50%;
             transform: translate(-50%, -160%) scale(0.9);
             background: rgba(20, 20, 26, 0.92);

@@ -94,7 +94,7 @@
         }
         .toast {
             position: fixed;
-            top: 16px;
+            top: calc(16px + env(safe-area-inset-top, 0px));
             left: 50%;
             transform: translate(-50%, -160%) scale(0.9);
             background: rgba(20, 20, 26, 0.92);
@@ -117,6 +117,14 @@
             transform: translate(-50%, 0) scale(1);
             opacity: 1;
             pointer-events: auto;
+        }
+        @media (max-width: 480px) {
+            .toast {
+                white-space: normal;
+                text-align: center;
+                width: calc(100vw - 48px);
+                border-radius: 14px;
+            }
         }
         @media (max-width: 480px) {
             .box { padding: 20px; }

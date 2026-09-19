@@ -259,7 +259,7 @@
     background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: flex-start;
-    padding-top: 48px;
+    padding-top: calc(48px + env(safe-area-inset-top, 0px));
     box-sizing: border-box;
     z-index: 1000;
   }
