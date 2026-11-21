@@ -350,3 +350,13 @@ pre, code {
   transform: translateY(-2px);
   box-shadow: 0 0 15px rgba(255, 102, 178, 0.35);
 }
+
+/* HDO PRO shutdown banner */
+#hdo-shutdown-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+  background: #8d2249; color: #fff; text-align: center;
+  font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4;
+  padding: 10px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+body.hdo-has-shutdown-banner { padding-top: 60px; }
+@media (max-width: 600px) { #hdo-shutdown-banner { font-size: 12px; } }
