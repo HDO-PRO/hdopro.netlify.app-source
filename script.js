@@ -582,3 +582,21 @@
     init();
   }
 })();
+
+// --- HDO PRO shutdown banner (appended; injects notice on every page) ---
+(function () {
+  function addBanner() {
+    if (document.getElementById('hdo-shutdown-banner')) return;
+    var b = document.createElement('div');
+    b.id = 'hdo-shutdown-banner';
+    b.innerHTML = '<strong>HDO PRO has officially shut down.</strong> ' +
+      'Development has ended - this site is no longer maintained and no downloads, ' +
+      'updates, or support are available. Remaining pages are preserved for archival ' +
+      'purposes only. Thank you for your support.';
+    document.body.prepend(b);
+    document.body.classList.add('hdo-has-shutdown-banner');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addBanner);
+  } else { addBanner(); }
+})();
