@@ -1,3 +1,7 @@
+> **HDO PRO has officially shut down.** Development has ended and this repository is no longer maintained or monitored. Content remains published for archival purposes only. Thank you to everyone who supported the project.
+
+---
+
 # 🎬 HDO PRO Website Index
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cf42b267-0610-441b-a82e-d4c126b4ce54/deploy-status)](https://app.netlify.com/sites/hdopro/deploys)
